@@ -1,0 +1,3 @@
+# CosmoCI
+
+a WIP
