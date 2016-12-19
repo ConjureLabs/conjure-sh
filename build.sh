@@ -16,10 +16,3 @@ DOCKERFILE_CONTENT=$(sed "s/<SETUP>/$TARGET_SETUP/g" <<< "$DOCKERFILE_CONTENT");
 sed "s/<TEST>/$TARGET_TEST/g" <<< "$DOCKERFILE_CONTENT" > "$PROJECT_DIR/current.Dockerfile";
 
 docker build -t "cosmoci:latest" -f "$PROJECT_DIR/current.Dockerfile" .;
-
-# DOCKERFILE_CONTENT=$(sed "s/<REPO>/$TARGET_REPO/g" <<< $DOCKERFILE_CONTENT);
-# DOCKERFILE_CONTENT=$(sed "s/<BRANCH>/$TARGET_BRANCH/g" <<< $DOCKERFILE_CONTENT);
-# DOCKERFILE_CONTENT=$(sed "s/<SETUP>/$TARGET_SETUP/g" <<< $DOCKERFILE_CONTENT);
-# DOCKERFILE_CONTENT=$(sed "s/<TEST>/$TARGET_TEST/g" <<< $DOCKERFILE_CONTENT);
-
-# docker build -t "cosmoci:latest" - < DOCKERFILE_CONTENT;
