@@ -12,10 +12,13 @@ USER root
 ENV HOME /root
 ENV PROFILE /root/.profile
 ENV NODE_PATH /var/cosmo/code
+RUN mkdir -p /root/.ssh
+ADD id_rsa* /root/.ssh/
+RUN ssh-keyscan github.org >> /root/.ssh/known_hosts
 WORKDIR /var/cosmo/code
 
 # pull codebase & branch
-RUN git clone https://github.com/WiskeyTango/sonyc ./
+RUN git clone git@github.com:WiskeyTango/sonyc.git ./
 RUN git checkout citest
 
 # actual test
