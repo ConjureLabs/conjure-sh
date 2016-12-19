@@ -34,5 +34,7 @@ RUN yum install -y git
 RUN git clone $repo ./
 RUN git checkout $branch
 
+RUN npm install
+
 # actual test
-CMD ["/usr/bin/bash", $test]
+CMD npm run lint
