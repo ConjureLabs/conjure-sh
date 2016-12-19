@@ -3,7 +3,8 @@
 ## Dockerfile
 
 ```bash
-docker build --no-cache -t "citest:latest" --build-arg repo="git@github.com:WiskeyTango/sonyc.git" --build-arg branch="citest" .
+# builds the dockerfile
+. ./build.sh "git@github.com:WiskeyTango/sonyc.git" citest "npm install" "npm run lint"
 ```
 
 then
