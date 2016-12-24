@@ -5,8 +5,8 @@ BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;
 
 progress "Spinning up database";
-cp ./local_pg_hba.conf /var/lib/pgsql/9.4/data/pg_hba.conf;
-service postgresql-9.4 start;
+cp ./local_pg_hba.conf /var/lib/pgsql/9.5/data/pg_hba.conf;
+service postgresql-9.5 start;
 
 # db fixtures
 progress "populating database";

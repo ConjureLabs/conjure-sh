@@ -1,4 +1,4 @@
-FROM centos:centos6
+FROM centos:centos7
 
 MAINTAINER Tim Marshall <timothyjmarshall@gmail.com>
 
@@ -46,8 +46,7 @@ RUN npm config set registry http://registry.npmjs.org/
 RUN npm install -g eslint babel-eslint jscs nodemon
 
 # postgres
-RUN yum -y localinstall http://yum.postgresql.org/9.4/redhat/rhel-7-x86_64/pgdg-centos94-9.4-1.noarch.rpm
-RUN yum -y groupinstall "PostgreSQL Database Server 9.4 PGDG"
+RUN yum install -y postgresql95 postgresql95-server postgresql95-libs postgresql95-contrib postgresql95-devel
 #RUN chkconfig postgresql-9.4 on
 RUN mkdir /usr/local/var
 RUN chmod 755 /usr/local/var
