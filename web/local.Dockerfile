@@ -6,7 +6,7 @@ MAINTAINER Tim Marshall <timothyjmarshall@gmail.com>
 RUN yum clean all
 RUN yum check
 RUN yum update -y
-RUN yum install -y tar curl sudo which git wget htop vim-enhanced
+RUN yum install -y tar curl sudo which git wget htop vim-enhanced initscripts
 # setup vim enhanced
 RUN echo "alias vi='/usr/bin/vim'" >> ~/.bashrc
 RUN echo "syntax on" >> ~/.vimrc
@@ -54,7 +54,7 @@ RUN sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoe
 RUN /usr/sbin/update-alternatives --install /usr/bin/initdb pgsql-initdb /usr/pgsql-9.5/bin/initdb 930
 RUN /usr/sbin/update-alternatives --install /usr/bin/pg_ctl pgsql-pg_ctl /usr/pgsql-9.5/bin/pg_ctl 930
 RUN /usr/sbin/update-alternatives --install /usr/bin/pg_config pgsql-pg_config /usr/pgsql-9.5/bin/pg_config 930
-RUN service postgresql-9.5 initdb
+RUN /usr/pgsql-9.5/bin/postgresql95-setup initdb
 RUN echo "bash ./bash/postgres/init-local.sh" >> /root/.bashrc
 
 EXPOSE 3000
