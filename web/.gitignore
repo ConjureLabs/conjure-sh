@@ -1,0 +1,7 @@
+.DS_Store
+.idea
+*.rdb
+node_modules
+npm-debug.log
+public/build
+webpack-build.log

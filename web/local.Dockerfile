@@ -19,9 +19,9 @@ ENV NODE_VERSION 4.2.3
 ENV NVM_DIR /usr/local/nvm
 # Create a profile so we can run NVM
 RUN touch $PROFILE
-ENV DEBUG sonyc,sonyc:*
+ENV DEBUG cosmo,cosmo:*
 ENV IN_DOCKER true
-ENV NODE_PATH /var/sonyc/web/server/modules
+ENV NODE_PATH /var/cosmo/web/server/modules
 
 # node-gyp needs the right setup
 RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo
