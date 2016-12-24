@@ -6,7 +6,6 @@ MAINTAINER Tim Marshall <timothyjmarshall@gmail.com>
 RUN yum clean all
 RUN yum check
 RUN yum update -y
-RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 RUN yum install -y tar curl sudo which git wget htop vim-enhanced
 # setup vim enhanced
 RUN echo "alias vi='/usr/bin/vim'" >> ~/.bashrc
@@ -43,8 +42,8 @@ RUN npm config set registry http://registry.npmjs.org/
 RUN npm install -g eslint babel-eslint jscs nodemon
 
 # postgres
-RUN yum install -y postgresql95 postgresql95-server postgresql95-libs postgresql95-contrib postgresql95-devel
-#RUN chkconfig postgresql-9.4 on
+RUN rpm -Uvh http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
+RUN yum install -y postgresql95-server postgresql95
 RUN mkdir /usr/local/var
 RUN chmod 755 /usr/local/var
 RUN mkdir /usr/local/var/postgres
@@ -52,10 +51,10 @@ RUN chmod 755 /usr/local/var/postgres
 RUN chown postgres /usr/local/var/postgres
 # the following line helps avoid error "sudo: sorry, you must have a tty to run sudo"
 RUN sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers
-RUN /usr/sbin/update-alternatives --install /usr/bin/initdb pgsql-initdb /usr/pgsql-9.4/bin/initdb 930
-RUN /usr/sbin/update-alternatives --install /usr/bin/pg_ctl pgsql-pg_ctl /usr/pgsql-9.4/bin/pg_ctl 930
-RUN /usr/sbin/update-alternatives --install /usr/bin/pg_config pgsql-pg_config /usr/pgsql-9.4/bin/pg_config 930
-RUN service postgresql-9.4 initdb
+RUN /usr/sbin/update-alternatives --install /usr/bin/initdb pgsql-initdb /usr/pgsql-9.5/bin/initdb 930
+RUN /usr/sbin/update-alternatives --install /usr/bin/pg_ctl pgsql-pg_ctl /usr/pgsql-9.5/bin/pg_ctl 930
+RUN /usr/sbin/update-alternatives --install /usr/bin/pg_config pgsql-pg_config /usr/pgsql-9.5/bin/pg_config 930
+RUN service postgresql-9.5 initdb
 RUN echo "bash ./bash/postgres/init-local.sh" >> /root/.bashrc
 
 EXPOSE 3000
