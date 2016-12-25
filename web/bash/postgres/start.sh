@@ -43,7 +43,7 @@ fi
 
 
 __run_supervisor() {
-supervisord -n
+supervisord -n &
 }
 
 # Call all functions
