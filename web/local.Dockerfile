@@ -21,7 +21,7 @@ RUN touch $PROFILE
 ENV DEBUG cosmo,cosmo:*
 ENV IN_DOCKER true
 ENV NODE_PATH /var/cosmo/web/server/modules
-ENV PGDATA var/lib/pgsql/9.5/data
+ENV PGDATA /var/lib/pgsql/data
 
 # node-gyp needs the right setup
 RUN yum group install -y "Development Tools"
@@ -56,7 +56,7 @@ RUN /usr/sbin/update-alternatives --install /usr/bin/initdb pgsql-initdb /usr/pg
 RUN /usr/sbin/update-alternatives --install /usr/bin/pg_ctl pgsql-pg_ctl /usr/pgsql-9.5/bin/pg_ctl 930
 RUN /usr/sbin/update-alternatives --install /usr/bin/pg_config pgsql-pg_config /usr/pgsql-9.5/bin/pg_config 930
 RUN chmod +x /usr/pgsql-9.5/bin/postgresql95-setup
-RUN /usr/pgsql-9.5/bin/postgresql95-setup initdb
+RUN su - postgres -c "/usr/pgsql-9.5/bin/postgresql95-setup initdb"
 RUN echo "bash ./bash/postgres/init-local.sh" >> /root/.bashrc
 
 EXPOSE 3000
