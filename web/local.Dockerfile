@@ -5,8 +5,8 @@ MAINTAINER Tim Marshall <timothyjmarshall@gmail.com>
 # Enable EPEL for Node.js
 RUN yum clean all
 RUN yum check
-RUN yum update -y
-RUN yum install -y tar curl sudo which git wget htop vim-enhanced initscripts
+RUN yum update -y; yum clean all
+RUN yum install -y tar curl sudo which git wget htop vim-enhanced epel-release initscripts; yum clean all
 # setup vim enhanced
 RUN echo "alias vi='/usr/bin/vim'" >> ~/.bashrc
 RUN echo "syntax on" >> ~/.vimrc
@@ -24,7 +24,7 @@ ENV NODE_PATH /var/cosmo/web/server/modules
 ENV PGDATA /var/lib/pgsql/data
 
 # node-gyp needs the right setup
-RUN yum group install -y "Development Tools"
+RUN yum group install -y "Development Tools"; yum clean all
 
 # Setup the nvm environment
 # the last line in this chain exposes the nvm node globally
@@ -43,20 +43,20 @@ RUN npm config set registry http://registry.npmjs.org/
 RUN npm install -g eslint babel-eslint jscs nodemon
 
 # postgres
-RUN rpm -Uvh http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
-RUN yum install -y postgresql95-server postgresql95
-RUN mkdir /usr/local/var
-RUN chmod 755 /usr/local/var
-RUN mkdir /usr/local/var/postgres
-RUN chmod 755 /usr/local/var/postgres
-RUN chown postgres /usr/local/var/postgres
+# see https://github.com/CentOS/CentOS-Dockerfiles/tree/master/postgres/centos7
+RUN yum install -y postgresql-server postgresql postgresql-contrib supervisor pwgen; yum clean all
+ADD ./bash/postgres/setup.sh /usr/bin/postgresql-setup
+ADD ./supervisord.conf /etc/supervisord.conf
+ADD ./bash/postgres/start.sh /start_postgres.sh
 # the following line helps avoid error "sudo: sorry, you must have a tty to run sudo"
 RUN sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers
-RUN /usr/sbin/update-alternatives --install /usr/bin/initdb pgsql-initdb /usr/pgsql-9.5/bin/initdb 930
-RUN /usr/sbin/update-alternatives --install /usr/bin/pg_ctl pgsql-pg_ctl /usr/pgsql-9.5/bin/pg_ctl 930
-RUN /usr/sbin/update-alternatives --install /usr/bin/pg_config pgsql-pg_config /usr/pgsql-9.5/bin/pg_config 930
-RUN chmod +x /usr/pgsql-9.5/bin/postgresql95-setup
-RUN su - postgres -c "/usr/pgsql-9.5/bin/postgresql95-setup initdb"
+RUN chmod +x /usr/bin/postgresql-setup
+RUN chmod +x /start_postgres.sh
+RUN /usr/bin/postgresql-setup initdb
+ADD ./postgresql.conf /var/lib/pgsql/data/postgresql.conf
+RUN chown -v postgres.postgres /var/lib/pgsql/data/postgresql.conf
+RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/data/pg_hba.conf
+RUN bash /start_postgres.sh
 RUN echo "bash ./bash/postgres/init-local.sh" >> /root/.bashrc
 
 EXPOSE 3000
