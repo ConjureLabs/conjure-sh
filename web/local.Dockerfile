@@ -46,14 +46,14 @@ RUN npm install -g eslint babel-eslint jscs nodemon
 # see https://github.com/CentOS/CentOS-Dockerfiles/tree/master/postgres/centos7
 RUN yum install -y postgresql-server postgresql postgresql-contrib supervisor pwgen; yum clean all
 ADD ./bash/postgres/setup.sh /usr/bin/postgresql-setup
-ADD ./supervisord.conf /etc/supervisord.conf
+ADD ./server/conf/supervisord.conf /etc/supervisord.conf
 ADD ./bash/postgres/start.sh /start_postgres.sh
 # the following line helps avoid error "sudo: sorry, you must have a tty to run sudo"
 RUN sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers
 RUN chmod +x /usr/bin/postgresql-setup
 RUN chmod +x /start_postgres.sh
 RUN /usr/bin/postgresql-setup initdb
-ADD ./postgresql.conf /var/lib/pgsql/data/postgresql.conf
+ADD ./server/conf/postgresql.conf /var/lib/pgsql/data/postgresql.conf
 RUN chown -v postgres.postgres /var/lib/pgsql/data/postgresql.conf
 RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/data/pg_hba.conf
 RUN bash /start_postgres.sh
