@@ -39,6 +39,7 @@ VOLUME [ "/sys/fs/cgroup" ]
 CMD ["/usr/sbin/init"]
 
 # node-gyp needs the right setup
+RUN yum groups mark convert "Development Tools";
 RUN yum group install -y "Development Tools"; yum clean all
 
 # Setup the nvm environment
