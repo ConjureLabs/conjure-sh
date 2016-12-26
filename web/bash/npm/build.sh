@@ -41,6 +41,7 @@ regenerateCerts() {
 
 continueBuild() {
   progress "Building image";
+  docker build -f "$APP_DIR/systemd.Dockerfile" --rm -t local/c7-systemd .;
   docker build -f "$APP_DIR/$PREFIX.Dockerfile" -t cosmo/latest . ;
 }
 
@@ -62,8 +63,6 @@ case $NODE_ENV in
     exit 1;
     ;;
 esac
-
-
 
 # making sure the docker machine exists
 CHECK=$(docker-machine ls | grep cosmo | wc -l);
