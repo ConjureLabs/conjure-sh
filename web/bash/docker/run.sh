@@ -18,9 +18,13 @@ eval "$(docker-machine env cosmo)";
 
 APP_IP=$(docker-machine ip cosmo);
 progress "Connecting to Docker";
+# see https://github.com/CentOS/sig-cloud-instance-images/issues/54
 docker run -i -t \
+  --privileged \
   -p 80:3000 \
+  --cap-add SYS_ADMIN \
   -v $APP_DIR:$DESTINATION_DIR \
+  -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
   -w $DESTINATION_DIR \
   --dns 4.4.4.4 --dns 8.8.4.4 \
   -e NODE_ENV="${NODE_ENV}" \

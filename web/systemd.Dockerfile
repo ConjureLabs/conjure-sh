@@ -1,3 +1,5 @@
+# see https://hub.docker.com/_/centos/
+
 FROM centos:7
 
 ENV container docker
