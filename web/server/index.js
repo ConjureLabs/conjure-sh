@@ -1,5 +1,7 @@
 'use strict';
 
+console.log( process.env );
+
 // first running any synchronous setup
 require('./setup');
 
