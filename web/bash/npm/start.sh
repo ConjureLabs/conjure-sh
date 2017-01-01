@@ -4,9 +4,6 @@
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;
 
-# env setup
-NODE_PATH=$(cd $DESTINATION_DIR; cd modules; pwd;);
-
 if [ "$IN_DOCKER" != "true" ]; then
   if [ "$NODE_ENV" == "production" ]; then
     error "Production should not be run from outside of a deployed Docker image";

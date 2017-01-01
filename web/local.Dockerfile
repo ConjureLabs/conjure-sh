@@ -1,4 +1,4 @@
-FROM local/c7-systemd
+FROM centos:centos7
 
 MAINTAINER Tim Marshall <timothyjmarshall@gmail.com>
 
@@ -20,9 +20,11 @@ ENV NVM_DIR /usr/local/nvm
 RUN touch $PROFILE
 ENV DEBUG cosmo,cosmo:*
 ENV IN_DOCKER true
-ENV NODE_PATH /var/cosmo/web/server/modules
+ENV NODE_PATH /var/cosmo/web/modules
 ENV CONTAINER docker
-ENV PGDATA /var/lib/pgsql/data
+ENV PG_VERSION 9.5
+ENV PGVERSION 95
+ENV PGDATA /var/lib/pgsql/9.5/data
 
 # node-gyp needs the right setup
 RUN yum groups mark convert "Development Tools";
@@ -44,22 +46,28 @@ RUN npm config set registry http://registry.npmjs.org/
 # making sure the rest of the build env is ready
 RUN npm install -g eslint babel-eslint jscs nodemon
 
-# postgres
-# see https://github.com/CentOS/CentOS-Dockerfiles/tree/master/postgres/centos7
-RUN yum install -y postgresql-server postgresql postgresql-contrib supervisor pwgen; yum clean all
-ADD ./bash/postgres/setup.sh /usr/bin/postgresql-setup
-ADD ./server/conf/supervisord.conf /etc/supervisord.conf
-ADD ./bash/postgres/start.sh /start_postgres.sh
-# the following line helps avoid error "sudo: sorry, you must have a tty to run sudo"
-RUN sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers
-RUN chmod +x /usr/bin/postgresql-setup
-RUN chmod +x /start_postgres.sh
-RUN /usr/bin/postgresql-setup initdb
-ADD ./server/conf/postgresql.conf /var/lib/pgsql/data/postgresql.conf
-RUN chown -v postgres.postgres /var/lib/pgsql/data/postgresql.conf
-RUN echo "host    all             all             0.0.0.0/0               md5" >> /var/lib/pgsql/data/pg_hba.conf
-RUN bash /start_postgres.sh
-RUN echo "bash ./bash/postgres/init-local.sh" >> /root/.bashrc
+# install postgres and run InitDB
+RUN rpm -vih https://download.postgresql.org/pub/repos/yum/$PG_VERSION/redhat/rhel-7-x86_64/pgdg-centos$PGVERSION-$PG_VERSION-2.noarch.rpm && \
+  yum update -y && \
+  yum install -y sudo \
+  pwgen \
+  postgresql$PGVERSION \
+  postgresql$PGVERSION-server \
+  postgresql$PGVERSION-contrib && \
+  yum clean all
+
+COPY bash/postgres/setup/setup.sh /usr/pgsql-$PG_VERSION/bin/postgresql$PGVERSION-setup.sh
+RUN chmod +x /usr/pgsql-$PG_VERSION/bin/postgresql$PGVERSION-setup.sh
+RUN /usr/pgsql-$PG_VERSION/bin/postgresql$PGVERSION-setup.sh initdb
+COPY server/conf/postgresql.conf /var/lib/pgsql/$PG_VERSION/data/postgresql.conf
+COPY bash/postgres/setup/start.sh /usr/local/bin/postgres-start.sh
+RUN chown -R postgres:postgres /var/lib/pgsql/$PG_VERSION/data/* && \
+  usermod -G wheel postgres && \
+  sed -i 's/.*requiretty$/#Defaults requiretty/' /etc/sudoers && \
+  chmod +x /usr/local/bin/postgres-start.sh
+RUN echo "bash /usr/local/bin/postgres-start.sh" >> /root/.bashrc
+
+VOLUME ["/var/lib/pgsql"]
 
 EXPOSE 3000
 

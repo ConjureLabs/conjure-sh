@@ -17,16 +17,20 @@ PIDS[0]=$!;
 eval "$(docker-machine env cosmo)";
 
 APP_IP=$(docker-machine ip cosmo);
+NODE_PATH="$DESTINATION_DIR/modules";
 progress "Connecting to Docker";
 # see https://github.com/CentOS/sig-cloud-instance-images/issues/54
 docker run -i -t \
   --privileged \
+  --tmpfs /run \
+  --tmpfs /run/lock \
   -p 80:3000 \
   --cap-add SYS_ADMIN \
   -v $APP_DIR:$DESTINATION_DIR \
   -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
   -w $DESTINATION_DIR \
   --dns 4.4.4.4 --dns 8.8.4.4 \
+  -e "container=docker" \
   -e NODE_ENV="${NODE_ENV}" \
   -e APP_IP="${APP_IP}" \
   cosmo/latest bash;
