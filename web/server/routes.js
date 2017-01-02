@@ -34,7 +34,7 @@ router.get(
   passport.authenticate('github', {
     failureRedirect: '/' // todo: /login ?
   }),
-  (res, res) => {
+  (req, res) => {
     res.redirect('/');
   }
 );

@@ -10,6 +10,7 @@ if ! hash webpack 2>/dev/null; then
 fi
 
 if [[ $* == *--watch* ]] || [ "$npm_config_watch" == "true" ]; then
+  announce "webpack watching for changes";
   webpack --config $APP_DIR/webpack.config.js --watch;
 else
   webpack --config $APP_DIR/webpack.config.js;
