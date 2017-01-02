@@ -21,6 +21,7 @@ RUN touch $PROFILE
 ENV CONTAINER docker
 ENV DEBUG cosmo,cosmo:*
 ENV NODE_PATH /var/cosmo/web/modules
+ENV PORT 3000
 
 # node-gyp needs the right setup
 RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo

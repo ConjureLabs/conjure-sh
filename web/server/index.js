@@ -3,11 +3,14 @@
 // first running any synchronous setup
 require('./setup');
 
+const config = require('config');
 const express = require('express');
 const compression = require('compression');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const GitHubStrategy = require('passport-github').Strategy;
 const log = require('log')();
 
 const port = process.env.PORT || 3000;
@@ -37,6 +40,8 @@ process.on('uncaughtException', err => {
 
 server.use(compression());
 server.set('port', port);
+server.use(passport.initialize());
+server.use(passport.session());
 server.set('views', path.join(__dirname, '..', 'views'));
 server.set('view engine', 'jade');
 server.disable('view cache');
@@ -46,6 +51,30 @@ server.use(bodyParser.urlencoded({
 }));
 server.use(bodyParser.json());
 server.use(cookieParser());
+
+passport.serializeUser((user, done) => {
+  done(null, user);
+});
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
+
+passport.use(
+  new GitHubStrategy(
+    {
+      clientID: config.services.github.id,
+      clientSecret: config.services.github.secret,
+      callbackURL: `${config.app.protocol}://${config.app.host}/auth/github/callback`
+    },
+
+    function(accessToken, refreshToken, profile, callback) {
+      console.log(profile);
+      // User.findOrCreate({ githubId: profile.id }, function(err, user) {
+      //   return callback(err, user);
+      // });
+    }
+  )
+);
 
 server.use((req, res, next) => {
   req.state = {}; // used to track anything useful, along the lifetime of a request
