@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM centos:centos6
 
 MAINTAINER Tim Marshall <timothyjmarshall@gmail.com>
 
@@ -6,7 +6,7 @@ MAINTAINER Tim Marshall <timothyjmarshall@gmail.com>
 RUN yum clean all
 RUN yum check
 RUN yum update -y; yum clean all
-RUN yum install -y tar curl sudo which git wget htop vim-enhanced epel-release initscripts pwgen; yum clean all
+RUN yum install -y tar curl sudo which git wget htop vim-enhanced epel-release; yum clean all
 # setup vim enhanced
 RUN echo "alias vi='/usr/bin/vim'" >> ~/.bashrc
 RUN echo "syntax on" >> ~/.vimrc
@@ -14,21 +14,18 @@ RUN echo "syntax on" >> ~/.vimrc
 USER root
 ENV HOME /root
 ENV PROFILE /root/.profile
-ENV NODE_VERSION 4.2.3
+ENV NODE_VERSION 6.9.2
 ENV NVM_DIR /usr/local/nvm
 # Create a profile so we can run NVM
 RUN touch $PROFILE
-ENV DEBUG cosmo,cosmo:*
-ENV IN_DOCKER true
-ENV NODE_PATH /var/cosmo/web/modules
 ENV CONTAINER docker
-ENV PG_VERSION 9.5
-ENV PGVERSION 95
-ENV PGDATA /var/lib/pgsql/9.5/data
+ENV DEBUG cosmo,cosmo:*
+ENV NODE_PATH /var/cosmo/web/modules
 
 # node-gyp needs the right setup
-RUN yum groups mark convert "Development Tools";
-RUN yum group install -y "Development Tools"; yum clean all
+RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo
+RUN yum install -y devtoolset-2-gcc devtoolset-2-gcc-c++ devtoolset-2-binutils devtoolset-2-gcc-gfortran; yum clean all
+RUN echo "source /opt/rh/devtoolset-2/enable" >> /root/.bashrc
 
 # Setup the nvm environment
 # the last line in this chain exposes the nvm node globally
@@ -56,17 +53,22 @@ RUN rpm -vih https://download.postgresql.org/pub/repos/yum/$PG_VERSION/redhat/rh
   postgresql$PGVERSION-contrib && \
   yum clean all
 
-# COPY bash/postgres/setup/setup.sh /usr/pgsql-$PG_VERSION/bin/postgresql$PGVERSION-setup.sh
-# RUN chmod +x /usr/pgsql-$PG_VERSION/bin/postgresql$PGVERSION-setup.sh
-# RUN /usr/pgsql-$PG_VERSION/bin/postgresql$PGVERSION-setup.sh initdb
-COPY server/conf/postgresql.conf /var/lib/pgsql/$PG_VERSION/data/postgresql.conf
-COPY bash/postgres/setup/start.sh /usr/local/bin/postgres-start.sh
-RUN chown -R postgres:postgres /var/lib/pgsql/$PG_VERSION/data/* && \
-  usermod -G wheel postgres && \
-  sed -i 's/.*requiretty$/#Defaults requiretty/' /etc/sudoers && \
-  chmod +x /usr/local/bin/postgres-start.sh
-RUN systemctl postgresql-9.5 initdb
-RUN echo "bash /usr/local/bin/postgres-start.sh" >> /root/.bashrc
+# postgres
+RUN yum -y localinstall http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos94-9.5-1.noarch.rpm
+RUN yum -y groupinstall "PostgreSQL Database Server 9.5 PGDG"
+#RUN chkconfig postgresql-9.5 on
+RUN mkdir /usr/local/var
+RUN chmod 755 /usr/local/var
+RUN mkdir /usr/local/var/postgres
+RUN chmod 755 /usr/local/var/postgres
+RUN chown postgres /usr/local/var/postgres
+# the following line helps avoid error "sudo: sorry, you must have a tty to run sudo"
+RUN sed -i -e "s/Defaults    requiretty.*/ #Defaults    requiretty/g" /etc/sudoers
+RUN /usr/sbin/update-alternatives --install /usr/bin/initdb pgsql-initdb /usr/pgsql-9.5/bin/initdb 930
+RUN /usr/sbin/update-alternatives --install /usr/bin/pg_ctl pgsql-pg_ctl /usr/pgsql-9.5/bin/pg_ctl 930
+RUN /usr/sbin/update-alternatives --install /usr/bin/pg_config pgsql-pg_config /usr/pgsql-9.5/bin/pg_config 930
+RUN service postgresql-9.5 initdb
+RUN echo "bash ./bash/postgres/init-local.sh" >> /root/.bashrc
 
 EXPOSE 3000
 
