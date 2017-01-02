@@ -41,16 +41,16 @@ psql -U cosmo_admin -d cosmo
 npm start
 
 # build a new Docker image
-npm run-script build
+npm run build
 
 # run lints
-npm run-script lint
+npm run lint
 
 # compile frontend builds
-npm run-script compile
+npm run compile
 
 # compile & watch for changes
-npm run-script compile --watch
+npm run compile --watch
 ```
 
 #### Common problems
@@ -89,7 +89,7 @@ This is usually caused by a faulty docker machine. You can attempt to run `docke
 
 ```bash
 docker-machine rm cosmo
-npm run-script build
+npm run build
 ```
 
 ---
