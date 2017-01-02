@@ -4,8 +4,9 @@
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;
 
+sudo su - postgres;
+
 progress "Spinning up database";
-cp ./server/conf/local_pg_hba.conf /var/lib/pgsql/data/9.5/pg_hba.conf;
 service postgresql-9.5 start;
 
 # db fixtures
@@ -19,7 +20,9 @@ if ! hash createuser; then
   exit 1;
 fi
 
-sudo su - postgres -c "createuser --createdb --adduser --no-password cosmo_admin";
+createuser --createdb --adduser --no-password cosmo_admin;
 
 cd $APP_DIR/sql/;
-psql postgres --username=cosmo_admin -w --file="init-$NODE_ENV.sql" --quiet;
+psql postgres --username=cosmo_admin -w --file=\"init-$NODE_ENV.sql\" --quiet;
+
+exit 0; # exit form postgres user login

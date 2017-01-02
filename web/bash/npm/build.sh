@@ -41,7 +41,6 @@ regenerateCerts() {
 
 continueBuild() {
   progress "Building image";
-  docker build -f "$APP_DIR/systemd.Dockerfile" --rm -t local/c7-systemd .;
   docker build -f "$APP_DIR/$PREFIX.Dockerfile" -t cosmo/latest . ;
 }
 
