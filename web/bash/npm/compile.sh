@@ -13,5 +13,6 @@ if [[ $* == *--watch* ]] || [ "$npm_config_watch" == "true" ]; then
   announce "webpack watching for changes";
   webpack --config $APP_DIR/webpack.config.js --watch;
 else
+  progress "webpack building (one time)";
   webpack --config $APP_DIR/webpack.config.js;
 fi
