@@ -9,7 +9,7 @@ cp $APP_DIR/server/conf/pg_hba.conf /var/lib/pgsql/9.5/data/pg_hba.conf;
 service postgresql-9.5 start;
 
 # db fixtures
-progress "populating database";
+progress "Populating database";
 if ! hash psql 2>/dev/null; then
   error "Could not populate database - missing psql command (this should not happen)";
   exit 1;
