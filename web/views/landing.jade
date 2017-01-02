@@ -2,3 +2,5 @@ extends ./templates/page
 
 block content
   #container
+    form(action='/auth/github', method='POST')
+      button(type='submit') Github Login
