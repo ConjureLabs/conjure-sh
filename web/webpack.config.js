@@ -9,7 +9,8 @@ const cssModuleNamingConvention = isDev ? '[path]__[local]' : '[hash:base64:5]';
 module.exports = {
   context: path.resolve(__dirname, 'client'),
   entry: {
-    app: ['babel-polyfill', './views/landing']
+    dashboard: ['babel-polyfill', './views/Dashboard'],
+    landing: ['babel-polyfill', './views/Landing']
   },
   output: {
     path: path.resolve(__dirname, 'public', 'build'),
