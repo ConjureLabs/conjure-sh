@@ -4,7 +4,7 @@
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;
 
-if [ "$IN_DOCKER" != "true" ]; then
+if [ "$CONTAINER" != "docker" ]; then
   if [ "$NODE_ENV" == "production" ]; then
     error "Production should not be run from outside of a deployed Docker image";
     exit 1;

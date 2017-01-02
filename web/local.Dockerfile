@@ -43,15 +43,8 @@ RUN npm config set registry http://registry.npmjs.org/
 # making sure the rest of the build env is ready
 RUN npm install -g eslint babel-eslint jscs nodemon
 
-# install postgres and run InitDB
-# ref https://github.com/zokeber/docker-postgresql
-RUN rpm -vih https://download.postgresql.org/pub/repos/yum/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm && \
-  yum update -y && \
-  yum install -y postgresql9.5 postgresql9.5-server postgresql9.5-contrib && \
-  yum clean all
-
 # postgres
-RUN yum -y localinstall http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos94-9.5-1.noarch.rpm
+RUN yum -y localinstall http://yum.postgresql.org/9.5/redhat/rhel-7-x86_64/pgdg-centos95-9.5-2.noarch.rpm
 RUN yum -y groupinstall "PostgreSQL Database Server 9.5 PGDG"
 #RUN chkconfig postgresql-9.5 on
 RUN mkdir /usr/local/var
