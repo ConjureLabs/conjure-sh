@@ -16,42 +16,53 @@ if [ "$CONTAINER" != "docker" ]; then
       exit 1;
     fi
 
-    progress "Reconfiguring and restarting Nginx";
-
     mkdir -p $APP_DIR/.nginx;
+    COSMO_NGINX_CONF_NEEDED=1;
+    COSMO_NGINX_NEW_IP=$(docker-machine ip cosmo);
 
-    # todo: cache the current nginx conf IP, only do this logic if it has changed
-
-    # always backing up the nginx config
-    cp /usr/local/etc/nginx/nginx.conf $APP_DIR/.nginx/nginx.conf.bk
-
-    COSMO_NGINX_CONF_COUNT=$(cat /usr/local/etc/nginx/nginx.conf | grep "# < COSMO CONF " | wc -l);
-    if [ $COSMO_NGINX_CONF_COUNT == 0 ]; then
-      # config for this app has not yet been added to nginx
-      # doing that now
-      # this is assuming the last {} block of the nginx config is for http - may have to update this later
-      sed '$s/\}/\
-# < COSMO CONF START >\
-\
-# < COSMO CONF END >\
-\
-}/' /usr/local/etc/nginx/nginx.conf > $APP_DIR/.nginx/tmp.conf;
-      mv $APP_DIR/.nginx/tmp.conf /usr/local/etc/nginx/nginx.conf;
+    if [ -f $APP_DIR/.nginx/current-ip ]; then
+      COSMO_NGINX_CURRENT_IP=$(cat $APP_DIR/.nginx/current-ip);
+      if [ "$COSMO_NGINX_NEW_IP" == "$COSMO_NGINX_CURRENT_IP" ]; then
+        COSMO_NGINX_CONF_NEEDED=0;
+      fi
     fi
 
-    # find COSMO CONF block, and replacing it with the new IP needed
-    cp /usr/local/etc/nginx/nginx.conf $APP_DIR/.nginx/tmp.conf;
-    COSMO_NGINX_CONF_START=$(grep -n '# < COSMO CONF START >' $APP_DIR/.nginx/tmp.conf | cut -d: -f 1);
-    COSMO_NGINX_CONF_END=$(grep -n '# < COSMO CONF END >' $APP_DIR/.nginx/tmp.conf | cut -d: -f 1);
-    {
-      head -n $(($COSMO_NGINX_CONF_START-1)) $APP_DIR/.nginx/tmp.conf
-      sed "s/<APP_IP>/$(docker-machine ip cosmo)/" < $APP_DIR/server/conf/nginx-server-template.conf
-      tail -n $(($(wc -l < $APP_DIR/.nginx/tmp.conf)-$COSMO_NGINX_CONF_END)) $APP_DIR/.nginx/tmp.conf
-    } > /usr/local/etc/nginx/nginx.conf;
-    rm $APP_DIR/.nginx/tmp.conf;
+    if [ $COSMO_NGINX_CONF_NEEDED == 1 ]; then
+      progress "Reconfiguring and restarting Nginx";
 
-    # this sucks, but we have to ask for sudo
-    sudo nginx -t && sudo nginx -s reload;
+      # always backing up the nginx config
+      cp /usr/local/etc/nginx/nginx.conf $APP_DIR/.nginx/nginx.conf.bk
+
+      COSMO_NGINX_CONF_COUNT=$(cat /usr/local/etc/nginx/nginx.conf | grep "# < COSMO CONF " | wc -l);
+      if [ $COSMO_NGINX_CONF_COUNT == 0 ]; then
+        # config for this app has not yet been added to nginx
+        # doing that now
+        # this is assuming the last {} block of the nginx config is for http - may have to update this later
+        sed '$s/\}/\
+  # < COSMO CONF START >\
+  \
+  # < COSMO CONF END >\
+  \
+  }/' /usr/local/etc/nginx/nginx.conf > $APP_DIR/.nginx/tmp.conf;
+        mv $APP_DIR/.nginx/tmp.conf /usr/local/etc/nginx/nginx.conf;
+      fi
+
+      # find COSMO CONF block, and replacing it with the new IP needed
+      cp /usr/local/etc/nginx/nginx.conf $APP_DIR/.nginx/tmp.conf;
+      COSMO_NGINX_CONF_START=$(grep -n '# < COSMO CONF START >' $APP_DIR/.nginx/tmp.conf | cut -d: -f 1);
+      COSMO_NGINX_CONF_END=$(grep -n '# < COSMO CONF END >' $APP_DIR/.nginx/tmp.conf | cut -d: -f 1);
+      {
+        head -n $(($COSMO_NGINX_CONF_START-1)) $APP_DIR/.nginx/tmp.conf
+        sed "s/<APP_IP>/$COSMO_NGINX_NEW_IP/" < $APP_DIR/server/conf/nginx-server-template.conf
+        tail -n $(($(wc -l < $APP_DIR/.nginx/tmp.conf)-$COSMO_NGINX_CONF_END)) $APP_DIR/.nginx/tmp.conf
+      } > /usr/local/etc/nginx/nginx.conf;
+      rm $APP_DIR/.nginx/tmp.conf;
+
+      # this sucks, but we have to ask for sudo
+      sudo nginx -t && sudo nginx -s reload;
+
+      echo $COSMO_NGINX_NEW_IP > $APP_DIR/.nginx/current-ip;
+    fi
   fi
 
   # brew services start nginx; # todo: attempt to start it?
