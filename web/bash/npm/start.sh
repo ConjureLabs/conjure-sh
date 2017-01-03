@@ -16,12 +16,12 @@ if [ "$CONTAINER" != "docker" ]; then
       exit 1;
     fi
 
-    mkdir -p $APP_DIR/.nginx;
+    mkdir -p $CACHE_DIR/nginx;
     COSMO_NGINX_CONF_NEEDED=1;
     COSMO_NGINX_NEW_IP=$(docker-machine ip cosmo);
 
-    if [ -f $APP_DIR/.nginx/current-ip ]; then
-      COSMO_NGINX_CURRENT_IP=$(cat $APP_DIR/.nginx/current-ip);
+    if [ -f $CACHE_DIR/nginx/current-ip ]; then
+      COSMO_NGINX_CURRENT_IP=$(cat $CACHE_DIR/nginx/current-ip);
       if [ "$COSMO_NGINX_NEW_IP" == "$COSMO_NGINX_CURRENT_IP" ]; then
         COSMO_NGINX_CONF_NEEDED=0;
       fi
@@ -31,7 +31,7 @@ if [ "$CONTAINER" != "docker" ]; then
       progress "Reconfiguring and restarting Nginx";
 
       # always backing up the nginx config
-      cp /usr/local/etc/nginx/nginx.conf $APP_DIR/.nginx/nginx.conf.bk
+      cp /usr/local/etc/nginx/nginx.conf $CACHE_DIR/nginx/nginx.conf.bk
 
       COSMO_NGINX_CONF_COUNT=$(cat /usr/local/etc/nginx/nginx.conf | grep "# < COSMO CONF " | wc -l);
       if [ $COSMO_NGINX_CONF_COUNT == 0 ]; then
@@ -43,25 +43,25 @@ if [ "$CONTAINER" != "docker" ]; then
   \
   # < COSMO CONF END >\
   \
-  }/' /usr/local/etc/nginx/nginx.conf > $APP_DIR/.nginx/tmp.conf;
-        mv $APP_DIR/.nginx/tmp.conf /usr/local/etc/nginx/nginx.conf;
+  }/' /usr/local/etc/nginx/nginx.conf > $CACHE_DIR/nginx/tmp.conf;
+        mv $CACHE_DIR/nginx/tmp.conf /usr/local/etc/nginx/nginx.conf;
       fi
 
       # find COSMO CONF block, and replacing it with the new IP needed
-      cp /usr/local/etc/nginx/nginx.conf $APP_DIR/.nginx/tmp.conf;
-      COSMO_NGINX_CONF_START=$(grep -n '# < COSMO CONF START >' $APP_DIR/.nginx/tmp.conf | cut -d: -f 1);
-      COSMO_NGINX_CONF_END=$(grep -n '# < COSMO CONF END >' $APP_DIR/.nginx/tmp.conf | cut -d: -f 1);
+      cp /usr/local/etc/nginx/nginx.conf $CACHE_DIR/nginx/tmp.conf;
+      COSMO_NGINX_CONF_START=$(grep -n '# < COSMO CONF START >' $CACHE_DIR/nginx/tmp.conf | cut -d: -f 1);
+      COSMO_NGINX_CONF_END=$(grep -n '# < COSMO CONF END >' $CACHE_DIR/nginx/tmp.conf | cut -d: -f 1);
       {
-        head -n $(($COSMO_NGINX_CONF_START-1)) $APP_DIR/.nginx/tmp.conf
+        head -n $(($COSMO_NGINX_CONF_START-1)) $CACHE_DIR/nginx/tmp.conf
         sed "s/<APP_IP>/$COSMO_NGINX_NEW_IP/" < $APP_DIR/server/conf/nginx-server-template.conf
-        tail -n $(($(wc -l < $APP_DIR/.nginx/tmp.conf)-$COSMO_NGINX_CONF_END)) $APP_DIR/.nginx/tmp.conf
+        tail -n $(($(wc -l < $CACHE_DIR/nginx/tmp.conf)-$COSMO_NGINX_CONF_END)) $CACHE_DIR/nginx/tmp.conf
       } > /usr/local/etc/nginx/nginx.conf;
-      rm $APP_DIR/.nginx/tmp.conf;
+      rm $CACHE_DIR/nginx/tmp.conf;
 
       # this sucks, but we have to ask for sudo
       sudo nginx -t && sudo nginx -s reload;
 
-      echo $COSMO_NGINX_NEW_IP > $APP_DIR/.nginx/current-ip;
+      echo $COSMO_NGINX_NEW_IP > $CACHE_DIR/nginx/current-ip;
     fi
   fi
 

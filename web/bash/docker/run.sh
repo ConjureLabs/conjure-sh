@@ -19,9 +19,9 @@ eval "$(cd $APP_DIR; touch .profile; cat .profile)";
 
 # we read in .profile, but now we have to pass the env vars to docker
 # to do this automagically, we're going to parse out the env names
-sed 's/^export //' $APP_DIR/.profile > $APP_DIR/.profile.tmp;
-sed 's/=.*$//' $APP_DIR/.profile.tmp > $APP_DIR/.profile.2.tmp;
-rm $APP_DIR/.profile.tmp;
+sed 's/^export //' $APP_DIR/.profile > $CACHE_DIR/.profile.tmp;
+sed 's/=.*$//' $CACHE_DIR/.profile.tmp > $CACHE_DIR/.profile.2.tmp;
+rm $CACHE_DIR/.profile.tmp;
 
 # see https://github.com/CentOS/sig-cloud-instance-images/issues/54
 DOCKER_RUN_COMMAND="docker run -i -t \
@@ -41,13 +41,13 @@ DOCKER_RUN_COMMAND="docker run -i -t \
 
 while read p; do
   # see http://stackoverflow.com/questions/369758/how-to-trim-whitespace-from-a-bash-variable
-  TRIMMED_LINE="$(sed -e 's/[[:space:]]*$//' <<<${p})";
-  if [ "$TRIMMED_LINE" != ""; ]; then
+  TRIMMED_LINE="$(echo -e "${p}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+  if [ "$TRIMMED_LINE" != "" ]; then
     DOCKER_RUN_COMMAND+="-e ${p}=\${${p}} \
   ";
   fi
-done < $APP_DIR/.profile.2.tmp;
-rm $APP_DIR/.profile.2.tmp;
+done < $CACHE_DIR/.profile.2.tmp;
+rm $CACHE_DIR/.profile.2.tmp;
 
 DOCKER_RUN_COMMAND+='cosmo/latest bash;';
 
