@@ -40,8 +40,12 @@ DOCKER_RUN_COMMAND="docker run -i -t \
   ";
 
 while read p; do
-  DOCKER_RUN_COMMAND+="-e ${p}=\${${p}} \
+  # see http://stackoverflow.com/questions/369758/how-to-trim-whitespace-from-a-bash-variable
+  TRIMMED_LINE="$(sed -e 's/[[:space:]]*$//' <<<${p})";
+  if [ "$TRIMMED_LINE" != ""; ]; then
+    DOCKER_RUN_COMMAND+="-e ${p}=\${${p}} \
   ";
+  fi
 done < $APP_DIR/.profile.2.tmp;
 rm $APP_DIR/.profile.2.tmp;
 
