@@ -20,7 +20,10 @@ if [ "$CONTAINER" != "docker" ]; then
 
     progress "Reconfiguring and restarting Nginx";
 
-    COSMO_NGINX_CONF_COUNT=$(cat ./nginx.conf | grep "# < COSMO CONF " | wc -l);
+    # always backing up the nginx config
+    cp /usr/local/etc/nginx/nginx.conf ./.nginx.conf.bk
+
+    COSMO_NGINX_CONF_COUNT=$(cat /usr/local/etc/nginx/nginx.conf | grep "# < COSMO CONF " | wc -l);
     if [ $COSMO_NGINX_CONF_COUNT == 0 ]; then
       # config for this app has not yet been added to nginx
       # doing that now
@@ -31,9 +34,11 @@ if [ "$CONTAINER" != "docker" ]; then
 # < COSMO CONF END >\
 \
 }/' /usr/local/etc/nginx/nginx.conf > $APP_DIR/.nginx.conf;
+      mv $APP_DIR/.nginx.conf /usr/local/etc/nginx/nginx.conf;
     fi
 
     # find COSMO CONF block, and replacing it with the new IP needed
+    cp /usr/local/etc/nginx/nginx.conf $APP_DIR/.nginx.conf;
     COSMO_NGINX_CONF_START=$(grep -n '# < COSMO CONF START >' $APP_DIR/.nginx.conf | cut -d: -f 1);
     COSMO_NGINX_CONF_END=$(grep -n '# < COSMO CONF END >' $APP_DIR/.nginx.conf | cut -d: -f 1);
     {
@@ -41,6 +46,7 @@ if [ "$CONTAINER" != "docker" ]; then
       sed "s/<APP_IP>/$(docker-machine ip cosmo)/" < $APP_DIR/server/conf/nginx-server-template.conf
       tail -n $(($(wc -l < $APP_DIR/.nginx.conf)-$COSMO_NGINX_CONF_END)) $APP_DIR/.nginx.conf
     } > /usr/local/etc/nginx/nginx.conf;
+    rm $APP_DIR/.nginx.conf;
 
     nginx -t && nginx -s reload;
   fi

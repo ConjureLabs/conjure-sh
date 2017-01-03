@@ -6,6 +6,8 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const log = require('log')('routes');
 
+console.log(process.env);
+
 const router = express.Router();
 
 /*
@@ -42,6 +44,6 @@ router.get(
 /*
   Auth initiation
  */
-router.get('/auth/github', passport.authenticate('github'));
+router.post('/auth/github', passport.authenticate('github'));
 
 module.exports = router;

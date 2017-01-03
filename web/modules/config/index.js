@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    host: `${process.env.APP_IP}:${process.env.PORT}`,
+    host: `localhost:${process.env.PORT}`,
     protocol: 'http'
   },
 
