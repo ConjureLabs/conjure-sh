@@ -15,8 +15,7 @@ npm run-script compile --watch > $APP_DIR./webpack-build.log 2>/dev/null &
 PIDS[0]=$!;
 
 eval "$(docker-machine env cosmo)";
-announce "HERE WE ARE";
-eval "$(cd $APP_DIR; cd ..; pwd; touch .profile; source .profile)";
+eval "$(cd $APP_DIR; cd ..; touch .profile; cat .profile)";
 
 APP_IP=$(docker-machine ip cosmo);
 NODE_PATH="$DESTINATION_DIR/modules";
