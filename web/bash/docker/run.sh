@@ -17,11 +17,14 @@ PIDS[0]=$!;
 eval "$(docker-machine env cosmo)";
 eval "$(cd $APP_DIR; touch .profile; cat .profile)";
 
-APP_IP=$(docker-machine ip cosmo);
-NODE_PATH="$DESTINATION_DIR/modules";
-progress "Connecting to Docker";
+# we read in .profile, but now we have to pass the env vars to docker
+# to do this automagically, we're going to parse out the env names
+sed 's/^export //' $APP_DIR/.profile > $APP_DIR/.profile.tmp;
+sed 's/=.*$//' $APP_DIR/.profile.tmp > $APP_DIR/.profile.2.tmp;
+rm $APP_DIR/.profile.tmp;
+
 # see https://github.com/CentOS/sig-cloud-instance-images/issues/54
-docker run -i -t \
+DOCKER_RUN_COMMAND="docker run -i -t \
   --privileged \
   --tmpfs /run \
   --tmpfs /run/lock \
@@ -31,10 +34,24 @@ docker run -i -t \
   -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
   -w $DESTINATION_DIR \
   --dns 4.4.4.4 --dns 8.8.4.4 \
-  -e "container=docker" \
-  -e NODE_ENV="${NODE_ENV}" \
-  -e APP_IP="${APP_IP}" \
-  cosmo/latest bash;
+  -e \"container=docker\" \
+  -e NODE_ENV=\"${NODE_ENV}\" \
+  -e APP_IP=\"${APP_IP}\" \
+  ";
+
+while read p; do
+  DOCKER_RUN_COMMAND+="-e ${p}=\${${p}} \
+  ";
+done < $APP_DIR/.profile.2.tmp;
+rm $APP_DIR/.profile.2.tmp;
+
+DOCKER_RUN_COMMAND+='cosmo/latest bash;';
+
+APP_IP=$(docker-machine ip cosmo);
+NODE_PATH="$DESTINATION_DIR/modules";
+progress "Connecting to Docker";
+
+eval "$DOCKER_RUN_COMMAND";
 
 trap "kill ${PIDS[*]} && wait ${PIDS[*]} 2>/dev/null" SIGINT;
 wait;

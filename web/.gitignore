@@ -7,3 +7,4 @@ public/build
 webpack-build.log
 .nginx
 .profile
+.profile.tmp
