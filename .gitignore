@@ -2,3 +2,4 @@
 .profile
 npm-debug.log
 webpack-build.log
+.nginx.conf

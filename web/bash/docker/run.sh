@@ -34,7 +34,6 @@ docker run -i -t \
   -e "container=docker" \
   -e NODE_ENV="${NODE_ENV}" \
   -e APP_IP="${APP_IP}" \
-  --net="host" \
   cosmo/latest bash;
 
 trap "kill ${PIDS[*]} && wait ${PIDS[*]} 2>/dev/null" SIGINT;

@@ -7,6 +7,8 @@
 ```bash
 npm install
 npm install -g eslint babel-eslint jscs webpack
+brew install nginx
+brew services start nginx
 ```
 ##### Running Dev
 
