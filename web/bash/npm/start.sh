@@ -18,6 +18,8 @@ if [ "$CONTAINER" != "docker" ]; then
 
     progress "Reconfiguring and restarting Nginx";
 
+    # todo: cache the current nginx conf IP, only do this logic if it has changed
+
     # always backing up the nginx config
     cp /usr/local/etc/nginx/nginx.conf ./.nginx.conf.bk
 
