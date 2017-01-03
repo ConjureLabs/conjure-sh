@@ -9,10 +9,13 @@ if [ "$CONTAINER" != "docker" ]; then
     error "Production should not be run from outside of a deployed Docker image";
     exit 1;
   fi
-  # brew services start nginx; # todo: attempt to start it?
-  source $BASH_DIR/docker/run.sh;
 
   if [ "$NODE_ENV" != "production" ]; then
+    if [ ! -f /usr/local/etc/nginx/nginx.conf ]; then
+      error "nginx is not installed - run \"brew install nginx\"";
+      exit 1;
+    fi
+
     progress "Reconfiguring and restarting Nginx";
 
     # always backing up the nginx config
@@ -45,12 +48,10 @@ if [ "$CONTAINER" != "docker" ]; then
 
     # this sucks, but we have to ask for sudo
     sudo nginx -t && sudo nginx -s reload;
-
-    if [ ! -f /usr/local/etc/nginx/nginx.conf ]; then
-      error "nginx is not installed - run \"brew install nginx\"";
-      exit 1;
-    fi
   fi
+
+  # brew services start nginx; # todo: attempt to start it?
+  source $BASH_DIR/docker/run.sh;
 else
   # assuming within a docker image, at this point
   set -e; # die on any error
