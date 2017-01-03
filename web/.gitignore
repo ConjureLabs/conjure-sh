@@ -6,3 +6,4 @@ npm-debug.log
 public/build
 webpack-build.log
 .nginx
+.profile
