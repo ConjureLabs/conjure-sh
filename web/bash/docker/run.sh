@@ -17,6 +17,9 @@ PIDS[0]=$!;
 eval "$(docker-machine env cosmo)";
 eval "$(cd $APP_DIR; touch .profile; cat .profile)";
 
+APP_IP=$(docker-machine ip cosmo);
+NODE_PATH="$DESTINATION_DIR/modules";
+
 # we read in .profile, but now we have to pass the env vars to docker
 # to do this automagically, we're going to parse out the env names
 sed 's/^export //' $APP_DIR/.profile > $CACHE_DIR/.profile.tmp;
@@ -51,8 +54,6 @@ rm $CACHE_DIR/.profile.2.tmp;
 
 DOCKER_RUN_COMMAND+='cosmo/latest bash;';
 
-APP_IP=$(docker-machine ip cosmo);
-NODE_PATH="$DESTINATION_DIR/modules";
 progress "Connecting to Docker";
 
 eval "$DOCKER_RUN_COMMAND";

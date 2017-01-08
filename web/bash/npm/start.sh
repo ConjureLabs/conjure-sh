@@ -27,7 +27,7 @@ if [ "$CONTAINER" != "docker" ]; then
       fi
     fi
 
-    if [ $COSMO_NGINX_CONF_NEEDED == 1 ]; then
+  #  if [ $COSMO_NGINX_CONF_NEEDED == 1 ]; then
       progress "Reconfiguring and restarting Nginx";
 
       # always backing up the nginx config
@@ -59,10 +59,15 @@ if [ "$CONTAINER" != "docker" ]; then
       rm $CACHE_DIR/nginx/tmp.conf;
 
       # this sucks, but we have to ask for sudo
-      sudo nginx -t && sudo nginx -s reload;
+      # and, just doing a 'sudo nginx -s stop' can result in an error of "invalid PID number ''",
+      # so we are forcefully pkill'ing nginx
+      sudo pkill nginx && sudo nginx -c /usr/local/etc/nginx/nginx.conf;
 
       echo $COSMO_NGINX_NEW_IP > $CACHE_DIR/nginx/current-ip;
-    fi
+    # else
+    #   # refresh nginx, refresh pid, etc
+    #   sudo nginx -s stop && sudo pkill nginx && sudo nginx;
+    # fi
   fi
 
   # brew services start nginx; # todo: attempt to start it?
@@ -81,7 +86,8 @@ else
     set +e; # no longer die on any error
     ( cd $APP_DIR && nodemon --legacy-watch ./server/ ) &
     PIDS[0]=$!;
-    announce "App available at $APP_IP";
+    APP_IP=$(docker-machine ip cosmo);
+    announce "App available at $APP_IP (within vm), http://localhost:3000/ locally";
     tail -f $APP_DIR./webpack-build.log &
     PIDS[1]=$!;
     # by tracking pids, and using this trap, all tracked processes will be killed after a ^C
