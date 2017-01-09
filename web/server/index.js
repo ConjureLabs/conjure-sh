@@ -68,7 +68,7 @@ passport.use(
     },
 
     function(accessToken, refreshToken, profile, callback) {
-      const database = require('modules/database');
+      const database = require('database');
 
       if (!profile.id || isNaN(parseInt(profile.id, 10))) {
         return callback(new Error('Github Id was not present in profile json'));
