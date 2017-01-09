@@ -86,18 +86,15 @@ passport.use(
     {
       clientID: config.services.github.id,
       clientSecret: config.services.github.secret,
-      callbackURL: `${config.app.protocol}://${config.app.host}/auth/github/callback`
+      callbackURL: `${config.app.protocol}://${config.app.host}/auth/github/callback`,
+      customHeaders: {
+        // see https://developer.github.com/v3/oauth/#scopes
+        'X-OAuth-Scopes': 'read:org, read:repo, read:repo_hook, user:email',
+        'X-Accepted-OAuth-Scopes': 'read:org, read:repo, read:repo_hook, user:email'
+      }
     },
 
     function(accessToken, refreshToken, profile, callback) {
-      // tmp hack
-      const x = callback;
-      callback = function() {
-        const args = Array.prototype.slice.call(arguments);
-        console.log.apply(console.log, args);
-        x.apply(x, args);
-      };
-
       const database = require('database');
 
       if (!profile.id || isNaN(parseInt(profile.id, 10))) {
@@ -150,8 +147,8 @@ passport.use(
           const account = result.rows[0];
 
           database.query(
-            'INSERT INTO account_github(github_id, account, username, name, email, photo, added) VALUES($1, $2, $3, $4, $5, $6, NOW())',
-            [ profile.id, account.id, profile.username, profile.displayName, profile.emails[0].value, profile.profileUrl ],
+            'INSERT INTO account_github(github_id, account, username, name, email, photo, access_token, added) VALUES($1, $2, $3, $4, $5, $6, $7, NOW())',
+            [ profile.id, account.id, profile.username, profile.displayName, profile.emails[0].value, accessToken, profile.profileUrl ],
             err => {
               if (err) {
                 return callback(err);

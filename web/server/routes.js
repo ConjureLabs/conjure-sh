@@ -22,8 +22,41 @@ router.get('/', (req, res, next) => {
 /*
   Dashboard
  */
-router.get('/', (req, res) => {
-  res.render('dashboard');
+router.get('/', (req, res, next) => {
+  const Github = require('github');
+
+  const github = new Github({
+    debug: true,
+    protocol: 'https'
+  });
+
+  const database = require('database');
+
+  database.query('SELECT * FROM account_github WHERE account = $1', [req.user.id], (err, result) => {
+    if (err) {
+      return next(err);
+    }
+
+    // should not be possible
+    if (!result.rows.length) {
+      return next(new Error('Could not find github account record'));
+    }
+
+    const githubAccount = result.rows[0];
+
+    github.authenticate({
+      type: 'token',
+      token: githubAccount.access_token
+    });
+
+    github.orgs.getForUser({
+      username: githubAccount.username
+    }, function(err, res) {
+      console.log(err, res);
+    });
+
+    res.render('dashboard');
+  });
 });
 
 /*
@@ -58,8 +91,8 @@ if (process.env.NODE_ENV !== 'production') {
 router.get(
   '/auth/github/callback',
   passport.authenticate('github', {
-    failureRedirect: '/bad', // todo: /login ?
-    successRedirect: '/good'
+    failureRedirect: '/', // todo: /login ?
+    successRedirect: '/'
   })
 );
 

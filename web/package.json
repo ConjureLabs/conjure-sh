@@ -26,6 +26,7 @@
     "debug": "2.6.0",
     "expose-loader": "0.7.1",
     "express": "4.14.0",
+    "github": "7.3.1",
     "jade": "1.11.0",
     "jsx-loader": "0.13.2",
     "morgan": "1.7.0",
