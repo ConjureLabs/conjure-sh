@@ -1,4 +1,4 @@
-CREATE TABLE account (
+CREATE TABLE account_github (
   id SERIAL PRIMARY KEY,
   github_id INT NOT NULL,
   account INT REFERENCES account(id) NOT NULL,
