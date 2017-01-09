@@ -6,8 +6,6 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const log = require('log')('routes');
 
-console.log(process.env);
-
 const router = express.Router();
 
 /*
@@ -26,6 +24,14 @@ router.get('/', (req, res, next) => {
  */
 router.get('/', (req, res) => {
   res.render('dashboard');
+});
+
+/*
+  Passport session logout
+ */
+router.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
 });
 
 /*

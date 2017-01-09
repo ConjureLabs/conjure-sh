@@ -6,6 +6,18 @@ module.exports = {
     protocol: 'http'
   },
 
+  database: {
+    pg: {
+      user: 'cosmo_admin',
+      database: 'cosmo',
+      password: null,
+      host: 'localhost',
+      port: 5432,
+      max: 10,
+      idleTimeoutMillis: 30000
+    }
+  },
+
   services: {
     github: {
       id: '6dd065500c5c86a9710c',

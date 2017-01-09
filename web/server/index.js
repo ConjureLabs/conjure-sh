@@ -68,10 +68,73 @@ passport.use(
     },
 
     function(accessToken, refreshToken, profile, callback) {
-      console.log(profile);
-      // User.findOrCreate({ githubId: profile.id }, function(err, user) {
-      //   return callback(err, user);
-      // });
+      const database = require('modules/database');
+
+      if (!profile.id || isNaN(parseInt(profile.id, 10))) {
+        return callback(new Error('Github Id was not present in profile json'));
+      }
+
+      // todo: classify database tables O_____o
+
+      // check for existing account record
+      database.query('SELECT * FROM account_github WHERE github_id = $1', [profile.id], (err, result) => {
+        if (err) {
+          return callback(err);
+        }
+
+        // have logged in using github before...
+        if (result.rows.length === 1) {
+          const githubAccount = result.rows[0];
+
+          // finding associated cosmo account
+          database.query('SELECT * FROM account WHERE id = $1', [githubAccount.account], (err, result) => {
+            if (err) {
+              return callback(err);
+            }
+
+            // this should not happen, since the cosmo account showed the associated id
+            if (!result.rows.length) {
+              return callback(new Error('Cosmo account record not found for associated Github account'));
+            }
+
+            const account = result.rows[0];
+
+            // record the login
+            database.query('INSERT INTO account_login (account, service, added) VALUES($1, \'github\', NOW())', [account.id], err => {
+              callback(err, account);
+            });
+          });
+          return;
+        }
+
+        // todo: deal with github logins where cosmo user record already exists,
+        // since the user logged in with another service
+        // (need to lookup other records on email?)
+        
+        // need a cosmo account
+        database.query('INSERT INTO account (name, added) VALUES ($1, NOW()) RETURNING *', [profile.displayName], (err, result) => {
+          if (err) {
+            return callback(err);
+          }
+
+          const account = result.rows[0];
+
+          database.query(
+            'INSERT INTO account_github(github_id, account, username, name, email, photo, added) VALUES($1, $2, $3, $4, $5, $6, NOW())',
+            [ profile.id, account.id, profile.username, profile.displayName, profile.emails[0].value, profile.profileUrl ],
+            err => {
+              if (err) {
+                return callback(err);
+              }
+
+              // record the login
+              database.query('INSERT INTO account_login (account, service, added) VALUES($1, \'github\', NOW())', [account.id], err => {
+                callback(err, account);
+              });
+            }
+          );
+        });
+      });
     }
   )
 );
@@ -88,9 +151,14 @@ server.use(require('./routes'));
 server.use((err, req, res, next) => {
   if (err) {
     log.error(err);
+
+    if (process.env.NODE_ENV === 'production') {
+      return next();
+    }
+    return next(err);
   }
 
-  next(err);
+  next();
 });
 
 server.listen(port, () => {
