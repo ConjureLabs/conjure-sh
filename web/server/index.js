@@ -6,6 +6,8 @@ require('./setup');
 const config = require('config');
 const express = require('express');
 const compression = require('compression');
+const cookieSession = require('cookie-session');
+const morgan = require('morgan');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -40,6 +42,24 @@ process.on('uncaughtException', err => {
 
 server.use(compression());
 server.set('port', port);
+server.use(morgan('combined'));
+
+// todo: keep this in a util module?
+const second = 1000;
+const minute = 60 * second;
+const hour = 60 * minute;
+const day = 24 * hour;
+
+server.use(cookieSession({
+  cookieName: 'cosmoci',
+  secret: 'LYU.yxn^E0T$TvklkLzxdg$$#q!vI1sJAoSgI<rl<LZumyX*@@@!blJ<4wYzNXOl',
+  duration: 8 * day, // 8 days = 1 week + 1 day, enough that a 5day worker will not get kicked
+  cookie: {
+    httpOnly: true,
+    secure: config.app.protocol === 'https'
+  }
+}));
+
 server.use(passport.initialize());
 server.use(passport.session());
 server.set('views', path.join(__dirname, '..', 'views'));
@@ -53,9 +73,11 @@ server.use(bodyParser.json());
 server.use(cookieParser());
 
 passport.serializeUser((user, done) => {
+  console.log('serialize', user);
   done(null, user);
 });
 passport.deserializeUser((user, done) => {
+  console.log('deserialize', user);
   done(null, user);
 });
 
@@ -68,6 +90,14 @@ passport.use(
     },
 
     function(accessToken, refreshToken, profile, callback) {
+      // tmp hack
+      const x = callback;
+      callback = function() {
+        const args = Array.prototype.slice.call(arguments);
+        console.log.apply(console.log, args);
+        x.apply(x, args);
+      };
+
       const database = require('database');
 
       if (!profile.id || isNaN(parseInt(profile.id, 10))) {

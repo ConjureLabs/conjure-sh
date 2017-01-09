@@ -11,6 +11,7 @@ if [ "$CONTAINER" != "docker" ]; then
   fi
 
   if [ "$NODE_ENV" != "production" ]; then
+    # todo: fix this - it fails if the docker machine is not currently running
     eval "$(docker-machine env cosmo)";
 
     if [ ! -f /usr/local/etc/nginx/nginx.conf ]; then
@@ -87,7 +88,7 @@ else
     set +e; # no longer die on any error
     ( cd $APP_DIR && nodemon --legacy-watch ./server/ ) &
     PIDS[0]=$!;
-    announce "App available at http://$APP_IP/ (within vm), http://localhost:3000/ locally";
+    announce "App available at http://$APP_IP/ or http://localhost:3000/";
     tail -f $APP_DIR./webpack-build.log &
     PIDS[1]=$!;
     # by tracking pids, and using this trap, all tracked processes will be killed after a ^C

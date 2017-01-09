@@ -131,3 +131,19 @@ You probably removed the VirtualBox machine, but left the docker-machine referen
 ```bash
 docker-machine rm cosmo
 ```
+
+---
+
+**Problem**:
+
+`docker: Error response from daemon: driver failed programming external connectivity on endpoint hungry_turing (bae2212b2db12d47731edf13122104adff2868eb28041aafde148f294f433f6c): Bind for 0.0.0.0:80 failed: port is already allocated.`
+
+**Cause**:
+
+You probably killed a terminal session with your Docker instance, but did not actually end it by a graceful interrupt. This leaves the machine running in the background.
+
+**Solution**:
+
+You can see running machines by `docker-machine ls`. Then:
+
+`docker-machine stop cosmo`

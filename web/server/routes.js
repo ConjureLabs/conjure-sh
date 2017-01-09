@@ -30,9 +30,27 @@ router.get('/', (req, res) => {
   Passport session logout
  */
 router.get('/logout', (req, res) => {
-  req.session.destroy();
+  req.logout();
   res.redirect('/');
 });
+
+/*
+  dev endpoints to see who i am, etc
+ */
+// todo: add a handler to each of these that just calls next() if === production
+if (process.env.NODE_ENV !== 'production') {
+  router.get('/me', (req, res) => {
+    res.send({
+      authed: req.isAuthenticated(),
+      user: req.user
+    });
+  });
+
+  router.get('/env', (req, res, next) => {
+    console.dir(process.env);
+    return next();
+  });
+}
 
 /*
   Auth callback
@@ -40,11 +58,9 @@ router.get('/logout', (req, res) => {
 router.get(
   '/auth/github/callback',
   passport.authenticate('github', {
-    failureRedirect: '/' // todo: /login ?
-  }),
-  (req, res) => {
-    res.redirect('/');
-  }
+    failureRedirect: '/bad', // todo: /login ?
+    successRedirect: '/good'
+  })
 );
 
 /*
