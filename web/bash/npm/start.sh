@@ -20,6 +20,8 @@ if [ "$CONTAINER" != "docker" ]; then
     COSMO_NGINX_CONF_NEEDED=1;
     COSMO_NGINX_NEW_IP=$(docker-machine ip cosmo);
 
+    sudo nginx -s stop 2>/dev/null;
+
     if [ -f $CACHE_DIR/nginx/current-ip ]; then
       COSMO_NGINX_CURRENT_IP=$(cat $CACHE_DIR/nginx/current-ip);
       if [ "$COSMO_NGINX_NEW_IP" == "$COSMO_NGINX_CURRENT_IP" ]; then
@@ -27,7 +29,6 @@ if [ "$CONTAINER" != "docker" ]; then
       fi
     fi
 
-  #  if [ $COSMO_NGINX_CONF_NEEDED == 1 ]; then
       progress "Reconfiguring and restarting Nginx";
 
       # always backing up the nginx config
@@ -59,18 +60,15 @@ if [ "$CONTAINER" != "docker" ]; then
       rm $CACHE_DIR/nginx/tmp.conf;
 
       # this sucks, but we have to ask for sudo
-      # and, just doing a 'sudo nginx -s stop' can result in an error of "invalid PID number ''",
-      # so we are forcefully pkill'ing nginx
-      sudo pkill nginx && sudo nginx -c /usr/local/etc/nginx/nginx.conf;
-
-      echo $COSMO_NGINX_NEW_IP > $CACHE_DIR/nginx/current-ip;
+      sudo nginx -t && sudo nginx -s reload;
     # else
     #   # refresh nginx, refresh pid, etc
-    #   sudo nginx -s stop && sudo pkill nginx && sudo nginx;
+    #   sudo nginx -s stop && sudo nginx -c /usr/local/etc/nginx/nginx.conf;
     # fi
   fi
 
   # brew services start nginx; # todo: attempt to start it?
+  # todo: trap and kill long processes like run.sh, which can hang if this file's execution is interrupted
   source $BASH_DIR/docker/run.sh;
 else
   # assuming within a docker image, at this point
@@ -86,8 +84,7 @@ else
     set +e; # no longer die on any error
     ( cd $APP_DIR && nodemon --legacy-watch ./server/ ) &
     PIDS[0]=$!;
-    APP_IP=$(docker-machine ip cosmo);
-    announce "App available at $APP_IP (within vm), http://localhost:3000/ locally";
+    announce "App available at http://$APP_IP/ (within vm), http://localhost:3000/ locally";
     tail -f $APP_DIR./webpack-build.log &
     PIDS[1]=$!;
     # by tracking pids, and using this trap, all tracked processes will be killed after a ^C

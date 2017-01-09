@@ -2,7 +2,7 @@
 
 \c postgres;
 
-CREATE DATABASE cosmo WITH OWNER sonyc_admin;
+CREATE DATABASE cosmo WITH OWNER cosmo_admin;
 \c cosmo;
 
 -- table definitions
