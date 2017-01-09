@@ -23,11 +23,6 @@ ENV DEBUG cosmo,cosmo:*
 ENV NODE_PATH /var/cosmo/web/modules
 ENV PORT 3000
 
-# node-gyp needs the right setup
-RUN wget http://people.centos.org/tru/devtools-2/devtools-2.repo -O /etc/yum.repos.d/devtools-2.repo
-RUN yum install -y devtoolset-2-gcc devtoolset-2-gcc-c++ devtoolset-2-binutils devtoolset-2-gcc-gfortran; yum clean all
-RUN echo "source /opt/rh/devtoolset-2/enable" >> /root/.bashrc
-
 # Setup the nvm environment
 # the last line in this chain exposes the nvm node globally
 # have to do this as one chained command since RUN does not carry context between commands

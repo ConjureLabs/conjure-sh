@@ -1,10 +1,10 @@
 'use strict';
 
-const pg = require('pg');
+const pgPool = require('pg').Pool;
 const config = require('config');
 const log = require('log')('database');
 
-const pool = new pg.Pool(config.database.pg);
+const pool = new pgPool(config.database.pg);
 
 // todo: deal with client (err, client) that caused the err?
 pool.on('error', err => {
