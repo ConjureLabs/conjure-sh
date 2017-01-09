@@ -11,6 +11,8 @@ if [ "$CONTAINER" != "docker" ]; then
   fi
 
   if [ "$NODE_ENV" != "production" ]; then
+    eval "$(docker-machine env cosmo)";
+
     if [ ! -f /usr/local/etc/nginx/nginx.conf ]; then
       error "nginx is not installed - run \"brew install nginx\"";
       exit 1;
@@ -29,6 +31,7 @@ if [ "$CONTAINER" != "docker" ]; then
       fi
     fi
 
+    if [ $COSMO_NGINX_CONF_NEEDED == 1 ]; then
       progress "Reconfiguring and restarting Nginx";
 
       # always backing up the nginx config
@@ -60,15 +63,15 @@ if [ "$CONTAINER" != "docker" ]; then
       rm $CACHE_DIR/nginx/tmp.conf;
 
       # this sucks, but we have to ask for sudo
-      sudo nginx -t && sudo nginx -s reload;
-    # else
-    #   # refresh nginx, refresh pid, etc
-    #   sudo nginx -s stop && sudo nginx -c /usr/local/etc/nginx/nginx.conf;
-    # fi
+      sudo nginx -t;
+      sudo nginx -s reload;
+      sudo nginx;
+    else
+      # refresh nginx, refresh pid, etc
+      sudo nginx;
+    fi
   fi
 
-  # brew services start nginx; # todo: attempt to start it?
-  # todo: trap and kill long processes like run.sh, which can hang if this file's execution is interrupted
   source $BASH_DIR/docker/run.sh;
 else
   # assuming within a docker image, at this point
