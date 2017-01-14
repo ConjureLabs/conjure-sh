@@ -87,11 +87,7 @@ passport.use(
       clientID: config.services.github.id,
       clientSecret: config.services.github.secret,
       callbackURL: `${config.app.protocol}://${config.app.host}/auth/github/callback`,
-      customHeaders: {
-        // see https://developer.github.com/v3/oauth/#scopes
-        'X-OAuth-Scopes': 'read:org, read:repo, read:repo_hook, user:email',
-        'X-Accepted-OAuth-Scopes': 'read:org, read:repo, read:repo_hook, user:email'
-      }
+      scope: 'repo,admin:public_key,user:email'
     },
 
     function(accessToken, refreshToken, profile, callback) {

@@ -52,6 +52,8 @@ if [ "$CONTAINER" != "docker" ]; then
         mv $CACHE_DIR/nginx/tmp.conf /usr/local/etc/nginx/nginx.conf;
       fi
 
+      echo $APP_IP;
+
       # find COSMO CONF block, and replacing it with the new IP needed
       cp /usr/local/etc/nginx/nginx.conf $CACHE_DIR/nginx/tmp.conf;
       COSMO_NGINX_CONF_START=$(grep -n '# < COSMO CONF START >' $CACHE_DIR/nginx/tmp.conf | cut -d: -f 1);
