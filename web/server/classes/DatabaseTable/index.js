@@ -1,14 +1,16 @@
 'use strict';
 
+const slice = Array.prototype.slice;
+
 module.exports = class DatabaseTable {
   constructor(tableName) {
     this.tableName = tableName;
   }
 
-  select(/* constraints, OR constraints, callback */) {
+  select(/* [constraints, ...,] callback */) {
     const database = require('modules/database');
 
-    const constraints = Array.prototype.slice.call(arguments);
+    const constraints = slice.call(arguments);
     const callback = constraints.pop(); // callback is assumed to always be last arg
     let whereClause = '';
     const whereValues = [];
@@ -42,6 +44,13 @@ module.exports = class DatabaseTable {
         return new DatabaseRow(tableName, row);
       }));
     });
+  }
+
+  static select(/* tableName, [constraints, ...,] callback */) {
+    const args = slice.call(arguments);
+    const tableName = args.shift();
+    const instance = new DatabaseTable(tableName);
+    instance.select.apply(instance, args);
   }
 }
 
