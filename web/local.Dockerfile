@@ -20,7 +20,7 @@ ENV NVM_DIR /usr/local/nvm
 RUN touch $PROFILE
 ENV CONTAINER docker
 ENV DEBUG cosmo,cosmo:*
-ENV NODE_PATH /var/cosmo/web/modules
+ENV NODE_PATH /var/cosmo/web/server
 ENV PORT 3000
 
 # node-gyp & more need the right setup

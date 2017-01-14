@@ -1,10 +1,10 @@
 'use strict';
 
-const config = require('config');
+const config = require('modules/config');
 const express = require('express');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
-const log = require('log')('routes');
+const log = require('modules/log')('routes');
 
 const router = express.Router();
 
@@ -30,7 +30,7 @@ router.get('/', (req, res, next) => {
     protocol: 'https'
   });
 
-  const database = require('database');
+  const database = require('modules/database');
 
   database.query('SELECT * FROM account_github WHERE account = $1', [req.user.id], (err, result) => {
     if (err) {
@@ -43,6 +43,8 @@ router.get('/', (req, res, next) => {
     }
 
     const githubAccount = result.rows[0];
+
+    console.log(githubAccount);
 
     github.authenticate({
       type: 'token',

@@ -3,7 +3,7 @@
 // first running any synchronous setup
 require('./setup');
 
-const config = require('config');
+const config = require('modules/config');
 const express = require('express');
 const compression = require('compression');
 const cookieSession = require('cookie-session');
@@ -13,7 +13,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
-const log = require('log')();
+const log = require('modules/log')();
 
 const port = process.env.PORT || 3000;
 const server = express();
@@ -73,11 +73,10 @@ server.use(bodyParser.json());
 server.use(cookieParser());
 
 passport.serializeUser((user, done) => {
-  console.log('serialize', user);
+  const Account = require('classes/Account');
   done(null, user);
 });
 passport.deserializeUser((user, done) => {
-  console.log('deserialize', user);
   done(null, user);
 });
 
@@ -91,7 +90,7 @@ passport.use(
     },
 
     function(accessToken, refreshToken, profile, callback) {
-      const database = require('database');
+      const database = require('modules/database');
 
       if (!profile.id || isNaN(parseInt(profile.id, 10))) {
         return callback(new Error('Github Id was not present in profile json'));
@@ -142,9 +141,11 @@ passport.use(
 
           const account = result.rows[0];
 
+          console.log(profile);
+
           database.query(
             'INSERT INTO account_github(github_id, account, username, name, email, photo, access_token, added) VALUES($1, $2, $3, $4, $5, $6, $7, NOW())',
-            [ profile.id, account.id, profile.username, profile.displayName, profile.emails[0].value, accessToken, profile.profileUrl ],
+            [ profile.id, account.id, profile.username, profile.displayName, profile.emails[0].value, profile.profileUrl, accessToken ],
             err => {
               if (err) {
                 return callback(err);

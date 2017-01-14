@@ -18,7 +18,6 @@ eval "$(docker-machine env cosmo)";
 eval "$(cd $APP_DIR; touch .profile; cat .profile)";
 
 APP_IP=$(docker-machine ip cosmo);
-NODE_PATH="$DESTINATION_DIR/modules";
 
 # we read in .profile, but now we have to pass the env vars to docker
 # to do this automagically, we're going to parse out the env names
