@@ -10,38 +10,21 @@ module.exports = class DatabaseTable {
   select(/* [constraints, ...,] callback */) {
     const database = require('modules/database');
 
-    const constraints = slice.call(arguments);
-    const callback = constraints.pop(); // callback is assumed to always be last arg
-    let whereClause = '';
-    const whereValues = [];
+    const args = slice.call(arguments);
+    const callback = args.pop(); // callback is assumed to always be last arg
+    const constraints = args; // anything left in arguments will be considered constraints
+    const queryValues = [];
 
-    buildWhereClause: {
-      if (!constraints.length) {
-        break buildWhereClause;
-      }
+    const whereClause = generateWhereClause(constraints, queryValues);
 
-      whereClause = ' WHERE ';
-
-      if (constraints.length === 1) {
-        whereClause += generateAndConstraints(constraints[0], whereValues);
-        break buildWhereClause;
-      }
-
-      whereClause += constraints
-        .map(constr => {
-          return `(${generateAndConstraints(constr, whereValues)})`;
-        })
-        .join(' OR ');
-    }
-
-    database.query(`SELECT * FROM ${tableName}${whereClause}`, whereValues, (err, result) => {
+    database.query(`SELECT * FROM ${this.tableName}${whereClause}`, queryValues, (err, result) => {
       if (err) {
         return callback(err)
       }
 
       const DatabaseRow = require('classes/DatabaseRow');
       return callback(null, results.rows.map(row => {
-        return new DatabaseRow(tableName, row);
+        return new DatabaseRow(this.tableName, row);
       }));
     });
   }
@@ -52,13 +35,65 @@ module.exports = class DatabaseTable {
     const instance = new DatabaseTable(tableName);
     instance.select.apply(instance, args);
   }
+
+  update(/* updates, [constraints, ...,] callback */) {
+    const database = require('modules/database');
+
+    const args = slice.call(arguments);
+    const updates = args.shift(); // updates is assumed to always be the first arg
+    const callback = args.pop(); // callback is assumed to always be last arg
+    const constraints = args; // anything left in arguments will be considered constraints
+    let whereClause = '';
+    const queryValues = [];
+
+    const updatesSql = generateSqlKeyVals(', ', updates, queryValues);
+    const whereClause = generateWhereClause(constraints, queryValues);
+
+    database.query(`UPDATE ${this.tableName} SET ${updatesSql}${whereClause}`, queryValues, (err, result) => {
+      if (err) {
+        return callback(err)
+      }
+
+      const DatabaseRow = require('classes/DatabaseRow');
+      return callback(null, results.rows.map(row => {
+        return new DatabaseRow(this.tableName, row);
+      }));
+    });
+  }
+
+  static update(/* tableName, [constraints, ...,] callback */) {
+    const args = slice.call(arguments);
+    const tableName = args.shift();
+    const instance = new DatabaseTable(tableName);
+    instance.update.apply(instance, args);
+  }
 }
 
-function generateAndConstraints(constraints, valuesArray) {
-  return constraints
+function generateSqlKeyVals(separator, dict, valuesArray) {
+  return Object.keys(dict)
     .map((key, i) => {
-      valuesArray.push(constraints[key]);
+      valuesArray.push(dict[key]);
       return `${key} = $${valuesArray.length}`;
     })
-    .join(' AND ');
+    .join(separator);
+}
+
+/*
+  constraints should be an array of constraint {} objects
+  e.g. [{ id: 1 }, { id: 2 }]
+ */
+function generateWhereClause(constraints, queryValues) {
+  if (!constraints.length) {
+    return '';
+  }
+
+  if (constraints.length === 1) {
+    return ' WHERE ' + generateSqlKeyVals(' AND ', constraints[0], queryValues);
+  }
+
+  return ' WHERE ' + constraints
+    .map(constr => {
+      return `(${generateSqlKeyVals(' AND ', constr, queryValues)})`;
+    })
+    .join(' OR ');
 }
