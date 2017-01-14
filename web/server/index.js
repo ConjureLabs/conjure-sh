@@ -141,11 +141,9 @@ passport.use(
 
           const account = result.rows[0];
 
-          console.log(profile);
-
           database.query(
             'INSERT INTO account_github(github_id, account, username, name, email, photo, access_token, added) VALUES($1, $2, $3, $4, $5, $6, $7, NOW())',
-            [ profile.id, account.id, profile.username, profile.displayName, profile.emails[0].value, profile.profileUrl, accessToken ],
+            [ profile.id, account.id, profile.username, profile.displayName, profile.emails[0].value, profile.avatar_url, accessToken ],
             err => {
               if (err) {
                 return callback(err);
