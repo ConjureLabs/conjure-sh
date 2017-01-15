@@ -25,6 +25,8 @@ router.get('/', (req, res, next) => {
 router.get('/', (req, res, next) => {
   const Github = require('github');
 
+  console.log(req.user);
+
   const github = new Github({
     debug: true,
     protocol: 'https'

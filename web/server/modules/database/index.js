@@ -32,7 +32,7 @@ function query() {
 
     // todo: make the log require (at top) different between errors & this
     // so DEBUG can be set on prod to *not* output sql
-    log.info(args[0]);
+    log.info(args[0] /* sql */, args[1] /* placeholder values */);
     client.query.apply(client, args);
   });
 }

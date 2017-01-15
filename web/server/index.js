@@ -73,7 +73,6 @@ server.use(bodyParser.json());
 server.use(cookieParser());
 
 passport.serializeUser((user, done) => {
-  const Account = require('classes/Account');
   done(null, user);
 });
 passport.deserializeUser((user, done) => {
@@ -126,10 +125,10 @@ passport.use(
             // record the login
             DatabaseTable.insert('account_login', {
               account: account.id,
-              service: 'github',
+              service: DatabaseTable.cast('github', 'account_login_service'),
               added: DatabaseTable.literal('NOW()')
-            }, (err, rows) => {
-              callback(err, Array.isArray(rows) ? rows[0] : null);
+            }, err => {
+              callback(err, account);
             });
           });
           return;
@@ -163,7 +162,7 @@ passport.use(
               // record the login
               DatabaseTable.insert('account_login', {
                 account: account.id,
-                service: 'github',
+                service: DatabaseTable.cast('github', 'account_login_service'),
                 added: DatabaseTable.literal('NOW()')
               }, err => {
                 callback(err, account);

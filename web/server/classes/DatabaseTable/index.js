@@ -15,6 +15,14 @@ class DatabaseQueryLiteral extends String {
   }
 }
 
+class DatabaseQueryCast extends DatabaseQueryLiteral {
+  constructor(str, castTo) {
+    // todo: find a better, future-proof way of accessing pg escaping (or is this fine?)
+    const prepareValue = require('pg/lib/utils').prepareValue;
+    super(`'${prepareValue(str)}'::${prepareValue(castTo)}`);
+  }
+}
+
 module.exports = class DatabaseTable {
   constructor(tableName) {
     this.tableName = tableName;
@@ -97,7 +105,7 @@ module.exports = class DatabaseTable {
       const newRowAssignment = [];
 
       for (let j = 0; j < columnNames.length; j++) {
-        const val = newRows[i][ columnNames[i] ];
+        const val = newRows[i][ columnNames[j] ];
 
         if (val === undefined) {
           newRowAssignment.push('NULL');
@@ -152,6 +160,10 @@ module.exports = class DatabaseTable {
   static literal(str) {
     return new DatabaseQueryLiteral(str);
   }
+
+  static cast(str, castTo) {
+    return new DatabaseQueryCast(str, castTo);
+  }
 }
 
 function generateSqlKeyVals(separator, dict, valuesArray) {
@@ -197,7 +209,7 @@ function findAllColumnNames(rows) {
   const columnNames = [];
 
   for (let i = 0; i < rows.length; i++) {
-    for (let key in rows) {
+    for (let key in rows[i]) {
       if (columnNames.includes(key)) {
         continue;
       }
