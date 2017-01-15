@@ -65,7 +65,7 @@ server.use(passport.session());
 server.set('views', path.join(__dirname, '..', 'views'));
 server.set('view engine', 'jade');
 server.disable('view cache');
-server.use(express.static(path.resolve(__dirname, 'public')));
+server.use(express.static(path.resolve(__dirname, '..', 'public')));
 server.use(bodyParser.urlencoded({
   extended: true
 }));
