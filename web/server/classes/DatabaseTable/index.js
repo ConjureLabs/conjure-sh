@@ -2,6 +2,10 @@
 
 const slice = Array.prototype.slice;
 
+// todo: add a common prefix to any symbol constant?
+const queryCallback = Symbol('database.query callback');
+const staticProxy = Symbol('static method, proxy to instance method');
+
 module.exports = class DatabaseTable {
   constructor(tableName) {
     this.tableName = tableName;
@@ -17,23 +21,11 @@ module.exports = class DatabaseTable {
 
     const whereClause = generateWhereClause(constraints, queryValues);
 
-    database.query(`SELECT * FROM ${this.tableName}${whereClause}`, queryValues, (err, result) => {
-      if (err) {
-        return callback(err)
-      }
-
-      const DatabaseRow = require('classes/DatabaseRow');
-      return callback(null, results.rows.map(row => {
-        return new DatabaseRow(this.tableName, row);
-      }));
-    });
+    database.query(`SELECT * FROM ${this.tableName}${whereClause}`, queryValues, this[queryCallback]);
   }
 
-  static select(/* tableName, [constraints, ...,] callback */) {
-    const args = slice.call(arguments);
-    const tableName = args.shift();
-    const instance = new DatabaseTable(tableName);
-    instance.select.apply(instance, args);
+  static update() {
+    return this[staticProxy]('select', arguments);
   }
 
   update(/* updates, [constraints, ...,] callback */) {
@@ -49,23 +41,29 @@ module.exports = class DatabaseTable {
     const updatesSql = generateSqlKeyVals(', ', updates, queryValues);
     const whereClause = generateWhereClause(constraints, queryValues);
 
-    database.query(`UPDATE ${this.tableName} SET ${updatesSql}${whereClause}`, queryValues, (err, result) => {
-      if (err) {
-        return callback(err)
-      }
-
-      const DatabaseRow = require('classes/DatabaseRow');
-      return callback(null, results.rows.map(row => {
-        return new DatabaseRow(this.tableName, row);
-      }));
-    });
+    database.query(`UPDATE ${this.tableName} SET ${updatesSql}${whereClause}`, queryValues, this[queryCallback]);
   }
 
-  static update(/* tableName, [constraints, ...,] callback */) {
+  static update() {
+    return this[staticProxy]('update', arguments);
+  }
+
+  [queryCallback](err, result) {
+    if (err) {
+      return callback(err)
+    }
+
+    const DatabaseRow = require('classes/DatabaseRow');
+    return callback(null, results.rows.map(row => {
+      return new DatabaseRow(this.tableName, row);
+    }));
+  }
+
+  [staticProxy](methodName, arguments /* [ tableName, [constraints, ...,] callback ] */) {
     const args = slice.call(arguments);
     const tableName = args.shift();
     const instance = new DatabaseTable(tableName);
-    instance.update.apply(instance, args);
+    instance[methodName].apply(instance, args);
   }
 }
 
