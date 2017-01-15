@@ -146,6 +146,8 @@ passport.use(
         }, (err, rows) => {
           const account = rows[0];
 
+          console.log(profile);
+
           DatabaseTable.insert('account_github', {
             github_id: profile.id,
             account: account.id,
