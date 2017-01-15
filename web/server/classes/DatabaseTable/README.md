@@ -49,3 +49,59 @@ DatabaseTable.select('account', {
   // ...
 });
 ```
+
+#### Update
+
+```js
+const account = new DatabaseTable('Account');
+
+// UPDATE account SET activated = false;
+account.update({
+  activated: false
+}, (err, rows) => {
+  // ...
+});
+
+// UPDATE account SET email = 'tim@marshall.io' WHERE id = 1 AND name = 'Tim Marshall';
+account.update({
+  email: 'tim@marshall.io'
+}, {
+  id: 1,
+  name: 'Tim Marshall'
+}, (err, rows) => {
+  // ...
+});
+
+// UPDATE account SET email = 'tim@marshall.io' WHERE (id = 1 AND name = 'Tim Marshall') OR (id = 2);
+account.update({
+  email: 'tim@marshall.io'
+}, {
+  id: 1,
+  name: 'Tim Marshall'
+}, {
+  id: 2
+}, (err, rows) => {
+  // ...
+})
+```
+
+##### Direct (static) call
+
+```js
+// UPDATE account SET activated = false;
+DatabaseTable.update('account', {
+  activated: false
+}, (err, rows) => {
+  // ...
+});
+
+// UPDATE account SET activated = false WHERE id = 1 AND name = 'Tim Marshall';
+DatabaseTable.update('account', {
+  activated: false
+}, {
+  id: 1,
+  name: 'Tim Marshall'
+}, (err, rows) => {
+  // ...
+});
+```
