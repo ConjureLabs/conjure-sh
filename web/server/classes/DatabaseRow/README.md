@@ -55,7 +55,7 @@ If you want to re-save the row, you'd have to call `.copy` on it and then `.save
 
 #### Copy a row
 
-This will return a new row instance, with _no_ id (making it a copy, not a clone).
+This will return a new row instance, _without an id_ (making it a copy, not a clone).
 
 ```js
 const accountRow = new DatabaseRow('account', {
