@@ -23,18 +23,12 @@ router.get('/', (req, res, next) => {
   Dashboard
  */
 router.get('/', (req, res, next) => {
-  const Github = require('github');
+  const DatabaseTable = require('classes/DatabaseTable');
+  const accountGithub = DatabaseTable('account_github');
 
-  console.log(req.user);
-
-  const github = new Github({
-    debug: true,
-    protocol: 'https'
-  });
-
-  const database = require('modules/database');
-
-  database.query('SELECT * FROM account_github WHERE account = $1', [req.user.id], (err, result) => {
+  accountGithub.select({
+    account: req.user.id
+  }, (err, rows) => {
     if (err) {
       return next(err);
     }
@@ -44,22 +38,25 @@ router.get('/', (req, res, next) => {
       return next(new Error('Could not find github account record'));
     }
 
-    const githubAccount = result.rows[0];
+    // should not be possible
+    if (result.rows.length > 1) {
+      return next(new Error('Expected a single row for github account record, received multiple'));
+    }
+
+    const githubAccount = rows[0];
 
     console.log(githubAccount);
 
-    github.authenticate({
-      type: 'token',
-      token: githubAccount.access_token
-    });
+    const github = require('octonode');
+    const githubClient = github.client(githubAccount.access_token);
 
-    github.orgs.getForUser({
-      username: githubAccount.username
-    }, function(err, res) {
-      console.log(err, res);
-    });
+    githubClient.get('/user/orgs', {}, (err, status, body) => {
+      console.log(err);
+      console.log(status);
+      console.log(body);
 
-    res.render('dashboard');
+      res.render('dashboard');
+    });
   });
 });
 
