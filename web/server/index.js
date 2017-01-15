@@ -73,7 +73,8 @@ server.use(bodyParser.json());
 server.use(cookieParser());
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  const DatabaseRow = require('classes/DatabaseRow');
+  done(null, new DatabaseRow('account', user));
 });
 passport.deserializeUser((user, done) => {
   done(null, user);
