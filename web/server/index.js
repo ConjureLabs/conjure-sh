@@ -90,67 +90,82 @@ passport.use(
     },
 
     function(accessToken, refreshToken, profile, callback) {
-      const database = require('modules/database');
+      const DatabaseTable = require('classes/DatabaseTable');
 
       if (!profile.id || isNaN(parseInt(profile.id, 10))) {
         return callback(new Error('Github Id was not present in profile json'));
       }
 
-      // todo: classify database tables O_____o
-
       // check for existing account record
-      database.query('SELECT * FROM account_github WHERE github_id = $1', [profile.id], (err, result) => {
+      DatabaseTable.select('account_github', {
+        github_id: profile.id
+      }, (err, rows) => {
         if (err) {
           return callback(err);
         }
 
         // have logged in using github before...
-        if (result.rows.length === 1) {
-          const githubAccount = result.rows[0];
+        if (rows.length === 1) {
+          const githubAccount = rows[0];
 
           // finding associated cosmo account
-          database.query('SELECT * FROM account WHERE id = $1', [githubAccount.account], (err, result) => {
+          DatabaseTable.select('account', {
+            id: githubAccount.account
+          }, (err, rows) => {
             if (err) {
               return callback(err);
             }
 
             // this should not happen, since the cosmo account showed the associated id
-            if (!result.rows.length) {
+            if (!rows.length) {
               return callback(new Error('Cosmo account record not found for associated Github account'));
             }
 
-            const account = result.rows[0];
+            const account = rows[0];
 
             // record the login
-            database.query('INSERT INTO account_login (account, service, added) VALUES($1, \'github\', NOW())', [account.id], err => {
-              callback(err, account);
+            DatabaseTable.insert('account_login', {
+              account: account.id,
+              service: 'github',
+              added: DatabaseTable.literal('NOW()')
+            }, (err, rows) => {
+              callback(err, Array.isArray(rows) ? rows[0] : null);
             });
           });
           return;
         }
 
-        // todo: deal with github logins where cosmo user record already exists,
+        // todo: deal with github logins where account record already exists,
         // since the user logged in with another service
         // (need to lookup other records on email?)
         
         // need a cosmo account
-        database.query('INSERT INTO account (name, added) VALUES ($1, NOW()) RETURNING *', [profile.displayName], (err, result) => {
-          if (err) {
-            return callback(err);
-          }
+        DatabaseTable.insert('account', {
+          name: profile.displayName,
+          added: DatabaseTable.literal('NOW()')
+        }, (err, rows) => {
+          const account = rows[0];
 
-          const account = result.rows[0];
-
-          database.query(
-            'INSERT INTO account_github(github_id, account, username, name, email, photo, access_token, added) VALUES($1, $2, $3, $4, $5, $6, $7, NOW())',
-            [ profile.id, account.id, profile.username, profile.displayName, profile.emails[0].value, profile.avatar_url, accessToken ],
-            err => {
+          DatabaseTable.insert('account_github', {
+            github_id: profile.id,
+            account: account.id,
+            username: profile.username,
+            name: profile.displayName,
+            email: profile.emails[0].value,
+            photo: profile.avatar_url,
+            access_token: accessToken,
+            added: DatabaseTable.literal('NOW()')
+          }, err => {
               if (err) {
                 return callback(err);
               }
 
               // record the login
-              database.query('INSERT INTO account_login (account, service, added) VALUES($1, \'github\', NOW())', [account.id], err => {
+              DatabaseTable.insert('account_login', {
+                account: account.id,
+                service: 'github',
+                added: DatabaseTable.literal('NOW()')
+              }, err => {
                 callback(err, account);
               });
             }
