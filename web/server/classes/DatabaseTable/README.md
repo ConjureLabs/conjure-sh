@@ -106,6 +106,54 @@ DatabaseTable.update('account', {
 });
 ```
 
+#### Insert
+
+##### Using Constructor
+
+```js
+const account = new DatabaseTable('Account');
+
+// INSERT INTO account (name, email) VALUES ('Tim Marshall', 'tim@marshall.io');
+account.insert({
+  name: 'Tim Marshall',
+  email: 'tim@marshall.io'
+}, (err, rows) => {
+  // ...
+});
+
+// INSERT INTO account (name, email) VALUES ('Tim Marshall', 'tim@marshall.io'), ('John Newton', NULL);
+account.insert({
+  name: 'Tim Marshall',
+  email: 'tim@marshall.io'
+}, {
+  name: 'John Newton'
+}, (err, rows) => {
+  // ...
+});
+```
+
+##### Direct (static) call
+
+```js
+// INSERT INTO account (name, email) VALUES ('Tim Marshall', 'tim@marshall.io');
+DatabaseTable.insert('account', {
+  name: 'Tim Marshall',
+  email: 'tim@marshall.io'
+}, (err, rows) => {
+  // ...
+});
+
+// INSERT INTO account (name, email) VALUES ('Tim Marshall', 'tim@marshall.io'), ('John Newton', NULL);
+DatabaseTable.insert('account', {
+  name: 'Tim Marshall',
+  email: 'tim@marshall.io'
+}, {
+  name: 'John Newton'
+}, (err, rows) => {
+  // ...
+});
+```
+
 #### Delete
 
 ##### Using Constructor
