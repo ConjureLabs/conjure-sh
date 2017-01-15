@@ -211,3 +211,18 @@ DatabaseTable.delete('account', {
 });
 ```
 </details>
+
+#### Literal strings
+
+These are **not** escaped by the postgres module.
+Use only when needed, and never with user-inputted values.
+
+```js
+// INSERT INTO accoutn (name, added) VALUES ('Tim Marshall', NOW());
+DatabaseTable.insert('account', {
+  name: 'Tim Marshall',
+  added: DatabaseTable.literal('NOW()')
+}, (err, rows) => {
+  // ...
+});
+```

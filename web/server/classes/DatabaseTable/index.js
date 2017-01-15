@@ -1,10 +1,19 @@
 'use strict';
 
+// todo: tests!
+
 const slice = Array.prototype.slice;
 
 // todo: add a common prefix to any symbol constant?
 const queryCallback = Symbol('database.query callback');
 const staticProxy = Symbol('static method, proxy to instance method');
+
+// used to mark a string, to not be wrapped in an escaped string
+class DatabaseQueryLiteral extends String {
+  constructor(str) {
+    super(str);
+  }
+}
 
 module.exports = class DatabaseTable {
   constructor(tableName) {
@@ -95,6 +104,11 @@ module.exports = class DatabaseTable {
           continue;
         }
 
+        if (val instanceof DatabaseQueryLiteral) {
+          insertAssignments.push(val);
+          continue;
+        }
+
         queryValues.push(val);
         insertAssignments.push(`$${queryValues.length}`);
       }
@@ -130,12 +144,22 @@ module.exports = class DatabaseTable {
     const instance = new DatabaseTable(tableName);
     instance[methodName].apply(instance, args);
   }
+
+  static literal(str) {
+    return new DatabaseQueryLiteral(str);
+  }
 }
 
 function generateSqlKeyVals(separator, dict, valuesArray) {
   return Object.keys(dict)
     .map((key, i) => {
-      valuesArray.push(dict[key]);
+      const val = dict[key];
+
+      if (val instanceof DatabaseQueryLiteral) {
+        return `${key} = ${val}`;
+      }
+
+      valuesArray.push(val);
       return `${key} = $${valuesArray.length}`;
     })
     .join(separator);
