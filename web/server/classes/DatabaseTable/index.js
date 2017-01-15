@@ -48,6 +48,23 @@ module.exports = class DatabaseTable {
     return this[staticProxy]('update', arguments);
   }
 
+  delete(/* [constraints, ...,] callback */) {
+    const database = require('modules/database');
+
+    const args = slice.call(arguments);
+    const callback = args.pop(); // callback is assumed to always be last arg
+    const constraints = args; // anything left in arguments will be considered constraints
+    const queryValues = [];
+
+    const whereClause = generateWhereClause(constraints, queryValues);
+
+    database.query(`DELETE FROM ${this.tableName}${whereClause}`, queryValues, this[queryCallback]);
+  }
+
+  static delete() {
+    return this[staticProxy]('delete', arguments);
+  }
+
   [queryCallback](err, result) {
     if (err) {
       return callback(err)

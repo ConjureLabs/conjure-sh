@@ -105,3 +105,51 @@ DatabaseTable.update('account', {
   // ...
 });
 ```
+
+#### Delete
+
+##### Using Constructor
+
+```js
+const account = new DatabaseTable('Account');
+
+// DELETE FROM account;
+account.delete((err, rows) => {
+  // ...
+});
+
+// DELETE FROM account WHERE id = 1 AND name = 'Tim Marshall';
+account.delete({
+  id: 1,
+  name: 'Tim Marshall'
+}, (err, rows) => {
+  // ...
+});
+
+// DELETE FROM account WHERE (id = 1 AND name = 'Tim Marshall') OR (id = 2);
+accont.delete({
+  id: 1,
+  name: 'Tim Marshall'
+}, {
+  id: 2
+}, (err, rows) => {
+  // ...
+})
+```
+
+##### Direct (static) call
+
+```js
+// DELETE FROM account;
+DatabaseTable.delete('account', (err, rows) => {
+  // ...
+});
+
+// DELETE FROM account WHERE id = 1 AND name = 'Tim Marshall';
+DatabaseTable.delete('account', {
+  id: 1,
+  name: 'Tim Marshall'
+}, (err, rows) => {
+  // ...
+});
+```
