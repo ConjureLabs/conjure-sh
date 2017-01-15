@@ -16,7 +16,35 @@ router.get('/', (req, res, next) => {
     return next();
   }
 
-  res.render('landing');
+  res.render('landing', {
+    name: 'landing'
+  });
+});
+
+/*
+  May be logged into an account that no longer exists in our system
+  This will kick them out, back to the generic / landing
+ */
+router.get('/', (req, res, next) => {
+  // assuming req.isAuthenticated() === true, based on previous .get('/')
+  const DatabaseTable = require('classes/DatabaseTable');
+  const account = new DatabaseTable('account');
+
+  account.select({
+    id: req.user.id
+  }, (err, rows) => {
+    if (err) {
+      return next(err);
+    }
+
+    // record does not exist in our db - force logout
+    if (!rows.length) {
+      return res.redirect(302, '/logout');
+    }
+
+    // godspeed, señor
+    return next();
+  });
 });
 
 /*
@@ -26,6 +54,7 @@ router.get('/', (req, res, next) => {
   const DatabaseTable = require('classes/DatabaseTable');
   const accountGithub = new DatabaseTable('account_github');
 
+  // todo: assumes account has a github record in our db - we should have more handlers for services like bitbucket
   accountGithub.select({
     account: req.user.id
   }, (err, rows) => {
@@ -45,17 +74,15 @@ router.get('/', (req, res, next) => {
 
     const githubAccount = rows[0];
 
-    console.log(githubAccount);
-
     const github = require('octonode');
     const githubClient = github.client(githubAccount.access_token);
 
     githubClient.get('/user/orgs', {}, (err, status, body) => {
-      console.log(err);
-      console.log(status);
       console.log(body);
 
-      res.render('dashboard');
+      res.render('dashboard', {
+        name: 'dashboard'
+      });
     });
   });
 });
