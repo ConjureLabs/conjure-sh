@@ -24,7 +24,7 @@ router.get('/', (req, res, next) => {
  */
 router.get('/', (req, res, next) => {
   const DatabaseTable = require('classes/DatabaseTable');
-  const accountGithub = DatabaseTable('account_github');
+  const accountGithub = new DatabaseTable('account_github');
 
   accountGithub.select({
     account: req.user.id
@@ -34,12 +34,12 @@ router.get('/', (req, res, next) => {
     }
 
     // should not be possible
-    if (!result.rows.length) {
+    if (!rows.length) {
       return next(new Error('Could not find github account record'));
     }
 
     // should not be possible
-    if (result.rows.length > 1) {
+    if (rows.length > 1) {
       return next(new Error('Expected a single row for github account record, received multiple'));
     }
 
