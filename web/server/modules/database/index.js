@@ -30,6 +30,9 @@ function query() {
       callback.apply(callback, arguments);
     });
 
+    // todo: make the log require (at top) different between errors & this
+    // so DEBUG can be set on prod to *not* output sql
+    log.info(args[0]);
     client.query.apply(client, args);
   });
 }

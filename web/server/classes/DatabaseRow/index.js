@@ -28,7 +28,7 @@ module.exports = class DatabaseRow {
 
     // no .id, assuming it's a new row to insert
     if (this.id === undefined) {
-      return DatabaseTable.insert(this[rowTableName], this, (err, rows) {
+      return DatabaseTable.insert(this[rowTableName], this, (err, rows) => {
         if (err) {
           return callback(err);
         }

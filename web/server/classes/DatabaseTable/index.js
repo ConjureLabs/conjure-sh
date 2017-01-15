@@ -30,10 +30,10 @@ module.exports = class DatabaseTable {
 
     const whereClause = generateWhereClause(constraints, queryValues);
 
-    database.query(`SELECT * FROM ${this.tableName}${whereClause}`, queryValues, this[queryCallback]);
+    database.query(`SELECT * FROM ${this.tableName}${whereClause}`, queryValues, this[queryCallback](callback));
   }
 
-  static update() {
+  static select() {
     return this[staticProxy]('select', arguments);
   }
 
@@ -49,7 +49,7 @@ module.exports = class DatabaseTable {
     const updatesSql = generateSqlKeyVals(', ', updates, queryValues);
     const whereClause = generateWhereClause(constraints, queryValues);
 
-    database.query(`UPDATE ${this.tableName} SET ${updatesSql}${whereClause}`, queryValues, this[queryCallback]);
+    database.query(`UPDATE ${this.tableName} SET ${updatesSql}${whereClause}`, queryValues, this[queryCallback](callback));
   }
 
   static update() {
@@ -66,7 +66,7 @@ module.exports = class DatabaseTable {
 
     const whereClause = generateWhereClause(constraints, queryValues);
 
-    database.query(`DELETE FROM ${this.tableName}${whereClause}`, queryValues, this[queryCallback]);
+    database.query(`DELETE FROM ${this.tableName}${whereClause}`, queryValues, this[queryCallback](callback));
   }
 
   static delete() {
@@ -86,7 +86,7 @@ module.exports = class DatabaseTable {
 
     const columnNames = findAllColumnNames(newRows);
 
-    if (columnNames.has('id')) {
+    if (columnNames.includes('id')) {
       return callback(new Error('Cannot insert a row that has .id'));
     }
 
@@ -94,24 +94,26 @@ module.exports = class DatabaseTable {
     const queryValues = [];
 
     for (let i = 0; i < newRows.length; i++) {
-      const rewRowAssignment = [];
+      const newRowAssignment = [];
 
       for (let j = 0; j < columnNames.length; j++) {
-        const val = newRows[i][columnName];
+        const val = newRows[i][ columnNames[i] ];
 
         if (val === undefined) {
-          insertAssignments.push('NULL');
+          newRowAssignment.push('NULL');
           continue;
         }
 
         if (val instanceof DatabaseQueryLiteral) {
-          insertAssignments.push(val);
+          newRowAssignment.push(val);
           continue;
         }
 
         queryValues.push(val);
-        insertAssignments.push(`$${queryValues.length}`);
+        newRowAssignment.push(`$${queryValues.length}`);
       }
+
+      insertAssignments.push(newRowAssignment);
     }
 
     const insertAssignmentsFormatted = insertAssignments
@@ -120,26 +122,28 @@ module.exports = class DatabaseTable {
       })
       .join(', ');
 
-    database.query(`INSERT INTO ${this.tableName}(${columnNames.join(', ')}) VALUES ${insertAssignmentsFormatted} RETURNING *`, queryValues, this[queryCallback]);
+    database.query(`INSERT INTO ${this.tableName}(${columnNames.join(', ')}) VALUES ${insertAssignmentsFormatted} RETURNING *`, queryValues, this[queryCallback](callback));
   }
 
   static insert() {
     return this[staticProxy]('insert', arguments);
   }
 
-  [queryCallback](err, result) {
-    if (err) {
-      return callback(err)
-    }
+  [queryCallback](callback) {
+    return (err, result) => {
+      if (err) {
+        return callback(err)
+      }
 
-    const DatabaseRow = require('classes/DatabaseRow');
-    return callback(null, (result.rows || []).map(row => {
-      return new DatabaseRow(this.tableName, row);
-    }));
+      const DatabaseRow = require('classes/DatabaseRow');
+      return callback(null, (result.rows || []).map(row => {
+        return new DatabaseRow(this.tableName, row);
+      }));
+    };
   }
 
-  [staticProxy](methodName, arguments /* [ tableName, [constraints, ...,] callback ] */) {
-    const args = slice.call(arguments);
+  static [staticProxy](methodName, originalArgs /* [ tableName, [constraints, ...,] callback ] */) {
+    const args = slice.call(originalArgs);
     const tableName = args.shift();
     const instance = new DatabaseTable(tableName);
     instance[methodName].apply(instance, args);
@@ -194,7 +198,7 @@ function findAllColumnNames(rows) {
 
   for (let i = 0; i < rows.length; i++) {
     for (let key in rows) {
-      if (columnNames.has(key)) {
+      if (columnNames.includes(key)) {
         continue;
       }
 
