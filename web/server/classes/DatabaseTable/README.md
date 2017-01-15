@@ -54,9 +54,9 @@ DatabaseTable.select('account', {
 
 #### Update
 
+<details>
 ##### Using Constructor
 
-<details>
 ```js
 const account = new DatabaseTable('Account');
 
