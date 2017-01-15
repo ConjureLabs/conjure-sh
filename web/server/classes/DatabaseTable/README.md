@@ -4,6 +4,7 @@ This classes serves as a proxy to database tables, making it easier to select, i
 
 #### Select
 
+<details>
 ##### Using Constructor
 
 ```js
@@ -49,9 +50,13 @@ DatabaseTable.select('account', {
   // ...
 });
 ```
+</details>
 
 #### Update
 
+##### Using Constructor
+
+<details>
 ```js
 const account = new DatabaseTable('Account');
 
@@ -105,9 +110,11 @@ DatabaseTable.update('account', {
   // ...
 });
 ```
+</details>
 
 #### Insert
 
+<details>
 ##### Using Constructor
 
 ```js
@@ -153,9 +160,11 @@ DatabaseTable.insert('account', {
   // ...
 });
 ```
+</details>
 
 #### Delete
 
+<details>
 ##### Using Constructor
 
 ```js
@@ -201,3 +210,4 @@ DatabaseTable.delete('account', {
   // ...
 });
 ```
+</details>
