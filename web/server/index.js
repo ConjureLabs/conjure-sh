@@ -118,7 +118,7 @@ passport.use(
 
             // this should not happen, since the cosmo account showed the associated id
             if (!rows.length) {
-              return callback(new Error('Cosmo account record not found for associated Github account'));
+              return callback(new Error('Sentry account record not found for associated Github account'));
             }
 
             const account = rows[0];

@@ -1,4 +1,4 @@
-### Cosmo Web Server
+### Sentry Web Server
 
 #### Local Development
 
@@ -65,7 +65,7 @@ Cannot connect to the Docker daemon. Is the docker daemon running on this host?
 
 **Cause**:
 
-This is due to env variables not set, which are needed for the Docker daemon to work with the Cosmo docker machine.
+This is due to env variables not set, which are needed for the Docker daemon to work with the Sentry docker machine.
 
 **Solution**:
 
@@ -107,7 +107,7 @@ This happens often on OSX. Docker only runs on Linux, and OSX is Unix-based. So,
 **Solution**:
 
 1. Open VirtualBox
-2. Verify that the Cosmo VM is in the state `Running` (or else this may be a different problem)
+2. Verify that the Sentry VM is in the state `Running` (or else this may be a different problem)
 3. Right-click VM and select `Close -> Power Off`
 4. Run `docker-machine rm cosmo` - it should work this time around
 

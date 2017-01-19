@@ -1,4 +1,4 @@
-# CosmoCI
+# SentryCI
 
 ## Env Vars
 
