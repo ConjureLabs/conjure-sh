@@ -19,8 +19,8 @@ ENV NVM_DIR /usr/local/nvm
 # Create a profile so we can run NVM
 RUN touch $PROFILE
 ENV CONTAINER docker
-ENV DEBUG cosmo,cosmo:*
-ENV NODE_PATH /var/cosmo/web/server
+ENV DEBUG sentry,sentry:*
+ENV NODE_PATH /var/sentry/web/server
 ENV PORT 3000
 
 # node-gyp & more need the right setup

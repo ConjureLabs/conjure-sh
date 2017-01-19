@@ -1,5 +1,5 @@
 {
-  "name": "cosmoci",
+  "name": "sentryci",
   "version": "0.0.0",
   "description": "Sentry CI; CI++",
   "main": "index.js",

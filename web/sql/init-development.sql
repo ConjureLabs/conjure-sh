@@ -2,8 +2,8 @@
 
 \c postgres;
 
-CREATE DATABASE cosmo WITH OWNER cosmo_admin;
-\c cosmo;
+CREATE DATABASE sentry WITH OWNER sentry_admin;
+\c sentry;
 
 -- table definitions
 \i ../sql/tables/account.sql;

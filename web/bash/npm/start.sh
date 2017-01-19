@@ -12,7 +12,7 @@ if [ "$CONTAINER" != "docker" ]; then
 
   if [ "$NODE_ENV" != "production" ]; then
     # todo: fix this - it fails if the docker machine is not currently running
-    eval "$(docker-machine env cosmo)";
+    eval "$(docker-machine env sentry)";
 
     if [ ! -f /usr/local/etc/nginx/nginx.conf ]; then
       error "nginx is not installed - run \"brew install nginx\"";
@@ -21,7 +21,7 @@ if [ "$CONTAINER" != "docker" ]; then
 
     mkdir -p $CACHE_DIR/nginx;
     COSMO_NGINX_CONF_NEEDED=1;
-    COSMO_NGINX_NEW_IP=$(docker-machine ip cosmo);
+    COSMO_NGINX_NEW_IP=$(docker-machine ip sentry);
 
     sudo nginx -s stop 2>/dev/null;
 

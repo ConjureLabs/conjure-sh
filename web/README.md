@@ -33,7 +33,7 @@ If it dies, and you are within the Docker instance, simply `npm run` again to st
 When inside the running Docker instance,
 
 ```bash
-psql -U cosmo_admin -d cosmo
+psql -U sentry_admin -d sentry
 ```
 
 ##### NPM Commands
@@ -70,7 +70,7 @@ This is due to env variables not set, which are needed for the Docker daemon to 
 **Solution**:
 
 ```bash
-eval "$(docker-machine env cosmo)"
+eval "$(docker-machine env sentry)"
 ```
 
 ---
@@ -85,12 +85,12 @@ Be advised that this will trigger a Docker daemon restart which will stop runnin
 
 **Cause**:
 
-This is usually caused by a faulty docker machine. You can attempt to run `docker-machine regenerate-certs cosmo` as it suggests, but it may fail, saying something along the lines of `Something went wrong running an SSH command!`. So, unfortunately, you must kill the image altogether, and spin a new one up. This usually is caused by changing networks or restarting your computer.
+This is usually caused by a faulty docker machine. You can attempt to run `docker-machine regenerate-certs sentry` as it suggests, but it may fail, saying something along the lines of `Something went wrong running an SSH command!`. So, unfortunately, you must kill the image altogether, and spin a new one up. This usually is caused by changing networks or restarting your computer.
 
 **Solution**:
 
 ```bash
-docker-machine rm cosmo
+docker-machine rm sentry
 npm run build
 ```
 
@@ -109,14 +109,14 @@ This happens often on OSX. Docker only runs on Linux, and OSX is Unix-based. So,
 1. Open VirtualBox
 2. Verify that the Sentry VM is in the state `Running` (or else this may be a different problem)
 3. Right-click VM and select `Close -> Power Off`
-4. Run `docker-machine rm cosmo` - it should work this time around
+4. Run `docker-machine rm sentry` - it should work this time around
 
 ---
 
 **Problem**:
 
 ```
-error getting state for host cosmo: machine does not exist
+error getting state for host sentry: machine does not exist
 machine does not exist
 Error checking TLS connection: Error trying to get host state: machine does not exist
 Cannot connect to the Docker daemon. Is the docker daemon running on this host?
@@ -129,7 +129,7 @@ You probably removed the VirtualBox machine, but left the docker-machine referen
 **Solution**:
 
 ```bash
-docker-machine rm cosmo
+docker-machine rm sentry
 ```
 
 ---
@@ -146,4 +146,4 @@ You probably killed a terminal session with your Docker instance, but did not ac
 
 You can see running machines by `docker-machine ls`. Then:
 
-`docker-machine stop cosmo`
+`docker-machine stop sentry`

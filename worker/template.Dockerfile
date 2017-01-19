@@ -11,11 +11,11 @@ RUN wget -O ~/node-v6.9.0-linux-x64.tar.xz https://nodejs.org/dist/v6.9.0/node-v
 USER root
 ENV HOME /root
 ENV PROFILE /root/.profile
-ENV NODE_PATH /var/cosmo/code
+ENV NODE_PATH /var/sentry/code
 RUN mkdir -p /root/.ssh
 ADD id_rsa* /root/.ssh/
 ADD known_hosts /root/.ssh/
-WORKDIR /var/cosmo/code
+WORKDIR /var/sentry/code
 
 # basics
 RUN yum install -y git

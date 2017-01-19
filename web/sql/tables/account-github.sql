@@ -10,4 +10,4 @@ CREATE TABLE account_github (
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
-COMMENT ON TABLE account IS 'cosmo user records';
+COMMENT ON TABLE account IS 'sentry user records';

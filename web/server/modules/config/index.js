@@ -8,8 +8,8 @@ module.exports = {
 
   database: {
     pg: {
-      user: 'cosmo_admin',
-      database: 'cosmo',
+      user: 'sentry_admin',
+      database: 'sentry',
       password: null,
       host: 'localhost',
       port: 5432,

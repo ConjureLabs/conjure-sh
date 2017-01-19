@@ -14,10 +14,10 @@ fi
 npm run-script compile --watch > $APP_DIR./webpack-build.log 2>/dev/null &
 PIDS[0]=$!;
 
-eval "$(docker-machine env cosmo)";
+eval "$(docker-machine env sentry)";
 eval "$(cd $APP_DIR; touch .profile; cat .profile)";
 
-APP_IP=$(docker-machine ip cosmo);
+APP_IP=$(docker-machine ip sentry);
 
 # we read in .profile, but now we have to pass the env vars to docker
 # to do this automagically, we're going to parse out the env names
@@ -51,7 +51,7 @@ while read p; do
 done < $CACHE_DIR/.profile.2.tmp;
 rm $CACHE_DIR/.profile.2.tmp;
 
-DOCKER_RUN_COMMAND+='cosmo/latest bash;';
+DOCKER_RUN_COMMAND+='sentry/latest bash;';
 
 progress "Connecting to Docker";
 
