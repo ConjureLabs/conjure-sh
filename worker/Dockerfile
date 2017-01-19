@@ -3,9 +3,9 @@ FROM centos:centos7
 ARG repo
 ARG branch="master"
 ARG test="npm test"
-ENV COSMOCI_REPO=$repo
-ENV COSMOCI_BRANCH=$branch
-ENV COSMOCI_TEST=$test
+ENV SENTRYCI_REPO=$repo
+ENV SENTRYCI_BRANCH=$branch
+ENV SENTRYCI_TEST=$test
 
 # assuming env is node
 RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
