@@ -27,7 +27,7 @@ class Route extends Array {
     }
 
     for (let i = 0; i < this.length; i++) {
-      router[verb](this[i]);
+      router[ verb.toLowerCase() ](this[i]);
     }
 
     return router;

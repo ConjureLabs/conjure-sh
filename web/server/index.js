@@ -185,7 +185,8 @@ server.use((req, res, next) => {
   next();
 });
 
-server.use(require('./routes'));
+server.use('/api', setup.routes.api);
+server.use(setup.routes.views);
 
 server.use((err, req, res, next) => {
   if (err) {
