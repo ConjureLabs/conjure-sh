@@ -17,3 +17,23 @@ route.push((req, res, next) => {
 
 module.exports = route;
 ```
+
+#### Options
+
+##### Blacklisted Env Vars
+
+If you want to block a route from being using when an ENV var is set, you can do so like:
+
+```js
+const route = new Route({
+  blacklistedEnv: {
+    NODE_ENV: ['test', 'production']
+  }
+});
+
+route.push((req, res, next) => {
+  // this will not be accessible if process.env.NODE_ENV is 'test' or 'production'
+});
+
+module.exports = route;
+```
