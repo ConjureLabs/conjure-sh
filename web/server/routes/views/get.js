@@ -1,17 +1,13 @@
 'use strict';
 
-const config = require('modules/config');
-const express = require('express');
-const passport = require('passport');
-const GitHubStrategy = require('passport-github').Strategy;
-const log = require('modules/log')('routes');
+const Route = require('classes/Route');
 
-const router = express.Router();
+const route = new Route();
 
 /*
   Logged-out landing page
  */
-router.get('/', (req, res, next) => {
+route.push(req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
@@ -25,7 +21,7 @@ router.get('/', (req, res, next) => {
   May be logged into an account that no longer exists in our system
   This will kick them out, back to the generic / landing
  */
-router.get('/', (req, res, next) => {
+route.push((req, res, next) => {
   // assuming req.isAuthenticated() === true, based on previous .get('/')
   const DatabaseTable = require('classes/DatabaseTable');
   const account = new DatabaseTable('account');
@@ -50,7 +46,7 @@ router.get('/', (req, res, next) => {
 /*
   Dashboard
  */
-router.get('/', (req, res, next) => {
+route.push((req, res, next) => {
   const DatabaseTable = require('classes/DatabaseTable');
   const accountGithub = new DatabaseTable('account_github');
 
@@ -87,46 +83,4 @@ router.get('/', (req, res, next) => {
   });
 });
 
-/*
-  Passport session logout
- */
-router.get('/logout', (req, res) => {
-  req.logout();
-  res.redirect('/');
-});
-
-/*
-  dev endpoints to see who i am, etc
- */
-// todo: add a handler to each of these that just calls next() if === production
-if (process.env.NODE_ENV !== 'production') {
-  router.get('/me', (req, res) => {
-    res.send({
-      authed: req.isAuthenticated(),
-      user: req.user
-    });
-  });
-
-  router.get('/env', (req, res, next) => {
-    console.dir(process.env);
-    return next();
-  });
-}
-
-/*
-  Auth callback
- */
-router.get(
-  '/auth/github/callback',
-  passport.authenticate('github', {
-    failureRedirect: '/', // todo: /login ?
-    successRedirect: '/'
-  })
-);
-
-/*
-  Auth initiation
- */
-router.post('/auth/github', passport.authenticate('github'));
-
-module.exports = router;
+module.exports = route;
