@@ -6,8 +6,12 @@ const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const isDev = process.env.NODE_ENV === 'development';
 const cssModuleNamingConvention = isDev ? '[path]__[local]' : '[hash:base64:5]';
 
+const dirs = {
+  client: path.resolve(__dirname, 'client')
+};
+
 module.exports = {
-  context: path.resolve(__dirname, 'client'),
+  context: dirs.client,
   entry: {
     dashboard: ['babel-polyfill', './views/Dashboard'],
     landing: ['babel-polyfill', './views/Landing']
@@ -23,7 +27,7 @@ module.exports = {
     }, {
       test: /\.js$/,
       exclude: 'node_modules',
-      include: path.resolve(__dirname, 'client'),
+      include: dirs.client,
       loader: 'babel',
       query: {
         plugins: ['transform-runtime'],
@@ -32,12 +36,18 @@ module.exports = {
     }, {
       test: /\.styl$/,
       exclude: 'node_modules',
-      include: path.resolve(__dirname, 'client'),
+      include: dirs.client,
       loader: `style!css?modules&localIdentName=${cssModuleNamingConvention}!stylus`
     }]
   },
   resolve: {
-    root: path.resolve(__dirname, 'client')
+    root: dirs.client,
+    alias: {
+      '~': path.resolve(dirs.client, 'components')
+    }
+  },
+  node: {
+    __dirname: true
   },
   plugins: isDev ? [] : [ new UglifyJsPlugin() ],
   keepalive: false,

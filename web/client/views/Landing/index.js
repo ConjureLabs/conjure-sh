@@ -36,3 +36,15 @@ class Landing extends Component {
     );
   }
 }
+
+const routes = [{
+  path: '/',
+  indexRoute: {
+    component: Landing
+  }
+}];
+
+ReactDOM.render(
+  <Router history={browserHistory} routes={routes}/>,
+  document.getElementById('container')
+);
