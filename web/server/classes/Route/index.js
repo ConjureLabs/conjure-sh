@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('modules/log')('Route');
+
 class Route extends Array {
   constructor(options) {
     super();
@@ -29,6 +31,8 @@ class Route extends Array {
     }
 
     for (let i = 0; i < this.length; i++) {
+      log.info(verb.toUpperCase(), expressPath);
+
       router[ verb.toLowerCase() ](expressPath, this[i]);
     }
 

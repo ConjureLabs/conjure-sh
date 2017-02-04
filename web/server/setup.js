@@ -17,8 +17,9 @@ const viewsRoutesDir = path.resolve(__dirname, 'routes', 'views');
 const jsFileExt = /\.js$/;
 const startingDollarSign = /^\$/;
 
-function crawlRoutesDir(dirpath, uriPathTokens) {
-  if (arguments.length === 1) {
+// todo: remove ignoreCurrentDir logic, find a cleaner solution
+function crawlRoutesDir(ignoreCurrentDir, dirpath, uriPathTokens) {
+  if (arguments.length === 2) {
     // at first call, only a directory path is given
     uriPathTokens = [];
   }
@@ -26,8 +27,10 @@ function crawlRoutesDir(dirpath, uriPathTokens) {
   // adding to the tokens of the express route, based on the current directory being crawled
   // a folder starting with a $ will be considered a req param
   // (The : used in express does not work well in directory naming)
-  const base = path.parse(dirpath).base;
-  uriPathTokens.push(base.replace(startingDollarSign, ':'));
+  if (ignoreCurrentDir !== true) {
+    const base = path.parse(dirpath).base;
+    uriPathTokens.push(base.replace(startingDollarSign, ':'));
+  }
 
   const list = fs.readdirSync(dirpath);
   const routes = [];
@@ -47,7 +50,7 @@ function crawlRoutesDir(dirpath, uriPathTokens) {
     }
 
     if (stat.isDirectory()) {
-      const subdirRoutes = crawlRoutesDir(path.resolve(dirpath, list[i]), uriPathTokens);
+      const subdirRoutes = crawlRoutesDir(false, path.resolve(dirpath, list[i]), uriPathTokens.slice());
 
       for (let j = 0; j < subdirRoutes.length; j++) {
         routes.push(subdirRoutes[j]);
@@ -58,7 +61,7 @@ function crawlRoutesDir(dirpath, uriPathTokens) {
   for (let i = 0; i < files.length; i++) {
     const verb = files[i].replace(jsFileExt, '');
     const individualRoute = require(path.resolve(dirpath, files[i]));
-    routes.push(individualRoute.expressRouter(verb, uriPathTokens.join('/')));
+    routes.push(individualRoute.expressRouter(verb, '/' + uriPathTokens.join('/')));
   }
   
   return routes;
@@ -68,7 +71,7 @@ log.timeEnd('finished setup');
 
 module.exports = {
   routes: {
-    api: crawlRoutesDir(apiRoutesDir),
-    views: crawlRoutesDir(viewsRoutesDir)
+    api: crawlRoutesDir(false, apiRoutesDir),
+    views: crawlRoutesDir(true, viewsRoutesDir)
   }
 };
