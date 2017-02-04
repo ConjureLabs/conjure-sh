@@ -7,7 +7,7 @@ const route = new Route();
 /*
   Logged-out landing page
  */
-route.push(req, res, next) => {
+route.push((req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }

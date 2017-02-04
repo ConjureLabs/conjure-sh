@@ -1,7 +1,9 @@
 'use strict';
 
 class Route extends Array {
-  initialize(options) {
+  constructor(options) {
+    super();
+
     this.suppressedRoutes = false;
 
     options = options || {};
@@ -18,7 +20,7 @@ class Route extends Array {
     }
   }
 
-  expressRouter(verb) {
+  expressRouter(verb, expressPath) {
     const express = require('express');
     const router = express.Router();
 
@@ -27,7 +29,7 @@ class Route extends Array {
     }
 
     for (let i = 0; i < this.length; i++) {
-      router[ verb.toLowerCase() ](this[i]);
+      router[ verb.toLowerCase() ](expressPath, this[i]);
     }
 
     return router;

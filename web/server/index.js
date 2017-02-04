@@ -1,7 +1,7 @@
 'use strict';
 
 // first running any synchronous setup
-require('./setup');
+const setup = require('./setup');
 
 const config = require('modules/config');
 const express = require('express');

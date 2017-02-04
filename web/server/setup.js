@@ -6,13 +6,29 @@
 
 const fs = require('fs');
 const path = require('path');
+const log = require('modules/log')();
+
+log.info('beginning setup');
+log.timeStart('finished setup');
 
 // crawling routes
 const apiRoutesDir = path.resolve(__dirname, 'routes', 'api');
 const viewsRoutesDir = path.resolve(__dirname, 'routes', 'views');
 const jsFileExt = /\.js$/;
+const startingDollarSign = /^\$/;
 
-function crawlRoutesDir(dirpath) {
+function crawlRoutesDir(dirpath, uriPathTokens) {
+  if (arguments.length === 1) {
+    // at first call, only a directory path is given
+    uriPathTokens = [];
+  }
+
+  // adding to the tokens of the express route, based on the current directory being crawled
+  // a folder starting with a $ will be considered a req param
+  // (The : used in express does not work well in directory naming)
+  const base = path.parse(dirpath).base;
+  uriPathTokens.push(base.replace(startingDollarSign, ':'));
+
   const list = fs.readdirSync(dirpath);
   const routes = [];
   const files = [];
@@ -31,7 +47,7 @@ function crawlRoutesDir(dirpath) {
     }
 
     if (stat.isDirectory()) {
-      const subdirRoutes = crawlRoutesDir(path.resolve(dirpath, list[i]));
+      const subdirRoutes = crawlRoutesDir(path.resolve(dirpath, list[i]), uriPathTokens);
 
       for (let j = 0; j < subdirRoutes.length; j++) {
         routes.push(subdirRoutes[j]);
@@ -42,11 +58,13 @@ function crawlRoutesDir(dirpath) {
   for (let i = 0; i < files.length; i++) {
     const verb = files[i].replace(jsFileExt, '');
     const individualRoute = require(path.resolve(dirpath, files[i]));
-    routes.push(individualRoute.expressRouter(verb));
+    routes.push(individualRoute.expressRouter(verb, uriPathTokens.join('/')));
   }
   
   return routes;
 }
+
+log.timeEnd('finished setup');
 
 module.exports = {
   routes: {
