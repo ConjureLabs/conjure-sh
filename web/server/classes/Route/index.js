@@ -33,3 +33,5 @@ class Route extends Array {
     return router;
   }
 }
+
+module.exports = Route;
