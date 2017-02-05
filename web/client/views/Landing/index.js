@@ -12,7 +12,8 @@ class Landing extends Component {
     this.form = null; // placehoder for form el ref
   }
 
-  [submitForm]() {
+  [submitForm](e) {
+    e.preventDefault();
     this.form.submit();
   }
 
@@ -34,7 +35,7 @@ class Landing extends Component {
               <li className={styles.item}>
                 <a
                   className={styles.link}
-                  onClick={this[submitForm]}
+                  onClick={this[submitForm].bind(this)}
                   href=''
                 >
                   Sign In
@@ -45,7 +46,7 @@ class Landing extends Component {
                 <Button
                   size='small'
                   color='black'
-                  onClick={this[submitForm]}
+                  onClick={this[submitForm].bind(this)}
                 >
                   Sign Up
                 </Button>
@@ -61,7 +62,7 @@ class Landing extends Component {
                 size='large'
                 className={styles.cta}
                 color='peach'
-                onClick={this[submitForm]}
+                onClick={this[submitForm].bind(this)}
               >
                 Sign Up
               </Button>

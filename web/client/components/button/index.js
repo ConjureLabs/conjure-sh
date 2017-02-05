@@ -2,7 +2,17 @@ import { Component, PropTypes } from 'react';
 import styles from './styles.styl';
 import classnames from 'classnames';
 
+const handleOnClick = Symbol('handle defined onClick');
+
 export default class Button extends Component {
+  [handleOnClick]() {
+    const { onClick } = this.props;
+
+    if (onClick) {
+      onClick(new Event('Button Clicked'));
+    }
+  }
+
   render() {
     const { className, children, color, size } = this.props;
 
@@ -14,7 +24,10 @@ export default class Button extends Component {
     );
 
     return (
-      <span className={rootClasses}>
+      <span
+        className={rootClasses}
+        onClick={this[handleOnClick].bind(this)}
+      >
         <span className={styles.label}>
           {children}
         </span>
@@ -27,6 +40,8 @@ export default class Button extends Component {
       'black',
       'peach'
     ]).isRequired,
+
+    onClick: PropTypes.func,
 
     size: PropTypes.oneOf([
       'large',
