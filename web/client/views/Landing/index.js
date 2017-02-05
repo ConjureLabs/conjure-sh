@@ -28,7 +28,7 @@ class Landing extends Component {
 
         <header className={styles.header}>
           <nav className={styles.navigation}>
-            <h1 className={styles.sentry}>Sentry CI</h1>
+            <h1 className={styles.serviceName}>Sentry CI</h1>
 
             <ol className={styles.linkslist}>
               <li className={styles.item}>
