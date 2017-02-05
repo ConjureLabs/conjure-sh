@@ -30,9 +30,10 @@ class Landing extends Component {
           <nav className={styles.navigation}>
             <h1 className={styles.sentry}>Sentry CI</h1>
 
-            <ol className={styles.links}>
+            <ol className={styles.linkslist}>
               <li className={styles.item}>
                 <a
+                  className={styles.link}
                   onClick={this[submitForm]}
                   href=''
                 >
