@@ -10,7 +10,7 @@ class Landing extends Component {
       <div className={styles.root}>
         <header className={styles.header}>
           <nav className={styles.navigation}>
-            <h1>Sentry CI</h1>
+            <h1 className={styles.sentry}>Sentry CI</h1>
 
             <ol className={styles.links}>
               <li className={styles.item}>
@@ -20,16 +20,28 @@ class Landing extends Component {
               </li>
 
               <li className={styles.item}>
-                <Button>Sign Up</Button>
+                <Button
+                  size='small'
+                  color='black'
+                >
+                  Sign Up
+                </Button>
               </li>
             </ol>
           </nav>
 
-          <p className={styles.firstImpression}>Test better. Deploy faster.</p>
+          <div className={styles.ctaContainer}>
+            <p className={styles.firstImpression}>Test better. Deploy faster.</p>
 
-          <div className={styles.cta}>
-            <Button>Sign Up</Button>
-            <sub>for free</sub>
+            <div className={styles.cta}>
+              <Button
+                size='large'
+                color='peach'
+              >
+                Sign Up
+              </Button>
+              <sub>for free</sub>
+            </div>
           </div>
         </header>
       </div>

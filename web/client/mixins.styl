@@ -1,3 +1,8 @@
+box-shadow()
+  -webkit-box-shadow: arguments
+  -moz-box-shadow: arguments
+  box-shadow: arguments
+  
 disableSelect()
   -webkit-touch-callout: none
   -webkit-user-select: none
@@ -5,3 +10,12 @@ disableSelect()
   -moz-user-select: none
   -ms-user-select: none
   user-select: none
+
+gradient(from = #000, to = #EEE)
+  background:  from
+  background-image: -webkit-gradient(linear, left top, left bottom, from(from), to(to))
+  background-image: -webkit-linear-gradient(top, from,  to)
+  background-image: -moz-linear-gradient(top, from, to)
+  background-image: -ms-linear-gradient(top, from, to)
+  background-image: -o-linear-gradient(top, from, to)
+  background-image: linear-gradient(top, from, to)
