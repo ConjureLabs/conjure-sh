@@ -15,7 +15,7 @@ export default class Button extends Component {
     );
   }
 
-  propTypes = {
+  static propTypes = {
     color: PropTypes.oneOf([
       'black',
       'peach'

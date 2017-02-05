@@ -1,41 +1,42 @@
 @import '../../framework.styl'
 
 .root
-  // assuming large tan button
-  $bgColorTop = #fffaef
-  $bgColorBottom = #f9dcbd
-  $fontColor = #575653
-  $fontSize = 2.4rem
-  $height = 6.5rem
-  $width = 29rem
+  // styles have initial state of a large peach button
+  border-radius: 0.8rem
+  box-shadow: 0 0.2rem 0.3rem rgba(#000, .24)
+  cursor: pointer
+  display: inline-block
+  gradient(#fffaef, #f9dcbd)
+  height: 6.5rem
+  text-align: center
+  width: 29rem
+
+  .label
+    color: #575653
+    font-size: 2.4rem
+    font-weight: bold
+    line-height: 6.5rem
 
   /**
     Color alterations
   **/
   &.color_black
-    $bgColorTop = #5d5d5d
-    $bgColorBottom = #3a3a3a
-    $fontColor = #ddd
-    $fontSize = 1rem
+    gradient(rgba(#5d5d5d, .72), rgba(#3a3a3a, .72))
+
+    &:hover
+      gradient(#5d5d5d, #3a3a3a)
+
+    .label
+      color: #ddd
+      font-size: 1rem
 
   /**
     Size alterations
   **/
   &.size_small
-    $height = 3.2rem
-    $width = 9rem
-
-  border-radius: 0.8rem
-  box-shadow: 0 0.2rem 0.3rem rgba(#000, .24)
-  cursor: pointer
-  display: inline-block
-  gradient($bgColorTop, $fffaef)
-  height: $height
-  text-align: center
-  width: $width
-
-  .label
-    color: $fontColor
-    font-size: $fontSize
-    font-weight: bold
-    line-height: $height
+    height: 3.2rem
+    width: 9rem
+    
+    .label
+      font-weight: normal
+      line-height: 3.2rem
