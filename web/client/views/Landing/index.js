@@ -4,9 +4,27 @@ import { Router, Route, browserHistory, Link } from 'react-router';
 import styles from './styles.styl';
 import Button from '~/Button';
 
+const submitForm = Symbol('submit sign in/up form');
+
 class Landing extends Component {
+  constructor(props) {
+    super(props);
+    this.form = null; // placehoder for form el ref
+  }
+
+  [submitForm]() {
+    this.form.submit();
+  }
+
   render() {
     return (
+      <form
+        action='/auth/github'
+        className={styles.trueForm}
+        method='post'
+        ref={form => this.form = form}
+      />
+
       <div className={styles.root}>
         <header className={styles.header}>
           <nav className={styles.navigation}>
@@ -14,15 +32,19 @@ class Landing extends Component {
 
             <ol className={styles.links}>
               <li className={styles.item}>
-                <form action='/auth/github' method='post'>
-                  <button type='submit'>Sign In</button>
-                </form>
+                <a
+                  onclick={this[submitForm]}
+                  href=''
+                >
+                  Sign In
+                </a>
               </li>
 
               <li className={styles.item}>
                 <Button
                   size='small'
                   color='black'
+                  onclick={this[submitForm]}
                 >
                   Sign Up
                 </Button>
@@ -38,6 +60,7 @@ class Landing extends Component {
                 size='large'
                 className={styles.cta}
                 color='peach'
+                onclick={this[submitForm]}
               >
                 Sign Up
               </Button>
