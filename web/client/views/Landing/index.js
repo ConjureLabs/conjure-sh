@@ -40,7 +40,7 @@ class Landing extends Component {
               >
                 Sign Up
               </Button>
-              <sub>for free</sub>
+              <sub className={styles.info}>for free</sub>
             </div>
           </div>
         </header>
