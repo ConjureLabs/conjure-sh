@@ -18,14 +18,14 @@ class Landing extends Component {
 
   render() {
     return (
-      <form
-        action='/auth/github'
-        className={styles.trueForm}
-        method='post'
-        ref={form => this.form = form}
-      />
-
       <div className={styles.root}>
+        <form
+          action='/auth/github'
+          className={styles.trueForm}
+          method='post'
+          ref={form => this.form = form}
+        />
+
         <header className={styles.header}>
           <nav className={styles.navigation}>
             <h1 className={styles.sentry}>Sentry CI</h1>
@@ -33,7 +33,7 @@ class Landing extends Component {
             <ol className={styles.links}>
               <li className={styles.item}>
                 <a
-                  onclick={this[submitForm]}
+                  onClick={this[submitForm]}
                   href=''
                 >
                   Sign In
@@ -44,7 +44,7 @@ class Landing extends Component {
                 <Button
                   size='small'
                   color='black'
-                  onclick={this[submitForm]}
+                  onClick={this[submitForm]}
                 >
                   Sign Up
                 </Button>
@@ -60,7 +60,7 @@ class Landing extends Component {
                 size='large'
                 className={styles.cta}
                 color='peach'
-                onclick={this[submitForm]}
+                onClick={this[submitForm]}
               >
                 Sign Up
               </Button>
