@@ -44,6 +44,8 @@ class Landing extends Component {
               <sub className={styles.info}>for free</sub>
             </div>
           </div>
+
+          <div className={styles.browserTeaser} />
         </header>
       </div>
     );
