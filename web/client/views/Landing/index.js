@@ -33,9 +33,10 @@ class Landing extends Component {
           <div className={styles.ctaContainer}>
             <p className={styles.firstImpression}>Test better. Deploy faster.</p>
 
-            <div className={styles.cta}>
+            <div>
               <Button
                 size='large'
+                className={styles.cta}
                 color='peach'
               >
                 Sign Up
