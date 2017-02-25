@@ -15,4 +15,4 @@ DOCKERFILE_CONTENT=$(sed "s/<BRANCH>/$TARGET_BRANCH/g" <<< "$DOCKERFILE_CONTENT"
 DOCKERFILE_CONTENT=$(sed "s/<SETUP>/$TARGET_SETUP/g" <<< "$DOCKERFILE_CONTENT");
 sed "s/<TEST>/$TARGET_TEST/g" <<< "$DOCKERFILE_CONTENT" > "$PROJECT_DIR/current.Dockerfile";
 
-docker build -t "sentryci:latest" -f "$PROJECT_DIR/current.Dockerfile" .;
+docker build -t "voyant:latest" -f "$PROJECT_DIR/current.Dockerfile" .;

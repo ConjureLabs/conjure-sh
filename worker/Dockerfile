@@ -3,9 +3,9 @@ FROM centos:centos7
 ARG repo
 ARG branch="master"
 ARG test="npm test"
-ENV SENTRYCI_REPO=$repo
-ENV SENTRYCI_BRANCH=$branch
-ENV SENTRYCI_TEST=$test
+ENV VOYANT_REPO=$repo
+ENV VOYANT_BRANCH=$branch
+ENV VOYANT_TEST=$test
 
 # assuming env is node
 RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
@@ -17,11 +17,11 @@ RUN wget -O ~/node-v6.9.0-linux-x64.tar.xz https://nodejs.org/dist/v6.9.0/node-v
 USER root
 ENV HOME /root
 ENV PROFILE /root/.profile
-ENV NODE_PATH /var/sentry/code
+ENV NODE_PATH /var/voyant/code
 RUN mkdir -p /root/.ssh
 ADD id_rsa* /root/.ssh/
 ADD known_hosts /root/.ssh/
-WORKDIR /var/sentry/code
+WORKDIR /var/voyant/code
 
 # basics
 # RUN rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
