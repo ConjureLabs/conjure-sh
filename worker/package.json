@@ -1,7 +1,7 @@
 {
   "name": "sentryci",
   "version": "0.0.0",
-  "description": "Sentry CI; CI++",
+  "description": "Voyant",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

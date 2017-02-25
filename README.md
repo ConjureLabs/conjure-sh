@@ -1,4 +1,6 @@
-# SentryCI
+# Voyant
+
+Easily test branches, without altering your local.
 
 ## Env Vars
 

@@ -19,7 +19,7 @@ if ! hash createuser; then
   exit 1;
 fi
 
-sudo su - postgres -c "createuser --createdb --adduser --no-password sentry_admin";
+sudo su - postgres -c "createuser --createdb --adduser --no-password voyant_admin";
 
 cd $APP_DIR/sql/;
-psql postgres --username=sentry_admin -w --file="init-$NODE_ENV.sql" --quiet;
+psql postgres --username=voyant_admin -w --file="init-$NODE_ENV.sql" --quiet;

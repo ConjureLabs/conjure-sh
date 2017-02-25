@@ -1,4 +1,4 @@
-# SentryCI
+# Voyant
 
 ## Dockerfile
 

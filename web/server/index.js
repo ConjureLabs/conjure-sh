@@ -51,7 +51,7 @@ const hour = 60 * minute;
 const day = 24 * hour;
 
 server.use(cookieSession({
-  cookieName: 'sentryci',
+  cookieName: 'voyant',
   secret: 'LYU.yxn^E0T$TvklkLzxdg$$#q!vI1sJAoSgI<rl<LZumyX*@@@!blJ<4wYzNXOl',
   duration: 8 * day, // 8 days = 1 week + 1 day, enough that a 5day worker will not get kicked
   cookie: {
@@ -108,7 +108,7 @@ passport.use(
         if (rows.length === 1) {
           const githubAccount = rows[0];
 
-          // finding associated sentry account
+          // finding associated voyant account
           DatabaseTable.select('account', {
             id: githubAccount.account
           }, (err, rows) => {
@@ -116,9 +116,9 @@ passport.use(
               return callback(err);
             }
 
-            // this should not happen, since the sentry account showed the associated id
+            // this should not happen, since the voyant account showed the associated id
             if (!rows.length) {
-              return callback(new Error('Sentry account record not found for associated Github account'));
+              return callback(new Error('Voyant account record not found for associated Github account'));
             }
 
             const account = rows[0];
@@ -139,7 +139,7 @@ passport.use(
         // since the user logged in with another service
         // (need to lookup other records on email?)
         
-        // need a sentry account
+        // need a voyant account
         DatabaseTable.insert('account', {
           name: profile.displayName,
           added: DatabaseTable.literal('NOW()')

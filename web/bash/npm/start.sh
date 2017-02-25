@@ -12,7 +12,7 @@ if [ "$CONTAINER" != "docker" ]; then
 
   if [ "$NODE_ENV" != "production" ]; then
     # todo: fix this - it fails if the docker machine is not currently running
-    eval "$(docker-machine env sentry)";
+    eval "$(docker-machine env voyant)";
 
     if [ ! -f /usr/local/etc/nginx/nginx.conf ]; then
       error "nginx is not installed - run \"brew install nginx\"";
@@ -20,33 +20,33 @@ if [ "$CONTAINER" != "docker" ]; then
     fi
 
     mkdir -p $CACHE_DIR/nginx;
-    SENTRY_NGINX_CONF_NEEDED=1;
-    SENTRY_NGINX_NEW_IP=$(docker-machine ip sentry);
+    VOYANT_NGINX_CONF_NEEDED=1;
+    VOYANT_NGINX_NEW_IP=$(docker-machine ip voyant);
 
     sudo nginx -s stop 2>/dev/null;
 
     if [ -f $CACHE_DIR/nginx/current-ip ]; then
-      SENTRY_NGINX_CURRENT_IP=$(cat $CACHE_DIR/nginx/current-ip);
-      if [ "$SENTRY_NGINX_NEW_IP" == "$SENTRY_NGINX_CURRENT_IP" ]; then
-        SENTRY_NGINX_CONF_NEEDED=0;
+      VOYANT_NGINX_CURRENT_IP=$(cat $CACHE_DIR/nginx/current-ip);
+      if [ "$VOYANT_NGINX_NEW_IP" == "$VOYANT_NGINX_CURRENT_IP" ]; then
+        VOYANT_NGINX_CONF_NEEDED=0;
       fi
     fi
 
-    if [ $SENTRY_NGINX_CONF_NEEDED == 1 ]; then
+    if [ $VOYANT_NGINX_CONF_NEEDED == 1 ]; then
       progress "Reconfiguring and restarting Nginx";
 
       # always backing up the nginx config
       cp /usr/local/etc/nginx/nginx.conf $CACHE_DIR/nginx/nginx.conf.bk
 
-      SENTRY_NGINX_CONF_COUNT=$(cat /usr/local/etc/nginx/nginx.conf | grep "# < SENTRY CONF " | wc -l);
-      if [ $SENTRY_NGINX_CONF_COUNT == 0 ]; then
+      VOYANT_NGINX_CONF_COUNT=$(cat /usr/local/etc/nginx/nginx.conf | grep "# < VOYANT CONF " | wc -l);
+      if [ $VOYANT_NGINX_CONF_COUNT == 0 ]; then
         # config for this app has not yet been added to nginx
         # doing that now
         # this is assuming the last {} block of the nginx config is for http - may have to update this later
         sed '$s/\}/\
-  # < SENTRY CONF START >\
+  # < VOYANT CONF START >\
   \
-  # < SENTRY CONF END >\
+  # < VOYANT CONF END >\
   \
   }/' /usr/local/etc/nginx/nginx.conf > $CACHE_DIR/nginx/tmp.conf;
         mv $CACHE_DIR/nginx/tmp.conf /usr/local/etc/nginx/nginx.conf;
@@ -54,14 +54,14 @@ if [ "$CONTAINER" != "docker" ]; then
 
       echo $APP_IP;
 
-      # find SENTRY CONF block, and replacing it with the new IP needed
+      # find VOYANT CONF block, and replacing it with the new IP needed
       cp /usr/local/etc/nginx/nginx.conf $CACHE_DIR/nginx/tmp.conf;
-      SENTRY_NGINX_CONF_START=$(grep -n '# < SENTRY CONF START >' $CACHE_DIR/nginx/tmp.conf | cut -d: -f 1);
-      SENTRY_NGINX_CONF_END=$(grep -n '# < SENTRY CONF END >' $CACHE_DIR/nginx/tmp.conf | cut -d: -f 1);
+      VOYANT_NGINX_CONF_START=$(grep -n '# < VOYANT CONF START >' $CACHE_DIR/nginx/tmp.conf | cut -d: -f 1);
+      VOYANT_NGINX_CONF_END=$(grep -n '# < VOYANT CONF END >' $CACHE_DIR/nginx/tmp.conf | cut -d: -f 1);
       {
-        head -n $(($SENTRY_NGINX_CONF_START-1)) $CACHE_DIR/nginx/tmp.conf
-        sed "s/<APP_IP>/$SENTRY_NGINX_NEW_IP/" < $APP_DIR/server/conf/nginx-server-template.conf
-        tail -n $(($(wc -l < $CACHE_DIR/nginx/tmp.conf)-$SENTRY_NGINX_CONF_END)) $CACHE_DIR/nginx/tmp.conf
+        head -n $(($VOYANT_NGINX_CONF_START-1)) $CACHE_DIR/nginx/tmp.conf
+        sed "s/<APP_IP>/$VOYANT_NGINX_NEW_IP/" < $APP_DIR/server/conf/nginx-server-template.conf
+        tail -n $(($(wc -l < $CACHE_DIR/nginx/tmp.conf)-$VOYANT_NGINX_CONF_END)) $CACHE_DIR/nginx/tmp.conf
       } > /usr/local/etc/nginx/nginx.conf;
       rm $CACHE_DIR/nginx/tmp.conf;
 

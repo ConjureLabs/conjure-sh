@@ -29,7 +29,7 @@ class Landing extends Component {
 
         <header className={styles.header}>
           <nav className={styles.navigation}>
-            <h1 className={styles.serviceName}>Sentry CI</h1>
+            <h1 className={styles.serviceName}>Voyant</h1>
 
             <ol className={styles.linkslist}>
               <li className={styles.item}>
@@ -55,7 +55,7 @@ class Landing extends Component {
           </nav>
 
           <div className={styles.ctaContainer}>
-            <p className={styles.firstImpression}>Test better. Deploy faster.</p>
+            <p className={styles.firstImpression}>Some text should go here</p>
 
             <div>
               <Button

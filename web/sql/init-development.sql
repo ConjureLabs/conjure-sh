@@ -2,8 +2,8 @@
 
 \c postgres;
 
-CREATE DATABASE sentry WITH OWNER sentry_admin;
-\c sentry;
+CREATE DATABASE voyant WITH OWNER voyant_admin;
+\c voyant;
 
 -- table definitions
 \i ../sql/tables/account.sql;
