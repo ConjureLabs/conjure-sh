@@ -20,7 +20,7 @@ module.exports = {
 
   services: {
     github: {
-      id: '6dd065500c5c86a9710c',
+      id: 'a2f05da23445befbe47a',
       secret: process.env.GITHUB_CLIENT_SECRET
     }
   }
