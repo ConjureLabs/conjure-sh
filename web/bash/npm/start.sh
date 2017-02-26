@@ -4,7 +4,24 @@
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;
 
-if [ "$CONTAINER" != "docker" ]; then
+if [ "$npm_config_direct" != "" ]; then
+  set -e; # die on any error
+
+  export NODE_PATH=$(cd $DESTINATION_DIR; cd server; pwd);
+  export PORT=3000;
+  source $APP_DIR/.profile;
+
+  set +e; # no longer die on any error
+  ( cd $APP_DIR && nodemon --legacy-watch ./server/ ) &
+  PIDS[0]=$!;
+  announce "App available at http://localhost:3000/";
+  tail -f $APP_DIR./webpack-build.log &
+  PIDS[1]=$!;
+  # by tracking pids, and using this trap, all tracked processes will be killed after a ^C
+  # see http://stackoverflow.com/questions/9023164/in-bash-how-can-i-run-multiple-infinitely-running-commands-and-cancel-them-all
+  trap "kill ${PIDS[*]} && wait ${PIDS[*]} 2>/dev/null" SIGINT;
+  wait;
+elif [ "$CONTAINER" != "docker" ]; then
   if [ "$NODE_ENV" == "production" ]; then
     error "Production should not be run from outside of a deployed Docker image";
     exit 1;
@@ -77,8 +94,8 @@ if [ "$CONTAINER" != "docker" ]; then
 
   source $BASH_DIR/docker/run.sh;
 else
-  # assuming within a docker image, at this point
   set -e; # die on any error
+
   source $BASH_DIR/docker/prepare-app.sh;
 
   if [ "$NODE_ENV" == "production" ]; then

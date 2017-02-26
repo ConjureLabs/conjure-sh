@@ -15,7 +15,7 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const log = require('modules/log')();
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 const server = express();
 
 if (process.env.NODE_ENV !== 'production') {

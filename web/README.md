@@ -53,6 +53,9 @@ npm run compile
 
 # compile & watch for changes
 npm run compile --watch
+
+# run locally, not in docker (requires many dependencies, psql, etc)
+npm run --direct
 ```
 
 #### Common problems
