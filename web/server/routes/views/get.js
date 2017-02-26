@@ -73,11 +73,75 @@ route.push((req, res, next) => {
     const github = require('octonode');
     const githubClient = github.client(githubAccount.access_token);
 
-    githubClient.get('/user/orgs', {}, (err, status, body) => {
-      console.log(body);
+    const async = require('async');
+    const allRepos = [];
+    const allOrgs = [];
+    const pullRepos = [];
+
+    // getting all (possibly private) org repos
+    pullRepos.push(callback => {
+      githubClient.get('/user/orgs', {}, (err, status, body) => {
+        if (err) {
+          return callback(err);
+        }
+
+        for (let i = 0; i < body.length; i++) {
+          allOrgs.push(body[i]);
+        }
+
+        const pullOrgRepos = body.map(org => {
+          return cb => {
+            githubClient
+              .org(org.login)
+              .repos((err, repos) => {
+                if (err) {
+                  return cb(err);
+                }
+
+                for (let i = 0; i < repos.length; i++) {
+                  allRepos.push(repos[i]);
+                }
+
+                cb();
+              });
+          };
+        });
+
+        async.parallelLimit(pullOrgRepos, 4, callback);
+      });
+    });
+
+    // user repos
+    pullRepos.push(callback => {
+      githubClient.me().repos((err, repos) => {
+        if (err) {
+          return callback(err);
+        }
+
+        for (let i = 0; i < repos.length; i++) {
+          allRepos.push(repos[i]);
+        }
+
+        callback();
+      });
+    });
+
+    async.parallel(pullRepos, err => {
+      if (err) {
+        return next(err);
+      }
 
       res.render('dashboard', {
-        name: 'dashboard'
+        name: 'dashboard',
+        repos: allRepos.map(repo => {
+          return {
+            id: repo.id,
+            fullName: repo.full_name,
+            name: repo.name,
+            private: repo.private,
+            url: repo.html_url
+          };
+        })
       });
     });
   });

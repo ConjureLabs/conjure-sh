@@ -2,3 +2,6 @@ extends ./templates/page
 
 block body
   #container DASHBOARD!
+
+    each repo in repos
+      a(href=`/r/${repo.fullName}`) !{repo.fullName}

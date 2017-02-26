@@ -10,6 +10,7 @@
     "start": "bash ./bash/npm/start.sh"
   },
   "dependencies": {
+    "async": "^2.1.5",
     "babel-core": "6.21.0",
     "babel-loader": "6.2.10",
     "babel-plugin-transform-runtime": "6.15.0",
