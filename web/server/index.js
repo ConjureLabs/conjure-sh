@@ -86,7 +86,7 @@ passport.use(
       clientID: config.services.github.id,
       clientSecret: config.services.github.secret,
       callbackURL: `${config.app.protocol}://${config.app.host}/auth/github/callback`,
-      scope: 'repo,admin:public_key,user:email'
+      scope: 'repo,admin:public_key,user:email,write:repo_hook,admin:org_hook'
     },
 
     function(accessToken, refreshToken, profile, callback) {
@@ -186,6 +186,7 @@ server.use((req, res, next) => {
 });
 
 server.use('/api', setup.routes.api);
+server.use('/hook', setup.routes.hook);
 server.use(setup.routes.views);
 
 server.use((err, req, res, next) => {

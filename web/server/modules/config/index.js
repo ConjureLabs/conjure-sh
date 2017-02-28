@@ -21,7 +21,8 @@ module.exports = {
   services: {
     github: {
       id: 'a2f05da23445befbe47a',
-      secret: process.env.GITHUB_CLIENT_SECRET
+      secret: process.env.GITHUB_CLIENT_SECRET,
+      inboundWebhookScret: 'super secret secret'
     }
   }
 };
