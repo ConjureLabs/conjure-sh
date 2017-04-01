@@ -1,4 +1,5 @@
-- move off of docker - too many headaches
+- move off of docker (for main service) - too many headaches
+  - look into other containers
 - hook into PRs
 - webhooks
 - api
@@ -8,3 +9,6 @@
   - dashboard of metrics
 - cron setup
   - facebook cron-like framework?
+  - payment
+  - notifications
+  - check custom git repos (often)
