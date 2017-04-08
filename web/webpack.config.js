@@ -13,7 +13,7 @@ const dirs = {
 module.exports = {
   context: dirs.client,
   entry: {
-    dashboard: ['babel-polyfill', './views/Dashboard'],
+    repos: ['babel-polyfill', './views/Repos'],
     landing: ['babel-polyfill', './views/Landing']
   },
   output: {

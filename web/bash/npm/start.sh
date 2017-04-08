@@ -11,11 +11,12 @@ export PORT=3000;
 source $APP_DIR/.profile;
 
 set +e; # no longer die on any error
-( cd $APP_DIR && nodemon --legacy-watch ./server/ ) &
+( cd $APP_DIR && webpack --progress --colors --watch ) &
 PIDS[0]=$!;
-announce "App available at http://localhost:3000/";
-tail -f $APP_DIR./webpack-build.log &
+( cd $APP_DIR && nodemon --legacy-watch ./server/ ) &
 PIDS[1]=$!;
+announce "App available at http://localhost:3000/";
+PIDS[2]=$!;
 # by tracking pids, and using this trap, all tracked processes will be killed after a ^C
 # see http://stackoverflow.com/questions/9023164/in-bash-how-can-i-run-multiple-infinitely-running-commands-and-cancel-them-all
 trap "kill ${PIDS[*]} && wait ${PIDS[*]} 2>/dev/null" SIGINT;

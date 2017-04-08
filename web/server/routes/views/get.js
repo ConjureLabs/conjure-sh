@@ -44,7 +44,7 @@ route.push((req, res, next) => {
 });
 
 /*
-  Dashboard
+  Repos listing
  */
 route.push((req, res, next) => {
   const DatabaseTable = require('classes/DatabaseTable');
@@ -131,8 +131,8 @@ route.push((req, res, next) => {
         return next(err);
       }
 
-      res.render('dashboard', {
-        name: 'dashboard',
+      res.render('repos', {
+        name: 'repos',
         repos: allRepos.map(repo => {
           return {
             id: repo.id,

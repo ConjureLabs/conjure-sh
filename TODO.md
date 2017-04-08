@@ -1,5 +1,3 @@
-- move off of docker (for main service) - too many headaches
-  - look into other containers
 - hook into PRs
 - webhooks
 - api
