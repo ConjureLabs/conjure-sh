@@ -1,4 +1,4 @@
-CREATE TYPE repo_service_types AS ENUM('github', 'phabricator', 'other');
+CREATE TYPE repo_service_types AS ENUM('GitHub', 'Phabricator', 'GitLab', 'other');
 CREATE TYPE repo_vm_types AS ENUM('web');
 
 CREATE TABLE enabled_repos (
