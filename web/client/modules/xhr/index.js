@@ -20,24 +20,26 @@ export function get(url, callback) {
 }
 
 export function post(url, data, callback) {
-  const req = new XMLHttpRequest();
-
-  req.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-
-  req.onreadystatechange = () => {
-    if (req.readyState !== 4) {
-      return;
+  fetch(url, {
+    method: 'POST',
+    cache: 'no-cache',
+    body: JSON.stringify(data),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
     }
-
-    const okay = req.status === 200;
-
-    callback(
-      !okay ? req.responseText : null,
-      okay ? JSON.parse(req.responseText) : null
-    );
-  };
-
-  req.open('POST', url);
-  req.send(data);
+  })
+    .then(response => {
+      if (!response.ok) {
+        return new Error(Response.statusText);
+      }
+      return response.json();
+    })
+    .then(json => {
+      callback(null, json);
+    })
+    .catch(err => {
+      callback(err);
+    });
 }
 
