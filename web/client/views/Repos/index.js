@@ -51,7 +51,7 @@ class Repos extends Component {
 }
 
 const routes = [{
-  path: '/',
+  path: '/r',
   indexRoute: {
     component: Repos
   }
