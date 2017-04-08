@@ -2,6 +2,62 @@
 
 const slice = Array.prototype.slice;
 
+/*
+
+There is a common pattern where values need to be pushed into an array, skipping any duplicates.
+When doing this with objects (like API results) you will often check against one key.
+
+For example, you may have something like:
+
+```js
+const allRepos = [];
+const repoNames = [];
+
+githubClient.me().repos((err, repos) => {
+  if (err) {
+    throw err;
+  }
+
+  // ensuring that our repos list only contains unique repos
+  for (let i = 0; i < repos.length; i++) {
+    let currentRepoName = repos[i].full_name;
+
+    if (repoNames.includes(currentRepoName)) {
+      continue;
+    }
+
+    repoNames.push(currentRepoName);
+    allRepos.push(repos[i]);
+  }
+});
+
+// continue adding to `allRepos` array...
+```
+
+This results in some messy code, that can make bugs hard to detect.
+
+UniqueArray allows you to create an array of objects that only accept cells with a unique key.
+
+The above example could be re-written as:
+
+```js
+const allRepos = new UniqueArray('full_name');
+
+githubClient.me().repos((err, repos) => {
+  if (err) {
+    throw err;
+  }
+
+  // ensuring that our repos list only contains unique repos
+  for (let i = 0; i < repos.length; i++) {
+    allRepos.push(repos[i]);
+  }
+});
+
+// continue adding to `allRepos` array...
+```
+ */
+
 module.exports = class UniqueArray extends Array {
   constructor(uniqueKey, initial) {
     super();
