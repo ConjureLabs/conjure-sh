@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 
 import FullListing from './subviews/FullListing';
-import SingleRepo from './subviews/SingleRepo';
+import GitHubRepo from './subviews/GitHubRepo';
 
 const routes = [{
   path: '/r',
@@ -11,8 +11,8 @@ const routes = [{
     component: FullListing
   },
   childRoutes: [{
-    path: '/r/github/:orgName/:repoName',
-    component: SingleRepo
+    path: '/r/GitHub/:orgName/:repoName',
+    component: GitHubRepo
   }]
 }];
 

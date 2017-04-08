@@ -1,29 +1,28 @@
 import { Component } from 'react';
 import { post } from 'm/xhr';
+import { browserHistory } from 'react-router';
 
 import styles from './styles.styl';
 
-const onRepoClick = Symbol('on repo click');
-
 class FullListing extends Component {
-  [onRepoClick](repo) {
-    console.log(repo);
+  // [onRepoClick](repo) {
+  //   console.log(repo);
 
-    post('/api/repo/enable', {
-      service: 'github',
-      name: repo.name,
-      url: repo.url,
-      isPrivate: repo.private,
-      githubId: repo.id,
-      vm: 'web' // forced to web for now
-    }, (err, data) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(data);
-      }
-    });
-  }
+  //   post('/api/repo/enable', {
+  //     service: 'github',
+  //     name: repo.name,
+  //     url: repo.url,
+  //     isPrivate: repo.private,
+  //     githubId: repo.id,
+  //     vm: 'web' // forced to web for now
+  //   }, (err, data) => {
+  //     if (err) {
+  //       console.error(err);
+  //     } else {
+  //       console.log(data);
+  //     }
+  //   });
+  // }
 
   render() {
     return (
@@ -36,7 +35,7 @@ class FullListing extends Component {
                 className={styles.repo}
                 onClick={e => {
                   e.preventDefault();
-                  this[onRepoClick].call(this, repo)
+                  browserHistory.push(`/r/GitHub/${repo.fullName}`);
                 }}
                 key={repo.fullName}
               >

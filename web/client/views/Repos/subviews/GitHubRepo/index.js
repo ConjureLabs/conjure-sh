@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 import styles from './styles.styl';
 
-class SingleRepo extends Component {
+class GitHubRepo extends Component {
   render() {
     return (
       <div className={styles.root}>
@@ -12,4 +12,4 @@ class SingleRepo extends Component {
   }
 }
 
-export default SingleRepo;
+export default GitHubRepo;
