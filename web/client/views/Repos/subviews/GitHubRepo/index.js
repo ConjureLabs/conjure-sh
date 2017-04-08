@@ -2,15 +2,20 @@ import { Component } from 'react';
 
 import styles from './styles.styl';
 
-const onRequestListen = Symbol('on request to listen to github repo');
+const onEnableWatch = Symbol('on request to watch a github repo');
 
 class GitHubRepo extends Component {
-  [onRequestListen](repo) {
-    console.log(repo);
-
+  [onEnableWatch]() {
     const { orgName, repoName } = this.props.params;
 
-    post('/api/repo/listen', {
+    // todo: deal with no repo found in .find()
+    const repo = staticContent.repos.find(repo => {
+      return repo.fullName = `${orgName}/${repoName}`;
+    });
+
+    console.log(repo);
+
+    post('/api/repo/watch', {
       service: 'github',
       name: repo.name,
       fullName: repo.fullName,
@@ -34,7 +39,18 @@ class GitHubRepo extends Component {
 
     return (
       <div className={styles.root}>
-        {`${orgName} / ${repoName}`}
+        <h3 className={styles.repoName}>{`${orgName} / ${repoName}`}</h3>
+        <a
+          href=''
+          className={styles.anchor}
+          onClick={e => {
+            e.preventDefault();
+            this[onEnableWatch]();
+          }}
+          key={repo.fullName}
+        >
+          {repo.fullName}
+        </a>
       </div>
     );
   }

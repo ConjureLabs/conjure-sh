@@ -92,7 +92,7 @@ route.push((req, res, next) => {
   });
 
   waterfall.push(callback => {
-    DatabaseTable.insert('enabled_repos', {
+    DatabaseTable.insert('watched_repos', {
       account: req.user.id,
       service,
       service_repo_id: githubId,

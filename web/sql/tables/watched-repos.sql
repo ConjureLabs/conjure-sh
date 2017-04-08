@@ -1,7 +1,7 @@
 CREATE TYPE repo_service_types AS ENUM('GitHub', 'Phabricator', 'GitLab', 'other');
 CREATE TYPE repo_vm_types AS ENUM('web');
 
-CREATE TABLE enabled_repos (
+CREATE TABLE watched_repos (
   id SERIAL PRIMARY KEY,
   account INT REFERENCES account(id) NOT NULL,
   service repo_service_types NOT NULL,
@@ -14,4 +14,4 @@ CREATE TABLE enabled_repos (
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
-COMMENT ON TABLE enabled_repos IS 'repos enabled to use voyant';
+COMMENT ON TABLE watched_repos IS 'repos enabled to use voyant';
