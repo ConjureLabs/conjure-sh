@@ -10,5 +10,7 @@ html(lang="en")
       block headScripts
   body
     block body
+    script.
+      var staticContent = {};
     block bodyScripts
-      script(src='/build/' + name + '.js')
+    script(src='/build/' + name + '.js')

@@ -3,5 +3,6 @@ extends ./templates/page
 block body
   #container
 
-    each repo in repos
-      a(href=`/r/${repo.fullName}`) !{repo.fullName}
+block append bodyScripts
+  script.
+    staticContent.repos = !{JSON.stringify(repos)};
