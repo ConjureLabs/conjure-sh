@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { post } from 'm/xhr';
 import { browserHistory } from 'react-router';
 
 import styles from './styles.styl';

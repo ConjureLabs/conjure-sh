@@ -185,6 +185,35 @@ server.use((req, res, next) => {
   next();
 });
 
+// if user has bad cookie, kick 'um
+server.use((req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+
+  if (isNaN(req.user.id)) {
+    req.logout();
+  }
+
+  const DatabaseTable = require('classes/DatabaseTable');
+
+  // check for existing account record
+  DatabaseTable.select('account', {
+    id: req.user.id
+  }, (err, rows) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (!rows.length) {
+      log.info('User forced logout -- bad cookie');
+      req.logout();
+    }
+
+    next();
+  });
+});
+
 server.use(setup.routes.api);
 server.use('/hook', setup.routes.hook);
 server.use(setup.routes.views);

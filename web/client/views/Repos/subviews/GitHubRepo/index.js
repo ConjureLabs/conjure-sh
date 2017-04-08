@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { post } from 'm/xhr';
 
 import styles from './styles.styl';
 
@@ -47,10 +48,7 @@ class GitHubRepo extends Component {
             e.preventDefault();
             this[onEnableWatch]();
           }}
-          key={repo.fullName}
-        >
-          {repo.fullName}
-        </a>
+        >Watch repo</a>
       </div>
     );
   }
