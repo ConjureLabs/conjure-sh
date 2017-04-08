@@ -6,9 +6,11 @@ BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
 set -e; # die on any error
 
-export NODE_PATH=$(cd $DESTINATION_DIR; cd server; pwd);
+export NODE_PATH=$(cd $APP_DIR; cd server; pwd);
 export PORT=3000;
 source $APP_DIR/.profile;
+
+source $BASH_DIR/postgres/init-local.sh;
 
 set +e; # no longer die on any error
 ( cd $APP_DIR && webpack --progress --colors --watch ) &

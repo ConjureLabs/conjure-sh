@@ -3,8 +3,9 @@ CREATE TYPE repo_vm_types AS ENUM('web');
 
 CREATE TABLE enabled_repos (
   id SERIAL PRIMARY KEY,
+  account INT REFERENCES account(id) NOT NULL,
   service repo_service_types NOT NULL,
-  service_id VARCHAR(255),
+  service_repo_id VARCHAR(255),
   vm repo_vm_types NOT NULL,
   url VARCHAR(2000),
   name VARCHAR(516),

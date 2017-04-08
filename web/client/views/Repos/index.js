@@ -14,8 +14,9 @@ class Repos extends Component {
       service: 'github',
       name: repo.name,
       url: repo.url,
-      private: repo.private,
-      githubId: repo.id
+      isPrivate: repo.private,
+      githubId: repo.id,
+      vm: 'web' // forced to web for now
     }, (err, data) => {
       if (err) {
         console.error(err);
