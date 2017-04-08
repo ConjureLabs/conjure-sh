@@ -11,6 +11,8 @@ class Route extends Array {
     options = options || {};
     options.blacklistedEnv = options.blacklistedEnv || {};
 
+    this.wildcardRoute = options.wildcard === true;
+
     for (let key in options.blacklistedEnv) {
       const envVar = process.env[key];
       const blacklistedArray = options.blacklistedEnv[key];
@@ -30,10 +32,12 @@ class Route extends Array {
       return router;
     }
 
-    for (let i = 0; i < this.length; i++) {
-      log.info(verb.toUpperCase(), expressPath);
+    const expressPathUsed = this.wildcardRoute ? expressPath.replace(/\/$/, '') + '/*' : expressPath;
 
-      router[ verb.toLowerCase() ](expressPath, this[i]);
+    for (let i = 0; i < this.length; i++) {
+      log.info(verb.toUpperCase(), expressPathUsed);
+
+      router[ verb.toLowerCase() ](expressPathUsed, this[i]);
     }
 
     return router;

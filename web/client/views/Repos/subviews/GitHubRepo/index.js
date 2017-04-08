@@ -6,7 +6,7 @@ class GitHubRepo extends Component {
   render() {
     return (
       <div className={styles.root}>
-        asdf
+        asaa
       </div>
     );
   }

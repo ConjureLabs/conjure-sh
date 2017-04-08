@@ -2,7 +2,9 @@
 
 const Route = require('classes/Route');
 
-const route = new Route();
+const route = new Route({
+  wildcard: true
+});
 
 /*
   Repos listing
