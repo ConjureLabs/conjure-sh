@@ -6,6 +6,9 @@ CREATE TABLE enabled_repos (
   service repo_service_types NOT NULL,
   service_id VARCHAR(255),
   vm repo_vm_types NOT NULL,
+  url VARCHAR(2000),
+  name VARCHAR(516),
+  private BOOLEAN NOT NULL,
   disabled BOOLEAN NOT NULL,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE

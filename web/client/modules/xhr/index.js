@@ -42,4 +42,3 @@ export function post(url, data, callback) {
       callback(err);
     });
 }
-
