@@ -1,60 +1,19 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory, Link } from 'react-router';
-import { post } from 'm/xhr';
-import styles from './styles.styl';
+import { Router, browserHistory } from 'react-router';
 
-const onRepoClick = Symbol('on repo click');
-
-class Repos extends Component {
-  [onRepoClick](repo) {
-    console.log(repo);
-
-    post('/api/repo/enable', {
-      service: 'github',
-      name: repo.name,
-      url: repo.url,
-      isPrivate: repo.private,
-      githubId: repo.id,
-      vm: 'web' // forced to web for now
-    }, (err, data) => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log(data);
-      }
-    });
-  }
-
-  render() {
-    return (
-      <div className={styles.root}>
-        {
-          staticContent.repos.map(repo => {
-            return (
-              <a
-                href=''
-                className={styles.repo}
-                onClick={e => {
-                  e.preventDefault();
-                  this[onRepoClick].call(this, repo)
-                }}
-              >
-                {repo.fullName}
-              </a>
-            );
-          })
-        }
-      </div>
-    );
-  }
-}
+import FullListing from './subviews/FullListing';
+import SingleRepo from './subviews/SingleRepo';
 
 const routes = [{
   path: '/r',
   indexRoute: {
-    component: Repos
-  }
+    component: FullListing
+  },
+  childRoutes: [{
+    path: '/r/github/:orgName/:repoName',
+    component: SingleRepo
+  }]
 }];
 
 ReactDOM.render(

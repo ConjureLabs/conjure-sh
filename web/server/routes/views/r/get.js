@@ -36,6 +36,7 @@ route.push((req, res, next) => {
 
     const async = require('async');
     const allRepos = [];
+    const allRepoFullNames = [];
     const allOrgs = [];
     const pullRepos = [];
 
@@ -60,6 +61,11 @@ route.push((req, res, next) => {
                 }
 
                 for (let i = 0; i < repos.length; i++) {
+                  if (allRepoFullNames.includes(repos[i].full_name)) {
+                    continue;
+                  }
+
+                  allRepoFullNames.push(repos[i].full_name);
                   allRepos.push(repos[i]);
                 }
 
@@ -80,6 +86,11 @@ route.push((req, res, next) => {
         }
 
         for (let i = 0; i < repos.length; i++) {
+          if (allRepoFullNames.includes(repos[i].full_name)) {
+            continue;
+          }
+
+          allRepoFullNames.push(repos[i].full_name);
           allRepos.push(repos[i]);
         }
 
