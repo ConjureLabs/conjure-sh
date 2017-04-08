@@ -2,6 +2,7 @@
 
 \c postgres;
 
+DROP DATABASE IF EXISTS voyant;
 CREATE DATABASE voyant WITH OWNER voyant_admin;
 \c voyant;
 

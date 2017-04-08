@@ -4,7 +4,6 @@
   "private": true,
   "main": "./server",
   "scripts": {
-    "build": "bash ./bash/npm/build.sh",
     "compile": "bash ./bash/npm/compile.sh",
     "lint": "bash ./bash/npm/lint.sh",
     "start": "bash ./bash/npm/start.sh"
