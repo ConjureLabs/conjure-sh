@@ -43,7 +43,8 @@ module.exports = {
   resolve: {
     root: dirs.client,
     alias: {
-      '~': path.resolve(dirs.client, 'components')
+      'c': path.resolve(dirs.client, 'components'),
+      'm': path.resolve(dirs.client, 'modules')
     }
   },
   node: {
