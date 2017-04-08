@@ -58,7 +58,7 @@ githubClient.me().repos((err, repos) => {
 ```
  */
 
-module.exports = class UniqueArray extends Array {
+class UniqueArray extends Array {
   constructor(uniqueKey, initial) {
     super();
 
@@ -174,4 +174,6 @@ module.exports = class UniqueArray extends Array {
 
     return this.length;
   }
-};
+}
+
+module.exports = UniqueArray;
