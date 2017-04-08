@@ -5,25 +5,6 @@ import { browserHistory } from 'react-router';
 import styles from './styles.styl';
 
 class FullListing extends Component {
-  // [onRepoClick](repo) {
-  //   console.log(repo);
-
-  //   post('/api/repo/enable', {
-  //     service: 'github',
-  //     name: repo.name,
-  //     url: repo.url,
-  //     isPrivate: repo.private,
-  //     githubId: repo.id,
-  //     vm: 'web' // forced to web for now
-  //   }, (err, data) => {
-  //     if (err) {
-  //       console.error(err);
-  //     } else {
-  //       console.log(data);
-  //     }
-  //   });
-  // }
-
   render() {
     return (
       <div className={styles.root}>
