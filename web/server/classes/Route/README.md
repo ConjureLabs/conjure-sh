@@ -37,3 +37,19 @@ route.push((req, res, next) => {
 
 module.exports = route;
 ```
+
+##### Wildcard
+
+If you want to catch-all (e.g. `/some/route/*` instead of `/some/route`) then you can set `wildcard: true`.
+
+```js
+const route = new Route({
+  wildcard: true
+});
+
+route.push((req, res, next) => {
+  // ...
+});
+
+module.exports = route;
+```
