@@ -2,32 +2,39 @@ import { Component } from 'react';
 
 import styles from './styles.styl';
 
-class GitHubRepo extends Component {
-  // [onRepoClick](repo) {
-  //   console.log(repo);
+const onRequestListen = Symbol('on request to listen to github repo');
 
-  //   post('/api/repo/enable', {
-  //     service: 'github',
-  //     name: repo.name,
-  //     fullName: repo.fullName,
-  //     url: repo.url,
-  //     isPrivate: repo.private,
-  //     githubId: repo.id,
-  //     vm: 'web' // forced to web for now
-  //   }, (err, data) => {
-  //     if (err) {
-  //       console.error(err);
-  //     } else {
-  //       console.log(data);
-  //     }
-  //   });
-  // }
-  //
+class GitHubRepo extends Component {
+  [onRequestListen](repo) {
+    console.log(repo);
+
+    const { orgName, repoName } = this.props.params;
+
+    post('/api/repo/listen', {
+      service: 'github',
+      name: repo.name,
+      fullName: repo.fullName,
+      orgName,
+      repoName,
+      url: repo.url,
+      isPrivate: repo.private,
+      githubId: repo.id,
+      vm: 'web' // forced to web for now
+    }, (err, data) => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log(data);
+      }
+    });
+  }
 
   render() {
+    const { orgName, repoName } = this.props.params;
+
     return (
       <div className={styles.root}>
-        asaa
+        {`${orgName} / ${repoName}`}
       </div>
     );
   }

@@ -13,6 +13,8 @@ route.push((req, res, next) => {
     url,
     name,
     fullName,
+    orgName,
+    repoName,
     githubId,
     isPrivate,
     vm
@@ -52,15 +54,6 @@ route.push((req, res, next) => {
   });
 
   waterfall.push((githubClient, callback) => {
-    const nameParts = fullName.split('/');
-
-    if (nameParts.length !== 2) {
-      return callback(new Error(`Expected org and repo name, but got ${fullName}`));
-    }
-
-    const orgName = nameParts[0];
-    const repoName = nameParts[1];
-
     githubClient.repo(`${orgName}/${repoName}`).info((err, info) => { 
       if (err) {
         return callback(err);
@@ -99,15 +92,6 @@ route.push((req, res, next) => {
   });
 
   waterfall.push(callback => {
-    const {
-      service,
-      url,
-      name,
-      githubId,
-      isPrivate,
-      vm
-    } = req.body;
-
     DatabaseTable.insert('enabled_repos', {
       account: req.user.id,
       service,
