@@ -8,6 +8,7 @@ const route = new Route();
   Repos listing
  */
 route.push((req, res, next) => {
+  const GitHubRepo = require('classes/Repo/GitHub');
   const DatabaseTable = require('classes/DatabaseTable');
   const accountGithub = new DatabaseTable('account_github');
 
@@ -60,12 +61,14 @@ route.push((req, res, next) => {
                   return cb(err);
                 }
 
+                repos = repos.map(repo => new GitHubRepo(repo));
+
                 for (let i = 0; i < repos.length; i++) {
-                  if (allRepoFullNames.includes(repos[i].full_name)) {
+                  if (allRepoFullNames.includes(repos[i].fullName)) {
                     continue;
                   }
 
-                  allRepoFullNames.push(repos[i].full_name);
+                  allRepoFullNames.push(repos[i].fullName);
                   allRepos.push(repos[i]);
                 }
 
@@ -85,12 +88,14 @@ route.push((req, res, next) => {
           return callback(err);
         }
 
+        repos = repos.map(repo => new GitHubRepo(repo));
+
         for (let i = 0; i < repos.length; i++) {
-          if (allRepoFullNames.includes(repos[i].full_name)) {
+          if (allRepoFullNames.includes(repos[i].fullName)) {
             continue;
           }
 
-          allRepoFullNames.push(repos[i].full_name);
+          allRepoFullNames.push(repos[i].fullName);
           allRepos.push(repos[i]);
         }
 
@@ -105,15 +110,7 @@ route.push((req, res, next) => {
 
       res.render('repos', {
         name: 'repos',
-        repos: allRepos.map(repo => {
-          return {
-            id: repo.id,
-            fullName: repo.full_name,
-            name: repo.name,
-            private: repo.private,
-            url: repo.html_url
-          };
-        })
+        repos: allRepos
       });
     });
   });
