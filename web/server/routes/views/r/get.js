@@ -8,6 +8,7 @@ const route = new Route();
   Repos listing
  */
 route.push((req, res, next) => {
+  const UniqueArray = require('classes/Array/UniqueArray');
   const GitHubRepo = require('classes/Repo/GitHub');
   const DatabaseTable = require('classes/DatabaseTable');
   const accountGithub = new DatabaseTable('account_github');
@@ -36,8 +37,7 @@ route.push((req, res, next) => {
     const githubClient = github.client(githubAccount.access_token);
 
     const async = require('async');
-    const allRepos = [];
-    const allRepoFullNames = [];
+    const allRepos = new UniqueArray('fullName');
     const allOrgs = [];
     const pullRepos = [];
 
@@ -64,11 +64,6 @@ route.push((req, res, next) => {
                 repos = repos.map(repo => new GitHubRepo(repo));
 
                 for (let i = 0; i < repos.length; i++) {
-                  if (allRepoFullNames.includes(repos[i].fullName)) {
-                    continue;
-                  }
-
-                  allRepoFullNames.push(repos[i].fullName);
                   allRepos.push(repos[i]);
                 }
 
@@ -91,11 +86,6 @@ route.push((req, res, next) => {
         repos = repos.map(repo => new GitHubRepo(repo));
 
         for (let i = 0; i < repos.length; i++) {
-          if (allRepoFullNames.includes(repos[i].fullName)) {
-            continue;
-          }
-
-          allRepoFullNames.push(repos[i].fullName);
           allRepos.push(repos[i]);
         }
 
