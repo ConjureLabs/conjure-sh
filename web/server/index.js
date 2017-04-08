@@ -74,41 +74,10 @@ server.use(cookieParser());
 
 passport.serializeUser((user, done) => {
   const DatabaseRow = require('classes/DatabaseRow');
-  console.log('SERIALIZE', user);
   done(null, new DatabaseRow('account', user));
 });
 passport.deserializeUser((user, done) => {
-  console.log('DE-SERIALIZE', user);
   done(null, user);
-});
-
-// if user has bad cookie, kick 'um
-server.use((req, res, next) => {
-  if (!req.isAuthenticated()) {
-    return next();
-  }
-
-  if (isNaN(req.user.id)) {
-    req.logout();
-  }
-
-  const DatabaseTable = require('classes/DatabaseTable');
-
-  // check for existing account record
-  DatabaseTable.select('account', {
-    id: req.user.id
-  }, (err, rows) => {
-    if (err) {
-      return next(err);
-    }
-
-    if (!rows.length) {
-      log.info('User forced logout -- bad cookie');
-      req.logout();
-    }
-
-    next();
-  });
 });
 
 passport.use(
@@ -214,6 +183,36 @@ server.use((req, res, next) => {
   req.state.remoteAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
   next();
+});
+
+// if user has bad cookie, kick 'um
+server.use((req, res, next) => {
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+
+  if (isNaN(req.user.id)) {
+    req.logout();
+    return next();
+  }
+
+  const DatabaseTable = require('classes/DatabaseTable');
+
+  // check for existing account record
+  DatabaseTable.select('account', {
+    id: req.user.id
+  }, (err, rows) => {
+    if (err) {
+      return next(err);
+    }
+
+    if (!rows.length) {
+      log.info('User forced logout -- bad cookie');
+      req.logout();
+    }
+
+    next();
+  });
 });
 
 server.use(setup.routes.api);

@@ -9,8 +9,10 @@ const route = new Route();
  */
 route.push((req, res, next) => {
   if (req.isAuthenticated()) {
+    console.log('YES');
     return next();
   }
+  console.log('NO');
 
   res.render('landing', {
     name: 'landing'

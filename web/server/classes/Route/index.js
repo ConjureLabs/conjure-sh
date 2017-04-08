@@ -32,7 +32,7 @@ class Route extends Array {
       return router;
     }
 
-    const expressPathUsed = this.wildcardRoute ? expressPath.replace(/\/$/, '') + '/*' : expressPath;
+    const expressPathUsed = this.wildcardRoute ? expressPath.replace(/\/$/, '') + '*' : expressPath;
 
     for (let i = 0; i < this.length; i++) {
       log.info(verb.toUpperCase(), expressPathUsed);
