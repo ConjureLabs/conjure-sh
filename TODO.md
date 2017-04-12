@@ -1,5 +1,4 @@
 - hook into PRs
-- webhooks
 - api
 - support not only github, but gitlab, phabricator, and any other git-based repo
 - marketing landing page
