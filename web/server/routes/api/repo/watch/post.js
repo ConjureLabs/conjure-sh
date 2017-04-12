@@ -74,10 +74,10 @@ route.push((req, res, next) => {
     });
   });
 
+  // todo: check if we already have a hook, or github does -this may involve an upsert
+
   waterfall.push((githubClient, orgName, repoName, callback) => {
     const config = require('modules/config');
-
-    console.log(`${config.app.publicHost}/hook/github/${orgName}/${repoName}`);
 
     githubClient.org(orgName).repo(repoName).hook({
       name: 'web',
