@@ -8,7 +8,7 @@ module.exports = class GitHubRepo extends Repo {
       id: apiRecord.id,
       fullName: apiRecord.full_name,
       name: apiRecord.name,
-      pivate: apiRecord.private,
+      private: apiRecord.private,
       url: apiRecord.html_url
     });
 

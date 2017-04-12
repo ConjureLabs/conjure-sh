@@ -223,6 +223,11 @@ server.use((err, req, res, next) => {
   if (err) {
     log.error(err);
 
+    // logging github errors if we have them
+    if (err.body && Array.isArray(err.errors)) {
+      console.dir(err.errors);
+    }
+
     if (process.env.NODE_ENV === 'production') {
       return next();
     }

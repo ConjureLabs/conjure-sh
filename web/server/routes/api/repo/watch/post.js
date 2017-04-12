@@ -8,6 +8,9 @@ route.push((req, res, next) => {
   const DatabaseTable = require('classes/DatabaseTable');
   const async = require('async');
 
+  console.log("BODY");
+  console.dir(req.body);
+
   const {
     service,
     url,
@@ -74,19 +77,22 @@ route.push((req, res, next) => {
   waterfall.push((githubClient, orgName, repoName, callback) => {
     const config = require('modules/config');
 
-    console.log(`${config.app.protocol}://${config.app.host}/hook/github/${orgName}/${repoName}`);
+    console.log(`${config.app.publicHost}/hook/github/${orgName}/${repoName}`);
 
     githubClient.org(orgName).repo(repoName).hook({
-      name: 'Voyant Listener',
+      name: 'web',
       active: true,
       events: ['push', 'pull_request'],
       config: {
         content_type: 'json',
         insecure_ssl: 1, // todo: config this - see https://developer.github.com/v3/repos/hooks/#create-a-hook
         secret: config.services.github.inboundWebhookScret,
-        url: `${config.app.protocol}://${config.app.host}/hook/github/${orgName}/${repoName}`
+        url: `${config.app.publicHost}/hook/github/${orgName}/${repoName}`
       }
     }, err => {
+      if (err) {
+        console.log(err.body.errors);
+      }
       callback(err);
     });
   });
