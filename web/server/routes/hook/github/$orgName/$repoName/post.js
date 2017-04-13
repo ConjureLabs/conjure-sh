@@ -6,7 +6,7 @@ const route = new Route();
 
 route.push((req, res, next) => {
   const { orgName, repoName } = req.params;
-  const GitHubWebhookPayload = require('classes/GitHub/webhook/payload');
+  const GitHubWebhookPayload = require('classes/Repo/GitHub/Webhook/Payload');
 
   const payload = new GitHubWebhookPayload(req.body);
   const { type, action } = payload;
