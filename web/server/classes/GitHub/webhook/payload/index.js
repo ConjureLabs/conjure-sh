@@ -10,7 +10,7 @@ const ACTION_CLOSED = Symbol('close');
 const ACTION_DELETED = Symbol('deletion');
 const ACTION_MERGED = Symbol('merge');
 const ACTION_OPENED = Symbol('open');
-const ACTION_REOPEN = Symbol('re-open');
+const ACTION_REOPENED = Symbol('re-open');
 const ACTION_RESTORED = Symbol('resotration');
 const ACTION_UNKOWN = Symbol('uknown action');
 const ACTION_UPDATED = Symbol('update');
@@ -36,14 +36,14 @@ class WebhookPayload {
       deleted: ACTION_DELETED,
       merged: ACTION_MERGED,
       opened: ACTION_OPENED,
-      reopen: ACTION_REOPEN,
+      reopened: ACTION_REOPENED,
       restored: ACTION_RESTORED,
       uknown: ACTION_UNKOWN,
       updated: ACTION_UPDATED
     };
   }
 
-  get info() {
+  get type() {
     const { payload } = this;
 
     if (payload.pull_request) {
@@ -59,6 +59,48 @@ class WebhookPayload {
     }
 
     return TYPE_UNKNOWN;
+  }
+
+  get action() {
+    const { payload } = this;
+    const type = this.type;
+
+    switch (type) {
+      case TYPE_BRANCH:
+        if (isAllZeros(payload.after)) {
+          return ACTION_CLOSED;
+        } else if (isAllZeros(payload.before)) {
+          return ACTION_REOPENED;
+        }
+        return ACTION_UNKOWN;
+
+      case TYPE_COMMIT:
+        return ACTION_ADDED;
+
+      case TYPE_PULL_REQUEST:
+        switch (payload.action) {
+          case 'closed':
+            if (typeof payload.pull_request.merged_at === 'string') {
+              return ACTION_MERGED;
+            }
+            return ACTION_CLOSED;
+
+          case 'opened':
+            return ACTION_OPENED;
+
+          case 'reopened':
+            return ACTION_REOPENED;
+
+          case 'synchronize':
+            return ACTION_UPDATED;
+
+          default:
+            return ACTION_UNKOWN;
+        }
+
+      default:
+        return ACTION_UNKOWN;
+    }
   }
 }
 
