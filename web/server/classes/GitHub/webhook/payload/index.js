@@ -1,5 +1,7 @@
 'use strict';
 
+// todo: should the dirname be capitalized? (`Payload`, since it is a class)
+
 const TYPE_BRANCH = Symbol('is related to a branch');
 const TYPE_COMMIT = Symbol('is related to a commit');
 const TYPE_PULL_REQUEST = Symbol('is related to a pull request');
@@ -70,7 +72,7 @@ class WebhookPayload {
         if (isAllZeros(payload.after)) {
           return ACTION_CLOSED;
         } else if (isAllZeros(payload.before)) {
-          return ACTION_REOPENED;
+          return ACTION_RESTORED;
         }
         return ACTION_UNKOWN;
 
