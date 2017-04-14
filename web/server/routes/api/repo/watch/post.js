@@ -8,9 +8,6 @@ route.push((req, res, next) => {
   const DatabaseTable = require('classes/DatabaseTable');
   const async = require('async');
 
-  console.log("BODY");
-  console.dir(req.body);
-
   const {
     service,
     url,
