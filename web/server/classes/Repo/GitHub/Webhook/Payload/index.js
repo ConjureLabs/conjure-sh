@@ -102,6 +102,19 @@ class WebhookPayload {
         return ACTION_UNKOWN;
     }
   }
+
+  get sha() {
+    const { payload } = this;
+    const type = this.type;
+
+    switch(type) {
+      case TYPE_PULL_REQUEST:
+        return payload.pull_request.head.sha;
+
+      default:
+        return payload.head_commit.id;
+    }
+  }
 }
 
 const exprAllZeros = /0/g;

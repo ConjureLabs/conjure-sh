@@ -2,6 +2,7 @@
 
 const async = require('async');
 const Route = require('classes/Route');
+const log = require('modules/log');
 
 const route = new Route();
 
@@ -71,7 +72,14 @@ route.push((req, res, next) => {
       });
 
       waterfall.push((githubClient, callback) => {
-
+        githubClient
+          .pr(`${orgName}/${repoName}`)
+          .comment({
+            body: 'Link should post here',
+            commit_id: payload.sha
+          }, err => {
+            callback(err);
+          });
       });
       break;
 
@@ -81,7 +89,11 @@ route.push((req, res, next) => {
       break;
   }
 
-
+  async.waterfall(err => {
+    if (err) {
+      log.error(err);
+    }
+  });
 });
 
 module.exports = route;

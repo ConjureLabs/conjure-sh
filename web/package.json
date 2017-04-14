@@ -30,7 +30,7 @@
     "jade": "1.11.0",
     "jsx-loader": "0.13.2",
     "morgan": "1.7.0",
-    "octonode": "^0.7.7",
+    "octonode": "git+ssh://git@github.com:WiskeyTango/octonode.git",
     "passport": "0.3.2",
     "passport-github": "1.1.0",
     "pg": "6.1.2",
