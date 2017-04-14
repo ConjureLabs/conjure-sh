@@ -2,7 +2,7 @@
 
 const async = require('async');
 const Route = require('classes/Route');
-const log = require('modules/log');
+const log = require('modules/log')('github webhook inbound');
 
 const route = new Route();
 
@@ -38,15 +38,15 @@ route.push((req, res, next) => {
     case GitHubWebhookPayload.actions.opened:
     case GitHubWebhookPayload.actions.reopened:
       // create vm, comment with link
-      
-      // todo: move this logic somewhere to avoid repitition
+
       waterfall.push(callback => {
+        // todo: store github repo key on repo level, since 'sender' may differ
         payload.getGitHubAccount((err, gitHubAccount) => {
           if (err) {
             return callback(err);
           }
 
-          if (!userRow) {
+          if (!gitHubAccount) {
             return callback(new Error('No github account record found'));
           }
 
@@ -58,11 +58,11 @@ route.push((req, res, next) => {
       });
 
       waterfall.push((gitHubClient, callback) => {
+        // todo: not use user's account to post comment
         gitHubClient
-          .pr(`${orgName}/${repoName}`)
-          .comment({
-            body: 'Link should post here',
-            commit_id: payload.sha
+          .issue(`${orgName}/${repoName}`, payload.number)
+          .createComment({
+            body: 'Link should post here'
           }, err => {
             callback(err);
           });

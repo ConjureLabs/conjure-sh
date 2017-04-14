@@ -117,7 +117,7 @@ class WebhookPayload {
   }
 
   getGitHubAccount(callback) {
-    const gitHubId = this.payload.user.id;
+    const gitHubId = this.payload.sender.id;
 
     const DatabaseTable = require('classes/DatabaseTable');
     DatabaseTable.select('account_github', {
@@ -130,6 +130,10 @@ class WebhookPayload {
       // callback handler should deal with undefined row
       callback(null, rows[0]);
     });
+  }
+
+  get number() {
+    return this.payload.number;
   }
 }
 
