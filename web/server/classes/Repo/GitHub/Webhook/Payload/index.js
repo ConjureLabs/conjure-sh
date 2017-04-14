@@ -115,6 +115,22 @@ class WebhookPayload {
         return payload.head_commit.id;
     }
   }
+
+  getGitHubAccount(callback) {
+    const gitHubId = this.payload.user.id;
+
+    const DatabaseTable = require('classes/DatabaseTable');
+    DatabaseTable.select('account_github', {
+      github_id: gitHubId
+    }, (err, rows) => {
+      if (err) {
+        return callback(err);
+      }
+
+      // callback handler should deal with undefined row
+      callback(null, rows[0]);
+    });
+  }
 }
 
 const exprAllZeros = /0/g;

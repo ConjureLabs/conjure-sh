@@ -26,9 +26,9 @@ route.push((req, res, next) => {
     return respondOkay();
   }
 
-  if (type === GitHubWebhookPayload.types.pullRequest) {
-    return respondOkay();
-  }
+  // if (type === GitHubWebhookPayload.types.pullRequest) {
+  //   return respondOkay();
+  // }
 
   respondOkay();
 
@@ -41,38 +41,24 @@ route.push((req, res, next) => {
       
       // todo: move this logic somewhere to avoid repitition
       waterfall.push(callback => {
-        const accountGithub = new DatabaseTable('account_github');
-
-        // todo: assumes account has a github record in our db - we should have more handlers for services like bitbucket
-        // todo: this is shared logic (also in dashboard render) - should consolidate into one shared resource
-        accountGithub.select({
-          account: req.user.id
-        }, (err, rows) => {
+        payload.getGitHubAccount((err, gitHubAccount) => {
           if (err) {
             return callback(err);
           }
 
-          // should not be possible
-          if (!rows.length) {
-            return callback(new Error('Could not find github account record'));
+          if (!userRow) {
+            return callback(new Error('No github account record found'));
           }
-
-          // should not be possible
-          if (rows.length > 1) {
-            return callback(new Error('Expected a single row for github account record, received multiple'));
-          }
-
-          const githubAccount = rows[0];
 
           const github = require('octonode');
-          const githubClient = github.client(githubAccount.access_token);
+          const gitHubClient = github.client(gitHubAccount.access_token);
 
-          callback(null, githubClient);
+          callback(null, gitHubClient);
         });
       });
 
-      waterfall.push((githubClient, callback) => {
-        githubClient
+      waterfall.push((gitHubClient, callback) => {
+        gitHubClient
           .pr(`${orgName}/${repoName}`)
           .comment({
             body: 'Link should post here',
@@ -89,7 +75,7 @@ route.push((req, res, next) => {
       break;
   }
 
-  async.waterfall(err => {
+  async.waterfall(waterfall, err => {
     if (err) {
       log.error(err);
     }
