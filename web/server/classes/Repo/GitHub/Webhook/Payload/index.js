@@ -132,8 +132,14 @@ class WebhookPayload {
     });
   }
 
+  // will likely fail if not a pull request payload
   get number() {
     return this.payload.number;
+  }
+
+  // will likely fail if not a pull request payload
+  get branchRef() {
+    return this.payload.pull_request.head.ref;
   }
 }
 

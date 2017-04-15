@@ -26,6 +26,3 @@ RUN git checkout <BRANCH>
 
 # setup
 RUN <SETUP>
-
-# actual test
-CMD <TEST>

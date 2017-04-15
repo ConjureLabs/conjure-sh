@@ -4,7 +4,7 @@
 
 ```bash
 # builds the dockerfile
-. ./build.sh "git@github.com:WiskeyTango/sonyc.git" citest "npm install" "npm run lint"
+. ./build.sh "git@github.com:WiskeyTango/mock-web-repo.git" pr-branch "npm install"
 ```
 
 then
