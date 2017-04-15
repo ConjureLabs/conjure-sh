@@ -1,23 +1,21 @@
-# Voyant
+### Voyant Dockerfile Setup
 
-## Dockerfile
+Build the pr branch
 
 ```bash
 # builds the dockerfile
+# . ./build.sh <repo-path> <pr-branch-name> <env-setup-command>
 . ./build.sh "git@github.com:WiskeyTango/mock-web-repo.git" pr-branch "npm install"
 ```
 
-then
+Now run that container in the background
 
 ```bash
-docker run -t "citest:latest"
+docker run --name "pr-branch:latest" --rm -i -t bash
 ```
 
-and check for error (non-zero)
+then run it
 
-## todo
-
-- web ui
-- env support (not just node)
-- generate dockerfile dynamically
-- dockerfile image caching (at specific steps?)
+```bash
+docker run --rm --cidfile /tmp/asdf.cid -i -t asdf <command>
+```
