@@ -11,7 +11,7 @@ class GitHubRepo extends Component {
 
     // todo: deal with no repo found in .find()
     const repo = staticContent.repos.find(repo => {
-      return repo.fullName = `${orgName}/${repoName}`;
+      return repo.fullName === `${orgName}/${repoName}`;
     });
 
     console.log(repo);
