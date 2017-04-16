@@ -6,7 +6,9 @@
 const Route = require('classes/Route');
 const log = require('modules/log')('container proxy');
 
-const route = new Route();
+const route = new Route({
+  wildcard: true
+});
 
 route.push((req, res, next) => {
   const uid = req.params.uid;
@@ -45,10 +47,6 @@ route.push((req, res, next) => {
     const proxy = new ReqProxy({
       host: proxyRecord.host,
       port: proxyRecord.port
-    });
-
-    proxy.on('error', err => {
-      log.error(err);
     });
 
     proxy.forward(req, res);
