@@ -41,6 +41,7 @@
     "stylus": "^0.54.5",
     "stylus-loader": "2.4.0",
     "uglify-loader": "1.4.0",
+    "uid": "0.0.2",
     "webpack": "1.14.0"
   },
   "devDependencies": {

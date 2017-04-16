@@ -4,6 +4,7 @@ CREATE TABLE container_proxies (
   host VARCHAR(200) NOT NULL,
   port INT NOT NULL,
   container_id VARCHAR(64) NOT NULL,
+  url_uid VARCHAR(24) NOT NULL,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
