@@ -15,3 +15,4 @@ CREATE DATABASE voyant WITH OWNER voyant_admin;
 \i ../sql/tables/account-github.sql;
 \i ../sql/tables/account-login.sql;
 \i ../sql/tables/watched-repos.sql;
+\i ../sql/tables/container-proxies.sql;

@@ -1,0 +1,10 @@
+CREATE TABLE container_proxies (
+  id SERIAL PRIMARY KEY,
+  repo INT REFERENCES watched_repos(id),
+  host VARCHAR(200) NOT NULL,
+  port INT NOT NULL,
+  container_id VARCHAR(64) NOT NULL,
+  added TIMESTAMP WITH TIME ZONE NOT NULL,
+  updated TIMESTAMP WITH TIME ZONE
+);
+COMMENT ON TABLE container_proxies IS 'used to proxy inbound requests to running containers';
