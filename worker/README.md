@@ -4,8 +4,7 @@ Build the pr branch
 
 ```bash
 # builds the dockerfile
-# . ./build.sh <repo-path> <pr-branch-name> <env-setup-command>
-. ./build.sh "git@github.com:WiskeyTango/mock-web-repo.git" <container-name> "npm install"
+. ./build.sh "git@github.com:WiskeyTango/mock-web-repo.git" <branch-name> <container-name>"npm install"
 ```
 
 Now run that container in the background
