@@ -141,6 +141,29 @@ class WebhookPayload {
   get branchRef() {
     return this.payload.pull_request.head.ref;
   }
+
+  // returns github repo id
+  get repoId() {
+    return this.repository.id;
+  }
+
+  // finds the watched repo record
+  get watchedRepoRecord(callback) {
+    const DatabaseTable = require('classes/DatabaseTable');
+    DatabaseTable.select('watched_repos', {
+      service_repo_id: this.repoId
+    }, (err, rows) => {
+      if (err) {
+        return callback(err);
+      }
+
+      if (!rows.length) {
+        return callback(new Error('this repo is not being watched by Voyant'));
+      }
+
+      callback(null, rows[0]);
+    });
+  }
 }
 
 const exprAllZeros = /0/g;
