@@ -18,6 +18,8 @@ const ACTION_UPDATED = Symbol('update');
 class WebhookPayload {
   constructor(payload) {
     this.payload = payload;
+    // keep this, for now, for debug
+    console.log(this.payload);
   }
 
   static get types() {
@@ -112,7 +114,7 @@ class WebhookPayload {
         return payload.pull_request.head.sha;
 
       default:
-        return payload.head_commit.id;
+        return payload.head_commit ? payload.head_commit.id : null;
     }
   }
 
@@ -144,11 +146,11 @@ class WebhookPayload {
 
   // returns github repo id
   get repoId() {
-    return this.repository.id;
+    return this.payload.repository.id;
   }
 
   // finds the watched repo record
-  get watchedRepoRecord(callback) {
+  watchedRepoRecord(callback) {
     const DatabaseTable = require('classes/DatabaseTable');
     DatabaseTable.select('watched_repos', {
       service_repo_id: this.repoId

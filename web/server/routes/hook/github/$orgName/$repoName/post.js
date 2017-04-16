@@ -36,10 +36,10 @@ route.push((req, res, next) => {
   respondOkay();
 
   const uid = require('uid');
+  const containerUid = uid(24);
 
-  const containerName = `${orgName}-${repoName}-${payload.sha}`;
+  const containerName = containerUid; // `${orgName}-${repoName}-${payload.sha}`;
   const hostPort = workerPort++;
-  const urlUid = uid(24);
   const waterfall = [];
 
   switch (action) {
@@ -100,14 +100,14 @@ route.push((req, res, next) => {
           host: 'localhost',
           port: hostPort,
           container_id: containerId,
-          url_uid: urlUid,
+          url_uid: containerUid,
           added: new Date()
         }, err => {
-          callback(err, urlUid);
+          callback(err);
         });
       });
 
-      waterfall.push((urlUid, callback) => {
+      waterfall.push(callback => {
         // todo: store github repo key on repo level, since 'sender' may differ
         payload.getGitHubAccount((err, gitHubAccount) => {
           if (err) {
@@ -121,11 +121,11 @@ route.push((req, res, next) => {
           const github = require('octonode');
           const gitHubClient = github.client(gitHubAccount.access_token);
 
-          callback(null, urlUid, gitHubClient);
+          callback(null, gitHubClient);
         });
       });
 
-      waterfall.push((urlUid, gitHubClient, callback) => {
+      waterfall.push((gitHubClient, callback) => {
         const config = require('modules/config');
         const {
           protocol,
@@ -136,7 +136,7 @@ route.push((req, res, next) => {
         gitHubClient
           .issue(`${orgName}/${repoName}`, payload.number)
           .createComment({
-            body: `${protocol}://${publicHost}/c/${urlUid}`
+            body: `${protocol}://${publicHost}/c/${containerUid}`
           }, err => {
             callback(err);
           });
