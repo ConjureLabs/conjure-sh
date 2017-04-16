@@ -56,7 +56,7 @@ route.push((req, res, next) => {
         // todo: handle non-github repos
         // todo: properly populate setup comamnd
         // todo: use uid for container names, instead of branch name
-        exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" ${containerName} "npm install"`, {
+        exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" ${payload.sha} ${containerName} "npm install"`, {
           cwd: process.env.VOYANT_WORKER_DIR
         }, (err, stdout, stderr) => {
           if (err) {
