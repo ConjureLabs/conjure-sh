@@ -1,8 +1,10 @@
 'use strict';
 
 // todo: make this request an all.js, and support 'all' routes in sync-setup.js
+// todo: wildcards after the initial path
 
 const Route = require('classes/Route');
+const log = require('modules/log')('container proxy');
 
 const route = new Route();
 
@@ -27,21 +29,29 @@ route.push((req, res, next) => {
         return next();
       }
 
-      callback(null, proxies[0])
+      callback(null, proxies[0]);
     });
   });
 
   // todo: verify logged-in user has permission to view this container
 
-  async.waterfall(waterfall, err => {
+  async.waterfall(waterfall, (err, proxyRecord) => {
     if (err) {
       return next(err);
     }
 
-    // remove this with proxy to container port
-    res.send({
-      success: true
+    const ReqProxy = require('classes/Req/Proxy');
+
+    const proxy = new ReqProxy({
+      host: proxyRecord.host,
+      port: proxyRecord.port
     });
+
+    proxy.on('error', err => {
+      log.error(err);
+    });
+
+    proxy.forward(req, res);
   });
 });
 
