@@ -27,6 +27,7 @@
     "debug": "2.6.0",
     "expose-loader": "0.7.1",
     "express": "4.14.0",
+    "extract-text-webpack-plugin": "^2.1.0",
     "jade": "1.11.0",
     "jsx-loader": "0.13.2",
     "morgan": "1.7.0",
@@ -43,7 +44,7 @@
     "stylus-loader": "2.4.0",
     "uglify-loader": "1.4.0",
     "uid": "0.0.2",
-    "webpack": "1.14.0"
+    "webpack": "^2.4.1"
   },
   "devDependencies": {
     "babel-plugin-transform-decorators": "6.6.5",
