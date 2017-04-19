@@ -12,6 +12,7 @@ const route = new Route({
 
 route.push((req, res, next) => {
   const uid = req.params.uid;
+  const uriRemainder = req.url.replace(/^\/c\/[a-z0-9]+(\/?.*)$/, '$1');
 
   const async = require('async');
 
@@ -19,9 +20,14 @@ route.push((req, res, next) => {
 
   waterfall.push(callback => {
     const DatabaseTable = require('classes/DatabaseTable');
+
+    console.log(uid);
+
     DatabaseTable.select('container_proxies', {
       url_uid: uid,
     }, (err, proxies) => {
+      console.log(proxies);
+
       if (err) {
         return callback(err);
       }
@@ -46,6 +52,7 @@ route.push((req, res, next) => {
 
     const proxy = new ReqProxy({
       host: proxyRecord.host,
+      path: uriRemainder,
       port: proxyRecord.port
     });
 

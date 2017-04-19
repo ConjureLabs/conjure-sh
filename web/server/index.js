@@ -218,6 +218,7 @@ server.use((req, res, next) => {
 server.use(setup.routes.api);
 server.use(setup.routes.hook);
 server.use(setup.routes.views);
+server.use(setup.routes.c);
 
 server.use((err, req, res, next) => {
   if (err) {
