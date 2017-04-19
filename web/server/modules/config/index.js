@@ -2,7 +2,9 @@
 
 module.exports = {
   app: {
-    host: `localhost:${process.env.PORT}`,
+    domain: 'localhost',
+    host: null, // set later
+    port: process.env.PORT,
     protocol: 'http',
     publicHost: null // set later
   },
@@ -28,4 +30,5 @@ module.exports = {
   }
 };
 
+module.exports.app.host = `${module.exports.app.domain}:${process.env.PORT}`;
 module.exports.app.publicHost = process.env.VOYANT_APP_PUBLIC_HOST || module.exports.app.host;

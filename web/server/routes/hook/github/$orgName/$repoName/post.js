@@ -29,10 +29,6 @@ route.push((req, res, next) => {
     return respondOkay();
   }
 
-  // if (type === GitHubWebhookPayload.types.pullRequest) {
-  //   return respondOkay();
-  // }
-
   respondOkay();
 
   const uid = require('uid');
@@ -129,14 +125,14 @@ route.push((req, res, next) => {
         const config = require('modules/config');
         const {
           protocol,
-          publicHost
+          host
         } = config.app;
 
         // todo: not use user's account to post comment (may not be possible, unless can get integration access from github)
         gitHubClient
           .issue(`${orgName}/${repoName}`, payload.number)
           .createComment({
-            body: `${protocol}://${publicHost}/c/${containerUid}`
+            body: `${protocol}://${host}:${hostPort}` // `${protocol}://${publicHost}/c/${containerUid}`
           }, err => {
             callback(err);
           });
