@@ -75,7 +75,6 @@ route.push((req, res, next) => {
         const exec = require('child_process').exec;
         // todo: handle non-github repos
         // todo: properly populate setup comamnd
-        // todo: use uid for container names, instead of branch name
         exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" ${payload.sha} ${containerName} "npm install"`, {
           cwd: process.env.VOYANT_WORKER_DIR
         }, (err, stdout, stderr) => {
@@ -173,18 +172,42 @@ route.push((req, res, next) => {
         payload.watchedRepoRecord(callback);
       });
 
-      // need to add sha
+      // make sure the repo/branch is spun up
       waterfall.push((watchedRepo, callback) => {
         const DatabaseTable = require('classes/DatabaseTable');
+        // todo: detect correct server host, but on develop / test keep localhost
         DatabaseTable.select('container_proxies', {
-          repo: watchedRepo.id
+          repo: watchedRepo.id,
+          commit_sha: payload.sha
         }, (err, records) => {
           if (err) {
             return callback(err);
           }
 
-          if (!records.length)
+          if (!records.length) {
+            return callback(asyncBreak);
+          }
+
+          callback(null, records);
         });
+      });
+
+      // spin down vms
+      waterfall.push((runningVms, callback) => {
+        const exec = require('child_process').exec;
+
+        for (let i = 0; i < runningVms.length; i++) {
+          // todo: handle non-github repos
+          exec(`bash ./kill.sh "${containerName}" "${containerId}"`, {
+            cwd: process.env.VOYANT_WORKER_DIR
+          }, err => {
+            if (err) {
+              return log.error(err);
+            }
+          });
+        }
+
+        callback();
       });
       break;
   }
