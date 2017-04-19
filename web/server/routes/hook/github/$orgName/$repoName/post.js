@@ -7,6 +7,9 @@ const log = require('modules/log')('github webhook inbound');
 // todo: move port logic into a class, and use available ports that are free'd
 let workerPort = process.env.PORT;
 
+// todo: set up a module that handles cases like this
+const asyncBreak = {};
+
 const route = new Route();
 
 route.push((req, res, next) => {
@@ -39,11 +42,32 @@ route.push((req, res, next) => {
   const waterfall = [];
 
   switch (action) {
+    // spin up vm
     case GitHubWebhookPayload.actions.opened:
     case GitHubWebhookPayload.actions.reopened:
       // get watched repo record
       waterfall.push(callback => {
         payload.watchedRepoRecord(callback);
+      });
+
+      // make sure the repo/branch is not already spun up
+      waterfall.push((watchedRepo, callback) => {
+        const DatabaseTable = require('classes/DatabaseTable');
+        // todo: detect correct server host, but on develop / test keep localhost
+        DatabaseTable.select('container_proxies', {
+          repo: watchedRepo.id,
+          commit_sha: payload.sha
+        }, (err, records) => {
+          if (err) {
+            return callback(err);
+          }
+
+          if (records.length) {
+            return callback(asyncBreak);
+          }
+
+          callback(null, watchedRepo);
+        });
       });
 
       // create container
@@ -139,14 +163,38 @@ route.push((req, res, next) => {
       });
       break;
 
+    // spin down vm
     case GitHubWebhookPayload.actions.closed:
     case GitHubWebhookPayload.actions.merged:
-      // spin down vm
+      const waterfall = [];
+
+      // get watched repo record
+      waterfall.push(callback => {
+        payload.watchedRepoRecord(callback);
+      });
+
+      // need to add sha
+      waterfall.push((watchedRepo, callback) => {
+        const DatabaseTable = require('classes/DatabaseTable');
+        DatabaseTable.select('container_proxies', {
+          repo: watchedRepo.id
+        }, (err, records) => {
+          if (err) {
+            return callback(err);
+          }
+
+          if (!records.length)
+        });
+      });
       break;
   }
 
   async.waterfall(waterfall, err => {
     if (err) {
+      if (err === asyncBreak) {
+        return;
+      }
+
       log.error(err);
     }
   });
