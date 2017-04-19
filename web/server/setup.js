@@ -76,6 +76,6 @@ module.exports = {
     api: crawlRoutesDir(false, apiRoutesDir),
     hook: crawlRoutesDir(false, hookRoutesDir),
     views: crawlRoutesDir(true, viewsRoutesDir),
-    views: crawlRoutesDir(false, containerRoutesDir)
+    c: crawlRoutesDir(false, containerRoutesDir)
   }
 };
