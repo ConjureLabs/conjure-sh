@@ -51,32 +51,51 @@ module.exports = {
           }
         }]
       },
-      
-      // parse .styl files, excluding those in node_modules
+
+      // parse .style files, excluding those in node_modules
       {
         test: /\.styl$/,
         exclude: path.resolve(__dirname, 'node_modules'),
         include: dirs.client,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          allChunks: true,
-          use: [{
-            loader: 'css-loader',
-            options: {
-              modules: true,
-              importLoaders: true,
-              localIdentName: cssModuleNamingConvention
-            }
-          }, {
-            loader: 'stylus-loader',
-            options: {
-              modules: true,
-              importLoaders: true,
-              localIdentName: cssModuleNamingConvention
-            }
-          }]
-        })
+
+          parser: {
+            node: true
+          },
+        use: [{
+          loader: 'stylus-loader',
+          options: {
+            modules: true,
+            importLoaders: true,
+            localIdentName: cssModuleNamingConvention
+          }
+        }]
       }
+      
+      // // parse .styl files, excluding those in node_modules
+      // {
+      //   test: /\.styl$/,
+      //   exclude: path.resolve(__dirname, 'node_modules'),
+      //   include: dirs.client,
+      //   use: ExtractTextPlugin.extract({
+      //     fallback: 'style-loader',
+      //     allChunks: true,
+      //     use: [{
+      //       loader: 'css-loader',
+      //       options: {
+      //         modules: true,
+      //         importLoaders: true,
+      //         localIdentName: cssModuleNamingConvention
+      //       }
+      //     }, {
+      //       loader: 'stylus-loader',
+      //       options: {
+      //         modules: true,
+      //         importLoaders: true,
+      //         localIdentName: cssModuleNamingConvention
+      //       }
+      //     }]
+      //   })
+      // }
     ]
   },
 
@@ -92,15 +111,8 @@ module.exports = {
   },
 
   plugins: isDev ? [
-    new ExtractTextPlugin({
-      filename: '[name].css',
-      disable: false
-    })
+
   ] : [
-    new ExtractTextPlugin({
-      filename: '[name].css',
-      disable: false
-    }),
 
     new UglifyJsPlugin()
   ],
