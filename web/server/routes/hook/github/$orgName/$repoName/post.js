@@ -116,6 +116,7 @@ route.push((req, res, next) => {
         // todo: detect correct server host, but on develop / test keep localhost
         DatabaseTable.insert('container_proxies', {
           repo: watchedRepo.id,
+          commit_sha: payload.sha,
           host: 'localhost',
           port: hostPort,
           container_id: containerId,
@@ -148,14 +149,14 @@ route.push((req, res, next) => {
         const config = require('modules/config');
         const {
           protocol,
-          host
+          domain
         } = config.app;
 
         // todo: not use user's account to post comment (may not be possible, unless can get integration access from github)
         gitHubClient
           .issue(`${orgName}/${repoName}`, payload.number)
           .createComment({
-            body: `${protocol}://${host}:${hostPort}` // `${protocol}://${publicHost}/c/${containerUid}`
+            body: `${protocol}://${domain}:${hostPort}`
           }, err => {
             callback(err);
           });
@@ -165,8 +166,6 @@ route.push((req, res, next) => {
     // spin down vm
     case GitHubWebhookPayload.actions.closed:
     case GitHubWebhookPayload.actions.merged:
-      const waterfall = [];
-
       // get watched repo record
       waterfall.push(callback => {
         payload.watchedRepoRecord(callback);
@@ -188,17 +187,17 @@ route.push((req, res, next) => {
             return callback(asyncBreak);
           }
 
-          callback(null, records);
+          callback(null, watchedRepo, records);
         });
       });
 
       // spin down vms
-      waterfall.push((runningVms, callback) => {
+      waterfall.push((watchedRepo, runningVms, callback) => {
         const exec = require('child_process').exec;
 
         for (let i = 0; i < runningVms.length; i++) {
           // todo: handle non-github repos
-          exec(`bash ./kill.sh "${containerName}" "${containerId}"`, {
+          exec(`bash ./kill.sh "${containerName}" "${runningVms[i].container_id}"`, {
             cwd: process.env.VOYANT_WORKER_DIR
           }, err => {
             if (err) {
@@ -207,7 +206,18 @@ route.push((req, res, next) => {
           });
         }
 
-        callback();
+        callback(null, watchedRepo);
+      });
+
+      // remove db reference to proxy
+      waterfall.push((watchedRepo, callback) => {
+        const DatabaseTable = require('classes/DatabaseTable');
+        DatabaseTable.delete('container_proxies', {
+          repo: watchedRepo.id,
+          commit_sha: payload.sha
+        }, err => {
+          callback(err);
+        });
       });
       break;
   }
