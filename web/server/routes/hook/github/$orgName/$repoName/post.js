@@ -2,6 +2,7 @@
 
 const async = require('async');
 const Route = require('classes/Route');
+const log = require('modules/log')('github webhook inbound');
 
 // todo: move port logic into a class, and use available ports that are free'd
 let workerPort = process.env.PORT;
@@ -33,45 +34,38 @@ route.push((req, res, next) => {
 
   respondOkay();
 
-  const Container = require('classes/Container');
-  const container = new Container(orgName, repoName, payload);
-
-  function finish() {
-    if (err) {
-      log.error(err);
-    }
-  }
-
   // todo: what to do if a container is still starting and the pr is closed?
 
   switch (action) {
     // spin up vm
     case GitHubWebhookPayload.actions.opened:
     case GitHubWebhookPayload.actions.reopened:
-      container.start(finish);
+      require('./container-create')(orgName, repoName, payload, err => {
+        if (err) {
+          log.error(err);
+        }
+      });
       break;
 
     // spin down vm
     case GitHubWebhookPayload.actions.closed:
     case GitHubWebhookPayload.actions.merged:
-      container.kill(finish);
+      require('./container-kill')(payload, err => {
+        if (err) {
+          log.error(err);
+        }
+      });
       break;
 
     // update running vm
     case GitHubWebhookPayload.actions.updated:
-      container.update(finish);
+      require('./container-update')(orgName, repoName, payload, err => {
+        if (err) {
+          log.error(err);
+        }
+      });
       break;
   }
-
-  async.waterfall(waterfall, err => {
-    if (err) {
-      if (err === asyncBreak) {
-        return;
-      }
-
-      log.error(err);
-    }
-  });
 });
 
 module.exports = route;

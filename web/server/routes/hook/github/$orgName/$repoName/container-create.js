@@ -3,7 +3,11 @@
 // todo: set up a module that handles cases like this
 const asyncBreak = {};
 
-function createContainer(orgName, repoName, payload, containerName, callback) {
+function containerCreate(orgName, repoName, payload, callback) {
+  const uid = require('uid');
+
+  const containerUid = uid(24);
+  const hostPort = workerPort++;
   const waterfall = [];
 
   // get watched repo record
@@ -36,7 +40,7 @@ function createContainer(orgName, repoName, payload, containerName, callback) {
     const exec = require('child_process').exec;
     // todo: handle non-github repos
     // todo: properly populate setup comamnd
-    exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" ${payload.sha} ${containerName} "npm install"`, {
+    exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" ${payload.sha} ${containerUid} "npm install"`, {
       cwd: process.env.VOYANT_WORKER_DIR
     }, (err, stdout, stderr) => {
       if (err) {
@@ -56,7 +60,7 @@ function createContainer(orgName, repoName, payload, containerName, callback) {
     const exec = require('child_process').exec;
     // todo: handle ports properly
     // todo: handle command properly
-    exec(`docker run --cidfile /tmp/${containerName}.cid -i -t -d -p ${hostPort}:4000 ${containerName} node ./`, {
+    exec(`docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:4000 ${containerUid} node ./`, {
       cwd: process.env.VOYANT_WORKER_DIR
     }, (err, stdout, stderr) => {
       if (err) {
@@ -124,6 +128,12 @@ function createContainer(orgName, repoName, payload, containerName, callback) {
   });
 
   async.waterfall(waterfall, err => {
+    if (err === asyncBreak) {
+      return callback();
+    }
+
     callback(err);
   });
 }
+
+module.exports = containerCreate;

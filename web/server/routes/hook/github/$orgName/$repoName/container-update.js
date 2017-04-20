@@ -1,0 +1,21 @@
+'use strict';
+
+function containerUpdate(payload, callback) {
+  const series = [];
+
+  // there is a better way to do this - for now, keeping it rather simple
+
+  series.push(cb => {
+    require('./container-kill')(payload, cb);
+  });
+
+  series.push(cb => {
+    require('./container-create')(orgName, repoName, payload, cb);
+  });
+
+  async.series(series, err => {
+    callback(err);
+  });
+}
+
+module.exports = containerUpdate;
