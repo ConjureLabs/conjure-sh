@@ -22,7 +22,7 @@ RUN yum install -y git
 
 # pull codebase & branch
 RUN git clone <REPO> ./
-RUN git checkout <BRANCH>
+RUN git pull && git checkout <BRANCH>
 
 # setup
 RUN <SETUP>
