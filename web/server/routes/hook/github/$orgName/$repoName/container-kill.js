@@ -63,6 +63,7 @@ function containerKill(payload, callback) {
     });
   });
 
+  const async = require('async');
   async.waterfall(waterfall, err => {
     if (err === asyncBreak) {
       return callback();

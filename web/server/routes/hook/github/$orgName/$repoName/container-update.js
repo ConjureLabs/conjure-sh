@@ -13,6 +13,7 @@ function containerUpdate(payload, callback) {
     require('./container-create')(orgName, repoName, payload, cb);
   });
 
+  const async = require('async');
   async.series(series, err => {
     callback(err);
   });
