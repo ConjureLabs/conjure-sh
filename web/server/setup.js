@@ -64,7 +64,7 @@ function crawlRoutesDir(ignoreCurrentDir, dirpath, uriPathTokens) {
   for (let i = 0; i < files.length; i++) {
     const verb = files[i].replace(jsFileExt, '').toLowerCase();
 
-    if (validVerbs.includes(verb)) {
+    if (!validVerbs.includes(verb)) {
       continue;
     }
 
