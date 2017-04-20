@@ -18,6 +18,7 @@ const viewsRoutesDir = path.resolve(__dirname, 'routes', 'views');
 const containerRoutesDir = path.resolve(__dirname, 'routes', 'c');
 const jsFileExt = /\.js$/;
 const startingDollarSign = /^\$/;
+const validVerbs = ['all', 'get', 'post', 'put', 'patch', 'delete'];
 
 // todo: remove ignoreCurrentDir logic, find a cleaner solution
 function crawlRoutesDir(ignoreCurrentDir, dirpath, uriPathTokens) {
@@ -61,7 +62,12 @@ function crawlRoutesDir(ignoreCurrentDir, dirpath, uriPathTokens) {
   }
 
   for (let i = 0; i < files.length; i++) {
-    const verb = files[i].replace(jsFileExt, '');
+    const verb = files[i].replace(jsFileExt, '').toLowerCase();
+
+    if (validVerbs.includes(verb)) {
+      continue;
+    }
+
     const individualRoute = require(path.resolve(dirpath, files[i]));
     routes.push(individualRoute.expressRouter(verb, '/' + uriPathTokens.join('/')));
   }
