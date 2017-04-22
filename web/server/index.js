@@ -259,6 +259,7 @@ statusRouter.get('*', (req, res, next) => {
     json: true
   }, (err, _, content) => {
     let gifUrl = `${config.app.url}/images/gifs/confused-travolta.gif`;
+    let webpUrl;
 
     // doing several checks so that 404s do not break becaue of potential gify changes or downtime
     if (err) {
@@ -274,13 +275,15 @@ statusRouter.get('*', (req, res, next) => {
           typeof content.data[index].images.original.url === 'string'
         ) {
           gifUrl = content.data[index].images.original.url;
+          webpUrl = content.data[index].images.original.webp;
         }
       }
     }
 
     res.render('status-404', {
       name: 'status-404',
-      gifUrl
+      gifUrl,
+      webpUrl: webpUrl || ''
     });
   });
 });
