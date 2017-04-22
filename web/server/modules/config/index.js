@@ -1,12 +1,14 @@
 'use strict';
 
-module.exports = {
+const config = {
   app: {
     domain: 'localhost',
     host: null, // set later
     port: process.env.PORT,
     protocol: 'http',
-    publicHost: null // set later
+    publicHost: null, // set later
+    publicUrl: null, // set later
+    url: null // set later
   },
 
   database: {
@@ -30,5 +32,9 @@ module.exports = {
   }
 };
 
-module.exports.app.host = `${module.exports.app.domain}:${process.env.PORT}`;
-module.exports.app.publicHost = process.env.VOYANT_APP_PUBLIC_HOST || module.exports.app.host;
+config.app.host = `${config.app.domain}:${process.env.PORT}`;
+config.app.publicHost = process.env.VOYANT_APP_PUBLIC_HOST || config.app.host;
+config.app.publicUrl = `${config.app.protocol}://${config.app.publicHost}`;
+config.app.url = `${config.app.protocol}://${config.app.host}`;
+
+module.exports = config;

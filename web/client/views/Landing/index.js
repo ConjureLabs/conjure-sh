@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory, Link } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import styles from './styles.styl';
 import Button from 'c/Button';
 

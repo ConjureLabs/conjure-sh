@@ -13,8 +13,9 @@ const dirs = {
 module.exports = {
   context: dirs.client,
   entry: {
+    landing: ['babel-polyfill', './views/Landing'],
     repos: ['babel-polyfill', './views/Repos'],
-    landing: ['babel-polyfill', './views/Landing']
+    'status-404': ['babel-polyfill', './views/Status-404']
   },
   output: {
     path: path.resolve(__dirname, 'public', 'build'),
