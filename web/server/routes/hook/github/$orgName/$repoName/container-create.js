@@ -2,13 +2,13 @@
 
 // todo: set up a module that handles cases like this
 const asyncBreak = {};
-let workerPort = process.env.PORT;
+let workerPort = parseInt(process.env.PORT, 10);
 
 function containerCreate(orgName, repoName, payload, callback) {
   const uid = require('uid');
 
   const containerUid = uid(24);
-  const hostPort = workerPort++;
+  const hostPort = ++workerPort;
   const waterfall = [];
 
   // get watched repo record
