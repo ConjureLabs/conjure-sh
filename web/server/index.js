@@ -240,7 +240,12 @@ server.use((err, req, res, next) => {
 
 // 404 status view
 const statusRouter = express.Router();
-statusRouter.get('*', (req, res) => {
+statusRouter.get('*', (req, res, next) => {
+  // prevent non-html pages from rendering a 404
+  if (typeof req.headers.accept !== 'string' || !req.headers.accept.includes('text/html')) {
+    return next();
+  }
+
   // showing a random confused travolta, for fun
   const request = require('request');
 
@@ -268,7 +273,7 @@ statusRouter.get('*', (req, res) => {
           content.data[index].images.original &&
           typeof content.data[index].images.original.url === 'string'
         ) {
-          gifUrl == content.data[index].images.original.url;
+          gifUrl = content.data[index].images.original.url;
         }
       }
     }
