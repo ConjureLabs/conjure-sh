@@ -23,7 +23,7 @@ class Status404 extends Component {
     return (
       <div className={styles.root}>
         <Gif />
-        <header className={styles.header}>404 - Not Found</header>
+        <header className={styles.header}>Page Not Found</header>
       </div>
     );
   }
