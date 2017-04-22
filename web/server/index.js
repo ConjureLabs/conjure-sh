@@ -235,6 +235,12 @@ server.use((err, req, res, next) => {
     return next(err);
   }
 
+  next();
+});
+
+// 404 status view
+const statusRouter = express.Router();
+statusRouter.get('*', (req, res) => {
   // showing a random confused travolta, for fun
   const request = require('request');
 
@@ -246,8 +252,8 @@ server.use((err, req, res, next) => {
       api_key: 'dc6zaTOxFJmzC'
     },
     json: true
-  }, (err, res, content) => {
-    let travoltaUrl = `${config.app.url}/gifs/confused-travolta.gif`;
+  }, (err, _, content) => {
+    let gifUrl = `${config.app.url}/images/gifs/confused-travolta.gif`;
 
     // doing several checks so that 404s do not break becaue of potential gify changes or downtime
     if (err) {
@@ -262,17 +268,18 @@ server.use((err, req, res, next) => {
           content.data[index].images.original &&
           typeof content.data[index].images.original.url === 'string'
         ) {
-          travoltaUrl == content.data[index].images.original.url;
+          gifUrl == content.data[index].images.original.url;
         }
       }
     }
 
-    res.render('404', {
-      name: '404',
-      travoltaUrl
+    res.render('status-404', {
+      name: 'status-404',
+      gifUrl
     });
   });
 });
+server.use(statusRouter);
 
 server.listen(port, () => {
   log.info(`listening on :${port}`);

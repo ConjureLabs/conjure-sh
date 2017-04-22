@@ -2,3 +2,7 @@ extends ./templates/page
 
 block body
   #container
+
+block append bodyScripts
+  script.
+    staticContent.gifUrl = '!{gifUrl}';
