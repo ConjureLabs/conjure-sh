@@ -19,7 +19,7 @@ class WebhookPayload {
   constructor(payload) {
     this.payload = payload;
     // keep this, for now, for debug
-    console.log(this.payload);
+    // console.log(this.payload);
   }
 
   static get types() {

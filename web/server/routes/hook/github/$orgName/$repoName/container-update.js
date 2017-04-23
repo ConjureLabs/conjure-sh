@@ -1,6 +1,6 @@
 'use strict';
 
-function containerUpdate(payload, callback) {
+function containerUpdate(orgName, repoName, payload, callback) {
   const series = [];
 
   // there is a better way to do this - for now, keeping it rather simple
