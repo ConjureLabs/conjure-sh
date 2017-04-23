@@ -1,12 +1,16 @@
 'use strict';
 
+const log = require('modules/log')('github container update');
+
 function containerUpdate(orgName, repoName, payload, callback) {
+  log.info('starting update');
+
   const series = [];
 
   // there is a better way to do this - for now, keeping it rather simple
 
   series.push(cb => {
-    require('./container-kill')(payload, cb);
+    require('./container-kill')(payload, payload.prevSha, cb);
   });
 
   series.push(cb => {

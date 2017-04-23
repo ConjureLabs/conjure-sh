@@ -7,6 +7,8 @@ const asyncBreak = {};
 let workerPort = parseInt(process.env.PORT, 10);
 
 function containerCreate(orgName, repoName, payload, callback) {
+  log.info('starting create');
+
   const uid = require('uid');
 
   const containerUid = uid(24);

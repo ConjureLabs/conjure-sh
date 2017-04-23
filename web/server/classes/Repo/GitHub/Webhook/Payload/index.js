@@ -19,7 +19,7 @@ class WebhookPayload {
   constructor(payload) {
     this.payload = payload;
     // keep this, for now, for debug
-    // console.log(this.payload);
+    console.log(this.payload);
   }
 
   static get types() {
@@ -116,6 +116,12 @@ class WebhookPayload {
       default:
         return payload.head_commit ? payload.head_commit.id : null;
     }
+  }
+
+  get prevSha() {
+    const { payload } = this;
+    
+    return payload.before;
   }
 
   getGitHubAccount(callback) {

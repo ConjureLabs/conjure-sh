@@ -50,7 +50,7 @@ route.push((req, res, next) => {
     // spin down vm
     case GitHubWebhookPayload.actions.closed:
     case GitHubWebhookPayload.actions.merged:
-      require('./container-kill')(payload, err => {
+      require('./container-kill')(payload, payload.sha, err => {
         if (err) {
           log.error(err);
         }
