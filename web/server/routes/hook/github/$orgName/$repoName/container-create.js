@@ -62,8 +62,19 @@ function containerCreate(orgName, repoName, payload, callback) {
   waterfall.push((watchedRepo, gitHubClient, cb) => {
     gitHubClient
       .repo(`${orgName}/${repoName}`)
-      .contents('voyant.yml', payload.sha, function() {
-        console.log(arguments);
+      .contents('voyant-x.yml', payload.sha, (err, file) => {
+        // todo: handle errors, send a message to client/github
+
+        if (err) {
+          return cb(err);
+        }
+
+        if (!file || file.type !== 'file' || typeof file.content !== 'string') {
+          return cb(new Error('No Voyant YML config present in repo'));
+        }
+
+        const yml = new Buffer(file.content, 'base64');
+
         cb(null, watchedRepo, gitHubClient);
       });
   });
