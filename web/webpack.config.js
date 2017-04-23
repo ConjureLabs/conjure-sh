@@ -71,7 +71,7 @@ module.exports = {
         }, {
           loader: 'css-loader',
           options: {
-            importLoaders: 2,
+            importLoaders: 1,
             localIdentName: cssModuleNamingConvention,
             modules: true,
             sourceMap: isDev
@@ -91,6 +91,11 @@ module.exports = {
     ]
   },
 
+  // resolve can be used to simplify paths.
+  // this is personal perference.
+  // in my react files, i can write `import X from 'c/myComponent'`
+  // this will resolve to './client/components/myComponent'
+  // otherwise i would have to use relative paths, to my local files
   resolve: {
     alias: {
       'c': path.resolve(dirs.client, 'components'),
@@ -98,10 +103,7 @@ module.exports = {
     }
   },
 
-  node: {
-    __dirname: true
-  },
-
+  // if not on prod, obfuscate things
   plugins: isDev ? [] : [ new UglifyJsPlugin() ],
 
   devtool: isDev ? 'source-map' : 'cheap-source-map'
