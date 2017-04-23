@@ -5,6 +5,7 @@
   "main": "./server",
   "scripts": {
     "compile": "bash ./bash/npm/compile.sh",
+    "docker-cleanup": "bash ./bash/npm/docker-cleanup.sh",
     "lint": "bash ./bash/npm/lint.sh",
     "start": "bash ./bash/npm/start.sh"
   },

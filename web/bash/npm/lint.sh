@@ -1,5 +1,5 @@
 #! /bin/bash
-### Called on `npm run-script lint`
+### Called on `npm run lint`
 
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;

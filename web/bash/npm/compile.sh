@@ -1,5 +1,5 @@
 #! /bin/bash
-### Called on `npm run-script compile`
+### Called on `npm run compile`
 
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;
