@@ -39,8 +39,37 @@ function containerCreate(orgName, repoName, payload, callback) {
     });
   });
 
-  // create container
+  // get github client
   waterfall.push((watchedRepo, cb) => {
+    // todo: store github repo key on repo level, since 'sender' may differ
+    payload.getGitHubAccount((err, gitHubAccount) => {
+      if (err) {
+        return cb(err);
+      }
+
+      if (!gitHubAccount) {
+        return cb(new Error('No github account record found'));
+      }
+
+      const github = require('octonode');
+      const gitHubClient = github.client(gitHubAccount.access_token);
+
+      cb(null, watchedRepo, gitHubClient);
+    });
+  });
+
+  // get yml config
+  waterfall.push((watchedRepo, gitHubClient, cb) => {
+    gitHubClient
+      .repo(`${orgName}/${repoName}`)
+      .contents('voyant.yml', payload.sha, function() {
+        console.log(arguments);
+        cb(null, watchedRepo, gitHubClient);
+      });
+  });
+
+  // create container
+  waterfall.push((watchedRepo, gitHubClient, cb) => {
     const exec = require('child_process').exec;
     // todo: handle non-github repos
     // todo: properly populate setup comamnd
@@ -55,12 +84,12 @@ function containerCreate(orgName, repoName, payload, callback) {
         return cb(new Error(stderr));
       }
 
-      cb(null, watchedRepo);
+      cb(null, watchedRepo, gitHubClient);
     });
   });
 
   // run container
-  waterfall.push((watchedRepo, cb) => {
+  waterfall.push((watchedRepo, gitHubClient, cb) => {
     const exec = require('child_process').exec;
     // todo: handle ports properly
     // todo: handle command properly
@@ -91,14 +120,14 @@ function containerCreate(orgName, repoName, payload, callback) {
           return;
         }
 
-        cb(null, watchedRepo, hostPort, stdout.trim());
+        cb(null, watchedRepo, gitHubClient, hostPort, stdout.trim());
       });
     }
     attemptDockerRun();
   });
 
   // save reference for container
-  waterfall.push((watchedRepo, hostPort, containerId, cb) => {
+  waterfall.push((watchedRepo, gitHubClient, hostPort, containerId, cb) => {
     const DatabaseTable = require('classes/DatabaseTable');
     // todo: detect correct server host, but on develop / test keep localhost
     DatabaseTable.insert('container_proxies', {
@@ -110,25 +139,7 @@ function containerCreate(orgName, repoName, payload, callback) {
       url_uid: containerUid,
       added: new Date()
     }, err => {
-      cb(err, hostPort);
-    });
-  });
-
-  waterfall.push((hostPort, cb) => {
-    // todo: store github repo key on repo level, since 'sender' may differ
-    payload.getGitHubAccount((err, gitHubAccount) => {
-      if (err) {
-        return cb(err);
-      }
-
-      if (!gitHubAccount) {
-        return cb(new Error('No github account record found'));
-      }
-
-      const github = require('octonode');
-      const gitHubClient = github.client(gitHubAccount.access_token);
-
-      cb(null, hostPort, gitHubClient);
+      cb(err, hostPort, gitHubClient);
     });
   });
 
