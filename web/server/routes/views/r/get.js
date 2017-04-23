@@ -3,6 +3,7 @@
 const Route = require('classes/Route');
 
 const route = new Route({
+  requireAuthentication: true,
   wildcard: true
 });
 

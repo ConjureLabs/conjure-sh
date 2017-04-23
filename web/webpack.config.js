@@ -17,13 +17,16 @@ module.exports = {
   context: dirs.client,
 
   entry: {
-    'repos.js': ['babel-polyfill', './views/Repos'],
-    'landing.js': ['babel-polyfill', './views/Landing']
+    repos: ['babel-polyfill', './views/Repos'],
+    landing: ['babel-polyfill', './views/Landing'],
+    'status-404': ['babel-polyfill', './views/Status-404']
   },
 
   output: {
     path: path.resolve(__dirname, 'public', 'build'),
-    filename: '[name]'
+    filename: '[name].js',
+    sourceMapFilename: '[name].map',
+    chunkFilename: '[id]-chunk.js'
   },
 
   module: {
@@ -57,11 +60,39 @@ module.exports = {
         test: /\.styl$/,
         exclude: path.resolve(__dirname, 'node_modules'),
         include: dirs.client,
-
-          parser: {
-            node: true
-          },
+        parser: {
+          node: true
+        },
         use: [{
+          loader: 'style-loader',
+          options: {
+            sourceMap: isDev
+          }
+        }, {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 2,
+            localIdentName: cssModuleNamingConvention,
+            modules: true,
+            sourceMap: isDev
+          }
+        }, {
+          loader: 'stylus-loader',
+          options: {
+            sourceMap: isDev,
+            outputStyle: 'expanded',
+            includePaths: [
+              process.env.NODE_PATH,
+              path.resolve(__dirname, 'client')
+            ]
+          }
+        }]
+      }
+
+
+
+
+          /* [{
           loader: 'stylus-loader',
           options: {
             modules: true,
@@ -69,7 +100,7 @@ module.exports = {
             localIdentName: cssModuleNamingConvention
           }
         }]
-      }
+      } */
       
       // // parse .styl files, excluding those in node_modules
       // {

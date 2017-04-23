@@ -20,6 +20,16 @@ module.exports = route;
 
 #### Options
 
+##### Require Authentication
+
+If you want a route to only be accessible if the user is authenticated, then use:
+
+```js
+const route = new Route({
+  requireAuthentication: true
+});
+```
+
 ##### Blacklisted Env Vars
 
 If you want to block a route from being using when an ENV var is set, you can do so like:

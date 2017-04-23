@@ -7,6 +7,9 @@ const log = require('modules/log')('github webhook inbound');
 // todo: move port logic into a class, and use available ports that are free'd
 let workerPort = process.env.PORT;
 
+// todo: set up a module that handles cases like this
+const asyncBreak = {};
+
 const route = new Route();
 
 route.push((req, res, next) => {
@@ -29,131 +32,40 @@ route.push((req, res, next) => {
     return respondOkay();
   }
 
-  // if (type === GitHubWebhookPayload.types.pullRequest) {
-  //   return respondOkay();
-  // }
-
   respondOkay();
 
-  const uid = require('uid');
-  const containerUid = uid(24);
-
-  const containerName = containerUid; // `${orgName}-${repoName}-${payload.sha}`;
-  const hostPort = workerPort++;
-  const waterfall = [];
+  // todo: what to do if a container is still starting and the pr is closed?
 
   switch (action) {
+    // spin up vm
     case GitHubWebhookPayload.actions.opened:
     case GitHubWebhookPayload.actions.reopened:
-      // get watched repo record
-      waterfall.push(callback => {
-        payload.watchedRepoRecord(callback);
-      });
-
-      // create container
-      waterfall.push((watchedRepo, callback) => {
-        const exec = require('child_process').exec;
-        // todo: handle non-github repos
-        // todo: properly populate setup comamnd
-        // todo: use uid for container names, instead of branch name
-        exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" ${payload.sha} ${containerName} "npm install"`, {
-          cwd: process.env.VOYANT_WORKER_DIR
-        }, (err, stdout, stderr) => {
-          if (err) {
-            return callback(err);
-          }
-
-          if (stderr) {
-            return callback(new Error(stderr));
-          }
-
-          callback(null, watchedRepo);
-        });
-      });
-
-      // run container
-      waterfall.push((watchedRepo, callback) => {
-        const exec = require('child_process').exec;
-        // todo: handle ports properly
-        // todo: handle command properly
-        exec(`docker run --cidfile /tmp/${containerName}.cid -i -t -d -p ${hostPort}:4000 ${containerName} node ./`, {
-          cwd: process.env.VOYANT_WORKER_DIR
-        }, (err, stdout, stderr) => {
-          if (err) {
-            return callback(err);
-          }
-
-          if (stderr) {
-            return callback(new Error(stderr));
-          }
-
-          callback(null, watchedRepo, stdout.trim());
-        });
-      });
-
-      // save reference for container
-      waterfall.push((watchedRepo, containerId, callback) => {
-        const DatabaseTable = require('classes/DatabaseTable');
-        // todo: detect correct server host, but on develop / test keep localhost
-        DatabaseTable.insert('container_proxies', {
-          repo: watchedRepo.id,
-          host: 'localhost',
-          port: hostPort,
-          container_id: containerId,
-          url_uid: containerUid,
-          added: new Date()
-        }, err => {
-          callback(err);
-        });
-      });
-
-      waterfall.push(callback => {
-        // todo: store github repo key on repo level, since 'sender' may differ
-        payload.getGitHubAccount((err, gitHubAccount) => {
-          if (err) {
-            return callback(err);
-          }
-
-          if (!gitHubAccount) {
-            return callback(new Error('No github account record found'));
-          }
-
-          const github = require('octonode');
-          const gitHubClient = github.client(gitHubAccount.access_token);
-
-          callback(null, gitHubClient);
-        });
-      });
-
-      waterfall.push((gitHubClient, callback) => {
-        const config = require('modules/config');
-        const {
-          protocol,
-          publicHost
-        } = config.app;
-
-        // todo: not use user's account to post comment (may not be possible, unless can get integration access from github)
-        gitHubClient
-          .issue(`${orgName}/${repoName}`, payload.number)
-          .createComment({
-            body: `${protocol}://${publicHost}/c/${containerUid}`
-          }, err => {
-            callback(err);
-          });
+      require('./container-create')(orgName, repoName, payload, err => {
+        if (err) {
+          log.error(err);
+        }
       });
       break;
 
+    // spin down vm
     case GitHubWebhookPayload.actions.closed:
     case GitHubWebhookPayload.actions.merged:
-      // spin down vm
+      require('./container-kill')(payload, payload.sha, err => {
+        if (err) {
+          log.error(err);
+        }
+      });
+      break;
+
+    // update running vm
+    case GitHubWebhookPayload.actions.updated:
+      require('./container-update')(orgName, repoName, payload, err => {
+        if (err) {
+          log.error(err);
+        }
+      });
       break;
   }
-
-  async.waterfall(waterfall, err => {
-    if (err) {
-      log.error(err);
-    }
-  });
 });
 
 module.exports = route;

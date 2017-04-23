@@ -218,6 +218,7 @@ server.use((req, res, next) => {
 server.use(setup.routes.api);
 server.use(setup.routes.hook);
 server.use(setup.routes.views);
+server.use(setup.routes.c);
 
 server.use((err, req, res, next) => {
   if (err) {
@@ -236,6 +237,57 @@ server.use((err, req, res, next) => {
 
   next();
 });
+
+// 404 status view
+const statusRouter = express.Router();
+statusRouter.get('*', (req, res, next) => {
+  // prevent non-html pages from rendering a 404
+  if (typeof req.headers.accept !== 'string' || !req.headers.accept.includes('text/html')) {
+    return next();
+  }
+
+  // showing a random confused travolta, for fun
+  const request = require('request');
+
+  request({
+    url: 'http://api.giphy.com/v1/gifs/search',
+    method: 'get',
+    qs: {
+      q: 'confused travolta',
+      api_key: 'dc6zaTOxFJmzC'
+    },
+    json: true
+  }, (err, _, content) => {
+    let gifUrl = `${config.app.url}/images/gifs/confused-travolta.gif`;
+    let webpUrl;
+
+    // doing several checks so that 404s do not break becaue of potential gify changes or downtime
+    if (err) {
+      log.error(err);
+    } else {
+      // if we got expected content from the gify endpoint...
+      if (Array.isArray(content.data) && content.data.length) {
+        // attempt to get a random image
+        const index = Math.floor( Math.random() * content.data.length );
+        if (
+          content.data[index].images &&
+          content.data[index].images.original &&
+          typeof content.data[index].images.original.url === 'string'
+        ) {
+          gifUrl = content.data[index].images.original.url;
+          webpUrl = content.data[index].images.original.webp;
+        }
+      }
+    }
+
+    res.render('status-404', {
+      name: 'status-404',
+      gifUrl,
+      webpUrl: webpUrl || ''
+    });
+  });
+});
+server.use(statusRouter);
 
 server.listen(port, () => {
   log.info(`listening on :${port}`);

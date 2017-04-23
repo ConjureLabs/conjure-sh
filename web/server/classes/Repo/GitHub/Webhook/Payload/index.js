@@ -118,6 +118,12 @@ class WebhookPayload {
     }
   }
 
+  get prevSha() {
+    const { payload } = this;
+    
+    return payload.before;
+  }
+
   getGitHubAccount(callback) {
     const gitHubId = this.payload.sender.id;
 
