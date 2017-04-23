@@ -88,45 +88,6 @@ module.exports = {
           }
         }]
       }
-
-
-
-
-          /* [{
-          loader: 'stylus-loader',
-          options: {
-            modules: true,
-            importLoaders: true,
-            localIdentName: cssModuleNamingConvention
-          }
-        }]
-      } */
-      
-      // // parse .styl files, excluding those in node_modules
-      // {
-      //   test: /\.styl$/,
-      //   exclude: path.resolve(__dirname, 'node_modules'),
-      //   include: dirs.client,
-      //   use: ExtractTextPlugin.extract({
-      //     fallback: 'style-loader',
-      //     allChunks: true,
-      //     use: [{
-      //       loader: 'css-loader',
-      //       options: {
-      //         modules: true,
-      //         importLoaders: true,
-      //         localIdentName: cssModuleNamingConvention
-      //       }
-      //     }, {
-      //       loader: 'stylus-loader',
-      //       options: {
-      //         modules: true,
-      //         importLoaders: true,
-      //         localIdentName: cssModuleNamingConvention
-      //       }
-      //     }]
-      //   })
-      // }
     ]
   },
 
@@ -141,12 +102,7 @@ module.exports = {
     __dirname: true
   },
 
-  plugins: isDev ? [
-
-  ] : [
-
-    new UglifyJsPlugin()
-  ],
+  plugins: isDev ? [] : [ new UglifyJsPlugin() ],
 
   devtool: isDev ? 'source-map' : 'cheap-source-map'
 };
