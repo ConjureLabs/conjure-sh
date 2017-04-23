@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory } from 'react-router';
-import styles from './styles.styl';
+import styles, { header } from './styles.styl';
 import Button from 'c/Button';
 
 const submitForm = Symbol('submit sign in/up form');
