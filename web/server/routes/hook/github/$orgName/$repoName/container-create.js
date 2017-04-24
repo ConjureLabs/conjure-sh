@@ -77,19 +77,19 @@ function containerCreate(orgName, repoName, payload, callback) {
 
         const yml = new Buffer(file.content, 'base64');
         const Config = require('classes/Repo/Config');
-        const config = new Config(yml);
+        const repoConfig = new Config(yml);
 
         // todo: handle invalid yml errors better, send message to client/github
-        if (config.valid === false) {
+        if (repoConfig.valid === false) {
           return cb(new Error('Invalid Voyant YML config'));
         }
 
-        cb(null, watchedRepo, gitHubClient);
+        cb(null, watchedRepo, repoConfig, gitHubClient);
       });
   });
 
   // create container
-  waterfall.push((watchedRepo, gitHubClient, cb) => {
+  waterfall.push((watchedRepo, repoConfig, gitHubClient, cb) => {
     const exec = require('child_process').exec;
     // todo: handle non-github repos
     // todo: properly populate setup comamnd
@@ -104,12 +104,12 @@ function containerCreate(orgName, repoName, payload, callback) {
         return cb(new Error(stderr));
       }
 
-      cb(null, watchedRepo, gitHubClient);
+      cb(null, watchedRepo, repoConfig, gitHubClient);
     });
   });
 
   // run container
-  waterfall.push((watchedRepo, gitHubClient, cb) => {
+  waterfall.push((watchedRepo, repoConfig, gitHubClient, cb) => {
     const exec = require('child_process').exec;
     // todo: handle ports properly
     // todo: handle command properly
@@ -117,7 +117,7 @@ function containerCreate(orgName, repoName, payload, callback) {
     // may need to keep trying, if docker ports are already in use
     function attemptDockerRun() {
       const hostPort = ++workerPort;
-      exec(`docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:4000 "${containerUid}" node ./`, {
+      exec(`docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port} "${containerUid}" node ./`, {
         cwd: process.env.VOYANT_WORKER_DIR
       }, (err, stdout, stderr) => {
         const errSeen = err ? err :
