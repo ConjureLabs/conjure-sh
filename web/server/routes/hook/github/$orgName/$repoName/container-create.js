@@ -120,9 +120,9 @@ function containerCreate(orgName, repoName, payload, callback) {
         return cb(new Error(stderr));
       }
 
-      if (stdout) {
-        console.log(stdout);
-      }
+      // if (stdout) {
+      //   console.log(stdout);
+      // }
 
       cb(null, watchedRepo, repoConfig, gitHubClient);
     });
@@ -167,9 +167,9 @@ function containerCreate(orgName, repoName, payload, callback) {
           return;
         }
 
-        if (stdout) {
-          console.log(stdout);
-        }
+        // if (stdout) {
+        //   console.log(stdout);
+        // }
 
         cb(null, watchedRepo, gitHubClient, hostPort, stdout.trim());
       });
