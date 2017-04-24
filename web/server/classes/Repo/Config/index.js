@@ -3,6 +3,7 @@
 const log = require('modules/log')('repo voyant config');
 
 const internalDefinition = Symbol('parsed input object definition');
+const singleLanguageKey = Symbol('get single language being used');
 
 // todo: validate port is valid, etc
 
@@ -29,7 +30,7 @@ class MachineConfig {
   }
 
   get environment() {
-    return this[internalDefinition].environment;
+    return this[internalDefinition].environment || {};
   }
 
   // todo: possibly check for files like podfile or package.json and determine language, dynamically, for ux
@@ -37,6 +38,7 @@ class MachineConfig {
     return this[internalDefinition].languages || {};
   }
 
+  // todo: possibly use $PORT or something similar?
   get port() {
     return this[internalDefinition].port;
   }
@@ -54,13 +56,7 @@ class MachineConfig {
       return this[internalDefinition].setup;
     }
 
-    const languagesUsing = Object.keys(this.languages);
-
-    if (!languagesUsing.length || languagesUsing.length > 1) {
-      return null;
-    }
-
-    const lang = languagesUsing[0].toLowerCase();
+    const lang = this[singleLanguageKey]();
 
     switch (lang) {
       case 'node':
@@ -78,13 +74,7 @@ class MachineConfig {
       return this[internalDefinition].start;
     }
 
-    const languagesUsing = Object.keys(this.languages);
-
-    if (!languagesUsing.length || languagesUsing.length > 1) {
-      return null;
-    }
-
-    const lang = languagesUsing[0].toLowerCase();
+    const lang = this[singleLanguageKey]();
 
     switch (lang) {
       case 'node':
@@ -94,6 +84,16 @@ class MachineConfig {
       default:
         return null;
     }
+  }
+
+  [singleLanguageKey]() {
+    const languagesUsing = Object.keys(this.languages);
+
+    if (!languagesUsing.length || languagesUsing.length > 1) {
+      return null;
+    }
+
+    return languagesUsing[0].toLowerCase();
   }
 }
 
