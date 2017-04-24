@@ -93,7 +93,19 @@ function containerCreate(orgName, repoName, payload, callback) {
     const exec = require('child_process').exec;
     // todo: handle non-github repos
     // todo: properly populate setup comamnd
-    exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "npm install"`, {
+    
+    let preSetupSteps = '';
+
+    if (repoConfig.machine.pre.length) {
+      preSetupSteps = repoConfig.machine.pre
+        .map(command => {
+          return `RUN ${command}`;
+        })
+        .join('\n');
+      preSetupSteps = new Buffer(preSetupSteps).toString('base64');
+    }
+
+    exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "${preSetupSteps}" "npm install"`, {
       cwd: process.env.VOYANT_WORKER_DIR
     }, (err, stdout, stderr) => {
       if (err) {
@@ -104,6 +116,10 @@ function containerCreate(orgName, repoName, payload, callback) {
         return cb(new Error(stderr));
       }
 
+      if (stdout) {
+        console.log(stdout);
+      }
+
       cb(null, watchedRepo, repoConfig, gitHubClient);
     });
   });
@@ -111,13 +127,12 @@ function containerCreate(orgName, repoName, payload, callback) {
   // run container
   waterfall.push((watchedRepo, repoConfig, gitHubClient, cb) => {
     const exec = require('child_process').exec;
-    // todo: handle ports properly
     // todo: handle command properly
 
     // may need to keep trying, if docker ports are already in use
     function attemptDockerRun() {
       const hostPort = ++workerPort;
-      exec(`docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port} "${containerUid}" node ./`, {
+      exec(`docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port} "${containerUid}" npm start`, {
         cwd: process.env.VOYANT_WORKER_DIR
       }, (err, stdout, stderr) => {
         const errSeen = err ? err :
@@ -138,6 +153,10 @@ function containerCreate(orgName, repoName, payload, callback) {
             cb(errSeen);
           });
           return;
+        }
+
+        if (stdout) {
+          console.log(stdout);
         }
 
         cb(null, watchedRepo, gitHubClient, hostPort, stdout.trim());

@@ -26,5 +26,4 @@ ARG CACHEBUST=<CACHEBUST>
 RUN git clone <REPO> ./
 RUN git checkout <BRANCH>
 
-# setup
-RUN <SETUP>
+# rest is set up dynamically
