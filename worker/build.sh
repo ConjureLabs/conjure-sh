@@ -11,17 +11,16 @@ TARGET_PRE_SETUP=$(sed 's/[\/&]/\\&/g' <<< $4);
 TARGET_SETUP=$(sed 's/[\/&]/\\&/g' <<< $5);
 CACHEBUST=$(date +%s);
 
-if [ $TARGET_PRE_SETUP != "" ]; then
-  TARGET_PRE_SETUP=$(echo $TARGET_PRE_SETUP | base64 --decode);
-fi
-
 DOCKERFILE_CONTENT=$(cat "$PROJECT_DIR/template.Dockerfile");
 DOCKERFILE_CONTENT=$(sed "s/<REPO>/$TARGET_REPO/g" <<< "$DOCKERFILE_CONTENT");
 DOCKERFILE_CONTENT=$(sed "s/<BRANCH>/$TARGET_BRANCH/g" <<< "$DOCKERFILE_CONTENT");
 DOCKERFILE_CONTENT=$(sed "s/<CACHEBUST>/$CACHEBUST/g" <<< "$DOCKERFILE_CONTENT");
 
+echo "$TARGET_PRE_SETUP";
+
 if [ "$TARGET_PRE_SETUP" != "" ]; then
-  DOCKERFILE_CONTENT+=$(echo -e "\n"$(echo $TARGET_PRE_SETUP | base64 --decode));
+  TARGET_PRE_SETUP=$(echo $TARGET_PRE_SETUP | base64 --decode);
+  DOCKERFILE_CONTENT+=$(echo -e "\n$TARGET_PRE_SETUP\n");
 fi
 DOCKERFILE_CONTENT+=$(echo -e "\nRUN $TARGET_SETUP");
 
