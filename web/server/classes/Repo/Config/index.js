@@ -32,6 +32,7 @@ class MachineConfig {
     return this[internalDefinition].environment;
   }
 
+  // todo: possibly check for files like podfile or package.json and determine language, dynamically, for ux
   get languages() {
     return this[internalDefinition].languages;
   }
@@ -45,6 +46,35 @@ class MachineConfig {
     return Array.isArray(definedPre) ? definedPre :
       typeof definedPre === 'string' ? [definedPre] :
       [];
+  }
+
+  // todo: invalidate config if no start possible, etc - can bubble invalid machine config up to main config
+  get start() {
+    if (this[internalDefinition].start) {
+      return this[internalDefinition].start;
+    }
+
+    const languages = this.languages;
+
+    // todo: fail if multiple languages set, and no start defined
+    if (!languages.length) {
+      return null;
+    }
+
+    if (languages.length > 1) {
+      return null;
+    }
+
+    const lang = Object.keys(languages)[0].toLowerCase();
+
+    switch (lang) {
+      case 'node':
+        return 'npm start';
+        break;
+
+      default:
+        return null;
+    }
   }
 }
 
