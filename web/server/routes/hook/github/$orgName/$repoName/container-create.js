@@ -141,8 +141,16 @@ function containerCreate(orgName, repoName, payload, callback) {
     function attemptDockerRun() {
       const hostPort = ++workerPort;
 
-      const command = `docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port} "${containerUid}" ${repoConfig.machine.start}`;
+      const extraEnvKeys = Object.keys(repoConfig.machine.environment);
+      const extraEnvVars = !extraEnvKeys.length ? '' : extraEnvKeys
+        .map(key => {
+          return ` -e ${key}="${repoConfig.machine.environment[key]}"`;
+        })
+        .join('');
 
+      const command = `docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port}${extraEnvVars} "${containerUid}" ${repoConfig.machine.start}`;
+
+      // todo: will need to not log this to any service/flatfile since it will contain sensitve env vars
       log.info(command);
       exec(command, {
         cwd: process.env.VOYANT_WORKER_DIR
