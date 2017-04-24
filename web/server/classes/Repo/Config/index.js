@@ -2,19 +2,42 @@
 
 const log = require('modules/log')('repo voyant config');
 
-const parsedInput = Symbol('parsed input');
+const internalDefinition = Symbol('parsed input object definition');
+
+// todo: validate port is valid, etc
 
 class Config {
   constructor(ymlInput) {
     const yaml = require('node-yaml');
 
     try {
-      this[parsedInput] = yaml.parse(ymlInput);
-      this.valid = true;
+      this[internalDefinition] = yaml.parse(ymlInput);
     } catch(err) {
       log.error(err);
       this.valid = false;
+      return;
     }
+
+    this.valid = true
+    this.machine = new MachineConfig(this[internalDefinition]);
+  }
+}
+
+class MachineConfig {
+  constructor(config) {
+    this[internalDefinition] = config.machine;
+  }
+
+  get environment() {
+    return this[internalDefinition].environment;
+  }
+
+  get languages() {
+    return this[internalDefinition].languages;
+  }
+
+  get port() {
+    return this[internalDefinition].port;
   }
 }
 

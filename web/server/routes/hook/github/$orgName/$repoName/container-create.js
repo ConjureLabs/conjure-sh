@@ -79,6 +79,11 @@ function containerCreate(orgName, repoName, payload, callback) {
         const Config = require('classes/Repo/Config');
         const config = new Config(yml);
 
+        // todo: handle invalid yml errors better, send message to client/github
+        if (config.valid === false) {
+          return cb(new Error('Invalid Voyant YML config'));
+        }
+
         cb(null, watchedRepo, gitHubClient);
       });
   });
