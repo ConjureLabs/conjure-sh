@@ -43,7 +43,6 @@ function containerKill(payload, sha, callback) {
       const containerRecord = runningContainerRecords[i];
 
       // todo: handle non-github repos
-      console.info(`bash ./kill.sh "${containerRecord.url_uid}" "${containerRecord.container_id}"`);
       exec(`bash ./kill.sh "${containerRecord.url_uid}" "${containerRecord.container_id}"`, {
         cwd: process.env.VOYANT_WORKER_DIR
       }, err => {
@@ -71,7 +70,6 @@ function containerKill(payload, sha, callback) {
   const async = require('async');
   async.waterfall(waterfall, err => {
     if (err === asyncBreak) {
-      console.log('>>> async break');
       return callback();
     }
 
