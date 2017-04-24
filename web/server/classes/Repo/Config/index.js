@@ -39,6 +39,13 @@ class MachineConfig {
   get port() {
     return this[internalDefinition].port;
   }
+
+  get pre() {
+    const definedPre = this[internalDefinition].pre;
+    return Array.isArray(definedPre) ? definedPre :
+      typeof definedPre === 'string' ? [definedPre] :
+      [];
+  }
 }
 
 module.exports = Config;
