@@ -34,7 +34,7 @@ class MachineConfig {
 
   // todo: possibly check for files like podfile or package.json and determine language, dynamically, for ux
   get languages() {
-    return this[internalDefinition].languages;
+    return this[internalDefinition].languages || {};
   }
 
   get port() {
@@ -54,17 +54,13 @@ class MachineConfig {
       return this[internalDefinition].setup;
     }
 
-    const languages = this.languages;
+    const languagesUsing = Object.keys(this.languages);
 
-    if (!languages.length) {
+    if (!languagesUsing.length || languagesUsing.length > 1) {
       return null;
     }
 
-    if (languages.length > 1) {
-      return null;
-    }
-
-    const lang = Object.keys(languages)[0].toLowerCase();
+    const lang = languagesUsing[0].toLowerCase();
 
     switch (lang) {
       case 'node':
@@ -82,17 +78,13 @@ class MachineConfig {
       return this[internalDefinition].start;
     }
 
-    const languages = this.languages;
+    const languagesUsing = Object.keys(this.languages);
 
-    if (!languages.length) {
+    if (!languagesUsing.length || languagesUsing.length > 1) {
       return null;
     }
 
-    if (languages.length > 1) {
-      return null;
-    }
-
-    const lang = Object.keys(languages)[0].toLowerCase();
+    const lang = languagesUsing[0].toLowerCase();
 
     switch (lang) {
       case 'node':

@@ -106,7 +106,10 @@ function containerCreate(orgName, repoName, payload, callback) {
       preSetupSteps = new Buffer(preSetupSteps).toString('base64');
     }
 
-    exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`, {
+    const command = `bash ./build.sh "git@github.com:${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`;
+
+    log.info(command);
+    exec(command, {
       cwd: process.env.VOYANT_WORKER_DIR
     }, (err, stdout, stderr) => {
       if (err) {
@@ -127,13 +130,21 @@ function containerCreate(orgName, repoName, payload, callback) {
 
   // run container
   waterfall.push((watchedRepo, repoConfig, gitHubClient, cb) => {
+    if (repoConfig.machine.start === null) {
+      return cb(new Error('No container start command defined or known'));
+    }
+
     const exec = require('child_process').exec;
     // todo: handle command properly
 
     // may need to keep trying, if docker ports are already in use
     function attemptDockerRun() {
       const hostPort = ++workerPort;
-      exec(`docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port} "${containerUid}" ${repoConfig.machine.start || bashNoOp}`, {
+
+      const command = `docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port} "${containerUid}" ${repoConfig.machine.start}`;
+
+      log.info(command);
+      exec(command, {
         cwd: process.env.VOYANT_WORKER_DIR
       }, (err, stdout, stderr) => {
         const errSeen = err ? err :
