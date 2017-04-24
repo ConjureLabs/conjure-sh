@@ -48,6 +48,34 @@ class MachineConfig {
       [];
   }
 
+  // todo: support arrays?
+  get setup() {
+    if (this[internalDefinition].setup) {
+      return this[internalDefinition].setup;
+    }
+
+    const languages = this.languages;
+
+    if (!languages.length) {
+      return null;
+    }
+
+    if (languages.length > 1) {
+      return null;
+    }
+
+    const lang = Object.keys(languages)[0].toLowerCase();
+
+    switch (lang) {
+      case 'node':
+        return 'npm install';
+        break;
+
+      default:
+        return null;
+    }
+  }
+
   // todo: invalidate config if no start possible, etc - can bubble invalid machine config up to main config
   get start() {
     if (this[internalDefinition].start) {
@@ -56,7 +84,6 @@ class MachineConfig {
 
     const languages = this.languages;
 
-    // todo: fail if multiple languages set, and no start defined
     if (!languages.length) {
       return null;
     }

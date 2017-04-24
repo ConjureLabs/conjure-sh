@@ -5,6 +5,7 @@ const log = require('modules/log')('github container create');
 // todo: set up a module that handles cases like this
 const asyncBreak = {};
 let workerPort = parseInt(process.env.PORT, 10);
+const bashNoOp = ':';
 
 function containerCreate(orgName, repoName, payload, callback) {
   log.info('starting create');
@@ -105,7 +106,7 @@ function containerCreate(orgName, repoName, payload, callback) {
       preSetupSteps = new Buffer(preSetupSteps).toString('base64');
     }
 
-    exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "${preSetupSteps}" "npm install"`, {
+    exec(`bash ./build.sh "git@github.com:${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`, {
       cwd: process.env.VOYANT_WORKER_DIR
     }, (err, stdout, stderr) => {
       if (err) {
@@ -132,7 +133,7 @@ function containerCreate(orgName, repoName, payload, callback) {
     // may need to keep trying, if docker ports are already in use
     function attemptDockerRun() {
       const hostPort = ++workerPort;
-      exec(`docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port} "${containerUid}" npm start`, {
+      exec(`docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port} "${containerUid}" ${repoConfig.machine.start || bashNoOp}`, {
         cwd: process.env.VOYANT_WORKER_DIR
       }, (err, stdout, stderr) => {
         const errSeen = err ? err :
