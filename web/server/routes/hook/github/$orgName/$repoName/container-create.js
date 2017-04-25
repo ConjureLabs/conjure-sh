@@ -55,12 +55,12 @@ function containerCreate(orgName, repoName, payload, callback) {
       const github = require('octonode');
       const gitHubClient = github.client(gitHubAccount.access_token);
 
-      cb(null, watchedRepo, gitHubClient);
+      cb(null, watchedRepo, gitHubClient, gitHubAccount.access_token);
     });
   });
 
   // get yml config
-  waterfall.push((watchedRepo, gitHubClient, cb) => {
+  waterfall.push((watchedRepo, gitHubClient, gitHubToken, cb) => {
     gitHubClient
       .repo(`${orgName}/${repoName}`)
       .contents('voyant.yml', payload.sha, (err, file) => {
@@ -85,12 +85,12 @@ function containerCreate(orgName, repoName, payload, callback) {
           return cb(new Error('Invalid Voyant YML config'));
         }
 
-        cb(null, watchedRepo, repoConfig, gitHubClient);
+        cb(null, watchedRepo, repoConfig, gitHubClient, gitHubToken);
       });
   });
 
   // create container
-  waterfall.push((watchedRepo, repoConfig, gitHubClient, cb) => {
+  waterfall.push((watchedRepo, repoConfig, gitHubClient, gitHubToken, cb) => {
     const exec = require('child_process').exec;
     // todo: handle non-github repos
     // todo: properly populate setup comamnd
@@ -106,7 +106,7 @@ function containerCreate(orgName, repoName, payload, callback) {
       preSetupSteps = new Buffer(preSetupSteps).toString('base64');
     }
 
-    const command = `bash ./build.sh "git@github.com:${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`;
+    const command = `bash ./build.sh "https://${gitHubToken}:x-oauth-basic@github.com:${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`;
 
     log.info(command);
     exec(command, {
@@ -120,9 +120,9 @@ function containerCreate(orgName, repoName, payload, callback) {
         return cb(new Error(stderr));
       }
 
-      // if (stdout) {
-      //   console.log(stdout);
-      // }
+      if (stdout) {
+        console.log(stdout);
+      }
 
       cb(null, watchedRepo, repoConfig, gitHubClient);
     });

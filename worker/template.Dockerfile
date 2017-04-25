@@ -10,11 +10,6 @@ RUN wget -O ~/node-v6.9.0-linux-x64.tar.xz https://nodejs.org/dist/v6.9.0/node-v
 # user & env setup
 USER root
 ENV HOME /root
-ENV PROFILE /root/.profile
-ENV NODE_PATH /var/voyant/code
-RUN mkdir -p /root/.ssh
-ADD id_rsa* /root/.ssh/
-ADD known_hosts /root/.ssh/
 WORKDIR /var/voyant/code
 
 # basics
@@ -23,7 +18,8 @@ RUN yum install -y git
 # pull codebase & branch
 # using CACHEBUST to prevent caching of git clone - see https://github.com/moby/moby/issues/1996#issuecomment-185872769
 ARG CACHEBUST=<CACHEBUST>
-RUN git clone <REPO> ./
+RUN git init
+RUN git pull <REPO>
 RUN git checkout <BRANCH>
 
 # rest is set up dynamically
