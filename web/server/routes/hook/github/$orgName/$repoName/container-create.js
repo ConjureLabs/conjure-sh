@@ -106,7 +106,7 @@ function containerCreate(orgName, repoName, payload, callback) {
       preSetupSteps = new Buffer(preSetupSteps).toString('base64');
     }
 
-    const command = `bash ./build.sh "https://${gitHubToken}:x-oauth-basic@github.com:${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`;
+    const command = `bash ./build.sh "https://${gitHubToken}:x-oauth-basic@github.com/${orgName}/${repoName}.git" "${payload.sha}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`;
 
     log.info(command);
     exec(command, {
