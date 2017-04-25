@@ -19,6 +19,6 @@ RUN yum install -y git
 # using CACHEBUST to prevent caching of git clone - see https://github.com/moby/moby/issues/1996#issuecomment-185872769
 ARG CACHEBUST=<CACHEBUST>
 RUN git init
-RUN git pull <REPO> --branch <BRANCH>
+RUN git pull <REPO> <BRANCH>
 
 # rest is set up dynamically
