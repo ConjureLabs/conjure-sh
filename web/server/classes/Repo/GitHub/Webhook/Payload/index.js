@@ -105,6 +105,19 @@ class WebhookPayload {
     }
   }
 
+  get branch() {
+    const { payload } = this;
+    const type = this.type;
+
+    switch(type) {
+      case TYPE_PULL_REQUEST:
+        return payload.pull_request.head.ref;
+
+      default:
+        return payload.ref;
+    }
+  }
+
   get sha() {
     const { payload } = this;
     const type = this.type;

@@ -5,7 +5,7 @@ const log = require('modules/log')('github container kill');
 // todo: set up a module that handles cases like this
 const asyncBreak = {};
 
-function containerKill(payload, sha, callback) {
+function containerKill(payload, branch, callback) {
   log.info('starting kill');
 
   const waterfall = [];
@@ -21,7 +21,7 @@ function containerKill(payload, sha, callback) {
     // todo: detect correct server host, but on develop / test keep localhost
     DatabaseTable.select('container_proxies', {
       repo: watchedRepo.id,
-      commit_sha: sha
+      branch: branch
     }, (err, records) => {
       if (err) {
         return cb(err);
@@ -61,7 +61,7 @@ function containerKill(payload, sha, callback) {
     const DatabaseTable = require('classes/DatabaseTable');
     DatabaseTable.delete('container_proxies', {
       repo: watchedRepo.id,
-      commit_sha: sha
+      branch: branch
     }, err => {
       cb(err);
     });
