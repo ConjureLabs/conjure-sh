@@ -27,6 +27,7 @@ route.push((req, res, next) => {
 
   const newHookPath = `${config.app.publicHost}/hook/github/${orgName}/${repoName}`;
 
+  // get github client
   waterfall.push(callback => {
     const accountGithub = new DatabaseTable('account_github');
 
@@ -58,6 +59,7 @@ route.push((req, res, next) => {
     });
   });
 
+  // validate permissions on repo
   waterfall.push((githubClient, callback) => {
     githubClient.repo(`${orgName}/${repoName}`).info((err, info) => { 
       if (err) {
@@ -76,6 +78,7 @@ route.push((req, res, next) => {
     });
   });
 
+  // validate hook is not already set
   waterfall.push((githubClient, orgName, repoName, callback) => {
     const config = require('modules/config');
 
@@ -98,6 +101,7 @@ route.push((req, res, next) => {
     });
   });
 
+  // create new hook
   waterfall.push((githubClient, orgName, repoName, callback) => {
     const config = require('modules/config');
 
@@ -119,6 +123,7 @@ route.push((req, res, next) => {
     });
   });
 
+  // save reference to watched repo
   waterfall.push(callback => {
     DatabaseTable.insert('watched_repos', {
       account: req.user.id,
