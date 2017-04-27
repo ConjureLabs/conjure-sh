@@ -17,6 +17,12 @@ function containerCreate(callback) {
   const containerUid = uid(24);
   const waterfall = [];
 
+  const {
+    branch
+    orgName,
+    repoName
+  } = this.payload;
+
   // get watched repo record
   waterfall.push(cb => {
     this.payload.watchedRepoRecord(cb);
@@ -28,7 +34,7 @@ function containerCreate(callback) {
     // todo: detect correct server host, but on develop / test keep localhost
     DatabaseTable.select('container_proxies', {
       repo: watchedRepo.id,
-      branch: this.payload.branch
+      branch: branch
     }, (err, records) => {
       if (err) {
         return cb(err);
@@ -65,7 +71,7 @@ function containerCreate(callback) {
   waterfall.push((watchedRepo, gitHubClient, gitHubToken, cb) => {
     gitHubClient
       .repo(`${orgName}/${repoName}`)
-      .contents('voyant.yml', this.payload.branch, (err, file) => {
+      .contents('voyant.yml', branch, (err, file) => {
         // todo: handle errors, send a message to client/github
         if (
           (err && err.message === 'Not Found') ||
@@ -108,7 +114,7 @@ function containerCreate(callback) {
       preSetupSteps = new Buffer(preSetupSteps).toString('base64');
     }
 
-    const command = `bash ./build.sh "https://${gitHubToken}:x-oauth-basic@github.com/${orgName}/${repoName}.git" "${this.payload.branch}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`;
+    const command = `bash ./build.sh "https://${gitHubToken}:x-oauth-basic@github.com/${orgName}/${repoName}.git" "${branch}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`;
 
     log.info(command);
     exec(command, {
@@ -193,7 +199,7 @@ function containerCreate(callback) {
     // todo: detect correct server host, but on develop / test keep localhost
     DatabaseTable.insert('container_proxies', {
       repo: watchedRepo.id,
-      branch: this.payload.branch,
+      branch: branch,
       host: 'localhost',
       port: hostPort,
       container_id: containerId,
