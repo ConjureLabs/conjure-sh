@@ -9,6 +9,7 @@ const asyncBreak = {};
 
 route.push((req, res, next) => {
   const DatabaseTable = require('classes/DatabaseTable');
+  const config = require('modules/config');
   const async = require('async');
 
   const {
@@ -80,8 +81,6 @@ route.push((req, res, next) => {
 
   // validate hook is not already set
   waterfall.push((githubClient, orgName, repoName, callback) => {
-    const config = require('modules/config');
-
     githubClient.org(orgName).repo(repoName).hooks((err, data) => {
       if (err) {
         return callback(err);
@@ -103,8 +102,6 @@ route.push((req, res, next) => {
 
   // create new hook
   waterfall.push((githubClient, orgName, repoName, callback) => {
-    const config = require('modules/config');
-
     githubClient.org(orgName).repo(repoName).hook({
       name: 'web',
       active: true,
