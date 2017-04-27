@@ -4,6 +4,7 @@ const log = require('modules/log')('github container create');
 
 // todo: set up a module that handles cases like this
 const asyncBreak = {};
+
 let workerPort = parseInt(process.env.PORT, 10);
 const bashNoOp = ':';
 
