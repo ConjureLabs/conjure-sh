@@ -168,6 +168,15 @@ class WebhookPayload {
     return this.payload.repository.id;
   }
 
+  get repoName() {
+    return this.payload.repository.name;
+  }
+
+  get orgName() {
+    const fullName = this.payload.repository.full_name;
+    return fullName.substr(0, (fullName.length - this.repoName.length - 1));
+  }
+
   // finds the watched repo record
   watchedRepoRecord(callback) {
     const DatabaseTable = require('classes/DatabaseTable');

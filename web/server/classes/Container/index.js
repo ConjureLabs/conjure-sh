@@ -1,13 +1,18 @@
 'use strict';
 
-class Container {
-  constructor() {
+const payload = Symbol('payload private val');
 
+class Container {
+  constructor(payloadInstance) {
+    this[payload] = payloadInstance;
   }
 }
 
-Container.prototype.create = require('./create');
-Container.prototype.destroy = require('./kill');
-Container.prototype.update = require('./update');
+const privateKeys = {
+  payload
+};
+Container.prototype.create = require('./create')(privateKeys);
+Container.prototype.destroy = require('./kill')(privateKeys);
+Container.prototype.update = require('./update')(privateKeys);
 
 module.exports = Container;

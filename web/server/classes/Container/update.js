@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('modules/log')('github container update');
+const log = require('modules/log')('container update');
 
 function containerUpdate(orgName, repoName, payload, callback) {
   log.info('starting update');

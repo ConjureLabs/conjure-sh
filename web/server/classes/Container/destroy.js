@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('modules/log')('github container kill');
+const log = require('modules/log')('container destroy');
 
 // todo: set up a module that handles cases like this
 const asyncBreak = {};
