@@ -4,6 +4,9 @@ const Route = require('classes/Route');
 
 const route = new Route();
 
+// todo: set up a module that handles cases like this
+const asyncBreak = {};
+
 route.push((req, res, next) => {
   const DatabaseTable = require('classes/DatabaseTable');
   const async = require('async');
@@ -21,6 +24,8 @@ route.push((req, res, next) => {
   } = req.body;
 
   const waterfall = [];
+
+  const newHookPath = `${config.app.publicHost}/hook/github/${orgName}/${repoName}`;
 
   waterfall.push(callback => {
     const accountGithub = new DatabaseTable('account_github');
@@ -71,7 +76,27 @@ route.push((req, res, next) => {
     });
   });
 
-  // todo: check if we already have a hook, or github does -this may involve an upsert
+  waterfall.push((githubClient, orgName, repoName, callback) => {
+    const config = require('modules/config');
+
+    githubClient.org(orgName).repo(repoName).hooks((err, data) => {
+      if (err) {
+        return callback(err);
+      }
+
+      if (!Array.isArray(data)) {
+        return callback(null, githubClient, orgName, repoName);
+      }
+
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].config && data[i].config.url === newHookPath) {
+          return callback(asyncBreak);
+        }
+      }
+
+      return callback(null, githubClient, orgName, repoName);
+    });
+  });
 
   waterfall.push((githubClient, orgName, repoName, callback) => {
     const config = require('modules/config');
@@ -84,7 +109,7 @@ route.push((req, res, next) => {
         content_type: 'json',
         insecure_ssl: 1, // todo: config this - see https://developer.github.com/v3/repos/hooks/#create-a-hook
         secret: config.services.github.inboundWebhookScret,
-        url: `${config.app.publicHost}/hook/github/${orgName}/${repoName}`
+        url: newHookPath
       }
     }, err => {
       if (err) {
@@ -111,7 +136,7 @@ route.push((req, res, next) => {
   });
 
   async.waterfall(waterfall, err => {
-    if (err) {
+    if (err && err !== asyncBreak) {
       return next(err);
     }
 
