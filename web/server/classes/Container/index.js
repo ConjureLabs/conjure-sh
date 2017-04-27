@@ -7,7 +7,7 @@ class Container {
 }
 
 Container.prototype.create = require('./create');
-Container.prototype.destroy = require('./kill');
+Container.prototype.destroy = require('./destroy');
 Container.prototype.update = require('./update');
 
 module.exports = Container;

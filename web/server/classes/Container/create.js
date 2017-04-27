@@ -8,12 +8,11 @@ const asyncBreak = {};
 let workerPort = parseInt(process.env.PORT, 10);
 const bashNoOp = ':';
 
-// orgName, repoName, this.payload
 function containerCreate(callback) {
   log.info('starting create');
 
   const {
-    branch
+    branch,
     orgName,
     repoName
   } = this.payload;

@@ -19,20 +19,19 @@ route.push((req, res, next) => {
   const payload = new GitHubWebhookPayload(req.body);
   const { type, action } = payload;
 
-  function respondOkay() {
-    res.send({
-      success: true,
-      type,
-      action
-    });
-  }
+  res.send({
+    success: true,
+    type,
+    action
+  });
 
   if (type === GitHubWebhookPayload.types.branch) {
     // todo: if the commit is ontop of a PR, we will have to update the vm
-    return respondOkay();
+    return;
   }
 
-  respondOkay();
+  const Container = require('classes/Container');
+  const container = new Container(payload);
 
   // todo: what to do if a container is still starting and the pr is closed?
 
@@ -40,7 +39,7 @@ route.push((req, res, next) => {
     // spin up vm
     case GitHubWebhookPayload.actions.opened:
     case GitHubWebhookPayload.actions.reopened:
-      require('./container-create')(orgName, repoName, payload, err => {
+      container.create(err => {
         if (err) {
           log.error(err);
         }
@@ -50,7 +49,7 @@ route.push((req, res, next) => {
     // spin down vm
     case GitHubWebhookPayload.actions.closed:
     case GitHubWebhookPayload.actions.merged:
-      require('./container-kill')(payload, payload.branch, err => {
+      container.destroy(err => {
         if (err) {
           log.error(err);
         }
@@ -59,7 +58,7 @@ route.push((req, res, next) => {
 
     // update running vm
     case GitHubWebhookPayload.actions.updated:
-      require('./container-update')(orgName, repoName, payload, err => {
+      container.update(err => {
         if (err) {
           log.error(err);
         }

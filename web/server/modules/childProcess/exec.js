@@ -22,6 +22,6 @@ module.exports = (command, options, callback) => {
     //   console.log(stdout);
     // }
 
-    callback(null, typeof stdout === 'string' ? stdout.trim() || '');
+    callback(null, typeof stdout === 'string' ? stdout.trim() : '');
   });
 };
