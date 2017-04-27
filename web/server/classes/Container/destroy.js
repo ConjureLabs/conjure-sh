@@ -5,8 +5,8 @@ const log = require('modules/log')('github container kill');
 // todo: set up a module that handles cases like this
 const asyncBreak = {};
 
-function containerKill(payload, branch, callback) {
-  log.info('starting kill');
+function containerDestroy(payload, branch, callback) {
+  log.info('starting destroy');
 
   const waterfall = [];
 
@@ -43,7 +43,7 @@ function containerKill(payload, branch, callback) {
       const containerRecord = runningContainerRecords[i];
 
       // todo: handle non-github repos
-      exec(`bash ./kill.sh "${containerRecord.url_uid}" "${containerRecord.container_id}"`, {
+      exec(`bash ./destroy.sh "${containerRecord.url_uid}" "${containerRecord.container_id}"`, {
         cwd: process.env.VOYANT_WORKER_DIR
       }, err => {
         if (err) {
@@ -77,4 +77,4 @@ function containerKill(payload, branch, callback) {
   });
 }
 
-module.exports = containerKill;
+module.exports = containerDestroy;

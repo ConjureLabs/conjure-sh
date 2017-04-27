@@ -10,7 +10,7 @@ function containerUpdate(orgName, repoName, payload, callback) {
   // there is a better way to do this - for now, keeping it rather simple
 
   series.push(cb => {
-    require('./container-kill')(payload, payload.branch, cb);
+    require('./container-destroy')(payload, payload.branch, cb);
   });
 
   series.push(cb => {
