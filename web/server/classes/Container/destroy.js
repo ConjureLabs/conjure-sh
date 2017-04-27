@@ -41,7 +41,7 @@ function containerDestroy(callback) {
 
   // spin down vms
   waterfall.push((watchedRepo, runningContainerRecords, cb) => {
-    const exec = require('child_process').exec;
+    const exec = require('modules/childProcess/exec');
 
     for (let i = 0; i < runningContainerRecords.length; i++) {
       const containerRecord = runningContainerRecords[i];

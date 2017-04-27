@@ -99,9 +99,9 @@ function containerCreate(callback) {
 
   // create container
   waterfall.push((watchedRepo, repoConfig, gitHubClient, gitHubToken, cb) => {
-    const exec = require('child_process').exec;
+    const exec = require('modules/childProcess/exec');
+
     // todo: handle non-github repos
-    // todo: properly populate setup comamnd
     
     let preSetupSteps = '';
 
@@ -115,24 +115,10 @@ function containerCreate(callback) {
     }
 
     const command = `bash ./build.sh "https://${gitHubToken}:x-oauth-basic@github.com/${orgName}/${repoName}.git" "${branch}" "${containerUid}" "${preSetupSteps}" "${repoConfig.machine.setup || bashNoOp}"`;
-
-    log.info(command);
     exec(command, {
       cwd: process.env.VOYANT_WORKER_DIR
-    }, (err, stdout, stderr) => {
-      if (err) {
-        return cb(err);
-      }
-
-      if (stderr) {
-        return cb(new Error(stderr));
-      }
-
-      // if (stdout) {
-      //   console.log(stdout);
-      // }
-
-      cb(null, watchedRepo, repoConfig, gitHubClient);
+    }, err => {
+      cb(err, watchedRepo, repoConfig, gitHubClient);
     });
   });
 
@@ -142,8 +128,7 @@ function containerCreate(callback) {
       return cb(new Error('No container start command defined or known'));
     }
 
-    const exec = require('child_process').exec;
-    // todo: handle command properly
+    const exec = require('modules/childProcess/exec');
 
     // may need to keep trying, if docker ports are already in use
     function attemptDockerRun() {
@@ -157,37 +142,26 @@ function containerCreate(callback) {
         .join('');
 
       const command = `docker run --cidfile /tmp/${containerUid}.cid -i -t -d -p ${hostPort}:${repoConfig.machine.port}${extraEnvVars} "${containerUid}" ${repoConfig.machine.start}`;
-
-      // todo: will need to not log this to any service/flatfile since it will contain sensitve env vars
-      log.info(command);
       exec(command, {
         cwd: process.env.VOYANT_WORKER_DIR
-      }, (err, stdout, stderr) => {
-        const errSeen = err ? err :
-          stderr ? new Error(stderr) :
-          null;
-
-        if (errSeen) {
-          exec(`rm /tmp/${containerUid}.cid`, rmCidErr => {
+      }, (runErr, stdout) => {
+        if (runErr) {
+          exec(`rm /tmp/${containerUid}.cid`, {}, rmCidErr => {
             if (rmCidErr) {
               log.error(rmCidErr);
             }
 
-            if (errSeen.message && errSeen.message.includes('port is already allocated')) {
+            if (runErr.message && runErr.message.includes('port is already allocated')) {
               log.info('port is already allocated - attempting again');
               return attemptDockerRun();
             }
 
-            cb(errSeen);
+            cb(runErr);
           });
           return;
         }
 
-        // if (stdout) {
-        //   console.log(stdout);
-        // }
-
-        cb(null, watchedRepo, gitHubClient, hostPort, stdout.trim());
+        cb(null, watchedRepo, gitHubClient, hostPort, stdout);
       });
     }
     attemptDockerRun();
