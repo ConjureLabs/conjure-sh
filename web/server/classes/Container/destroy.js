@@ -5,14 +5,18 @@ const log = require('modules/log')('container destroy');
 // todo: set up a module that handles cases like this
 const asyncBreak = {};
 
-function containerDestroy(payload, branch, callback) {
+function containerDestroy(callback) {
   log.info('starting destroy');
+
+  const {
+    branch
+  } = this.payload;
 
   const waterfall = [];
 
   // get watched repo record
   waterfall.push(cb => {
-    payload.watchedRepoRecord(cb);
+    this.payload.watchedRepoRecord(cb);
   });
 
   // make sure the repo/branch is spun up

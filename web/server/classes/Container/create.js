@@ -12,16 +12,16 @@ const bashNoOp = ':';
 function containerCreate(callback) {
   log.info('starting create');
 
-  const uid = require('uid');
-
-  const containerUid = uid(24);
-  const waterfall = [];
-
   const {
     branch
     orgName,
     repoName
   } = this.payload;
+
+  const uid = require('uid');
+
+  const containerUid = uid(24);
+  const waterfall = [];
 
   // get watched repo record
   waterfall.push(cb => {
