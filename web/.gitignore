@@ -5,5 +5,4 @@ node_modules
 npm-debug.log
 public/build
 webpack-build.log
-.cache/*
 .profile
