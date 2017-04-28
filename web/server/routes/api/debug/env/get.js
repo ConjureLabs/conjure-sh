@@ -1,6 +1,6 @@
 'use strict';
 
-const Route = require('classes/Route');
+const Route = require('voyant-core/classes/Route');
 
 const route = new Route({
   blacklistedEnv: {

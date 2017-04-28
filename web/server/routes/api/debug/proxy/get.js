@@ -1,7 +1,7 @@
 'use strict';
 
-const Route = require('classes/Route');
-const log = require('modules/log')('proxy debug');
+const Route = require('voyant-core/classes/Route');
+const log = require('voyant-core/modules/log')('proxy debug');
 
 const route = new Route({
   blacklistedEnv: {
@@ -15,7 +15,7 @@ const route = new Route({
   dev endpoint to debug env vars
  */
 route.push((req, res) => {
-  const ReqProxy = require('classes/Req/Proxy');
+  const ReqProxy = require('voyant-core/classes/Req/Proxy');
 
   const proxy = new ReqProxy({
     host: 'google.com',

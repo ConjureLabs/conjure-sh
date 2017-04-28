@@ -1,6 +1,6 @@
 'use strict';
 
-const Route = require('classes/Route');
+const Route = require('voyant-core/classes/Route');
 
 const route = new Route();
 
@@ -23,7 +23,7 @@ route.push((req, res, next) => {
  */
 route.push((req, res, next) => {
   // assuming req.isAuthenticated() === true, based on previous .get('/')
-  const DatabaseTable = require('classes/DatabaseTable');
+  const DatabaseTable = require('voyant-core/classes/DatabaseTable');
   const account = new DatabaseTable('account');
 
   account.select({

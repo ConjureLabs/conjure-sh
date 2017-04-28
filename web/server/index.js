@@ -3,7 +3,7 @@
 // first running any synchronous setup
 const setup = require('./setup');
 
-const config = require('modules/config');
+const config = require('voyant-core/modules/config');
 const express = require('express');
 const compression = require('compression');
 const cookieSession = require('cookie-session');
@@ -13,7 +13,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
-const log = require('modules/log')();
+const log = require('voyant-core/modules/log')();
 
 const port = process.env.PORT;
 const server = express();
@@ -73,7 +73,7 @@ server.use(bodyParser.json());
 server.use(cookieParser());
 
 passport.serializeUser((user, done) => {
-  const DatabaseRow = require('classes/DatabaseRow');
+  const DatabaseRow = require('voyant-core/classes/DatabaseRow');
   done(null, new DatabaseRow('account', user));
 });
 passport.deserializeUser((user, done) => {
@@ -90,7 +90,7 @@ passport.use(
     },
 
     function(accessToken, refreshToken, profile, callback) {
-      const DatabaseTable = require('classes/DatabaseTable');
+      const DatabaseTable = require('voyant-core/classes/DatabaseTable');
 
       if (!profile.id || isNaN(parseInt(profile.id, 10))) {
         return callback(new Error('Github Id was not present in profile json'));
@@ -196,7 +196,7 @@ server.use((req, res, next) => {
     return next();
   }
 
-  const DatabaseTable = require('classes/DatabaseTable');
+  const DatabaseTable = require('voyant-core/classes/DatabaseTable');
 
   // check for existing account record
   DatabaseTable.select('account', {

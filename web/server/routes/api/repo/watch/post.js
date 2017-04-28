@@ -1,6 +1,6 @@
 'use strict';
 
-const Route = require('classes/Route');
+const Route = require('voyant-core/classes/Route');
 
 const route = new Route();
 
@@ -8,8 +8,8 @@ const route = new Route();
 const asyncBreak = {};
 
 route.push((req, res, next) => {
-  const DatabaseTable = require('classes/DatabaseTable');
-  const config = require('modules/config');
+  const DatabaseTable = require('voyant-core/classes/DatabaseTable');
+  const config = require('voyant-core/modules/config');
   const async = require('async');
 
   const {
