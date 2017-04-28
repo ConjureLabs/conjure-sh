@@ -45,6 +45,7 @@
     "stylus-loader": "^3.0.1",
     "uglify-loader": "^2.0.0",
     "uid": "0.0.2",
+    "voyant-core": "git+ssh://git@github.com:WiskeyTango/voyant-core.git",
     "webpack": "^2.4.1"
   },
   "devDependencies": {
