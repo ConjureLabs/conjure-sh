@@ -4,5 +4,5 @@
 node_modules
 npm-debug.log
 webpack-build.log
-web/public/build
+public/build
 .profile
