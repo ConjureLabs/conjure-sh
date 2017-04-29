@@ -1,8 +1,8 @@
 'use strict';
 
 const async = require('async');
-const Route = require('voyant-core/classes/Route');
-const log = require('voyant-core/modules/log')('github webhook inbound');
+const Route = require('conjure-core/classes/Route');
+const log = require('conjure-core/modules/log')('github webhook inbound');
 
 // todo: move port logic into a class, and use available ports that are free'd
 let workerPort = process.env.PORT;
@@ -14,7 +14,7 @@ const route = new Route();
 
 route.push((req, res, next) => {
   const { orgName, repoName } = req.params;
-  const GitHubWebhookPayload = require('voyant-core/classes/Repo/GitHub/Webhook/Payload');
+  const GitHubWebhookPayload = require('conjure-core/classes/Repo/GitHub/Webhook/Payload');
 
   const payload = new GitHubWebhookPayload(req.body);
   const { type, action } = payload;
@@ -30,7 +30,7 @@ route.push((req, res, next) => {
     return;
   }
 
-  const Container = require('voyant-core/classes/Container');
+  const Container = require('conjure-core/classes/Container');
   const container = new Container(payload);
 
   // todo: what to do if a container is still starting and the pr is closed?

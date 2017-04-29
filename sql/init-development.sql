@@ -4,11 +4,11 @@
 
 -- kick any connections to this database
 SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity
-WHERE pg_stat_activity.datname = 'voyant' AND pid <> pg_backend_pid();
+WHERE pg_stat_activity.datname = 'conjure' AND pid <> pg_backend_pid();
 
-DROP DATABASE IF EXISTS voyant;
-CREATE DATABASE voyant WITH OWNER voyant_admin;
-\c voyant;
+DROP DATABASE IF EXISTS conjure;
+CREATE DATABASE conjure WITH OWNER conjure_admin;
+\c conjure;
 
 -- table definitions
 \i ../sql/tables/account.sql;

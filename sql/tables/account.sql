@@ -4,4 +4,4 @@ CREATE TABLE account (
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
-COMMENT ON TABLE account IS 'voyant user records';
+COMMENT ON TABLE account IS 'conjure user records';

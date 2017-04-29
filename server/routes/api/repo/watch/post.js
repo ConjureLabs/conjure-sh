@@ -1,6 +1,6 @@
 'use strict';
 
-const Route = require('voyant-core/classes/Route');
+const Route = require('conjure-core/classes/Route');
 
 const route = new Route();
 
@@ -8,8 +8,8 @@ const route = new Route();
 const asyncBreak = {};
 
 route.push((req, res, next) => {
-  const DatabaseTable = require('voyant-core/classes/DatabaseTable');
-  const config = require('voyant-core/modules/config');
+  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
+  const config = require('conjure-core/modules/config');
   const async = require('async');
 
   const {
@@ -72,7 +72,7 @@ route.push((req, res, next) => {
       }
 
       if (info.permissions.admin !== true) {
-        return callback(new Error('Must be admin to enable voyant'));
+        return callback(new Error('Must be admin to enable conjure'));
       }
 
       callback(null, githubClient, orgName, repoName);

@@ -1,6 +1,6 @@
 'use strict';
 
-const Route = require('voyant-core/classes/Route');
+const Route = require('conjure-core/classes/Route');
 
 const route = new Route({
   requireAuthentication: true,
@@ -11,9 +11,9 @@ const route = new Route({
   Repos listing
  */
 route.push((req, res, next) => {
-  const UniqueArray = require('voyant-core/classes/Array/UniqueArray');
-  const GitHubRepo = require('voyant-core/classes/Repo/GitHub');
-  const DatabaseTable = require('voyant-core/classes/DatabaseTable');
+  const UniqueArray = require('conjure-core/classes/Array/UniqueArray');
+  const GitHubRepo = require('conjure-core/classes/Repo/GitHub');
+  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
   const accountGithub = new DatabaseTable('account_github');
 
   // todo: assumes account has a github record in our db - we should have more handlers for services like bitbucket

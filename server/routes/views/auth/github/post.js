@@ -1,6 +1,6 @@
 'use strict';
 
-const Route = require('voyant-core/classes/Route');
+const Route = require('conjure-core/classes/Route');
 const passport = require('passport');
 
 const route = new Route();

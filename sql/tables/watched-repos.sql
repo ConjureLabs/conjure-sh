@@ -14,4 +14,4 @@ CREATE TABLE watched_repos (
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
-COMMENT ON TABLE watched_repos IS 'repos enabled to use voyant';
+COMMENT ON TABLE watched_repos IS 'repos enabled to use conjure';
