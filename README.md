@@ -2,6 +2,12 @@
 
 Easily test branches, without altering your local.
 
+#### Branding
+
+Using [U+2394 ⎔](https://unicode-table.com/en/#2394) as the service icon.
+
+Can be used as a window into the experience.
+
 #### Env Vars
 
 Any sensitive keys should be set in `./.profile`, which is applied before running the Docker instance.
