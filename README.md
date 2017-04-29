@@ -1,4 +1,4 @@
-### Voyant Web
+### Conjure Web
 
 Easily test branches, without altering your local.
 

@@ -118,7 +118,7 @@ passport.use(
 
             // this should not happen, since the conjure account showed the associated id
             if (!rows.length) {
-              return callback(new Error('Voyant account record not found for associated Github account'));
+              return callback(new Error('Conjure account record not found for associated Github account'));
             }
 
             const account = rows[0];

@@ -29,7 +29,7 @@ class Landing extends Component {
 
         <header className={styles.header}>
           <nav className={styles.navigation}>
-            <h1 className={styles.serviceName}>Voyant</h1>
+            <h1 className={styles.serviceName}>Conjure</h1>
 
             <ol className={styles.linkslist}>
               <li className={styles.item}>
