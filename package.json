@@ -22,6 +22,7 @@
     "body-parser": "1.15.2",
     "classnames": "2.2.5",
     "compression": "1.6.2",
+    "conjure-core": "git+ssh://git@github.com:WiskeyTango/conjure-core.git",
     "cookie-parser": "1.4.3",
     "cookie-session": "2.0.0-alpha.2",
     "css-loader": "^0.28.0",
@@ -45,7 +46,6 @@
     "stylus-loader": "^3.0.1",
     "uglify-loader": "^2.0.0",
     "uid": "0.0.2",
-    "conjure-core": "git+ssh://git@github.com:WiskeyTango/conjure-core.git",
     "webpack": "^2.4.1"
   },
   "devDependencies": {
