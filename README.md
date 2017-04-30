@@ -21,6 +21,22 @@ npm install
 npm install -g eslint babel-eslint jscs webpack
 ```
 
+##### Database Setup
+
+This needs to be done for running the app. Though only needs to be done once, on a machine.
+
+On staging or production you would want to set a password...
+
+```bash
+createuser -W -D conjure_admin
+```
+
+Then, in sql:
+
+```sql
+CREATE DATABASE conjure OWNER conjure_admin;
+```
+
 ##### Running Dev
 
 ```bash
