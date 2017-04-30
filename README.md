@@ -28,7 +28,9 @@ This needs to be done for running the app. Though only needs to be done once, on
 On staging or production you would want to set a password...
 
 ```bash
-createuser -W -D conjure_admin
+# this example has no password (-W)
+# this example sets the user as a superuser (-s)
+createuser -W -D -s conjure_admin
 ```
 
 Then, in sql:
