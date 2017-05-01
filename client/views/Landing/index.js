@@ -70,7 +70,7 @@ class Landing extends Component {
               >
                 Sign Up
               </Button>
-              <sub className={styles.info}>for free</sub>
+              <sub className={styles.info}>using GitHub</sub>
             </div>
           </div>
 
