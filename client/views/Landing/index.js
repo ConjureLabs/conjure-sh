@@ -71,7 +71,7 @@ class Landing extends Component {
                 <span className={styles.githubMark} />
                 <span className={styles.label}>Sign Up</span>
               </Button>
-              <sub className={styles.info}>using GitHub</sub>
+              <sub className={styles.info}>for free</sub>
             </div>
           </div>
 
