@@ -55,7 +55,11 @@ class Landing extends Component {
           </nav>
 
           <div className={styles.ctaContainer}>
-            <p className={styles.firstImpression}>Some text should go here</p>
+            <p className={styles.mark}>⎔</p>
+            <p className={styles.firstImpression}>
+              <sup className={styles.name}>Conjure</sup>
+              <span>brings your branches to life</span>
+            </p>
 
             <div>
               <Button
