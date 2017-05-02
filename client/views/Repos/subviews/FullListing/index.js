@@ -8,6 +8,7 @@ class FullListing extends Component {
     return (
       <div className={styles.root}>
         <header className={styles.header}>
+          <h1 className={styles.serviceName}>Conjure</h1>
           <span
             className={styles.avatar}
             style={{ backgroundImage: 'url(' + staticContent.account.photo + ')' }}
