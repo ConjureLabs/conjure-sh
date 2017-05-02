@@ -101,6 +101,8 @@ route.push((req, res, next) => {
         return next(err);
       }
 
+      console.log(githubAccount);
+
       res.render('repos', {
         name: 'repos',
         repos: allRepos

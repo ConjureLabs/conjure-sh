@@ -142,6 +142,7 @@ passport.use(
         // need a conjure account
         DatabaseTable.insert('account', {
           name: profile.displayName,
+          email: profile.emails[0].value,
           added: DatabaseTable.literal('NOW()')
         }, (err, rows) => {
           const account = rows[0];
