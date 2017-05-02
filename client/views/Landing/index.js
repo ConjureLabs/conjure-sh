@@ -68,10 +68,9 @@ class Landing extends Component {
                 color='peach'
                 onClick={this[submitForm].bind(this)}
               >
-                <span className={styles.githubMark} />
                 <span className={styles.label}>Sign Up</span>
               </Button>
-              <sub className={styles.info}>for free</sub>
+              <sub className={styles.info}>With GitHub</sub>
             </div>
           </div>
 
