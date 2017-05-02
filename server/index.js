@@ -123,14 +123,22 @@ passport.use(
 
             const account = rows[0];
 
+            callback(err, account);
+
             // record the login
             DatabaseTable.insert('account_login', {
               account: account.id,
               service: DatabaseTable.cast('github', 'account_login_service'),
               added: DatabaseTable.literal('NOW()')
             }, err => {
-              callback(err, account);
+              if (err) {
+                log.error(err);
+              }
             });
+
+            ensureEmailsStored(account, profile.emails.map(emailObj => {
+              return emailObj.value;
+            }));
           });
           return;
         }
@@ -163,14 +171,22 @@ passport.use(
                 return callback(err);
               }
 
+              callback(err, account);
+
               // record the login
               DatabaseTable.insert('account_login', {
                 account: account.id,
                 service: DatabaseTable.cast('github', 'account_login_service'),
                 added: DatabaseTable.literal('NOW()')
               }, err => {
-                callback(err, account);
+                if (err) {
+                  log.error(err);
+                }
               });
+
+              ensureEmailsStored(account, profile.emails.map(emailObj => {
+                return emailObj.value;
+              }));
             }
           );
         });
@@ -178,6 +194,34 @@ passport.use(
     }
   )
 );
+
+function ensureEmailsStored(account, seenEmails) {
+  const accountEmails = new DatabaseTable('account_emails');
+
+  accountEmails.select({
+    account: account.id
+  }, (err, rows) => {
+    if (err) {
+      log.error(err);
+      return;
+    }
+
+    const alreadyHave = rows.map(row => row.email);
+    const pendingEmails = seenEmails.filter(email => !alreadyHave.includes(email));
+
+    for (let i = 0; i < pendingInsert.length; i++) {
+      accountEmails.insert({
+        account: account.id,
+        email: pendingEmails[i],
+        added: new Date()
+      }, err => {
+        if (err) {
+          log.error(err);
+        }
+      });
+    }
+  });
+}
 
 server.use((req, res, next) => {
   req.state = {}; // used to track anything useful, along the lifetime of a request
