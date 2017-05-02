@@ -136,9 +136,18 @@ passport.use(
               }
             });
 
+            // making sure some details on the github account table are up-to-date
+
             ensureEmailsStored(account, profile.emails.map(emailObj => {
               return emailObj.value;
             }));
+
+            githubAccount.photo = Array.isArray(profile.photos) && profile.photos[0] ? profile.photos[0].value : null;
+            githubAccount.save(err => {
+              if (err) {
+                log.error(err);
+              }
+            });
           });
           return;
         }
@@ -163,7 +172,7 @@ passport.use(
             username: profile.username,
             name: profile.displayName,
             email: profile.emails[0].value,
-            photo: profile.avatar_url,
+            photo: Array.isArray(profile.photos) && profile.photos[0] ? profile.photos[0].value : null,
             access_token: accessToken,
             added: DatabaseTable.literal('NOW()')
           }, err => {
@@ -196,6 +205,7 @@ passport.use(
 );
 
 function ensureEmailsStored(account, seenEmails) {
+  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
   const accountEmails = new DatabaseTable('account_emails');
 
   accountEmails.select({
@@ -209,7 +219,7 @@ function ensureEmailsStored(account, seenEmails) {
     const alreadyHave = rows.map(row => row.email);
     const pendingEmails = seenEmails.filter(email => !alreadyHave.includes(email));
 
-    for (let i = 0; i < pendingInsert.length; i++) {
+    for (let i = 0; i < accountEmails.length; i++) {
       accountEmails.insert({
         account: account.id,
         email: pendingEmails[i],
