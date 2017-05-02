@@ -2,8 +2,8 @@
 
 .root
   // styles have initial state of a large peach button
-  border-radius: 0.8rem
-  box-shadow: 0 0.2rem 0.3rem rgba(#000, 0.24)
+  border-radius: 0.3rem
+  box-shadow: 0 0.1rem 0.3rem rgba(#000, 0.16)
   cursor: pointer
   display: inline-block
   gradient(#fffaef, #f9dcbd)
@@ -33,6 +33,15 @@
     .label
       color: #ddd
       font-size: 1rem
+      
+  &.color_pink
+    gradient(darken(#FF8EDE, 8%), #FF8EDE)
+    
+    &:hover
+      gradient(darken(#FF8EDE, 12%), #FF8EDE)
+    
+    .label
+      color: $black
 
   /**
     Size alterations
