@@ -7,6 +7,11 @@ class FullListing extends Component {
   render() {
     return (
       <div className={styles.root}>
+        <header calssName={styles.header}>
+          <span>
+            <img src={staticContent.account.photo} />
+          </span>
+        </header>
         {
           staticContent.repos.map(repo => {
             return (

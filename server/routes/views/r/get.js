@@ -105,7 +105,10 @@ route.push((req, res, next) => {
 
       res.render('repos', {
         name: 'repos',
-        repos: allRepos
+        repos: allRepos,
+        account: {
+          photo: githubAccount.photo
+        }
       });
     });
   });
