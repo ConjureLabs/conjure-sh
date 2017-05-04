@@ -89,6 +89,12 @@ route.push((req, res, next) => {
         repos = repos.map(repo => new GitHubRepo(repo));
 
         for (let i = 0; i < repos.length; i++) {
+          // filter out repos where the user does not have the correct permissions
+          // todo: possibly make it apparent via the UI that repos were not shown?
+          if (repos[i].permissions.admin !== true) {
+            continue;
+          }
+
           allRepos.push(repos[i]);
         }
 
@@ -96,12 +102,19 @@ route.push((req, res, next) => {
       });
     });
 
+    // sort repos
+    pullRepos.push(callback => {
+      const sortInsensitive = require('conjure-core/modules/utils/Array/sort-insensitive');
+      sortInsensitive(allRepos, 'fullName');
+      callback();
+    });
+
     async.parallel(pullRepos, err => {
       if (err) {
         return next(err);
       }
 
-      console.log(githubAccount);
+console.log(allRepos);
 
       res.render('repos', {
         name: 'repos',
