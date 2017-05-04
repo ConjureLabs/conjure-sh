@@ -17,8 +17,9 @@ Any sensitive keys should be set in `./.profile`, which is applied before runnin
 ##### Dependencies
 
 ```bash
-npm install
-npm install -g eslint babel-eslint jscs webpack
+brew install yarn
+yarn global add eslint babel-eslint jscs webpack
+yarn install
 ```
 
 ##### Database Setup
@@ -42,23 +43,23 @@ CREATE DATABASE conjure OWNER conjure_admin;
 ##### Running Dev
 
 ```bash
-NODE_ENV=development npm start
+NODE_ENV=development yarn start
 ```
 
-##### NPM Commands
+##### yarn Commands
 
 ```bash
 # starts the app
-npm start
+yarn start
 
 # run lints
-npm run lint
+yarn run lint
 
 # compile frontend builds
-npm run compile
+yarn run compile
 
 # compile & watch for changes
-npm run compile --watch
+YARN_CONFIG_WATCH=yes yarn run compile
 ```
 
 ##### Running with ngrok

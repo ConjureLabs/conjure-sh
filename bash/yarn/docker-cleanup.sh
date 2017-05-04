@@ -1,5 +1,5 @@
 #! /bin/bash
-### Called on `npm run docker-cleanup`
+### Called on `yarn run docker-cleanup`
 
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;

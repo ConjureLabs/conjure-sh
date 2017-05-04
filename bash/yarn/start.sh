@@ -1,5 +1,5 @@
 #! /bin/bash
-# Called on `npm start`
+# Called on `yarn start`
 
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;
