@@ -14,23 +14,26 @@ class FullListing extends Component {
             style={{ backgroundImage: 'url(' + staticContent.account.photo + ')' }}
           />
         </header>
-        {
-          staticContent.repos.map(repo => {
-            return (
-              <a
-                href=''
-                className={styles.repo}
-                onClick={e => {
-                  e.preventDefault();
-                  browserHistory.push(`/r/GitHub/${repo.fullName}`);
-                }}
-                key={repo.fullName}
-              >
-                {repo.fullName}
-              </a>
-            );
-          })
-        }
+
+        <main className={styles.content}>
+          {
+            staticContent.repos.map(repo => {
+              return (
+                <a
+                  href=''
+                  className={styles.repo}
+                  onClick={e => {
+                    e.preventDefault();
+                    browserHistory.push(`/r/GitHub/${repo.fullName}`);
+                  }}
+                  key={repo.fullName}
+                >
+                  {repo.fullName}
+                </a>
+              );
+            })
+          }
+        </main>
       </div>
     );
   }
