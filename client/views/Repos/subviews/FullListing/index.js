@@ -9,10 +9,33 @@ class FullListing extends Component {
       <div className={styles.root}>
         <header className={styles.header}>
           <h1 className={styles.serviceName}>Conjure</h1>
-          <span
-            className={styles.avatar}
-            style={{ backgroundImage: 'url(' + staticContent.account.photo + ')' }}
-          />
+
+          <nav className={styles.userNav}>
+            <span
+              className={styles.avatar}
+              style={{ backgroundImage: 'url(' + staticContent.account.photo + ')' }}
+            />
+
+            <ol className={styles.links}>
+              <li className={styles.item}>
+                <a
+                  href='/settings'
+                  className={styles.link}
+                >
+                  Settings
+                </a>
+              </li>
+
+              <li className={styles.item}>
+                <a
+                  href='/logout'
+                  className={styles.link}
+                >
+                  Logout
+                </a>
+              </li>
+            </ol>
+          </nav>
         </header>
 
         <main className={styles.content}>

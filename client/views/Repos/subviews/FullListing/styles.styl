@@ -19,17 +19,46 @@ $bodyPadding = 1.5rem
     font-size: 2rem
     margin: 2rem 0 0 $bodyPadding
   
-  .avatar
-    background: transparent url('/nada') no-repeat center center
-    background-size: cover
-    border: 1px solid $conjureColorMainSlightlyDark
-    border-radius: 2rem
+  .userNav
     clear: none
     display: block
+    height: 6rem
     float: right
-    height: 3rem
-    margin: $bodyPadding $bodyPadding 0 0
-    width: 3rem
+    position: relative
+    width: 3rem + $bodyPadding + $bodyPadding
+
+    .avatar
+      display: block
+      background: transparent url('/nada') no-repeat center center
+      background-size: cover
+      border-radius: 2rem
+      height: 3rem
+      position: absolute
+      right: $bodyPadding
+      top: $bodyPadding
+      width: 3rem
+    
+    .links
+      display: none
+      
+    &:hover
+      background: $black
+      
+      .links
+        background: $black
+        display: block
+        position: absolute
+        right: 0rem
+        top: 6rem
+        
+        .link
+          color: $white
+          display: block
+          font-size: 1.2rem
+          padding: 2rem ($bodyPadding + 2rem)
+          
+          &:hover
+            background: $trueBlack
 
 .repo
   clear: both
