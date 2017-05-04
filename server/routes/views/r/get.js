@@ -102,23 +102,19 @@ route.push((req, res, next) => {
       });
     });
 
-    // sort repos
-    pullRepos.push(callback => {
-      const sortInsensitive = require('conjure-core/modules/utils/Array/sort-insensitive');
-      sortInsensitive(allRepos, 'fullName');
-      callback();
-    });
-
     async.parallel(pullRepos, err => {
       if (err) {
         return next(err);
       }
 
-console.log(allRepos);
+      const finalRepos = allRepos.native;
+
+      const sortInsensitive = require('conjure-core/modules/utils/Array/sort-insensitive');
+      sortInsensitive(finalRepos, 'fullName');
 
       res.render('repos', {
         name: 'repos',
-        repos: allRepos,
+        repos: finalRepos,
         account: {
           photo: githubAccount.photo
         }
