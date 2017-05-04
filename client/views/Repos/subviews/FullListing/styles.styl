@@ -1,5 +1,7 @@
 @require '../../../base.styl'
 
+$bodyPadding = 1.5rem
+
 // .root
 //   padding: 10px
 
@@ -15,7 +17,7 @@
     color: $conjureColorMainDark
     float: left
     font-size: 2rem
-    margin: 2rem 0 0 1rem
+    margin: 2rem 0 0 $bodyPadding
   
   .avatar
     background: transparent url('/nada') no-repeat center center
@@ -25,9 +27,9 @@
     clear: none
     display: block
     float: right
-    height: 4rem
-    margin: 1rem 1rem 0 0
-    width: 4rem
+    height: 3rem
+    margin: $bodyPadding $bodyPadding 0 0
+    width: 3rem
 
 .repo
   clear: both
