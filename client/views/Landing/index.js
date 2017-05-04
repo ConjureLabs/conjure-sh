@@ -65,7 +65,7 @@ class Landing extends Component {
               <Button
                 size='large'
                 className={styles.cta}
-                color='pink'
+                color='funky'
                 onClick={this[submitForm].bind(this)}
               >
                 <span className={styles.label}>Sign Up</span>
