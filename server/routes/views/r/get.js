@@ -81,7 +81,7 @@ route.push((req, res, next) => {
 
     // user repos
     pullRepos.push(callback => {
-      githubClient.me().repos((err, repos) => {
+      githubClient.user(githubAccount.username).repos((err, repos) => {
         if (err) {
           return callback(err);
         }
@@ -111,6 +111,8 @@ route.push((req, res, next) => {
 
       const sortInsensitive = require('conjure-core/modules/utils/Array/sort-insensitive');
       sortInsensitive(finalRepos, 'fullName');
+
+      // console.log(finalRepos);
 
       res.render('repos', {
         name: 'repos',
