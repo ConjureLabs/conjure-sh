@@ -3,7 +3,42 @@ import { browserHistory } from 'react-router';
 
 import styles from './styles.styl';
 
+const selectOrg = Symbol('select org');
+const selectRepo = Symbol('select repo');
+const selectBranch = Symbol('select branch');
+
 class FullListing extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state ={
+      org: null,
+      repo: null,
+      branch: null
+    };
+  }
+
+  [selectOrg](org) {
+    this.setState({
+      org,
+      repo: null,
+      branch: null
+    });
+  }
+
+  [selectRepo](repo) {
+    this.setState({
+      repo,
+      branch: null
+    });
+  }
+
+  [selectBranch](branch) {
+    this.setState({
+      branch
+    });
+  }
+
   render() {
     return (
       <div className={styles.root}>
@@ -39,27 +74,64 @@ class FullListing extends Component {
         </header>
 
         <main className={styles.content}>
-          <ol className={styles.orgs}>
+          <ol className={styles.branchNav}>
             {
-              Object.keys(staticContent.reposByOrg).map(org => (
-                <li className={styles.item}>
-                  <a
-                    href={`./${org}`}
-                    className={styles.link}
-                    onClick={() => {
-                      this[selectOrg](org);
-                    }}
-                    key={org}
-                  >
-                    {org}
-                  </a>
-                </li>
-              ))
+              this.branchNavContent()
             }
           </ol>
         </main>
       </div>
     );
+  }
+
+  branchNavContent() {
+    const { org, repo, branch } = this.state;
+    const levelAt = branch !== null ? 'branch' :
+      repo !== null ? 'repo' :
+      org !== null ? 'org' :
+      'all';
+
+    switch(levelAt) {
+      case 'all':
+        return Object.keys(staticContent.reposByOrg).map(org => (
+          return (
+            <a
+              href={`./${org}`}
+              className={styles.link}
+              onClick={e => {
+                e.preventDefault();
+                this[selectOrg](org);
+              }}
+              key={org}
+            >
+              {org}
+            </a>
+          );
+        ));
+
+      case 'org':
+        return staticContent.reposByOrg[org].map(repo => {
+          return (
+            <a
+              href={`./${repo.name}`}
+              className={styles.link}
+              onClick={e => {
+                e.preventDefault();
+                this[selectRepo](repo);
+              }}
+              key={`${org}/${repo}`}
+            >
+              {repo.name}
+            </a>
+          );
+        });
+
+      case 'repo':
+        return [<span>pending</span>];
+
+      case 'branch':
+        return [<span>pending</span>];
+    }
   }
 }
 
