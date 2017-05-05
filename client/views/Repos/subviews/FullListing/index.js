@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { browserHistory } from 'react-router';
+import classnames from 'classnames';
 
 import styles from './styles.styl';
 
@@ -43,7 +44,11 @@ class FullListing extends Component {
     return (
       <div className={styles.root}>
         <header className={styles.header}>
-          <h1 className={styles.serviceName}>Conjure</h1>
+          <span className={styles.treeLocation}>
+            {
+              this.headerContents()
+            }
+          </span>
 
           <nav className={styles.userNav}>
             <span
@@ -112,7 +117,6 @@ class FullListing extends Component {
         ));
 
       case 'org':
-        console.log(staticContent.reposByOrg[org]);
         return staticContent.reposByOrg[org].map(repo => (
           <a
             href={`./${repo.name}`}
@@ -121,7 +125,7 @@ class FullListing extends Component {
               e.preventDefault();
               this[selectRepo](repo);
             }}
-            key={`${org}/${repo}`}
+            key={`${org}/${repo.name}`}
           >
             {repo.name}
           </a>
@@ -133,6 +137,34 @@ class FullListing extends Component {
       case 'branch':
         return [<span>pending</span>];
     }
+  }
+
+  headerContents() {
+    const { org, repo, branch } = this.state;
+
+    return [
+      <h1 className={classnames(styles.treeNav, styles.serviceName)}>
+        ⎔
+      </h1>,
+
+      org === null ? null : (
+        <h2 className={classnames(styles.treeNav, styles.orgName)}>
+          {org}
+        </h2>
+      ),
+
+      repo === null ? null : (
+        <h3 className={classnames(styles.treeNav, styles.repoName)}>
+          {repo.name}
+        </h3>
+      ),
+
+      branch === null ? null : (
+        <h4 className={classnames(styles.treeNav, styles.branchName)}>
+          {branch}
+        </h4>
+      )
+    ];
   }
 }
 
