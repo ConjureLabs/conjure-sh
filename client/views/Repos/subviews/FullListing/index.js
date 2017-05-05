@@ -4,6 +4,7 @@ import classnames from 'classnames';
 
 import styles from './styles.styl';
 
+const selectNothing = Symbol('select nothing');
 const selectOrg = Symbol('select org');
 const selectRepo = Symbol('select repo');
 const selectBranch = Symbol('select branch');
@@ -17,6 +18,14 @@ class FullListing extends Component {
       repo: null,
       branch: null
     };
+  }
+
+  [selectNothing]() {
+    this.setState({
+      org: null,
+      repo: null,
+      branch: null
+    });
   }
 
   [selectOrg](org) {
@@ -143,36 +152,49 @@ class FullListing extends Component {
     const { org, repo, branch } = this.state;
 
     return [
-      <h1 className={classnames(styles.treeNav, styles.serviceName)}>
+      <h1
+        className={classnames(styles.treeNav, styles.serviceName, org === null ? styles.current : null)}
+        onClick={org === null ? null : () => {
+          this[selectNothing]();
+        }}
+      >
         ⎔
       </h1>,
 
       org === null ? null : (
-        <h2 className={classnames(styles.treeNav, styles.orgName)}>
+        <h2
+          className={classnames(styles.treeNav, styles.orgName, repo === null ? styles.current : null)}
+          onClick={repo === null ? null : () => {
+            this[selectOrg](org);
+          }}
+        >
           {org}
         </h2>
       ),
 
       repo === null ? null : (
-        <span className={styles.separator}>
-          /
-        </span>
+        <span className={styles.separator}>/</span>
       ),
 
       repo === null ? null : (
-        <h3 className={classnames(styles.treeNav, styles.repoName)}>
+        <h3
+          className={classnames(styles.treeNav, styles.repoName, branch === null ? styles.current : null)}
+          onClick={branch === null ? null : () => {
+            this[selectRepo](repo);
+          }}
+        >
           {repo.name}
         </h3>
       ),
 
       branch === null ? null : (
-        <span className={styles.separator}>
-          /
-        </span>
+        <span className={styles.separator}>/</span>
       ),
 
       branch === null ? null : (
-        <h4 className={classnames(styles.treeNav, styles.branchName)}>
+        <h4
+          className={classnames(styles.treeNav, styles.branchName, styles.current)}
+        >
           {branch}
         </h4>
       )
