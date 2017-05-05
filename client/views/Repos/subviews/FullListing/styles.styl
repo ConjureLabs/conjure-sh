@@ -18,11 +18,17 @@ $bodyPadding = 1.5rem
     margin: 2rem 0 0 $bodyPadding
     
     .treeNav
+    .separator
       clear: none
-      cursor: pointer
       float: left
       font-size: 1.6rem
       margin: 0.3rem 0 0 0.8rem
+      
+      &.treeNav
+        cursor: pointer
+      
+      &.separator
+        color: $conjureColorMainDark
       
     .serviceName
       color: $conjureColorMainDark

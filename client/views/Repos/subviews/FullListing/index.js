@@ -154,9 +154,21 @@ class FullListing extends Component {
       ),
 
       repo === null ? null : (
+        <span className={styles.separator}>
+          /
+        </span>
+      ),
+
+      repo === null ? null : (
         <h3 className={classnames(styles.treeNav, styles.repoName)}>
           {repo.name}
         </h3>
+      ),
+
+      branch === null ? null : (
+        <span className={styles.separator}>
+          /
+        </span>
       ),
 
       branch === null ? null : (
