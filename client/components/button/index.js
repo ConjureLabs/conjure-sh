@@ -38,7 +38,9 @@ export default class Button extends Component {
   static propTypes = {
     color: PropTypes.oneOf([
       'black',
-      'peach'
+      'peach',
+      'pink',
+      'purple'
     ]).isRequired,
 
     onClick: PropTypes.func,
