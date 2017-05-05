@@ -76,7 +76,11 @@ class FullListing extends Component {
         <main className={styles.content}>
           <ol className={styles.branchNav}>
             {
-              this.branchNavContent()
+              this.branchNavContent().map(item => (
+                <li className={styles.item}>
+                  {item}
+                </li>
+              ))
             }
           </ol>
         </main>
@@ -94,37 +98,34 @@ class FullListing extends Component {
     switch(levelAt) {
       case 'all':
         return Object.keys(staticContent.reposByOrg).map(org => (
-          return (
-            <a
-              href={`./${org}`}
-              className={styles.link}
-              onClick={e => {
-                e.preventDefault();
-                this[selectOrg](org);
-              }}
-              key={org}
-            >
-              {org}
-            </a>
-          );
+          <a
+            href={`./${org}`}
+            className={styles.link}
+            onClick={e => {
+              e.preventDefault();
+              this[selectOrg](org);
+            }}
+            key={org}
+          >
+            {org}
+          </a>
         ));
 
       case 'org':
-        return staticContent.reposByOrg[org].map(repo => {
-          return (
-            <a
-              href={`./${repo.name}`}
-              className={styles.link}
-              onClick={e => {
-                e.preventDefault();
-                this[selectRepo](repo);
-              }}
-              key={`${org}/${repo}`}
-            >
-              {repo.name}
-            </a>
-          );
-        });
+        console.log(staticContent.reposByOrg[org]);
+        return staticContent.reposByOrg[org].map(repo => (
+          <a
+            href={`./${repo.name}`}
+            className={styles.link}
+            onClick={e => {
+              e.preventDefault();
+              this[selectRepo](repo);
+            }}
+            key={`${org}/${repo}`}
+          >
+            {repo.name}
+          </a>
+        ));
 
       case 'repo':
         return [<span>pending</span>];
