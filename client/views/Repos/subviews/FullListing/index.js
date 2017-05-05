@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { browserHistory } from 'react-router';
 import classnames from 'classnames';
+import { post } from 'm/xhr';
+import Button from 'c/Button';
 
 import styles from './styles.styl';
 
@@ -8,6 +10,7 @@ const selectNothing = Symbol('select nothing');
 const selectOrg = Symbol('select org');
 const selectRepo = Symbol('select repo');
 const selectBranch = Symbol('select branch');
+const enableWatch = Symbol('enable watch repo');
 
 class FullListing extends Component {
   constructor(props) {
@@ -88,18 +91,78 @@ class FullListing extends Component {
         </header>
 
         <main className={styles.content}>
-          <ol className={styles.branchNav}>
-            {
-              this.branchNavContent().map(item => (
-                <li className={styles.item}>
-                  {item}
-                </li>
-              ))
-            }
-          </ol>
+          {
+            this.generateMainContent()
+          }
         </main>
       </div>
     );
+  }
+
+  generateMainContent() {
+    const branchNav = this.branchNavContent();
+
+    if (Array.isArray(branchNav)) {
+      return (
+        <ol className={styles.branchNav}>
+          {
+            branchNav.map(item => (
+              <li className={styles.item}>
+                {item}
+              </li>
+            ))
+          }
+        </ol>
+      );
+    }
+
+    if (this.state.branch !== null) {
+      return (
+        <span>PENDING - SHOULD NOT BE ABLE TO GET HERE</span>
+      );
+    }
+
+    return (
+      <Button
+        size='small'
+        color='black'
+        onClick={() => {
+          this[enableWatch]();
+        }}
+      >
+        Watch Repo
+      </Button>
+    );
+  }
+
+  [enableWatch]() {
+    const repoName = this.state.repo;
+    const orgName = this.state.org;
+
+    // todo: deal with no repo found in .find()
+    const repos = staticContent.reposByOrg[orgName].find(repo => {
+      return repo.org === orgName && repo.name === repoName;
+    });
+
+    post('/api/repo/watch', {
+      service: 'github',
+      name: repos.name,
+      fullName: repos.fullName,
+      orgName,
+      repoName,
+      url: repos.url,
+      isPrivate: repos.private,
+      githubId: repos.id,
+      vm: 'web' // forced to web for now
+    }, (err, data) => {
+      if (err) {
+        console.error(err);
+        alert(err.message);
+      } else {
+        console.log(data);
+        alert('listening');
+      }
+    });
   }
 
   branchNavContent() {
@@ -141,10 +204,10 @@ class FullListing extends Component {
         ));
 
       case 'repo':
-        return [<span>pending</span>];
+        return null;
 
       case 'branch':
-        return [<span>pending</span>];
+        return null;
     }
   }
 
