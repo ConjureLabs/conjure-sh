@@ -136,23 +136,23 @@ class FullListing extends Component {
   }
 
   [enableWatch]() {
-    const repoName = this.state.repo;
     const orgName = this.state.org;
+    const repoName = this.state.repo.name;
 
     // todo: deal with no repo found in .find()
-    const repos = staticContent.reposByOrg[orgName].find(repo => {
-      return repo.org === orgName && repo.name === repoName;
+    const repo = staticContent.reposByOrg[orgName].find(repo => {
+      return repo.name === repoName;
     });
 
     post('/api/repo/watch', {
       service: 'github',
-      name: repos.name,
-      fullName: repos.fullName,
+      name: repo.name,
+      fullName: repo.fullName,
       orgName,
       repoName,
-      url: repos.url,
-      isPrivate: repos.private,
-      githubId: repos.id,
+      url: repo.url,
+      isPrivate: repo.private,
+      githubId: repo.id,
       vm: 'web' // forced to web for now
     }, (err, data) => {
       if (err) {
