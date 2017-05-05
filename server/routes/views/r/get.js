@@ -107,16 +107,27 @@ route.push((req, res, next) => {
         return next(err);
       }
 
+      // todo: pagination - should pull org names, then drill in via UI with api calls, which pages (in UI too)
       const finalRepos = allRepos.native;
 
       const sortInsensitive = require('conjure-core/modules/utils/Array/sort-insensitive');
       sortInsensitive(finalRepos, 'fullName');
 
-      // console.log(finalRepos);
+      const reposByOrg = finalRepos.reduce((mapping, current) => {
+        const orgRepos = mapping[ current.org ];
+
+        if (!Array.isArray(orgRepos)) {
+          mapping[ current.org ] = [ current ];
+        } else {
+          orgRepos.push(current);
+        }
+
+        return mapping;
+      }, {});
 
       res.render('repos', {
         name: 'repos',
-        repos: finalRepos,
+        reposByOrg: reposByOrg,
         account: {
           photo: githubAccount.photo
         }

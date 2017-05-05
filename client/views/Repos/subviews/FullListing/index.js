@@ -39,23 +39,24 @@ class FullListing extends Component {
         </header>
 
         <main className={styles.content}>
-          {
-            staticContent.repos.map(repo => {
-              return (
-                <a
-                  href=''
-                  className={styles.repo}
-                  onClick={e => {
-                    e.preventDefault();
-                    browserHistory.push(`/r/GitHub/${repo.fullName}`);
-                  }}
-                  key={repo.fullName}
-                >
-                  {repo.fullName}
-                </a>
-              );
-            })
-          }
+          <ol className={styles.orgs}>
+            {
+              Object.keys(staticContent.reposByOrg).map(org => (
+                <li className={styles.item}>
+                  <a
+                    href={`./${org}`}
+                    className={styles.link}
+                    onClick={() => {
+                      this[selectOrg](org);
+                    }}
+                    key={org}
+                  >
+                    {org}
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
         </main>
       </div>
     );
