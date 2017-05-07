@@ -12,9 +12,9 @@ CREATE DATABASE conjure WITH OWNER conjure_admin;
 
 -- table definitions
 \i ../sql/tables/account.sql;
-\i ../sql/tables/account-emails.sql;
+\i ../sql/tables/account-email.sql;
 \i ../sql/tables/account-github.sql;
 \i ../sql/tables/account-login.sql;
-\i ../sql/tables/watched-repos.sql;
+\i ../sql/tables/watched-repo.sql;
 \i ../sql/tables/container.sql;
 \i ../sql/tables/github-issue-comment.sql;
