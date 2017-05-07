@@ -92,7 +92,9 @@ route.push((req, res, next) => {
 
       for (let i = 0; i < data.length; i++) {
         if (data[i].config && data[i].config.url === newHookPath) {
-          return callback(asyncBreak);
+          return upsertWatchedRepoRecord(req, err => {
+            callback(err || asyncBreak);
+          });
         }
       }
 
@@ -122,19 +124,7 @@ route.push((req, res, next) => {
 
   // save reference to watched repo
   waterfall.push(callback => {
-    DatabaseTable.insert('watched_repos', {
-      account: req.user.id,
-      service,
-      service_repo_id: githubId,
-      url,
-      name,
-      vm,
-      private: isPrivate,
-      disabled: false,
-      added: new Date()
-    }, err => {
-      callback(err);
-    });
+    upsertWatchedRepoRecord(req, callback);
   });
 
   async.waterfall(waterfall, err => {
@@ -147,5 +137,35 @@ route.push((req, res, next) => {
     });
   });
 });
+
+function upsertWatchedRepoRecord(req, callback) {
+  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
+
+  const {
+    service,
+    url,
+    name,
+    githubId,
+    isPrivate,
+    vm
+  } = req.body;
+
+  DatabaseTable.upsert('watched_repos', {
+    account: req.user.id,
+    service,
+    service_repo_id: githubId,
+    url,
+    name,
+    vm,
+    private: isPrivate,
+    disabled: false,
+    added: new Date(),
+    updated: new Date()
+  }, [
+    'updated'
+  ], err => {
+    callback(err);
+  });
+}
 
 module.exports = route;
