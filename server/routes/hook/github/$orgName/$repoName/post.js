@@ -30,7 +30,7 @@ route.push((req, res, next) => {
     return;
   }
 
-  const Container = require('conjure-core/classes/Container/Github');
+  const Container = require('conjure-core/classes/Container/GitHub');
   const container = new Container(payload);
 
   // todo: what to do if a container is still starting and the pr is closed?
