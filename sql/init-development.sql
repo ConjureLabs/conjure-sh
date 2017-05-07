@@ -16,5 +16,5 @@ CREATE DATABASE conjure WITH OWNER conjure_admin;
 \i ../sql/tables/account-github.sql;
 \i ../sql/tables/account-login.sql;
 \i ../sql/tables/watched-repos.sql;
-\i ../sql/tables/containers.sql;
+\i ../sql/tables/container.sql;
 \i ../sql/tables/github-issue-comment.sql;

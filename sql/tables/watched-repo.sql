@@ -1,7 +1,7 @@
 CREATE TYPE repo_service_types AS ENUM('github', 'phabricator', 'gitlab', 'other');
 CREATE TYPE repo_vm_types AS ENUM('web');
 
-CREATE TABLE watched_repos (
+CREATE TABLE watched_repo (
   id SERIAL PRIMARY KEY,
   account INT REFERENCES account(id) NOT NULL,
   service repo_service_types NOT NULL,
@@ -15,4 +15,4 @@ CREATE TABLE watched_repos (
   updated TIMESTAMP WITH TIME ZONE,
   UNIQUE (service, service_repo_id)
 );
-COMMENT ON TABLE watched_repos IS 'repos enabled to use conjure';
+COMMENT ON TABLE watched_repo IS 'repos enabled to use conjure';

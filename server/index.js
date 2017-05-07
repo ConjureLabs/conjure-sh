@@ -206,7 +206,7 @@ passport.use(
 
 function ensureEmailsStored(account, seenEmails) {
   const DatabaseTable = require('conjure-core/classes/DatabaseTable');
-  const accountEmails = new DatabaseTable('account_emails');
+  const accountEmails = new DatabaseTable('account_email');
 
   accountEmails.select({
     account: account.id

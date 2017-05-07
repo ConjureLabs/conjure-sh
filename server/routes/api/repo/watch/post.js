@@ -150,7 +150,7 @@ function upsertWatchedRepoRecord(req, callback) {
     vm
   } = req.body;
 
-  DatabaseTable.upsert('watched_repos', {
+  DatabaseTable.upsert('watched_repo', {
     account: req.user.id,
     service,
     service_repo_id: githubId,
