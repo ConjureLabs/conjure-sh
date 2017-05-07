@@ -7,6 +7,9 @@ CREATE TABLE container (
   port INT NOT NULL,
   container_id VARCHAR(64) NOT NULL,
   url_uid VARCHAR(24) NOT NULL,
+  is_active BOOLEAN NOT NULL,
+  active_start TIMESTAMP WITH TIME ZONE NOT NULL,
+  active_stop TIMESTAMP WITH TIME ZONE,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
