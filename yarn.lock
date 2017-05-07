@@ -1279,7 +1279,7 @@ concat-map@0.0.1:
 
 "conjure-core@git+ssh://git@github.com:WiskeyTango/conjure-core.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:WiskeyTango/conjure-core.git#2eb9f098e666913817da01cce904eb05a53d6551"
+  resolved "git+ssh://git@github.com:WiskeyTango/conjure-core.git#2a7aaaa4aad77f8825baad295745351975884dfe"
 
 console-browserify@^1.1.0:
   version "1.1.0"
