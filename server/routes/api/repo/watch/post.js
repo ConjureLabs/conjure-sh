@@ -159,11 +159,13 @@ function upsertWatchedRepoRecord(req, callback) {
     vm,
     private: isPrivate,
     disabled: false,
-    added: new Date(),
+    added: new Date()
+  }, {
     updated: new Date()
-  }, [
-    'updated'
-  ], err => {
+  }, {
+    service,
+    service_repo_id: githubId
+  }, err => {
     callback(err);
   });
 }

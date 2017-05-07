@@ -12,6 +12,7 @@ CREATE TABLE watched_repos (
   private BOOLEAN NOT NULL,
   disabled BOOLEAN NOT NULL,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
-  updated TIMESTAMP WITH TIME ZONE
+  updated TIMESTAMP WITH TIME ZONE,
+  UNIQUE (service, service_repo_id)
 );
 COMMENT ON TABLE watched_repos IS 'repos enabled to use conjure';
