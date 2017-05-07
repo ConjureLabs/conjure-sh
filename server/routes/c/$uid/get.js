@@ -23,7 +23,7 @@ route.push((req, res, next) => {
 
     console.log(uid);
 
-    DatabaseTable.select('container_proxies', {
+    DatabaseTable.select('containers', {
       url_uid: uid,
     }, (err, proxies) => {
       console.log(proxies);
