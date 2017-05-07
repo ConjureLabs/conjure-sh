@@ -102,7 +102,7 @@ class FullListing extends Component {
   generateMainContent() {
     const branchNav = this.branchNavContent();
 
-    if (Array.isArray(branchNav)) {
+    if (Array.isArray(branchNav.content)) {
       return (
         <ol className={styles.branchNav}>
           {
