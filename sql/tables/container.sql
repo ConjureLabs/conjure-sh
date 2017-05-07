@@ -1,6 +1,6 @@
 CREATE TABLE container (
   id SERIAL PRIMARY KEY,
-  repo INT REFERENCES watched_repos(id),
+  repo INT REFERENCES watched_repo(id),
   branch VARCHAR(255) NOT NULL, -- 255 is max github length
   -- commit_sha VARCHAR(40) NOT NULL,
   host VARCHAR(200) NOT NULL,

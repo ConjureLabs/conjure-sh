@@ -1,6 +1,6 @@
 CREATE TABLE github_issue_comment (
   id SERIAL PRIMARY KEY,
-  watched_repo INT REFERENCES watched_repos(id) NOT NULL,
+  watched_repo INT REFERENCES watched_repo(id) NOT NULL,
   issue_id INT NOT NULL,
   comment_id INT NOT NULL,
   url VARCHAR(2000) NOT NULL,
