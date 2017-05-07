@@ -235,6 +235,7 @@ class FullListing extends Component {
         onClick={org === null ? null : () => {
           this[selectNothing]();
         }}
+        key='header-content-⎔'
       >
         ⎔
       </h1>,
@@ -245,13 +246,19 @@ class FullListing extends Component {
           onClick={repo === null ? null : () => {
             this[selectOrg](org);
           }}
+          key='header-content-org'
         >
           {org}
         </h2>
       ),
 
       repo === null ? null : (
-        <span className={styles.separator}>/</span>
+        <span
+          className={styles.separator}
+          key='header-content-org-separator'
+        >
+          /
+        </span>
       ),
 
       repo === null ? null : (
@@ -260,18 +267,25 @@ class FullListing extends Component {
           onClick={branch === null ? null : () => {
             this[selectRepo](repo);
           }}
+          key='header-content-repo'
         >
           {repo.name}
         </h3>
       ),
 
       branch === null ? null : (
-        <span className={styles.separator}>/</span>
+        <span
+          className={styles.separator}
+          key='header-content-repo-separator'
+        >
+          /
+        </span>
       ),
 
       branch === null ? null : (
         <h4
           className={classnames(styles.treeNav, styles.branchName, styles.current)}
+          key='header-content-branch'
         >
           {branch}
         </h4>
