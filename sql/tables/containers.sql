@@ -1,4 +1,4 @@
-CREATE TABLE container_proxies (
+CREATE TABLE containers (
   id SERIAL PRIMARY KEY,
   repo INT REFERENCES watched_repos(id),
   branch VARCHAR(255) NOT NULL, -- 255 is max github length
@@ -10,4 +10,4 @@ CREATE TABLE container_proxies (
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
-COMMENT ON TABLE container_proxies IS 'used to proxy inbound requests to running containers';
+COMMENT ON TABLE containers IS 'used to proxy inbound requests to running containers';
