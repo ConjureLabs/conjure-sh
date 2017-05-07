@@ -106,8 +106,11 @@ class FullListing extends Component {
       return (
         <ol className={styles.branchNav}>
           {
-            branchNav.map(item => (
-              <li className={styles.item}>
+            branchNav.content.map((item, i) => (
+              <li
+                className={styles.item}
+                key={`${branchNav.level}-${i}`}
+              >
                 {item}
               </li>
             ))
@@ -174,40 +177,52 @@ class FullListing extends Component {
 
     switch(levelAt) {
       case 'all':
-        return Object.keys(staticContent.reposByOrg).map(org => (
-          <a
-            href={`./${org}`}
-            className={styles.link}
-            onClick={e => {
-              e.preventDefault();
-              this[selectOrg](org);
-            }}
-            key={org}
-          >
-            {org}
-          </a>
-        ));
+        return {
+          level: 'all',
+          content: Object.keys(staticContent.reposByOrg).map(org => (
+            <a
+              href={`./${org}`}
+              className={styles.link}
+              onClick={e => {
+                e.preventDefault();
+                this[selectOrg](org);
+              }}
+              key={org}
+            >
+              {org}
+            </a>
+          ))
+        };
 
       case 'org':
-        return staticContent.reposByOrg[org].map(repo => (
-          <a
-            href={`./${repo.name}`}
-            className={styles.link}
-            onClick={e => {
-              e.preventDefault();
-              this[selectRepo](repo);
-            }}
-            key={`${org}/${repo.name}`}
-          >
-            {repo.name}
-          </a>
-        ));
+        return {
+          level: 'org',
+          content: staticContent.reposByOrg[org].map(repo => (
+            <a
+              href={`./${repo.name}`}
+              className={styles.link}
+              onClick={e => {
+                e.preventDefault();
+                this[selectRepo](repo);
+              }}
+              key={`${org}/${repo.name}`}
+            >
+              {repo.name}
+            </a>
+          ))
+        };
 
       case 'repo':
-        return null;
+        return {
+          level: 'repo',
+          content: null
+        };
 
       case 'branch':
-        return null;
+        return {
+          level: 'branch',
+          content: null
+        };
     }
   }
 
