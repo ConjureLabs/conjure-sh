@@ -53,6 +53,10 @@ class FullListing extends Component {
   }
 
   generateMainContent() {
+    return this.generateActionableContent();
+  }
+
+  generateActionableContent() {
     const branchNav = this.branchNavContent();
 
     if (Array.isArray(branchNav.content)) {
