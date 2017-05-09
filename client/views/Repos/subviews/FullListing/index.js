@@ -16,10 +16,11 @@ class FullListing extends Component {
   constructor(props) {
     super(props);
 
-    this.state ={
+    this.state = {
       org: null,
       repo: null,
-      branch: null
+      branch: null,
+      onboard: staticContent.onboard
     };
   }
 
@@ -53,7 +54,25 @@ class FullListing extends Component {
   }
 
   generateMainContent() {
-    return this.generateActionableContent();
+    const actionableContent = this.generateActionableContent();
+
+    if (this.state.onboard === true) {
+      return (
+        <div>
+          <span>
+            Onboarding message
+          </span>
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <span>
+          Normal message
+        </span>
+      </div>
+    );
   }
 
   generateActionableContent() {
@@ -118,10 +137,14 @@ class FullListing extends Component {
       if (err) {
         console.error(err);
         alert(err.message);
-      } else {
-        console.log(data);
-        alert('listening');
+        return;
       }
+      console.log(data);
+      alert('listening');
+
+      this.setState({
+        onboard: false
+      });
     });
   }
 
