@@ -62,6 +62,8 @@ class FullListing extends Component {
           <span>
             Onboarding message
           </span>
+
+          {actionableContent}
         </div>
       );
     }
@@ -71,6 +73,8 @@ class FullListing extends Component {
         <span>
           Normal message
         </span>
+
+        {actionableContent}
       </div>
     );
   }
