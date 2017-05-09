@@ -124,7 +124,7 @@ route.push((req, res, next) => {
         .join(', ');
 
       // todo: check at org level - or user level - this is likely to fail if github api has pagination
-      database.query(`SELECT COUNT(*) num FROM watched_repo WHERE service = 'github' AND id IN (${serviceIdPlaceholders})`, serviceIds, (err, result) => {
+      database.query(`SELECT COUNT(*) num FROM watched_repo WHERE service = 'github' AND service_repo_id IN (${serviceIdPlaceholders})`, serviceIds, (err, result) => {
         if (err) {
           return callback(err);
         }
