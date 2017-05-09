@@ -43,6 +43,7 @@ route.push((req, res, next) => {
     const allRepos = new UniqueArray('fullName');
     const allOrgs = [];
     const pullRepos = [];
+    let somethingWatched = false;
 
     // getting all (possibly private) org repos
     pullRepos.push(callback => {
@@ -102,7 +103,46 @@ route.push((req, res, next) => {
       });
     });
 
-    async.parallel(pullRepos, err => {
+    // -- beginning series setup
+
+    const series = [];
+
+    // run the `pullRepos` parallel logic defined above
+    series.push(callback => {
+      async.parallel(pullRepos, callback);
+    });
+
+    // checking if any repos are already watched
+    series.push(callback => {
+      const database = require('conjure-core/modules/database');
+
+      const serviceIds = allRepos.native.map(repo => repo.id);
+      const serviceIdPlaceholders = serviceIds
+        .map((_, i) => {
+          return `$${i + 1}`;
+        })
+        .join(', ');
+
+      // todo: check at org level - or user level - this is likely to fail if github api has pagination
+      database.query(`SELECT COUNT(*) num FROM watched_repo WHERE service = 'github' AND id IN (${serviceIdPlaceholders})`, serviceIds, (err, result) => {
+        if (err) {
+          return callback(err);
+        }
+
+        // this should not happen
+        if (!Array.isArray(result.rows) || !result.rows.length) {
+          return callback(new Error('No count returned for table'));
+        }
+
+        if (parseInt(result.rows[0].num, 10) !== 0) {
+          somethingWatched = true;
+        }
+
+        callback();
+      });
+    });
+
+    async.series(series, err => {
       if (err) {
         return next(err);
       }
@@ -130,7 +170,8 @@ route.push((req, res, next) => {
         reposByOrg: reposByOrg,
         account: {
           photo: githubAccount.photo
-        }
+        },
+        onboard: !somethingWatched
       });
     });
   });
