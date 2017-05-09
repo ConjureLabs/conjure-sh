@@ -52,53 +52,6 @@ class FullListing extends Component {
     });
   }
 
-  render() {
-    return (
-      <div className={styles.root}>
-        <header className={styles.header}>
-          <span className={styles.treeLocation}>
-            {
-              this.headerContents()
-            }
-          </span>
-
-          <nav className={styles.userNav}>
-            <span
-              className={styles.avatar}
-              style={{ backgroundImage: 'url(' + staticContent.account.photo + ')' }}
-            />
-
-            <ol className={styles.links}>
-              <li className={styles.item}>
-                <a
-                  href='/settings'
-                  className={styles.link}
-                >
-                  Settings
-                </a>
-              </li>
-
-              <li className={styles.item}>
-                <a
-                  href='/logout'
-                  className={styles.link}
-                >
-                  Logout
-                </a>
-              </li>
-            </ol>
-          </nav>
-        </header>
-
-        <main className={styles.content}>
-          {
-            this.generateMainContent()
-          }
-        </main>
-      </div>
-    );
-  }
-
   generateMainContent() {
     const branchNav = this.branchNavContent();
 
@@ -291,6 +244,53 @@ class FullListing extends Component {
         </h4>
       )
     ];
+  }
+
+  render() {
+    return (
+      <div className={styles.root}>
+        <header className={styles.header}>
+          <span className={styles.treeLocation}>
+            {
+              this.headerContents()
+            }
+          </span>
+
+          <nav className={styles.userNav}>
+            <span
+              className={styles.avatar}
+              style={{ backgroundImage: 'url(' + staticContent.account.photo + ')' }}
+            />
+
+            <ol className={styles.links}>
+              <li className={styles.item}>
+                <a
+                  href='/settings'
+                  className={styles.link}
+                >
+                  Settings
+                </a>
+              </li>
+
+              <li className={styles.item}>
+                <a
+                  href='/logout'
+                  className={styles.link}
+                >
+                  Logout
+                </a>
+              </li>
+            </ol>
+          </nav>
+        </header>
+
+        <main className={styles.content}>
+          {
+            this.generateMainContent()
+          }
+        </main>
+      </div>
+    );
   }
 }
 
