@@ -152,6 +152,7 @@ class FullListing extends Component {
       <Button
         size='large'
         color='black'
+        hallow={true}
         className={styles.listenButton}
         onClick={() => {
           this[enableWatch]();

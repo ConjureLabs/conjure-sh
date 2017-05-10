@@ -14,12 +14,13 @@ export default class Button extends Component {
   }
 
   render() {
-    const { className, children, color, size } = this.props;
+    const { className, children, color, size, hallow } = this.props;
 
     const rootClasses = classnames(
       styles.root,
       styles[`color_${color}`],
       styles[`size_${size}`],
+      hallow === true ? styles.hallow : null,
       className
     );
 
@@ -42,6 +43,8 @@ export default class Button extends Component {
       'pink',
       'purple'
     ]).isRequired,
+
+    hallow: PropTypes.bool,
 
     onClick: PropTypes.func,
 
