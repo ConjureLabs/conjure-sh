@@ -19,3 +19,13 @@ gradient(from = #000, to = #EEE)
   background-image: -ms-linear-gradient(top, from, to)
   background-image: -o-linear-gradient(top, from, to)
   background-image: linear-gradient(top, from, to)
+
+visibleScrollbar()
+  &::-webkit-scrollbar
+    -webkit-appearance: none
+    width: 0.7rem
+  
+  &::-webkit-scrollbar-thumb
+    background-color: rgba(0, 0, 0, 0.5)
+    border-radius: 0.4rem
+    -webkit-box-shadow: 0 0 0.1rem rgba(255, 255, 255, 0.5)
