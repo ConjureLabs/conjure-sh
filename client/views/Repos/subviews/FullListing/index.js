@@ -150,7 +150,7 @@ class FullListing extends Component {
 
     return (
       <Button
-        size='small'
+        size='large'
         color='black'
         onClick={() => {
           this[enableWatch]();
