@@ -100,10 +100,12 @@ class FullListing extends Component {
       case 'org':
         label = 'Repo';
         desc = 'Select a Repo for Conjure to watch';
+        break;
 
       case 'repo':
         label = 'Repo';
         desc = 'Click "watch repo" to have Conjure listen for changes';
+        break;
     }
 
     return !label ? null : (
