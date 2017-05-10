@@ -69,10 +69,7 @@ class FullListing extends Component {
     if (this.state.onboard === true) {
       return (
         <div>
-          <span>
-            Onboarding message
-          </span>
-
+          {this.getOnboardingMessage()}
           {actionableContent}
         </div>
       );
@@ -85,6 +82,39 @@ class FullListing extends Component {
         </span>
 
         {actionableContent}
+      </div>
+    );
+  }
+
+  getOnboardingMessage() {
+    const level = this.level;
+
+    let label, desc;
+
+    switch (level) {
+      case 'all':
+        label = 'Organization';
+        desc = 'Select an Organization to get started';
+        break;
+
+      case 'org':
+        label = 'Repo';
+        desc = 'Select a Repo for Conjure to watch';
+
+      case 'repo':
+        label = 'Repo';
+        desc = 'Click "watch repo" to have Conjure listen for changes';
+    }
+
+    return !label ? null : (
+      <div className={styles.onboarding}>
+        <div className={styles.label}>
+          {label}
+        </div>
+
+        <div className={styles.description}>
+          {desc}
+        </div>
       </div>
     );
   }
