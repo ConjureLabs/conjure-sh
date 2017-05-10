@@ -281,44 +281,48 @@ class FullListing extends Component {
     return (
       <div className={styles.root}>
         <header className={styles.header}>
-          <span className={styles.treeLocation}>
-            {
-              this.headerContents()
-            }
+          <span className={styles.wrap}>
+            <span className={styles.treeLocation}>
+              {
+                this.headerContents()
+              }
+            </span>
+
+            <nav className={styles.userNav}>
+              <span
+                className={styles.avatar}
+                style={{ backgroundImage: 'url(' + staticContent.account.photo + ')' }}
+              />
+
+              <ol className={styles.links}>
+                <li className={styles.item}>
+                  <a
+                    href='/settings'
+                    className={styles.link}
+                  >
+                    Settings
+                  </a>
+                </li>
+
+                <li className={styles.item}>
+                  <a
+                    href='/logout'
+                    className={styles.link}
+                  >
+                    Logout
+                  </a>
+                </li>
+              </ol>
+            </nav>
           </span>
-
-          <nav className={styles.userNav}>
-            <span
-              className={styles.avatar}
-              style={{ backgroundImage: 'url(' + staticContent.account.photo + ')' }}
-            />
-
-            <ol className={styles.links}>
-              <li className={styles.item}>
-                <a
-                  href='/settings'
-                  className={styles.link}
-                >
-                  Settings
-                </a>
-              </li>
-
-              <li className={styles.item}>
-                <a
-                  href='/logout'
-                  className={styles.link}
-                >
-                  Logout
-                </a>
-              </li>
-            </ol>
-          </nav>
         </header>
 
         <main className={styles.content}>
-          {
-            this.generateMainContent()
-          }
+          <span className={styles.wrap}>
+            {
+              this.generateMainContent()
+            }
+          </span>
         </main>
       </div>
     );
