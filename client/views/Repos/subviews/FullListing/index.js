@@ -68,7 +68,7 @@ class FullListing extends Component {
 
     if (this.state.onboard === true) {
       return (
-        <div>
+        <div className={styles.onboardingContent}>
           {this.getOnboardingMessage()}
           {actionableContent}
         </div>
