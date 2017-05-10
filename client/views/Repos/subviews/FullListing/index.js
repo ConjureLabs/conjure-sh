@@ -53,6 +53,16 @@ class FullListing extends Component {
     });
   }
 
+  get level() {
+    const { org, repo, branch } = this.state;
+    const levelAt = branch !== null ? 'branch' :
+      repo !== null ? 'repo' :
+      org !== null ? 'org' :
+      'all';
+
+    return levelAt;
+  }
+
   generateMainContent() {
     const actionableContent = this.generateActionableContent();
 
@@ -81,15 +91,16 @@ class FullListing extends Component {
 
   generateActionableContent() {
     const branchNav = this.branchNavContent();
+    const level = this.level;
 
-    if (Array.isArray(branchNav.content)) {
+    if (Array.isArray(branchNav)) {
       return (
         <ol className={styles.branchNav}>
           {
-            branchNav.content.map((item, i) => (
+            branchNav.map((item, i) => (
               <li
                 className={styles.item}
-                key={`${branchNav.level}-${i}`}
+                key={`${level}-${i}`}
               >
                 {item}
               </li>
@@ -153,60 +164,44 @@ class FullListing extends Component {
   }
 
   branchNavContent() {
-    const { org, repo, branch } = this.state;
-    const levelAt = branch !== null ? 'branch' :
-      repo !== null ? 'repo' :
-      org !== null ? 'org' :
-      'all';
+    const { org, repo } = this.state;
 
-    switch(levelAt) {
+    switch(this.level) {
       case 'all':
-        return {
-          level: 'all',
-          content: Object.keys(staticContent.reposByOrg).map(org => (
-            <a
-              href={`./${org}`}
-              className={styles.link}
-              onClick={e => {
-                e.preventDefault();
-                this[selectOrg](org);
-              }}
-              key={org}
-            >
-              {org}
-            </a>
-          ))
-        };
+        return Object.keys(staticContent.reposByOrg).map(org => (
+          <a
+            href={`./${org}`}
+            className={styles.link}
+            onClick={e => {
+              e.preventDefault();
+              this[selectOrg](org);
+            }}
+            key={org}
+          >
+            {org}
+          </a>
+        ));
 
       case 'org':
-        return {
-          level: 'org',
-          content: staticContent.reposByOrg[org].map(repo => (
-            <a
-              href={`./${repo.name}`}
-              className={styles.link}
-              onClick={e => {
-                e.preventDefault();
-                this[selectRepo](repo);
-              }}
-              key={`${org}/${repo.name}`}
-            >
-              {repo.name}
-            </a>
-          ))
-        };
+        return staticContent.reposByOrg[org].map(repo => (
+          <a
+            href={`./${repo.name}`}
+            className={styles.link}
+            onClick={e => {
+              e.preventDefault();
+              this[selectRepo](repo);
+            }}
+            key={`${org}/${repo.name}`}
+          >
+            {repo.name}
+          </a>
+        ));
 
       case 'repo':
-        return {
-          level: 'repo',
-          content: null
-        };
+        return null;
 
       case 'branch':
-        return {
-          level: 'branch',
-          content: null
-        };
+        return null;
     }
   }
 
