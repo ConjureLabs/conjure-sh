@@ -1,5 +1,3 @@
-'use strict';
-
 const Route = require('conjure-core/classes/Route');
 const passport = require('passport');
 

@@ -1,5 +1,3 @@
-'use strict';
-
 // first running any synchronous setup
 const setup = require('./setup');
 

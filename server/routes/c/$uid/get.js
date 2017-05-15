@@ -1,5 +1,3 @@
-'use strict';
-
 // todo: make this request an all.js, and support 'all' routes in sync-setup.js
 // todo: wildcards after the initial path
 

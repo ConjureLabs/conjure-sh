@@ -1,5 +1,3 @@
-'use strict';
-
 const async = require('async');
 const Route = require('conjure-core/classes/Route');
 const log = require('conjure-core/modules/log')('github webhook inbound');
