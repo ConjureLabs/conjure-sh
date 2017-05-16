@@ -1,0 +1,103 @@
+@require '../../base.styl'
+
+.header
+  background: $conjureColorMain
+  background-size: cover
+  display: block
+  height: 64rem
+  width: 100%
+
+.navigation
+  display: block
+  padding: 1.6rem 2rem
+
+  .serviceName
+    clear: none
+    color: $conjureColorMainDark
+    float: left
+    font-size: 2rem
+    disableSelect()
+
+  .linkslist
+    clear: none
+    float: right
+    
+    .item
+      clear: none
+      float: left
+      margin-left: 3rem
+      
+    .link
+      color: #8d8492
+      font-size: 1rem
+      line-height: 3.2rem
+
+@keyframes mark
+  0%
+    color: $black
+  25%
+    color: $black
+  50%
+    color: $black
+  75%
+    color: $black
+  100%
+    color: mix($conjureColorMain, $black, 20%)
+
+.ctaContainer
+  display: block
+  text-align: center
+
+  .mark
+    font-size: 10rem
+    font-weight: 900
+    margin: 2rem auto 0
+    animation-duration: 4s
+    animation-name: mark
+    animation-iteration-count: infinite
+    animation-direction: alternate
+
+  .firstImpression
+    color: rgba(#403029, 0.89)
+    display: block
+    font-size: 4.8rem
+    font-weight: 200
+    margin: 5rem 0 13.5rem
+
+    .name
+      font-weight: 400
+      margin-right: 1rem
+
+  .cta
+    display: block
+    margin: 0 auto
+    
+    .githubMark
+    .label
+      vertical-align: middle
+    
+    .githubMark
+      background: transparent url(/images/logos/GitHub-Mark-32px.png) no-repeat center center
+      background-size: cover
+      display: inline-block
+      height: 3.2rem
+      margin-right: 1.6rem
+      margin-top: -0.2rem
+      width: 3.2rem
+
+  .info
+    color: rgba(#403029, 0.62)
+    display: block
+    font-size: 1.8rem
+    margin-top: 1.6rem
+    
+.browserTeaser
+  background: url(/images/views/landing/browser-teaser.jpg) no-repeat top center
+  background-size: cover
+  display: block
+  height: 50rem
+  margin: 9rem auto 0
+  width: 80rem
+
+.trueForm
+  display: none
