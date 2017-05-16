@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import ConjureApp from './reducers';
+import conjureApp from './reducers';
 
 import LoggedOut from './LoggedOut';
 
-const store = createStore(ConjureApp);
+const store = createStore(conjureApp);
 
 const routes = [{
   path: '/',

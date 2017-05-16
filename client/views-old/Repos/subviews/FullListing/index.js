@@ -200,7 +200,7 @@ class FullListing extends Component {
   branchNavContent() {
     const { org, repo } = this.state;
 
-    switch(this.level) {
+    switch (this.level) {
       case 'all':
         return Object.keys(staticContent.reposByOrg).map(org => (
           <a
