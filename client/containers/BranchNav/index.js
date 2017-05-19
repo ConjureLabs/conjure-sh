@@ -6,7 +6,16 @@ import BranchNav from 'c/BranchNav';
 const mapStateToProps = (state, ownProps) => {
   return {
     org: state.org,
-    
+    repo: state.repo,
+    branch: state.branch
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSelect: (level, value) => {
+      dispatch(selectTreePlacement(level, value));
+    }
   };
 };
 
