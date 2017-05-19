@@ -1,4 +1,4 @@
-const branchTree = (state = {}, action) => {
+export default const branchTree = (state = {}, action) => {
   switch (action.type) {
     case 'SET_TREE':
       const newState = Object.assign({
@@ -15,5 +15,3 @@ const branchTree = (state = {}, action) => {
       return newState;
   }
 };
-
-export default branchTree;

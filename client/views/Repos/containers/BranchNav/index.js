@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addTodo } from '../actions';
+import { addTodo } from '../../actions';
 import BranchNav from 'c/BranchNav';
 import select from './selector';
 
@@ -20,7 +20,9 @@ const Header = ({ org, repo, branch, onSelect }) => {
         <nav className={styles.userNav}>
           <span
             className={styles.avatar}
-            style={{ backgroundImage: 'url(' + staticContent.account.photo + ')' }}
+            style={{
+              backgroundImage: 'url(' + staticContent.account.photo + ')'
+            }}
           />
 
           <ol className={styles.links}>
