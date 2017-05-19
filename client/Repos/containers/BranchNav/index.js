@@ -2,30 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from '../actions';
 import BranchNav from 'c/BranchNav';
+import select from './selector';
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    org: state.org,
-    repo: state.repo,
-    branch: state.branch
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onSelect: (level, value) => {
-      dispatch(selectTreePlacement(level, value));
-    }
-  };
-};
-
-let Header = ({ dispatch }) => {
+const Header = ({ org, repo, branch, onSelect }) => {
   return (
     <header className={styles.header}>
       <span className={styles.wrap}>
         <span className={styles.treeLocation}>
           <BranchNav
-            org, repo, branch, onSelect
+            org={org}
+            repo={repo}
+            branch={branch}
+            onSelect={onSelect}
           />
         </span>
 
@@ -59,3 +47,16 @@ let Header = ({ dispatch }) => {
     </header>
   );
 };
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onSelect: (level, value) => {
+      dispatch(selectTreePlacement(level, value));
+    }
+  };
+};
+
+export default connect(
+  selector,
+  mapDispatchToProps
+)(Header);
