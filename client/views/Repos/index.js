@@ -6,9 +6,13 @@ import { Provider } from 'react-redux';
 import reducers from './reducers';
 import App from './app';
 
-const store = createStore(reducers, {
-  ready: false
-});
+const initialState = {
+  resources: {
+    repos: staticContent.reposByOrg
+  }
+};
+
+const store = createStore(reducers, initialState);
 
 const routes = [{
   path: '/',
