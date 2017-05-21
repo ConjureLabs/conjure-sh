@@ -1,12 +1,16 @@
 import React from 'react';
+
 import BranchNav from './containers/BranchNav';
 import MainContent from './containers/MainContent';
+import Prepare from './containers/Prepare';
 
 const App = () => (
   return (
     <div>
-      <BranchNav />
-      <MainContent />
+      <Prepare>
+        <BranchNav />
+        <MainContent />
+      </Prepare>
     </div>
   );
 );
