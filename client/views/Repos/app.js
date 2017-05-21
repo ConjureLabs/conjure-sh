@@ -1,12 +1,12 @@
 import React from 'react';
 
-import BranchNav from './containers/BranchNav';
+import Header from './containers/Header';
 import MainContent from './containers/MainContent';
 
 const App = () => (
   return (
     <div>
-      <BranchNav />
+      <Header />
       <MainContent />
     </div>
   );
