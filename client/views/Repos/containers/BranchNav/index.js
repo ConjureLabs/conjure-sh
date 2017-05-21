@@ -6,7 +6,7 @@ import select from './selector';
 
 const Header = ({ org, repo, branch, onSelect }) => {
   return (
-    <header className={styles.header}>
+    <header className={styles.root}>
       <span className={styles.wrap}>
         <span className={styles.treeLocation}>
           <BranchNav
