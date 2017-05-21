@@ -1,10 +1,14 @@
 import React from 'react';
 import BranchNav from './containers/BranchNav';
+import MainContent from './containers/MainContent';
 
 const App = () => (
-  <div>
-    <BranchNav />
-  </div>
+  return (
+    <div>
+      <BranchNav />
+      <MainContent />
+    </div>
+  );
 );
 
 export default App;

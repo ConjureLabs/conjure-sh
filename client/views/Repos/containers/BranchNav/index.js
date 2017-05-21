@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { addTodo } from '../../actions/branchTree';
 import BranchNav from 'c/BranchNav';
 import select from './selector';
+import styles from './styles.styl';
 
 const Header = ({ org, repo, branch, onSelect }) => {
   return (

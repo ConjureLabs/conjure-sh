@@ -309,7 +309,7 @@ class FullListing extends Component {
   render() {
     return (
       <div className={styles.root}>
-        <header className={styles.header}>
+       {/* <header className={styles.header}>
           <span className={styles.wrap}>
             <span className={styles.treeLocation}>
               {
@@ -344,7 +344,7 @@ class FullListing extends Component {
               </ol>
             </nav>
           </span>
-        </header>
+        </header>*/}
 
         <main className={styles.content}>
           <span className={styles.wrap}>
