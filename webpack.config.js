@@ -18,7 +18,6 @@ module.exports = {
 
   entry: {
     repos: ['babel-polyfill', './views/Repos'],
-    landing: ['babel-polyfill', './views/Landing'],
     'status-404': ['babel-polyfill', './views/Status-404']
   },
 

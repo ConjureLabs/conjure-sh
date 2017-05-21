@@ -1,4 +1,4 @@
-export default const branchTree = (state = {}, action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case 'SET_TREE':
       const newState = Object.assign({
