@@ -2,7 +2,7 @@ import { Component, Children } from 'react';
 
 const problemMarker = Symbol('marker used for invalid or unknown value, likely due to error');
 
-class Store extends Component {
+class ReStore extends Component {
   constructor(props, context) {
     super(props, context);
 
@@ -19,7 +19,7 @@ class Store extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.store !== this.store) {
-      throw new Error('Can not alter Store data on the fly');
+      throw new Error('Can not alter ReStore.store data on the fly');
     }
   }
 
@@ -34,7 +34,7 @@ class Store extends Component {
   }
 }
 
-export Store;
+export ReStore;
 
 function connect(selector = store => store) {
   return function wrapper(InboundComponent) {
