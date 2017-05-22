@@ -1,26 +1,6 @@
-// import { Component as 'ReactComponent' } from 'react';
-// import { Provider, connect as 'reactReduxConnect' } from 'react-redux';
-// import { createStore as 'reduxCreateStore', applyMiddleware } from 'redux';
-
-// let cachedStore;
-// export function createStore() {
-//   if (cachedStore) {
-//     throw new Error('MiniDux does not allow you to create store twice');
-//   }
-
-//   cachedStore = reduxCreateStore.apply(reduxCreateStore, arguments);
-//   return cachedStore;
-// }
-
-// export Provider;
-// export applyMiddleware;
-
-// export function connect() {
-//   reactReduxConnect
-// }
-
-
 import { Component } from 'react';
+
+const problemMarker = Symbol('marker used for invalid or unknown value, likely due to error');
 
 class Store extends Component {
   constructor(props, context) {
@@ -47,3 +27,30 @@ class Store extends Component {
     };
   }
 }
+
+export Store;
+
+function connect(selector = store => store) {
+  return function wrapper(InboundComponent) {
+    return function getContext({ ...props }, context) {
+      const storeSelected = typeof selector === 'function' ? selector(context.store) :
+        Array.isArray(selector) ? selector.reduce((selection, currentSelector) {
+          return currentSelector(selection);
+        }, context.store) :
+        problemMarker;
+
+      if (storeSelected === problemMarker) {
+        throw new Error(`An invalid selector was passed to connect() for ${InboundComponent.displayName}`);
+      }
+
+      // props passed manually will override those in the store
+      const usedProps = Object.assign({}, storeSelected, props);
+
+      return (
+        <InboundComponent {...usedProps} />
+      );
+    };
+  };
+}
+
+export connect;
