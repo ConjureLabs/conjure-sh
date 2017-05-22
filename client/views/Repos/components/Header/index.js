@@ -112,11 +112,11 @@ const Header = ({ org, repo, branch, dispatch }) => {
   );
 };
 
-const selector = state => {
+const selector = store => {
   return {
-    org: state.org,
-    repo: state.repo,
-    branch: state.branch
+    org: store.org,
+    repo: store.repo,
+    branch: store.branch
   };
 };
 

@@ -1,12 +1,10 @@
-import { Component, Children, isValidElement } from 'react';
+import { Component, Children, isValidElement, cloneElement, createElement } from 'react';
 import PropTypes from 'prop-types';
 
 const problemMarker = Symbol('marker used for invalid or unknown value, likely due to error');
 
 class ReStore extends Component {
-  constructor(props, context) {
-    super(props, context);
-
+  constructor(props) {
     const { store, actions } = Object.assign({
       store: {},
       actions: {}
@@ -48,28 +46,65 @@ class ReStore extends Component {
 
 export { ReStore };
 
-function connect(selector = store => store) {
+function connect(selector) {
   return function wrapper(InboundComponent) {
-    return function getContext({ ...props }, context) {
-      const storeSelected = typeof selector === 'function' ? selector(context.store) :
-        Array.isArray(selector) ? selector.reduce((selection, currentSelector) => {
-          return currentSelector(selection);
-        }, context.store) :
-        problemMarker;
+    class x extends Component {
+      render() {
+        const store = this.context.store;
+        console.log(cstore, selector);
 
-      if (storeSelected === problemMarker) {
-        throw new Error(`An invalid selector was passed to connect() for ${InboundComponent.displayName}`);
+        const storeSelected = typeof selector === 'function' ? selector(context.store) :
+          Array.isArray(selector) ? selector.reduce((selection, currentSelector) => {
+            return currentSelector(selection);
+          }, context.store) :
+          problemMarker;
+
+        if (storeSelected === problemMarker) {
+          throw new Error(`An invalid selector was passed to connect() for ${InboundComponent.displayName}`);
+        }
+
+        // props passed manually will override those in the store
+        const usedProps = Object.assign({
+          dispatch: context.dispatch
+        }, storeSelected, props);
+
+        return (
+          <InboundComponent {...usedProps} />
+        );
       }
 
-      // props passed manually will override those in the store
-      const usedProps = Object.assign({
-        dispatch: context.dispatch
-      }, storeSelected, props);
+      static contextTypes = {
+        store: PropTypes.object.isRequired
+      }
+    }
 
-      return (
-        <InboundComponent {...usedProps} />
-      );
-    };
+    return x;
+
+
+    // const cloned = cloneElement(InboundComponent);
+    // cloned.contextTypes = PropTypes.object.isRequired;
+
+    // return function getContext({ ...props }, context) {
+    //   console.log(context.store, selector);
+    //   const storeSelected = typeof selector === 'function' ? selector(context.store) :
+    //     Array.isArray(selector) ? selector.reduce((selection, currentSelector) => {
+    //       return currentSelector(selection);
+    //     }, context.store) :
+    //     problemMarker;
+
+    //   if (storeSelected === problemMarker) {
+    //     throw new Error(`An invalid selector was passed to connect() for ${InboundComponent.displayName}`);
+    //   }
+
+    //   // props passed manually will override those in the store
+    //   const usedProps = Object.assign({
+    //     dispatch: context.dispatch
+    //   }, storeSelected, props);
+
+    //   return (
+    //     <InboundComponent {...usedProps} />
+    //   );
+    //};
   };
 }
 
