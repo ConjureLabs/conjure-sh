@@ -1,4 +1,4 @@
-import { Component, Children } from 'react';
+import { Component, Children, isValidElement } from 'react';
 
 const problemMarker = Symbol('marker used for invalid or unknown value, likely due to error');
 
@@ -30,17 +30,24 @@ class ReStore extends Component {
   }
 
   render() {
-    return Children.only(this.props.children);
+    const { children } = this.props;
+
+    return !children ? null :
+      React.isValidElement(children) ? Children.only(children) :
+      Array.isArray(children) ? (
+        <span>{children}</span>
+      ) :
+      null;
   }
 }
 
-export ReStore;
+export { ReStore };
 
 function connect(selector = store => store) {
   return function wrapper(InboundComponent) {
     return function getContext({ ...props }, context) {
       const storeSelected = typeof selector === 'function' ? selector(context.store) :
-        Array.isArray(selector) ? selector.reduce((selection, currentSelector) {
+        Array.isArray(selector) ? selector.reduce((selection, currentSelector) => {
           return currentSelector(selection);
         }, context.store) :
         problemMarker;
@@ -61,4 +68,4 @@ function connect(selector = store => store) {
   };
 }
 
-export connect;
+export { connect };

@@ -17,6 +17,7 @@ module.exports = {
   context: dirs.client,
 
   entry: {
+    landing: ['babel-polyfill', './views/Landing'],
     repos: ['babel-polyfill', './views/Repos'],
     'status-404': ['babel-polyfill', './views/Status-404']
   },

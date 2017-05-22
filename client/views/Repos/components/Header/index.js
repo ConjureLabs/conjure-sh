@@ -11,7 +11,9 @@ const Header = ({ org, repo, branch, dispatch }) => {
             <h1
               className={classnames(styles.treeNav, styles.serviceName, org === null ? styles.current : null)}
               onClick={org === null ? null : () => {
-                dispatch.selectPlacementInBranchTree('none');
+                dispatch.selectPlacementInBranchTree({
+                  level: 'none'
+                });
               }}
               key='header-content-⎔'
             >
@@ -22,7 +24,10 @@ const Header = ({ org, repo, branch, dispatch }) => {
               <h2
                 className={classnames(styles.treeNav, styles.orgName, repo === null ? styles.current : null)}
                 onClick={repo === null ? null : () => {
-                  dispatch.selectPlacementInBranchTree('org', org);
+                  dispatch.selectPlacementInBranchTree({
+                    level: 'org',
+                    value: org
+                  });
                 }}
                 key='header-content-org'
               >
@@ -43,7 +48,10 @@ const Header = ({ org, repo, branch, dispatch }) => {
               <h3
                 className={classnames(styles.treeNav, styles.repoName, branch === null ? styles.current : null)}
                 onClick={branch === null ? null : () => {
-                  dispatch.selectPlacementInBranchTree('repo', repo);
+                  dispatch.selectPlacementInBranchTree({
+                    level: 'repo',
+                    value: repo
+                  });
                 }}
                 key='header-content-repo'
               >

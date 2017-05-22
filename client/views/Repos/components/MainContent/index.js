@@ -1,5 +1,7 @@
-export default const MainContent = () => {
+const MainContent = () => {
   return (
     <div>Placeholder</div>
   );
 };
+
+export default MainContent;

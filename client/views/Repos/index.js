@@ -7,6 +7,11 @@ import Header from './components/Header';
 import MainContent from './components/MainContent';
 
 const initialStore = {
+  org: null,
+  repo: null,
+  branch: null,
+  level: 'none',
+
   resources: {
     repos: staticContent.reposByOrg
   }
