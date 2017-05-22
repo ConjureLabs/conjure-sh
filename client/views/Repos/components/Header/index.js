@@ -3,6 +3,8 @@ import styles from './styles.styl';
 import classnames from 'classnames';
 
 const Header = ({ org, repo, branch, dispatch }) => {
+  console.log('HEADER RENDER');
+
   return (
     <header className={styles.root}>
       <span className={styles.wrap}>

@@ -20,6 +20,11 @@ class ReStore extends Component {
         this.store.all = actions[actionName](store, data);
       };
     }, {});
+
+    setTimeout(() => {
+      this.store.all.org = "ORG NAME";
+      console.log('twas triggered');
+    }, 4000);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,7 +63,7 @@ export { ReStore };
 
 function connect(selector) {
   return function wrapper(InboundComponent) {
-    class x extends Component {
+    class ReStoreWrap extends Component {
       render() {
         const { store, dispatch } = this.context;
         console.log(store, selector);
@@ -87,35 +92,13 @@ function connect(selector) {
         store: PropTypes.object.isRequired,
         dispatch: PropTypes.object.isRequired
       }
+
+      shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return true;
+      }
     }
 
-    return x;
-
-
-    // const cloned = cloneElement(InboundComponent);
-    // cloned.contextTypes = PropTypes.object.isRequired;
-
-    // return function getContext({ ...props }, context) {
-    //   console.log(context.store, selector);
-    //   const storeSelected = typeof selector === 'function' ? selector(context.store) :
-    //     Array.isArray(selector) ? selector.reduce((selection, currentSelector) => {
-    //       return currentSelector(selection);
-    //     }, context.store) :
-    //     problemMarker;
-
-    //   if (storeSelected === problemMarker) {
-    //     throw new Error(`An invalid selector was passed to connect() for ${InboundComponent.displayName}`);
-    //   }
-
-    //   // props passed manually will override those in the store
-    //   const usedProps = Object.assign({
-    //     dispatch: context.dispatch
-    //   }, storeSelected, props);
-
-    //   return (
-    //     <InboundComponent {...usedProps} />
-    //   );
-    //};
+    return ReStoreWrap;
   };
 }
 
