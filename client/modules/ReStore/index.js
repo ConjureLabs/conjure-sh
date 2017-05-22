@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import { Component, Children } from 'react';
 
 const problemMarker = Symbol('marker used for invalid or unknown value, likely due to error');
 
@@ -25,6 +25,10 @@ class Store extends Component {
     return {
       store: this.store
     };
+  }
+
+  render() {
+    return Children.only(this.props.children);
   }
 }
 
