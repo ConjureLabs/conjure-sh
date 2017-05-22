@@ -20,4 +20,30 @@
 // }
 
 
+import { Component } from 'react';
 
+class Store extends Component {
+  constructor(props, context) {
+    super(props, context);
+
+    const { store, actions } = Object.assign({
+      store: {},
+      actions: {}
+    }, props);
+
+    this.store = store;
+    this.actions = actions;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.store !== this.store) {
+      throw new Error('Can not alter Store data on the fly');
+    }
+  }
+
+  getChildContext() {
+    return {
+      store: this.store
+    };
+  }
+}
