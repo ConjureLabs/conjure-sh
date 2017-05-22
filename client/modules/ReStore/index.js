@@ -1,4 +1,5 @@
 import { Component, Children, isValidElement } from 'react';
+import PropTypes from 'prop-types';
 
 const problemMarker = Symbol('marker used for invalid or unknown value, likely due to error');
 
@@ -38,6 +39,10 @@ class ReStore extends Component {
         <span>{children}</span>
       ) :
       null;
+  }
+
+  static childContextTypes = {
+    store: PropTypes.object.isRequired
   }
 }
 
