@@ -12,7 +12,9 @@ class Store extends Component {
     }, props);
 
     this.store = store;
-    this.actions = actions;
+    this.dispatch = Object.keys(actions).map(actionName => {
+      this.store = actions[actionName](store, data);
+    });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -48,7 +50,9 @@ function connect(selector = store => store) {
       }
 
       // props passed manually will override those in the store
-      const usedProps = Object.assign({}, storeSelected, props);
+      const usedProps = Object.assign({
+        dispatch: context.dispatch
+      }, storeSelected, props);
 
       return (
         <InboundComponent {...usedProps} />
