@@ -5,15 +5,21 @@ const problemMarker = Symbol('marker used for invalid or unknown value, likely d
 
 class ReStore extends Component {
   constructor(props) {
+    super(props);
+
     const { store, actions } = Object.assign({
       store: {},
       actions: {}
     }, props);
 
-    this.store = store;
-    this.dispatch = Object.keys(actions).map(actionName => {
-      this.store = actions[actionName](store, data);
-    });
+    this.store = {
+      all: store
+    };
+    this.dispatch = Object.keys(actions).reduce((mapping, actionName) => {
+      mapping[actionName] = data => {
+        this.store.all = actions[actionName](store, data);
+      };
+    }, {});
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,7 +30,10 @@ class ReStore extends Component {
 
   getChildContext() {
     return {
-      store: this.store
+      store: {
+        all: this.store
+      },
+      dispatch: this.dispatch
     };
   }
 
@@ -40,7 +49,8 @@ class ReStore extends Component {
   }
 
   static childContextTypes = {
-    store: PropTypes.object.isRequired
+    store: PropTypes.object.isRequired,
+    dispatch: PropTypes.object.isRequired
   }
 }
 
@@ -50,13 +60,13 @@ function connect(selector) {
   return function wrapper(InboundComponent) {
     class x extends Component {
       render() {
-        const store = this.context.store;
-        console.log(cstore, selector);
+        const { store, dispatch } = this.context;
+        console.log(store, selector);
 
-        const storeSelected = typeof selector === 'function' ? selector(context.store) :
+        const storeSelected = typeof selector === 'function' ? selector(store.all) :
           Array.isArray(selector) ? selector.reduce((selection, currentSelector) => {
             return currentSelector(selection);
-          }, context.store) :
+          }, store.all) :
           problemMarker;
 
         if (storeSelected === problemMarker) {
@@ -65,8 +75,8 @@ function connect(selector) {
 
         // props passed manually will override those in the store
         const usedProps = Object.assign({
-          dispatch: context.dispatch
-        }, storeSelected, props);
+          dispatch
+        }, storeSelected, this.props);
 
         return (
           <InboundComponent {...usedProps} />
@@ -74,7 +84,8 @@ function connect(selector) {
       }
 
       static contextTypes = {
-        store: PropTypes.object.isRequired
+        store: PropTypes.object.isRequired,
+        dispatch: PropTypes.object.isRequired
       }
     }
 
