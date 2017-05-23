@@ -1,4 +1,4 @@
-export const selectPlacementInBranchTree = (store, { level, value }) => {
+const selectPlacementInBranchTree = (store, { level, value }) => {
   let storeOverride;
 
   switch (level) {
@@ -41,4 +41,8 @@ export const selectPlacementInBranchTree = (store, { level, value }) => {
   }
 
   return Object.assign({}, store, storeOverride);
+};
+
+export default {
+  selectPlacementInBranchTree
 };

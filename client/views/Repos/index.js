@@ -20,7 +20,7 @@ const initialStore = {
 };
 
 ReactDOM.render(
-  <ReStore store={initialStore} action={actions}>
+  <ReStore store={initialStore} actions={actions}>
     <Header />
     <MainContent />
   </ReStore>,
