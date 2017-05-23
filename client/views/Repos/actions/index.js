@@ -1,46 +1,39 @@
 const selectPlacementInBranchTree = (store, { level, value }) => {
-  let storeOverride;
+  const newStore = Object.assign({}, store);
+
+  console.log(store);
 
   switch (level) {
     case 'none':
-      storeOverride = {
-        org: null,
-        repo: null,
-        branch: null,
-        level: 'none'
-      };
+      newStore.org = null;
+      newStore.repo = null;
+      newStore.branch = null;
+      newStore.level = 'none';
       break;
 
     case 'org':
-      storeOverride = {
-        org: value,
-        repo: null,
-        branch: null,
-        level: 'org'
-      };
+      newStore.org = value;
+      newStore.repo = null;
+      newStore.branch = null;
+      newStore.level = 'org';
       break;
 
     case 'repo':
-      storeOverride = {
-        repo: value,
-        branch: null,
-        level: 'repo'
-      };
+      newStore.repo = value;
+      newStore.branch = null;
+      newStore.level = 'repo';
       break;
 
     case 'branch':
-      storeOverride = {
-        branch: value,
-        level: 'branch'
-      };
+      newStore.branch = value;
+      newStore.level = 'branch';
       break;
 
     default:
-      storeOverride = {};
-      break;
+      return store;
   }
 
-  return Object.assign({}, store, storeOverride);
+  return newStore;
 };
 
 export default {

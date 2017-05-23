@@ -16,13 +16,13 @@ class ReStore extends Component {
       mapping[actionName] = data => {
         console.groupCollapsed(`ReStore Action: ${actionName}`);
         console.groupCollapsed('Prev Store');
-        console.dir(store);
+        console.dir(this.state.store);
         console.groupEnd();
-        const state = this.state;
-        state.store = actions[actionName](store, data);
-        this.setState(state);
+        const newState = this.state;
+        newState.store = actions[actionName](this.state.store, data);
+        this.setState(newState);
         console.groupCollapsed('Next Store');
-        console.dir(store);
+        console.dir(this.state.store);
         console.groupEnd();
         console.groupEnd();
       };

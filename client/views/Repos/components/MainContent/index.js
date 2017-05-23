@@ -71,8 +71,8 @@ class MainContent extends Component {
 
         list = repos.map(repo => {
           return {
-            key: `branchNav/repos/${repo}`,
-            label: repo
+            key: `branchNav/repos/${repo.id}`,
+            label: repo.name
           };
         });
 
