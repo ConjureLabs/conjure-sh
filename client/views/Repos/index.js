@@ -1,26 +1,26 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
-import reducers from './reducers';
-import App from './app';
+import actions from './actions';
+import { ReStore } from 'm/ReStore';
 
-const store = createStore(reducers, {
-  ready: false
-});
+import Header from './components/Header';
+import MainContent from './components/MainContent';
 
-const routes = [{
-  path: '/',
-  indexRoute: {
-    component: App
+const initialStore = {
+  org: null,
+  repo: null,
+  branch: null,
+  level: 'none',
+
+  resources: {
+    repos: staticContent.reposByOrg
   }
-}];
+};
 
 ReactDOM.render(
-  <Router history={browserHistory} routes={routes}>
-    <Provider store={store} />
-  </Router>,
+  <ReStore store={initialStore} action={actions}>
+    <Header />
+    <MainContent />
+  </ReStore>,
   document.getElementById('container')
 );
-

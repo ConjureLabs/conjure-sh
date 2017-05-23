@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 
 import styles from './styles.styl';
 
-const BranchNav = ({ org, repo, branch, onSelect }) => {
+export default const CurrentBranch = ({ org, repo, branch, onSelect }) => {
   return [
     <h1
       className={classnames(styles.treeNav, styles.serviceName, org === null ? styles.current : null)}

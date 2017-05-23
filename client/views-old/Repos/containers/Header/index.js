@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from '../../actions/branchTree';
-import BranchNav from 'c/BranchNav';
+import CurrentBranch from 'c/CurrentBranch';
 import selector from './selector';
 import styles from './styles.styl';
 
@@ -10,7 +10,7 @@ const Header = ({ org, repo, branch, onSelect }) => {
     <header className={styles.root}>
       <span className={styles.wrap}>
         <span className={styles.treeLocation}>
-          <BranchNav
+          <CurrentBranch
             org={org}
             repo={repo}
             branch={branch}
