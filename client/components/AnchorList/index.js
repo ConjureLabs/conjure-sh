@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import styles from './styles.styl';
 
-class AnchorList extends Component {
+export default class AnchorList extends Component {
   generateListItems(items) {
     const { onSelect } = this.props;
 

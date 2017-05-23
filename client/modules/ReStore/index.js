@@ -62,7 +62,6 @@ function connect(selector) {
     class ReStoreWrap extends Component {
       render() {
         const { store, dispatch } = this.context;
-        console.log(store, selector);
 
         const storeSelected = typeof selector === 'function' ? selector(store) :
           Array.isArray(selector) ? selector.reduce((selection, currentSelector) => {
