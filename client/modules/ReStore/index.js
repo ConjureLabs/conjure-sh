@@ -1,4 +1,4 @@
-import { Component, Children, isValidElement, cloneElement, createElement } from 'react';
+import { Component, Children, isValidElement } from 'react';
 import PropTypes from 'prop-types';
 
 const problemMarker = Symbol('marker used for invalid or unknown value, likely due to error');
@@ -22,13 +22,6 @@ class ReStore extends Component {
       store,
       dispatch
     };
-
-    setTimeout(() => {
-      const newState = { store, dispatch };
-      newState.store.org = 'MY Org!';
-      this.setState(newState);
-      console.log('twas triggered');
-    }, 4000);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,8 +53,6 @@ class ReStore extends Component {
     dispatch: PropTypes.object.isRequired
   }
 }
-
-export { ReStore };
 
 function connect(selector) {
   return function wrapper(InboundComponent) {
@@ -100,4 +91,4 @@ function connect(selector) {
   };
 }
 
-export { connect };
+export { ReStore, connect };
