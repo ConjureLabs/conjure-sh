@@ -14,17 +14,20 @@ class ReStore extends Component {
 
     const dispatch = Object.keys(actions).reduce((mapping, actionName) => {
       mapping[actionName] = data => {
-        console.groupCollapsed(`ReStore Action: ${actionName}`);
-        console.groupCollapsed('Prev Store');
-        console.dir(this.state.store);
-        console.groupEnd();
-        const newState = this.state;
-        newState.store = actions[actionName](this.state.store, data);
-        this.setState(newState);
-        console.groupCollapsed('Next Store');
-        console.dir(this.state.store);
-        console.groupEnd();
-        console.groupEnd();
+        const state = this.state;
+        const oldStore = state.store;
+        const newStore = actions[actionName](oldStore, data);
+
+        if (newStore === oldStore) {
+          return;
+        }
+
+        state.store = newStore;
+        this.setState(state, () => {
+          console.log('Prev Store', oldStore);
+          console.log(`ReStore Action: ${actionName}`);
+          console.log('Next Store', newStore);
+        });
       };
       return mapping;
     }, {});

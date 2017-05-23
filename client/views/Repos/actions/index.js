@@ -1,8 +1,6 @@
 const selectPlacementInBranchTree = (store, { level, value }) => {
   const newStore = Object.assign({}, store);
 
-  console.log(store);
-
   switch (level) {
     case 'none':
       newStore.org = null;
