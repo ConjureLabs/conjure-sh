@@ -12,6 +12,8 @@ const initialStore = {
   branch: null,
   level: 'none',
 
+  onboard: staticContent.onboard,
+
   resources: {
     repos: staticContent.reposByOrg
   }

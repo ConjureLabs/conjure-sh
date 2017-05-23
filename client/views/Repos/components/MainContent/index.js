@@ -1,128 +1,122 @@
-getOnboardingMessage() {
-  const level = this.level;
+import { Component } from 'react';
+import { connect } from 'm/ReStore';
+import AnchorList from 'c/AnchorList';
+import styles from './styles.styl';
 
-  let label, desc;
+class MainContent extends Component {
+  get onboardingMessage() {
+    const { level, onboard } = this.props;
 
-  switch (level) {
-    case 'all':
-      label = 'Organization';
-      desc = 'Select an Organization to get started';
-      break;
+    let label, desc;
 
-    case 'org':
-      label = 'Repo';
-      desc = 'Select a Repo for Conjure to watch';
-      break;
+    switch (level) {
+      case 'all':
+        label = 'Organization';
+        desc = 'Select an Organization to get started';
+        break;
 
-    case 'repo':
-      label = 'Repo';
-      desc = 'Click "watch repo" to have Conjure listen for changes';
-      break;
+      case 'org':
+        label = 'Repo';
+        desc = 'Select a Repo for Conjure to watch';
+        break;
+
+      case 'repo':
+        label = 'Repo';
+        desc = 'Click "watch repo" to have Conjure listen for changes';
+        break;
+
+      default:
+        return null;
+    }
+
+    return (
+      <div className={styles.onboarding}>
+        <div className={styles.label}>
+          {label}
+        </div>
+
+        <div className={styles.description}>
+          {desc}
+        </div>
+      </div>
+    );
   }
 
-  return !label ? null : (
-    <div className={styles.onboarding}>
-      <div className={styles.label}>
-        {label}
-      </div>
+  get branchNav() {
+    const { level, org, dispatch, resources } = this.props;
 
-      <div className={styles.description}>
-        {desc}
-      </div>
-    </div>
-  );
-}
+    let list, onSelect;
 
-generateActionableContent() {
-  const { level, dispatch, resources } = this.props;
-  const 
+    switch (level) {
+      case 'none':
+        const orgs = Object.keys(resources.repos);
 
-  if (Array.isArray(branchNav)) {
-    const list = branchNav.map(navItem => {
-      return {
-        key: `${level}-${i}`,
-        label: navItem
-      };
-    });
+        list = orgs.map(org => {
+          return {
+            key: `branchNav/orgs/${org}`,
+            label: org
+          };
+        });
 
-    const onSelect = navItem => {
-      dispatch.selectPlacementInBranchTree
-    };
+        onSelect = org => {
+          dispatch.selectPlacementInBranchTree({
+            level: 'org',
+            value: org.label
+          });
+        };
+        break;
+
+      case 'org':
+        const repos = resources.repos[org];
+
+        list = repos.map(repo => {
+          return {
+            key: `branchNav/repos/${repo}`,
+            label: repo
+          };
+        });
+
+        onSelect = repo => {
+          dispatch.selectPlacementInBranchTree({
+            level: 'repo',
+            value: repo.label
+          });
+        };
+        break;
+
+      default:
+        return null;
+    }
 
     return (
       <AnchorList
         list={list}
-        onSelect={}
+        onSelect={onSelect}
       />
     );
-    return (
-      <ol className={styles.branchNav}>
-        {
-          branchNav.map((item, i) => (
-            <li
-              className={styles.item}
-              key={`${level}-${i}`}
-            >
-              {item}
-            </li>
-          ))
-        }
-      </ol>
-    );
   }
 
-  if (this.state.branch !== null) {
+  render() {
     return (
-      <span>PENDING - SHOULD NOT BE ABLE TO GET HERE</span>
+      <main className={styles.root}>
+        <span className={styles.wrap}>
+          {this.onboardingMessage}
+          {this.branchNav}
+        </span>
+      </main>
     );
   }
-
-  return (
-    <Button
-      size='large'
-      color='black'
-      hallow={true}
-      className={styles.listenButton}
-      onClick={() => {
-        this[enableWatch]();
-      }}
-    >
-      Watch Repo
-    </Button>
-  );
-}
-
-generateMainContent() {
-  const actionableContent = this.generateActionableContent();
-
-  if (this.state.onboard === true) {
-    return (
-      <div className={styles.onboardingContent}>
-        {this.getOnboardingMessage()}
-        {actionableContent}
-      </div>
-    );
-  }
-
-  return (
-    <div>
-      <span>
-        Normal message
-      </span>
-
-      {actionableContent}
-    </div>
-  );
-}
-
-const MainContent = () => {
-  return (
-    <main className={styles.content}>
-      <span className={styles.wrap}>
-        <div>Placeholder</div>
-      </span>
-    </main>
-  );
 };
 
-export default MainContent;
+const selector = store => {
+  return {
+    level: store.level,
+    org: store.org,
+    resources: {
+      repos: store.resources.repos
+    },
+    onboard: store.onboard
+  };
+};
+
+export default connect(selector)(MainContent);

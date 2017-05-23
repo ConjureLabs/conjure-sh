@@ -120,6 +120,4 @@ const selector = store => {
   };
 };
 
-export default connect(
-  selector
-)(Header);
+export default connect(selector)(Header);
