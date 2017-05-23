@@ -24,9 +24,9 @@ class ReStore extends Component {
 
         state.store = newStore;
         this.setState(state, () => {
-          console.log('Prev Store', oldStore);
-          console.log(`ReStore Action: ${actionName}`);
-          console.log('Next Store', newStore);
+          prettyLog('Prev Store', oldStore);
+          prettyLog('ReStore Action', actionName);
+          prettyLog('Next Store', newStore);
         });
       };
       return mapping;
@@ -102,6 +102,22 @@ function connect(selector) {
 
     return ReStoreWrap;
   };
+}
+
+function prettyLog(label, data) {
+  // todo: make this compatible with non-chrome browsers
+  console.log(`%c ${padRight(label, 16)}`, [
+    'color: #e4421e',
+    'font-style: italic',
+    'font-weight: bold'
+  ].join(';'), data);
+}
+
+function padRight(label, len) {
+  if (label.length >= len) {
+    return label;
+  }
+  return padRight(label + ' ', len);
 }
 
 export { ReStore, connect };
