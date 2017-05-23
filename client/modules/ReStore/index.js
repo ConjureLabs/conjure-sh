@@ -12,17 +12,21 @@ class ReStore extends Component {
       actions: {}
     }, props);
 
-    this.store = {
-      all: store
-    };
-    this.dispatch = Object.keys(actions).reduce((mapping, actionName) => {
+    const dispatch = Object.keys(actions).reduce((mapping, actionName) => {
       mapping[actionName] = data => {
         this.store.all = actions[actionName](store, data);
       };
     }, {});
 
+    this.state = {
+      store,
+      dispatch
+    };
+
     setTimeout(() => {
-      this.store.all.org = "ORG NAME";
+      const newState = { store, dispatch };
+      newState.store.org = 'MY Org!';
+      this.setState(newState);
       console.log('twas triggered');
     }, 4000);
   }
@@ -35,10 +39,8 @@ class ReStore extends Component {
 
   getChildContext() {
     return {
-      store: {
-        all: this.store
-      },
-      dispatch: this.dispatch
+      store: this.state.store,
+      dispatch: this.state.dispatch
     };
   }
 
@@ -68,10 +70,10 @@ function connect(selector) {
         const { store, dispatch } = this.context;
         console.log(store, selector);
 
-        const storeSelected = typeof selector === 'function' ? selector(store.all) :
+        const storeSelected = typeof selector === 'function' ? selector(store) :
           Array.isArray(selector) ? selector.reduce((selection, currentSelector) => {
             return currentSelector(selection);
-          }, store.all) :
+          }, store) :
           problemMarker;
 
         if (storeSelected === problemMarker) {
@@ -91,10 +93,6 @@ function connect(selector) {
       static contextTypes = {
         store: PropTypes.object.isRequired,
         dispatch: PropTypes.object.isRequired
-      }
-
-      shouldComponentUpdate(nextProps, nextState, nextContext) {
-        return true;
       }
     }
 
