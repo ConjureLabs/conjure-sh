@@ -34,10 +34,27 @@ getOnboardingMessage() {
 }
 
 generateActionableContent() {
-  const branchNav = this.branchNavContent();
-  const level = this.level;
+  const { level, dispatch, resources } = this.props;
+  const 
 
   if (Array.isArray(branchNav)) {
+    const list = branchNav.map(navItem => {
+      return {
+        key: `${level}-${i}`,
+        label: navItem
+      };
+    });
+
+    const onSelect = navItem => {
+      dispatch.selectPlacementInBranchTree
+    };
+
+    return (
+      <AnchorList
+        list={list}
+        onSelect={}
+      />
+    );
     return (
       <ol className={styles.branchNav}>
         {
