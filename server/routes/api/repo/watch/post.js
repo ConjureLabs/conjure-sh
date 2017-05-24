@@ -1,7 +1,7 @@
 const Route = require('conjure-core/classes/Route');
-const PermissionsError = require('conjure-core/err').PermissionsError;
-const UnexpectedError = require('conjure-core/err').UnexpectedError;
-const ContentError = require('conjure-core/err').ContentError;
+const PermissionsError = require('conjure-core/modules/err').PermissionsError;
+const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
+const ContentError = require('conjure-core/modules/err').ContentError;
 
 const route = new Route();
 
