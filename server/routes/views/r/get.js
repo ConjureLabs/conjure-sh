@@ -1,4 +1,5 @@
 const Route = require('conjure-core/classes/Route');
+const UnexpectedError = require('conjure-core/err').UnexpectedError;
 
 const route = new Route({
   requireAuthentication: true,
@@ -24,12 +25,12 @@ route.push((req, res, next) => {
 
     // should not be possible
     if (!rows.length) {
-      return next(new Error('Could not find github account record'));
+      return next(new UnexpectedError('Could not find github account record'));
     }
 
     // should not be possible
     if (rows.length > 1) {
-      return next(new Error('Expected a single row for github account record, received multiple'));
+      return next(new UnexpectedError('Expected a single row for github account record, received multiple'));
     }
 
     const githubAccount = rows[0];
@@ -129,7 +130,7 @@ route.push((req, res, next) => {
 
         // this should not happen
         if (!Array.isArray(result.rows) || !result.rows.length) {
-          return callback(new Error('No count returned for table'));
+          return callback(new UnexpectedError('No count returned for table'));
         }
 
         if (parseInt(result.rows[0].num, 10) !== 0) {

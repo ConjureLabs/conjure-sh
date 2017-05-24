@@ -1,4 +1,7 @@
 const Route = require('conjure-core/classes/Route');
+const PermissionsError = require('conjure-core/err').PermissionsError;
+const UnexpectedError = require('conjure-core/err').UnexpectedError;
+const ContentError = require('conjure-core/err').ContentError;
 
 const route = new Route();
 
@@ -41,12 +44,12 @@ route.push((req, res, next) => {
 
       // should not be possible
       if (!rows.length) {
-        return callback(new Error('Could not find github account record'));
+        return callback(new UnexpectedError('Could not find github account record'));
       }
 
       // should not be possible
       if (rows.length > 1) {
-        return callback(new Error('Expected a single row for github account record, received multiple'));
+        return callback(new UnexpectedError('Expected a single row for github account record, received multiple'));
       }
 
       const githubAccount = rows[0];
@@ -66,11 +69,10 @@ route.push((req, res, next) => {
       }
 
       if (!info || !info.permissions) {
-        return callback(new Error('Unexpected payload'));
+        return callback(new ContentError('Unexpected payload'));
       }
 
       if (info.permissions.admin !== true) {
-        const PermissionsError = require('conjure-core/err').PermissionsError;
         return callback(new PermissionsError('Must be admin to enable conjure'));
       }
 

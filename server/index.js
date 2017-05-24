@@ -13,6 +13,7 @@ const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const log = require('conjure-core/modules/log')();
 const NotFoundError = require('conjure-core/err').NotFoundError;
+const ContentError = require('conjure-core/err').ContentError;
 
 const port = process.env.PORT;
 const server = express();
@@ -92,7 +93,7 @@ passport.use(
       const DatabaseTable = require('conjure-core/classes/DatabaseTable');
 
       if (!profile.id || isNaN(parseInt(profile.id, 10))) {
-        return callback(new Error('Github Id was not present in profile json'));
+        return callback(new ContentError('Github Id was not present in profile json'));
       }
 
       // check for existing account record
