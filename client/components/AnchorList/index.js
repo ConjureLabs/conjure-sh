@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import styles from './styles.styl';
+import classnames from 'classnames';
 
 export default class AnchorList extends Component {
   generateListItems(items) {
@@ -28,10 +29,10 @@ export default class AnchorList extends Component {
   }
 
   render() {
-    const { list } = this.props;
+    const { list, className } = this.props;
 
     return (
-      <ol className={styles.root}>
+      <ol className={classnames(styles.root, className)}>
         {
           this.generateListItems(list)
         }

@@ -96,6 +96,7 @@ class MainContent extends Component {
       <AnchorList
         list={list}
         onSelect={onSelect}
+        className={styles.anchorList}
       />
     );
   }
@@ -134,8 +135,8 @@ class MainContent extends Component {
       service: 'github',
       name: repoData.name,
       fullName: repoData.fullName,
-      org,
-      repo,
+      orgName: org,
+      repoName: repo,
       url: repoData.url,
       isPrivate: repoData.private,
       githubId: repoData.id,
