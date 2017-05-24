@@ -12,6 +12,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const log = require('conjure-core/modules/log')();
+const ConjureError = require('conjure-core/err').ConjureError;
 const NotFoundError = require('conjure-core/err').NotFoundError;
 const ContentError = require('conjure-core/err').ContentError;
 
@@ -276,22 +277,26 @@ server.use(setup.routes.views);
 server.use(setup.routes.c);
 
 server.use((err, req, res, next) => {
-  if (err) {
-    log.error(err);
-
-    // logging github errors if we have them
-    if (err.body && Array.isArray(err.errors)) {
-      console.dir(err.errors);
-    }
-
-    // todo: certain errors should cause 404, some 500s
-    if (process.env.NODE_ENV === 'production') {
-      return next();
-    }
-    return next(err);
+  if (!err) {
+    return next();
   }
 
-  next();
+  log.error(err);
+
+  // logging github errors if we have them
+  if (err.body && Array.isArray(err.errors)) {
+    console.dir(err.errors);
+  }
+
+  if (err instanceof ConjureError) {
+    return res
+      .statusCode(err.httpStatusCode)
+      .send(err.friendlyError);
+  }
+
+  res
+    .statusCode(500)
+    .send('An error occurred');
 });
 
 // 404 status view
