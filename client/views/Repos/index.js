@@ -1,21 +1,28 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, browserHistory } from 'react-router';
+import actions from './actions';
+import { ReStore } from 'm/ReStore';
 
-import FullListing from './subviews/FullListing';
+import Header from './components/Header';
+import MainContent from './components/MainContent';
 
-const routes = [{
-  path: '/r',
-  indexRoute: {
-    component: FullListing
+const initialStore = {
+  org: null,
+  repo: null,
+  branch: null,
+  level: 'none',
+
+  onboard: staticContent.onboard,
+
+  resources: {
+    repos: staticContent.reposByOrg
   }
-  // childRoutes: [{
-  //   path: '/r/GitHub/:orgName/:repoName',
-  //   component: GitHubRepo
-  // }]
-}];
+};
 
 ReactDOM.render(
-  <Router history={browserHistory} routes={routes}/>,
+  <ReStore store={initialStore} actions={actions}>
+    <Header />
+    <MainContent />
+  </ReStore>,
   document.getElementById('container')
 );

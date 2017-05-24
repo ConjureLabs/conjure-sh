@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
 import styles from './styles.styl';
 
 const checkWebpSupport = Symbol('check webp animation support');
@@ -61,25 +60,16 @@ class Gif extends Component {
   }
 }
 
-class Status404 extends Component {
-  render() {
-    return (
-      <div className={styles.root}>
-        <Gif />
-        <header className={styles.header}>Page Not Found</header>
-      </div>
-    );
-  }
-}
-
-const routes = [{
-  path: '*',
-  indexRoute: {
-    component: Status404
-  }
-}];
+const Status404 = () => {
+  return (
+    <div className={styles.root}>
+      <Gif />
+      <header className={styles.header}>Page Not Found</header>
+    </div>
+  );
+};
 
 ReactDOM.render(
-  <Router history={browserHistory} routes={routes}/>,
+  <Status404 />,
   document.getElementById('container')
 );

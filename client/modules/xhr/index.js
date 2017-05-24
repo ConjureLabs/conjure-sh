@@ -21,7 +21,6 @@ export function get(url, callback) {
 }
 
 export function post(url, data, callback) {
-  console.log(data, JSON.stringify(data));
   fetch(url, {
     method: 'POST',
     credentials: 'same-origin',

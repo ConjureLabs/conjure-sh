@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
 import styles, { header } from './styles.styl';
 import Button from 'c/Button';
 
@@ -81,14 +80,7 @@ class Landing extends Component {
   }
 }
 
-const routes = [{
-  path: '/',
-  indexRoute: {
-    component: Landing
-  }
-}];
-
 ReactDOM.render(
-  <Router history={browserHistory} routes={routes}/>,
+  <Landing/>,
   document.getElementById('container')
 );

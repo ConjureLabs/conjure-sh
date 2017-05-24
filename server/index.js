@@ -282,6 +282,7 @@ server.use((err, req, res, next) => {
       console.dir(err.errors);
     }
 
+    // todo: certain errors should cause 404, some 500s
     if (process.env.NODE_ENV === 'production') {
       return next();
     }
