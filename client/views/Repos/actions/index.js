@@ -34,6 +34,13 @@ const selectPlacementInBranchTree = (store, { level, value }) => {
   return newStore;
 };
 
+const doneOnboarding = store => {
+  const newStore = Object.assign({}, store);
+  newStore.onboard = false;
+  return newStore;
+};
+
 export default {
-  selectPlacementInBranchTree
+  selectPlacementInBranchTree,
+  doneOnboarding
 };

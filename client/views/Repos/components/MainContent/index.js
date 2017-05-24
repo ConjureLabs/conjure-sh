@@ -1,7 +1,11 @@
 import { Component } from 'react';
 import { connect } from 'm/ReStore';
+import { post } from 'm/xhr';
+import Button from 'c/Button';
 import AnchorList from 'c/AnchorList';
 import styles from './styles.styl';
+
+const enableWatch = Symbol('enable watch repo');
 
 class MainContent extends Component {
   get onboardingMessage() {
@@ -96,12 +100,67 @@ class MainContent extends Component {
     );
   }
 
+  get watchPrompt() {
+    const { repo } = this.props;
+
+    if (!repo) {
+      return;
+    }
+
+    return (
+      <Button
+        size='large'
+        color='black'
+        hallow={true}
+        className={styles.listenButton}
+        onClick={() => {
+          this[enableWatch]();
+        }}
+      >
+        Watch Repo
+      </Button>
+    );
+  }
+
+  [enableWatch]() {
+    const { org, repo, resources, dispatch } = this.props;
+
+    // todo: deal with no repo found in .find()
+    const repoData = resources.repos[org].find(repoData => {
+      return repoData.name === repo;
+    });
+
+    post('/api/repo/watch', {
+      service: 'github',
+      name: repoData.name,
+      fullName: repoData.fullName,
+      org,
+      repo,
+      url: repoData.url,
+      isPrivate: repoData.private,
+      githubId: repoData.id,
+      vm: 'web' // forced to web for now
+    }, (err, data) => {
+      if (err) {
+        console.error(err);
+        alert(err.message);
+        return;
+      }
+
+      console.log(data);
+      alert('listening');
+
+      dispatch.doneOnboarding();
+    });
+  }
+
   render() {
     return (
       <main className={styles.root}>
         <span className={styles.wrap}>
           {this.onboardingMessage}
           {this.branchNav}
+          {this.watchPrompt}
         </span>
       </main>
     );
@@ -112,6 +171,7 @@ const selector = store => {
   return {
     level: store.level,
     org: store.org,
+    repo: store.repo,
     resources: {
       repos: store.resources.repos
     },
