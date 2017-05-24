@@ -70,7 +70,8 @@ route.push((req, res, next) => {
       }
 
       if (info.permissions.admin !== true) {
-        return callback(new Error('Must be admin to enable conjure'));
+        const PermissionsError = require('conjure-core/err').PermissionsError;
+        return callback(new PermissionsError('Must be admin to enable conjure'));
       }
 
       callback(null, githubClient, orgName, repoName);

@@ -12,6 +12,7 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 const log = require('conjure-core/modules/log')();
+const NotFoundError = require('conjure-core/err').NotFoundError;
 
 const port = process.env.PORT;
 const server = express();
@@ -116,7 +117,7 @@ passport.use(
 
             // this should not happen, since the conjure account showed the associated id
             if (!rows.length) {
-              return callback(new Error('Conjure account record not found for associated Github account'));
+              return callback(new NotFoundError('Conjure account record not found for associated Github account'));
             }
 
             const account = rows[0];
