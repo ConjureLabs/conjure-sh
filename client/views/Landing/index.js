@@ -20,7 +20,7 @@ class Landing extends Component {
     return (
       <div className={styles.root}>
         <form
-          action='/auth/github'
+          action={`${config.app.api.url}/auth/github`}
           className={styles.trueForm}
           method='post'
           ref={form => this.form = form}

@@ -131,7 +131,7 @@ class MainContent extends Component {
       return repoData.name === repo;
     });
 
-    post('/api/repo/watch', {
+    post(`${config.app.api.url}/api/repo/watch`, {
       service: 'github',
       name: repoData.name,
       fullName: repoData.fullName,
