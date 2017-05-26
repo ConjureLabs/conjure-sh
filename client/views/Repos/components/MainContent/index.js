@@ -126,12 +126,16 @@ class MainContent extends Component {
   [enableWatch]() {
     const { org, repo, resources, dispatch } = this.props;
 
-    // todo: deal with no repo found in .find()
     const repoData = resources.repos[org].find(repoData => {
       return repoData.name === repo;
     });
 
-    post('/api/repo/watch', {
+    // this should not happen
+    if (!repoData) {
+      throw new Error('No repo record available to watch');
+    }
+
+    post(`${config.app.api.url}/api/repo/watch`, {
       service: 'github',
       name: repoData.name,
       fullName: repoData.fullName,

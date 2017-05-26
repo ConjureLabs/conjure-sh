@@ -10,8 +10,6 @@ log.info('beginning setup');
 log.timeStart('finished setup');
 
 // crawling routes
-const apiRoutesDir = path.resolve(__dirname, 'routes', 'api');
-const hookRoutesDir = path.resolve(__dirname, 'routes', 'hook');
 const viewsRoutesDir = path.resolve(__dirname, 'routes', 'views');
 const containerRoutesDir = path.resolve(__dirname, 'routes', 'c');
 const jsFileExt = /\.js$/;
@@ -75,8 +73,6 @@ log.timeEnd('finished setup');
 
 module.exports = {
   routes: {
-    api: crawlRoutesDir(false, apiRoutesDir),
-    hook: crawlRoutesDir(false, hookRoutesDir),
     views: crawlRoutesDir(true, viewsRoutesDir),
     c: crawlRoutesDir(false, containerRoutesDir)
   }

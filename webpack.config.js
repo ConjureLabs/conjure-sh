@@ -22,6 +22,10 @@ module.exports = {
     'status-404': ['babel-polyfill', './views/Status-404']
   },
 
+  externals: {
+    config: require('conjure-core/modules/config')
+  },
+
   output: {
     path: path.resolve(__dirname, 'public', 'build'),
     filename: '[name].js',
