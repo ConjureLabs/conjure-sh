@@ -72,7 +72,7 @@ statusRouter.get('*', (req, res, next) => {
     },
     json: true
   }, (err, _, content) => {
-    let gifUrl = `${config.app.url}/images/gifs/confused-travolta.gif`;
+    let gifUrl = `${config.app.web.url}/images/gifs/confused-travolta.gif`;
     let webpUrl;
 
     // doing several checks so that 404s do not break becaue of potential gify changes or downtime
