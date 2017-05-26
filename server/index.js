@@ -8,7 +8,7 @@ const morgan = require('morgan');
 const path = require('path');
 const log = require('conjure-core/modules/log')();
 
-const port = process.env.PORT;
+const port = config.app.web.port;
 const server = express();
 
 if (process.env.NODE_ENV !== 'production') {
