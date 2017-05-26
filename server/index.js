@@ -6,6 +6,8 @@ const express = require('express');
 const compression = require('compression');
 const morgan = require('morgan');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+const passport = require('passport');
 const log = require('conjure-core/modules/log')();
 
 const port = config.app.web.port;
@@ -36,6 +38,28 @@ process.on('uncaughtException', err => {
 server.use(compression());
 server.set('port', port);
 server.use(morgan('combined'));
+
+server.use(cookieSession({
+  cookieName: 'conjure',
+  secret: config.session.secret,
+  duration: config.session.duration,
+  cookie: {
+    httpOnly: true,
+    secure: config.app.api.protocol === 'https'
+  }
+}));
+
+server.use(passport.initialize());
+server.use(passport.session());
+server.use(cookieParser());
+
+passport.serializeUser((user, done) => {
+  const DatabaseRow = require('conjure-core/classes/DatabaseRow');
+  done(null, new DatabaseRow('account', user));
+});
+passport.deserializeUser((user, done) => {
+  done(null, user);
+});
 
 server.set('views', path.join(__dirname, '..', 'views'));
 server.set('view engine', 'jade');
