@@ -23,6 +23,7 @@
     "compression": "1.6.2",
     "conjure-core": "git+ssh://git@github.com:WiskeyTango/conjure-core.git",
     "cookie-parser": "^1.4.3",
+    "cookie-session": "^2.0.0-beta.2",
     "css-loader": "^0.28.0",
     "debug": "2.6.0",
     "expose-loader": "^0.7.3",
