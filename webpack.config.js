@@ -51,6 +51,8 @@ module.exports = {
         exclude: path.resolve(__dirname, 'node_modules'),
         include: dirs.client,
         use: [{
+          loader: path.resolve(__dirname, 'loaders', 'config.js')
+        }, {
           loader: 'babel-loader',
           options: {
             plugins: ['transform-runtime'],
