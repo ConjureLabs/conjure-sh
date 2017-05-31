@@ -43,6 +43,7 @@ server.use(morgan('combined'));
 server.use(cookieSession({
   cookieName: 'conjure',
   secret: config.session.secret,
+  signed: true,
   duration: config.session.duration,
   cookie: {
     httpOnly: true,
