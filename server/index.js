@@ -41,14 +41,17 @@ server.set('port', port);
 server.use(morgan('combined'));
 
 server.use(cookieSession({
-  cookieName: 'conjure',
-  secret: config.session.secret,
-  signed: true,
-  duration: config.session.duration,
   cookie: {
+    domain: `.${config.app.api.domain}`,
     httpOnly: true,
-    secure: config.app.api.protocol === 'https'
-  }
+    maxAge: config.session.duration,
+    overwrite: true,
+    sameSite: 'lax',
+    secure: config.app.api.protocol === 'https',
+    signed: true
+  },
+  name: 'conjure',
+  secret: config.session.secret
 }));
 
 server.use(passport.initialize());

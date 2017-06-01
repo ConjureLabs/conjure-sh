@@ -3,7 +3,7 @@
 export function get(url, callback) {
   fetch(url, {
     method: 'GET',
-    credentials: 'same-origin',
+    credentials: 'include',
     cache: 'no-cache'
   })
     .then(response => {
@@ -23,7 +23,7 @@ export function get(url, callback) {
 export function post(url, data, callback) {
   fetch(url, {
     method: 'POST',
-    credentials: 'same-origin',
+    credentials: 'include',
     cache: 'no-cache',
     body: JSON.stringify(data),
     headers: {
