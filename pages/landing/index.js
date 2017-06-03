@@ -2,11 +2,11 @@ import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styles from './styles.js';
 import globalStyles from './styles.global.js';
-import Button from 'components/Button';
+import Button from '../../components/Button';
 
 const submitForm = Symbol('submit sign in/up form');
 
-class Landing extends Component {
+export default class Landing extends Component {
   constructor(props) {
     super(props);
     this.form = null; // placehoder for form el ref
@@ -83,8 +83,3 @@ class Landing extends Component {
     );
   }
 }
-
-ReactDOM.render(
-  <Landing/>,
-  document.getElementById('container')
-);

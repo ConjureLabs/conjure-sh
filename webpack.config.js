@@ -104,8 +104,8 @@ module.exports = {
   // otherwise i would have to use relative paths, to my local files
   resolve: {
     alias: {
-      'c': path.resolve(dirs.client, 'components'),
-      'm': path.resolve(dirs.client, 'modules')
+      'components': path.resolve(dirs.client, 'components'),
+      'modules': path.resolve(dirs.client, 'modules')
     }
   },
 

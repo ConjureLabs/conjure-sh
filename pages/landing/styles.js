@@ -1,4 +1,4 @@
-export default = (<style jsx>{`.header {
+export default (<style jsx>{`.header {
   background: #fff9dd;
   background-size: cover;
   display: block;

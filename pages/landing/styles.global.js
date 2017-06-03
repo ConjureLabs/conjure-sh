@@ -1,4 +1,4 @@
-export default = (<style global jsx>{`html,
+export default (<style global jsx>{`html,
 body,
 div,
 span,
