@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default (<style jsx>{`.root {
   border-radius: 0.3rem;
   -webkit-box-shadow: 0 0.1rem 0.3rem rgba(0,0,0,0.16);

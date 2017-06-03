@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default (<style jsx>{`.header {
   background: #fff9dd;
   background-size: cover;

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default (<style global jsx>{`html,
 body,
 div,

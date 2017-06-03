@@ -54,7 +54,7 @@ function prepareStylus(filePath) {
       }
 
       const isGlobal = filePath.substr(-12) === '.global.styl';
-      const jsxContent = `export default (<style${isGlobal ? ' global' : ''} jsx>{\`${css}\`}</style>);\n`;
+      const jsxContent = `import React from 'react';\n\nexport default (<style${isGlobal ? ' global' : ''} jsx>{\`${css}\`}</style>);\n`;
       const jsxFilePath = filePath.replace(/\.styl$/, '.js');
 
       fs.writeFileSync(jsxFilePath, jsxContent, 'utf8');
