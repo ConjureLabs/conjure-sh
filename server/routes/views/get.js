@@ -2,6 +2,12 @@ const Route = require('conjure-core/classes/Route');
 
 const route = new Route();
 
+const next = require('next');
+const app = next({
+  dev: process.env.NODE_ENV !== 'production'
+});
+const handle = app.getRequestHandler()
+
 /*
   Logged-out landing page
  */
@@ -9,6 +15,8 @@ route.push((req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
+
+  return app.render(req, res, '/b', req.query)
 
   res.render('landing', {
     name: 'landing'
