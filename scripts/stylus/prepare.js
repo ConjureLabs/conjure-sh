@@ -3,7 +3,7 @@ const path = require('path');
 const stylus = require('stylus');
 const crypto = require('crypto');
 
-const dirsToCrawl = ['components'];
+const dirsToCrawl = ['components', 'pages'];
 const trackDir = path.resolve(__dirname, '.track');
 const trackJson = path.resolve(trackDir, 'track.json');
 
