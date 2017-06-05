@@ -7,8 +7,6 @@ webpack-build.log
 public/build
 .profile
 .next
-components/**/styles.js
-components/**/styles.gobal.js
-views/**/styles.js
-views/**/styles.gobal.js
+components/**/styles*.js
+pages/**/styles*.js
 shared/config.js
