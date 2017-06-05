@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import styles from './styles.js';
 import globalStyles from './styles.global.js';
 import Button from '../../components/Button';
+import config from '../../shared/config.js';
 
 const submitForm = Symbol('submit sign in/up form');
 

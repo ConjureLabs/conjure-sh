@@ -11,3 +11,4 @@ components/**/styles.js
 components/**/styles.gobal.js
 views/**/styles.js
 views/**/styles.gobal.js
+shared/config.js

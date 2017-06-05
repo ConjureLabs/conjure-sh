@@ -12,9 +12,7 @@ app
     const server = express();
 
     server.get('/', (req, res) => {
-      return app.render(req, res, '/landing', Object.assign({}, req.query, {
-        config: require('conjure-core/modules/config')
-      }));
+      return app.render(req, res, '/landing', req.query);
     });
 
     server.listen(3000, err => {
