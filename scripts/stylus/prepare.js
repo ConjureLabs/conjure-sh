@@ -3,6 +3,7 @@ const path = require('path');
 const stylus = require('stylus');
 const crypto = require('crypto');
 
+const projectDir = path.resolve(__dirname, '..', '..');
 const dirsToCrawl = ['components', 'pages'];
 const trackDir = path.resolve(__dirname, '.track');
 const trackJson = path.resolve(trackDir, 'track.json');
@@ -17,7 +18,7 @@ try {
 }
 
 for (let i = 0; i < dirsToCrawl.length; i++) {
-  crawlDir(path.resolve(__dirname, '..', '..', dirsToCrawl[i]));
+  crawlDir(path.resolve(projectDir, dirsToCrawl[i]));
 }
 
 function crawlDir(dir) {
@@ -56,11 +57,20 @@ function prepareStylus(filePath) {
       }
 
       const classLookup = {};
+      const pathTokens = path.parse(filePath).dir
+        .substr(projectDir.length + 1)
+        .split('/');
 
       // see https://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors
       css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)/g, (_, className) => {
         if (!classLookup[className]) {
-          classLookup[className] = `c-${++classNameCount}`;
+          classNameCount++;
+
+          if (process.env.NODE_ENV === 'production') {
+            classLookup[className] = `c-${classNameCount}`;
+          } else {
+            classLookup[className] = `${pathTokens.join('_')}__${className}`;
+          }
         }
 
         return `.${classLookup[className]}`;
