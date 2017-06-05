@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import styles from './styles.js';
+import styles, { classes } from './styles.js';
 import classnames from 'classnames';
 
 const handleOnClick = Symbol('handle defined onClick');
@@ -17,10 +17,10 @@ export default class Button extends Component {
     const { className, children, color, size, hallow } = this.props;
 
     const rootClasses = classnames(
-      'root',
-      `color_${color}`,
-      `size_${size}`,
-      hallow === true ? 'hallow' : null,
+      classes.root,
+      classes[`color_${color}`],
+      classes[`size_${size}`],
+      hallow === true ? classes.hallow : null,
       className
     );
 
@@ -29,7 +29,7 @@ export default class Button extends Component {
         className={rootClasses}
         onClick={this[handleOnClick].bind(this)}
       >
-        <span className='label'>
+        <span className={classes.label}>
           {children}
         </span>
         {styles}

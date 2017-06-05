@@ -59,13 +59,16 @@ function prepareStylus(filePath) {
 
       // see https://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors
       css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)/g, (_, className) => {
-        classLookup[className] = `.c-${++classNameCount}`;
-        return classLookup[className];
+        if (!classLookup[className]) {
+          classLookup[className] = `c-${++classNameCount}`;
+        }
+
+        return `.${classLookup[className]}`;
       });
 
       const isGlobal = filePath.substr(-12) === '.global.styl';
       const jsxDefault = `export default (<style${isGlobal ? ' global' : ''} jsx>{\`${css}\`}</style>);`;
-      const jsxLookup = `const classes = ${JSON.stringify(classLookup)}; export classes;`;
+      const jsxLookup = `const classes = ${JSON.stringify(classLookup)};\nexport { classes };`;
       const jsxContent = `import React from 'react';\n\n${jsxDefault}\n\n${jsxLookup}\n`;
       const jsxFilePath = filePath.replace(/\.styl$/, '.js');
 

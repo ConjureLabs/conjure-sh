@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import styles from './styles.js';
+import styles, { classes } from './styles.js';
 import globalStyles from './styles.global.js';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
@@ -20,22 +20,22 @@ export default class Landing extends Component {
 
   render() {
     return (
-      <div className='root'>
+      <div className={classes.root}>
         <form
           action={`${config.app.api.url}/auth/github`}
-          className='trueForm'
+          className={classes.trueForm}
           method='post'
           ref={form => this.form = form}
         />
 
-        <header className='header'>
-          <nav className='navigation'>
-            <h1 className='serviceName'>Conjure</h1>
+        <header className={classes.header}>
+          <nav className={classes.navigation}>
+            <h1 className={classes.serviceName}>Conjure</h1>
 
-            <ol className='linkslist'>
-              <li className='item'>
+            <ol className={classes.linkslist}>
+              <li className={classes.item}>
                 <a
-                  className='link'
+                  className={classes.link}
                   onClick={this[submitForm].bind(this)}
                   href=''
                 >
@@ -43,7 +43,7 @@ export default class Landing extends Component {
                 </a>
               </li>
 
-              <li className='item'>
+              <li className={classes.item}>
                 <Button
                   size='small'
                   color='black'
@@ -55,27 +55,27 @@ export default class Landing extends Component {
             </ol>
           </nav>
 
-          <div className='ctaContainer'>
-            <p className='mark'>⎔</p>
-            <p className='firstImpression'>
-              <sup className='name'>Conjure</sup>
+          <div className={classes.ctaContainer}>
+            <p className={classes.mark}>⎔</p>
+            <p className={classes.firstImpression}>
+              <sup className={classes.name}>Conjure</sup>
               <span>brings your branches to life</span>
             </p>
 
             <div>
               <Button
                 size='large'
-                className='cta'
+                className={classes.cta}
                 color='purple'
                 onClick={this[submitForm].bind(this)}
               >
-                <span className='label'>Sign Up</span>
+                <span className={classes.label}>Sign Up</span>
               </Button>
-              <sub className='info'>With GitHub</sub>
+              <sub className={classes.info}>With GitHub</sub>
             </div>
           </div>
 
-          <div className='browserTeaser' />
+          <div className={classes.browserTeaser} />
         </header>
 
         {styles}
