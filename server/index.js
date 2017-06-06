@@ -1,5 +1,6 @@
 const express = require('express');
 const next = require('next');
+const path = require('path');
 
 const app = next({
   dev: process.env.NODE_ENV !== 'production'
@@ -10,6 +11,8 @@ app
   .prepare()
   .then(() => {
     const server = express();
+
+    server.use(express.static(path.resolve(__dirname, '..', 'static')));
 
     server.get('/', (req, res) => {
       return app.render(req, res, '/landing', req.query);

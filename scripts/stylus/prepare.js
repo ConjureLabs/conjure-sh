@@ -76,6 +76,9 @@ function prepareStylus(filePath) {
         return `.${classLookup[className]}`;
       });
 
+      // todo: prevent react from munging "s, making them html entities
+      css = css.replace(/"/g, '');
+
       const isGlobal = filePath.substr(-12) === '.global.styl';
       const jsxDefault = `export default (<style jsx${isGlobal ? ' global' : ''}>{\`${css}\`}</style>);`;
       const jsxLookup = `const classes = ${JSON.stringify(classLookup)};\nexport { classes };`;
