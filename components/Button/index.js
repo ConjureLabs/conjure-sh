@@ -2,10 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import styles, { classes } from './styles.js';
 import classnames from 'classnames';
 
-const handleOnClick = Symbol('handle defined onClick');
-
 export default class Button extends Component {
-  [handleOnClick]() {
+  handleOnClick() {
+    alert('CLICKED');
     const { onClick } = this.props;
 
     if (onClick) {
@@ -27,7 +26,7 @@ export default class Button extends Component {
     return (
       <span
         className={rootClasses}
-        onClick={this[handleOnClick].bind(this)}
+        onClick={() => { console.log('OMG F U CLICK EVENT'); }}
       >
         <span className={classes.label}>
           {children}

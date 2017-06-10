@@ -5,15 +5,13 @@ import globalStyles from './styles.global.js';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
 
-const submitForm = Symbol('submit sign in/up form');
-
 export default class Landing extends Component {
   constructor(props) {
     super(props);
     this.form = null; // placehoder for form el ref
   }
 
-  [submitForm](e) {
+  submitForm(e) {
     e.preventDefault();
     this.form.submit();
   }
@@ -36,7 +34,7 @@ export default class Landing extends Component {
               <li className={classes.item}>
                 <a
                   className={classes.link}
-                  onClick={this[submitForm].bind(this)}
+                  onClick={(e) => { e.preventDefault(); console.log('CLICK HAPPENED'); }}
                   href=''
                 >
                   Sign In
@@ -47,7 +45,7 @@ export default class Landing extends Component {
                 <Button
                   size='small'
                   color='black'
-                  onClick={this[submitForm].bind(this)}
+                  onClick={() => { console.log('CLICK HAPPENED'); }}
                 >
                   Sign Up
                 </Button>
@@ -67,7 +65,7 @@ export default class Landing extends Component {
                 size='large'
                 className={classes.cta}
                 color='purple'
-                onClick={this[submitForm].bind(this)}
+                onClick={() => { console.log('CLICK HAPPENED'); }}
               >
                 <span className={classes.label}>Sign Up</span>
               </Button>
