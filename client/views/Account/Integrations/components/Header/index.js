@@ -12,7 +12,7 @@ const Header = () => {
               window.location = '/';
             }}
           >
-            ⎔ Conjure
+            ⎔
           </h1>
         </span>
 
