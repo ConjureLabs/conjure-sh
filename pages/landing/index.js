@@ -34,7 +34,7 @@ export default class Landing extends Component {
               <li className={classes.item}>
                 <a
                   className={classes.link}
-                  onClick={(e) => { e.preventDefault(); console.log('CLICK HAPPENED'); }}
+                  onClick={this[submitForm].bind(this)}
                   href=''
                 >
                   Sign In
@@ -45,7 +45,7 @@ export default class Landing extends Component {
                 <Button
                   size='small'
                   color='black'
-                  onClick={() => { console.log('CLICK HAPPENED'); }}
+                  onClick={this[submitForm].bind(this)}
                 >
                   Sign Up
                 </Button>
@@ -65,7 +65,7 @@ export default class Landing extends Component {
                 size='large'
                 className={classes.cta}
                 color='purple'
-                onClick={() => { console.log('CLICK HAPPENED'); }}
+                onClick={this[submitForm].bind(this)}
               >
                 <span className={classes.label}>Sign Up</span>
               </Button>

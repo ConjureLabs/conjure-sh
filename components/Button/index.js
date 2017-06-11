@@ -26,7 +26,7 @@ export default class Button extends Component {
     return (
       <span
         className={rootClasses}
-        onClick={() => { console.log('OMG F U CLICK EVENT'); }}
+        onClick={this[handleOnClick].bind(this)}
       >
         <span className={classes.label}>
           {children}

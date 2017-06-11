@@ -18,6 +18,10 @@ app
       return app.render(req, res, '/landing', req.query);
     });
 
+    server.get('*', (req, res) => {
+      return handle(req, res);
+    });
+
     server.listen(3000, err => {
       if (err) {
         throw err;

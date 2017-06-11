@@ -6,7 +6,7 @@ module.exports.webpack = config => {
   config.externals.componentsDir = path.resolve(__dirname, 'components');
   config.externals.config = require('conjure-core/modules/config');
 
-  console.log(config);
+  // console.log(config);
 
   return config;
 };
