@@ -1,3 +1,7 @@
+/*
+source ./.profile && node ./scripts/config/generate-client-config.js
+ */
+
 const config = require('conjure-core/modules/config');
 
 const clientConfig = {

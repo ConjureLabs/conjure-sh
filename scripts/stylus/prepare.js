@@ -1,3 +1,7 @@
+/*
+node ./scripts/stylus/prepare.js
+ */
+
 const fs = require('fs');
 const path = require('path');
 const stylus = require('stylus');

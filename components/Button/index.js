@@ -4,7 +4,6 @@ import classnames from 'classnames';
 
 export default class Button extends Component {
   handleOnClick() {
-    alert('CLICKED');
     const { onClick } = this.props;
 
     if (onClick) {
@@ -26,7 +25,7 @@ export default class Button extends Component {
     return (
       <span
         className={rootClasses}
-        onClick={this[handleOnClick].bind(this)}
+        onClick={this.handleOnClick.bind(this)}
       >
         <span className={classes.label}>
           {children}

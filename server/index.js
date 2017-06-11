@@ -12,7 +12,7 @@ app
   .then(() => {
     const server = express();
 
-    server.use(express.static(path.resolve(__dirname, '..', 'static')));
+    // server.use(express.static(path.resolve(__dirname, '..', 'static')));
 
     server.get('/', (req, res) => {
       return app.render(req, res, '/landing', req.query);
