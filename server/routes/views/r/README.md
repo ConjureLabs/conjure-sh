@@ -1,1 +1,0 @@
-`/r/` stands for 'repos'

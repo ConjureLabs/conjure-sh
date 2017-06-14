@@ -1,8 +1,7 @@
 const Route = require('conjure-core/classes/Route');
+const nextApp = require('../../next');
 
 const route = new Route();
-
-const nextApp = require('../../next');
 
 /*
   Logged-out landing page
@@ -12,7 +11,7 @@ route.push((req, res, next) => {
     return next();
   }
 
-  return nextApp.render(req, res, '/landing', req.query)
+  nextApp.render(req, res, '/landing');
 });
 
 /*
@@ -44,8 +43,9 @@ route.push((req, res, next) => {
 /*
   Must be logged in, kick user to repo listing
  */
-route.push((req, res, next) => {
-  res.redirect('/r');
+const reposHandlers = require('./repos');
+reposHandlers.forEach(handler => {
+  route.push(handler);
 });
 
 module.exports = route;

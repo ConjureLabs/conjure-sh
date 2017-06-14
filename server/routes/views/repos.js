@@ -1,15 +1,12 @@
-const Route = require('conjure-core/classes/Route');
+const nextApp = require('../../next');
 const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
 
-const route = new Route({
-  requireAuthentication: true,
-  wildcard: true
-});
+const handlers = [];
 
 /*
   Repos listing
  */
-route.push((req, res, next) => {
+handlers.push((req, res, next) => {
   const UniqueArray = require('conjure-core/classes/Array/UniqueArray');
   const GitHubRepo = require('conjure-core/classes/Repo/GitHub');
   const DatabaseTable = require('conjure-core/classes/DatabaseTable');
@@ -164,8 +161,7 @@ route.push((req, res, next) => {
         return mapping;
       }, {});
 
-      res.render('repos', {
-        name: 'repos',
+      nextApp.render(req, res, '/repos', {
         reposByOrg: reposByOrg,
         account: {
           photo: githubAccount.photo
@@ -176,4 +172,4 @@ route.push((req, res, next) => {
   });
 });
 
-module.exports = route;
+module.exports = handlers;
