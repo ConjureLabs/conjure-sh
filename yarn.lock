@@ -1388,7 +1388,7 @@ concat-map@0.0.1:
 
 "conjure-core@git+ssh://git@github.com:WiskeyTango/conjure-core.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:WiskeyTango/conjure-core.git#68b33721196e8201e062bb7bad426c1f06fe62b0"
+  resolved "git+ssh://git@github.com:WiskeyTango/conjure-core.git#c027ca8a57b752d6a1367c15bf50d84005a73d9a"
   dependencies:
     uid "^0.0.2"
     app-root-path "^2.0.1"

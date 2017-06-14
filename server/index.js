@@ -2,8 +2,8 @@
 const setup = require('./setup');
 
 const config = require('conjure-core/modules/config');
-const next = require('next');
 const express = require('express');
+const nextApp = require('./next');
 const compression = require('compression');
 const morgan = require('morgan');
 const path = require('path');
@@ -11,11 +11,6 @@ const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const log = require('conjure-core/modules/log')();
-
-const app = next({
-  dev: process.env.NODE_ENV !== 'production'
-})
-const nextGetRequestHandler = app.getRequestHandler();
 
 const port = config.app.web.port;
 const server = express();
@@ -82,11 +77,14 @@ server.use((req, res, next) => {
 server.use(setup.routes.views);
 server.use(setup.routes.c);
 
-server.get('*', (req, res) => {
-  return nextGetRequestHandler(req, res);
+const catchAllRouter = express.Router();
+const nextDefaultGetHandler = nextApp.getRequestHandler();
+catchAllRouter.get('*', (req, res) => {
+  nextDefaultGetHandler(req, res);
 });
+server.use(catchAllRouter);
 
-app
+nextApp
   .prepare()
   .then(() => {
     server.listen(port, () => {
