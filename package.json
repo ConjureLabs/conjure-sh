@@ -4,9 +4,7 @@
   "private": true,
   "main": "./server",
   "scripts": {
-    "dev": "node ./server/",
     "build": "next build",
-    "compile": "bash ./bash/yarn/compile.sh",
     "docker-cleanup": "bash ./bash/yarn/docker-cleanup.sh",
     "lint": "bash ./bash/yarn/lint.sh",
     "start": "bash ./bash/yarn/start.sh"
