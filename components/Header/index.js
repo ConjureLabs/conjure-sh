@@ -2,7 +2,7 @@ import { connect } from '../../shared/ReStore';
 import styles, { classes } from './styles.js';
 import classnames from 'classnames';
 
-const Header = ({ org, repo, branch, dispatch }) => {
+const Header = ({ account, org, repo, branch, dispatch }) => {
   return (
     <header className={classes.root}>
       <span className={classes.wrap}>
@@ -83,7 +83,7 @@ const Header = ({ org, repo, branch, dispatch }) => {
           <span
             className={classes.avatar}
             style={{
-              backgroundImage: 'url(' + /* staticContent.account.photo */ '' + ')'
+              backgroundImage: `url(${account.photo})`
             }}
           />
 
@@ -116,6 +116,7 @@ const Header = ({ org, repo, branch, dispatch }) => {
 
 const selector = store => {
   return {
+    account: store.account,
     org: store.org,
     repo: store.repo,
     branch: store.branch
