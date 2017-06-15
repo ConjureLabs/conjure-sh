@@ -30,6 +30,7 @@ export default class Button extends Component {
         <span className={classes.label}>
           {children}
         </span>
+
         {styles}
       </span>
     );
