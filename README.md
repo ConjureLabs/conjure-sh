@@ -56,12 +56,6 @@ yarn start
 
 # run lints
 yarn run lint
-
-# compile frontend builds
-yarn run compile
-
-# compile & watch for changes
-YARN_CONFIG_WATCH=yes yarn run compile
 ```
 
 ##### Running with ngrok
