@@ -50,7 +50,6 @@ route.push((req, res, next) => {
     }
 
     nextApp.render(req, res, '/account/integrations', {
-      reposByOrg: reposByOrg,
       account: {
         photo: integrations.github.photo // todo: not rely on github...
       },

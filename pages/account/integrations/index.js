@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import actions from './actions';
-import { ReStore } from '../../shared/ReStore';
+import { ReStore } from '../../../shared/ReStore';
 
-import Header from '../../components/Header';
-import Services from '../../components/Services';
+import Header from '../../../components/Header';
+import Services from '../../../components/Services';
 
 export default class AccountIntegrations extends Component {
   render() {
