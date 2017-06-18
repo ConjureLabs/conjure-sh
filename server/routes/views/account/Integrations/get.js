@@ -1,4 +1,5 @@
 const Route = require('conjure-core/classes/Route');
+const nextApp = require('../../../../next');
 const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
 
 const route = new Route({
@@ -48,8 +49,8 @@ route.push((req, res, next) => {
       return next(err);
     }
 
-    res.render('account/integrations', {
-      name: 'account.integrations',
+    nextApp.render(req, res, '/account/integrations', {
+      reposByOrg: reposByOrg,
       account: {
         photo: integrations.github.photo // todo: not rely on github...
       },
