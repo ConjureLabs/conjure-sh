@@ -66,7 +66,7 @@ function prepareStylus(filePath) {
         .split('/');
 
       // see https://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors
-      css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?=.*\{)/g, (_, className) => {
+      css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?=\s|\{|\.|:|,|$])/g, function (_, className) {
         if (!classLookup[className]) {
           classNameCount++;
 
@@ -79,9 +79,6 @@ function prepareStylus(filePath) {
 
         return `.${classLookup[className]}`;
       });
-
-      // todo: prevent react from munging "s, making them html entities
-      css = css.replace(/"/g, '');
 
       const isNative = filePath.substr(-12) === '.native.styl'; // native <style> tag, not jsx
       const jsxDefault = `const css = \`${css}\`;\n\export default (<style ${isNative ? '' : 'jsx '}dangerouslySetInnerHTML={{ __html: css }} />);`;
