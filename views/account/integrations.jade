@@ -1,9 +1,0 @@
-extends ../templates/page
-
-block body
-  #container
-
-block append bodyScripts
-  script.
-    staticContent.account = !{JSON.stringify(account)};
-    staticContent.integrations = !{JSON.stringify(integrations)};
