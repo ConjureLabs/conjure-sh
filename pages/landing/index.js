@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styles, { classes } from './styles.js';
-import globalStyles from './styles.global.js';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
 
@@ -77,7 +76,6 @@ export default class Landing extends Component {
         </header>
 
         {styles}
-        {globalStyles}
       </div>
     );
   }

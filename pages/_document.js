@@ -1,5 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
+import nativeStyles from './styles.native.js';
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
@@ -33,6 +34,7 @@ export default class MyDocument extends Document {
           <link rel='icon' type='image/png' sizes='96x96' href='/static/images/favicon/favicon-96x96.png' />
           <link rel='icon' type='image/png' sizes='16x16' href='/static/images/favicon/favicon-16x16.png' />
           <link rel='manifest' href='/static/images/favicon/manifest.json' />
+          {nativeStyles}
         </Head>
         <body>
           <Main />

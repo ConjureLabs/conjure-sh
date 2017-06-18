@@ -83,8 +83,8 @@ function prepareStylus(filePath) {
       // todo: prevent react from munging "s, making them html entities
       css = css.replace(/"/g, '');
 
-      const isGlobal = filePath.substr(-12) === '.global.styl';
-      const jsxDefault = `export default (<style jsx${isGlobal ? ' global' : ''}>{\`${css}\`}</style>);`;
+      const isNative = filePath.substr(-12) === '.native.styl'; // native <style> tag, not jsx
+      const jsxDefault = `const css = \`${css}\`;\n\export default (<style ${isNative ? '' : 'jsx '}dangerouslySetInnerHTML={{ __html: css }} />);`;
       const jsxLookup = `const classes = ${JSON.stringify(classLookup)};\nexport { classes };`;
       const jsxContent = `import React from 'react';\n\n${jsxDefault}\n\n${jsxLookup}\n`;
       const jsxFilePath = filePath.replace(/\.styl$/, '.js');

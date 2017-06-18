@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import ReactDOM from 'react-dom';
 import styles, { classes } from './styles.js';
-import globalStyles from './styles.global.js';
 import actions from './actions';
 import { ReStore } from '../../shared/ReStore';
 
@@ -44,7 +43,6 @@ export default class Repos extends Component {
         <MainContent />
 
         {styles}
-        {globalStyles}
       </ReStore>
     );
   }
