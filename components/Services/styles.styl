@@ -1,0 +1,30 @@
+@require '../../shared/framework.styl'
+
+$bodyPadding = 1.5rem
+
+.root
+  padding: $bodyPadding 0
+
+.wrap
+  display: block
+  max-width: 52rem
+  margin: 0 auto
+  padding: 0 $bodyPadding
+
+.service
+  border: 1px solid $lightGray
+  display: block
+  
+  &:not(:last-of-type)
+    margin-bottom: 2.2rem
+  
+  .label
+    border-bottom: 1px solid $lightGray
+    display: block
+    padding: 1rem 1.8rem
+
+  .details
+    display: block
+    font-size: 1.4rem
+    padding: 1rem 1.8rem
+    

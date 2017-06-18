@@ -6,3 +6,7 @@ npm-debug.log
 webpack-build.log
 public/build
 .profile
+.next
+components/**/styles*.js
+pages/**/styles*.js
+shared/config.js
