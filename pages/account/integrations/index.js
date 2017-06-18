@@ -3,32 +3,22 @@ import actions from './actions';
 import { ReStore } from '../../shared/ReStore';
 
 import Header from '../../components/Header';
-import MainContent from '../../components/MainContent';
+import Services from '../../components/Services';
 
-export default class Repos extends Component {
+export default class AccountIntegrations extends Component {
   render() {
     // todo: avoid using props.url.query
     const { query } = this.props.url;
 
     const initialState = {
-      org: null,
-      repo: null,
-      branch: null,
-      level: 'none',
-
-      onboard: query.onboard,
-
-      resources: {
-        repos: query.reposByOrg
-      },
-
-      account: query.account
+      account: query.account,
+      integrations: query.integrations
     };
 
     return (
       <ReStore store={initialState} actions={actions}>
         <Header />
-        <MainContent />
+        <Services />
       </ReStore>
     );
   }
