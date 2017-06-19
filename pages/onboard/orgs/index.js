@@ -1,28 +1,29 @@
 import { Component } from 'react';
+import styles, { classes } from './styles.js';
+
+import Header from '../../../components/Header';
 
 export default class OnboardOrgs extends Component {
   render() {
     return (
       <div>
-        <header>
-          <sup id='xyz'>👋</sup>
-          <span>Welcome to Conjure! Let's get started.</span>
-        </header>
+        <div className={classes.wrap}>
+          <header>
+            <sup>👋</sup>
+            <span>Welcome to Conjure! Let's get started.</span>
+          </header>
 
-        <article>
-          <sub>1</sub>
-          <span>Select the GitHub org You'd like to use with Conjure.</span>
-        </article>
+          <article>
+            <sup>1</sup>
+            <span>Select the GitHub organization or account You'd like to use with Conjure</span>
+          </article>
 
-        <main>
-          asdf
-        </main>
+          <main>
+            asdf
+          </main>
 
-        <style jsx>{`
-          #xyz {
-            font-size: 6rem;
-          }
-        `}</style>
+          {styles}
+        </div>
       </div>
     );
   }
