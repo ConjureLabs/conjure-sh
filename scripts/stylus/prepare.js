@@ -79,6 +79,7 @@ function prepareStylus(filePath) {
 
         return `.${classLookup[className]}`;
       });
+      css = css.replace(/[\n\r]\s*/g, ' ');
 
       const isNative = filePath.substr(-12) === '.native.styl'; // native <style> tag, not jsx
       const jsxDefault = `const css = \`${css}\`;\n\export default (<style ${isNative ? '' : 'jsx '}dangerouslySetInnerHTML={{ __html: css }} />);`;
