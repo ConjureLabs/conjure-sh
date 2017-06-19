@@ -1,6 +1,6 @@
 @require '../../shared/framework.styl'
 
-ol
+.root
   display: block
   margin: 0 auto
   max-height: 45rem
@@ -9,7 +9,7 @@ ol
   overflow-y: scroll
   visibleScrollbar()
 
-  li
+  .item
     border: 1px solid $blue
     display: block
     margin-bottom: 1rem
@@ -17,7 +17,7 @@ ol
     &:last-of-type
       margin-bottom: 0
 
-    a
+    .link
       color: $blue
       display: block
       font-weight: 400
