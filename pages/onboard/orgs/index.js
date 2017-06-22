@@ -2,6 +2,9 @@ import { Component } from 'react';
 import styles, { classes } from '../styles.js';
 
 import Header from '../../../components/Header';
+import AnchorList from '../../../components/AnchorList';
+
+console.log(req.query);
 
 export default class OnboardOrgs extends Component {
   render() {
@@ -19,7 +22,11 @@ export default class OnboardOrgs extends Component {
           </article>
 
           <main>
-            asdf
+{/*            <AnchorList
+              list={list}
+              onSelect={onSelect}
+              className={classes.anchorList}
+            />*/}
           </main>
 
           {styles}
