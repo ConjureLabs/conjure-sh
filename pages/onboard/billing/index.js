@@ -3,19 +3,19 @@ import styles, { classes } from '../styles.js';
 
 import Header from '../../../components/Header';
 
-export default class OnboardOrgs extends Component {
+export default class OnboardBilling extends Component {
   render() {
     return (
       <div>
         <div className={classes.wrap}>
           <header>
-            <sup>👋</sup>
-            <span>Welcome to Conjure! Let's get started.</span>
+            <sup>💳</sup>
+            <span>The first N of bandwidth will be free.</span>
           </header>
 
           <article>
-            <sup>1</sup>
-            <span>Select the GitHub organization or account You'd like to use with Conjure</span>
+            <sup>2</sup>
+            <span>Billing</span>
           </article>
 
           <main>

@@ -3,19 +3,19 @@ import styles, { classes } from '../styles.js';
 
 import Header from '../../../components/Header';
 
-export default class OnboardOrgs extends Component {
+export default class OnboardRepos extends Component {
   render() {
     return (
       <div>
         <div className={classes.wrap}>
           <header>
-            <sup>👋</sup>
-            <span>Welcome to Conjure! Let's get started.</span>
+            <sup>🎟</sup>
+            <span>Almost there!</span>
           </header>
 
           <article>
-            <sup>1</sup>
-            <span>Select the GitHub organization or account You'd like to use with Conjure</span>
+            <sup>3</sup>
+            <span>What repos should Conjure bring to life?</span>
           </article>
 
           <main>
