@@ -58,6 +58,13 @@ yarn start
 yarn run lint
 ```
 
+###### Additional Options
+
+```bash
+# starts the app, but preserves existing db
+KEEP_DB=true yarn start
+```
+
 ##### Running with ngrok
 
 GitHub needs public URLs. You can use ngrok to make your localhost public.
