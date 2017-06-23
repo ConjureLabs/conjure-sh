@@ -11,8 +11,7 @@ const route = new Route({
 
 route.push((req, res, next) => {
   const waterfall = [];
-
-  console.log('HIT');
+  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
 
   waterfall.push(callback => {
     const accountGithub = new DatabaseTable('account_github');
