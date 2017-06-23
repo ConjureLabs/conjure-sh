@@ -45,17 +45,20 @@ route.push((req, res, next) => {
         return callback(err);
       }
 
-      return callback(null, body);
+      return callback(null, githubAccount, body);
     });
   });
 
   const asyncWaterfall = require('conjure-core/modules/async/waterfall');
-  asyncWaterfall(waterfall, (err, orgs) => {
+  asyncWaterfall(waterfall, (err, githubAccount, orgs) => {
     if (err) {
       return next(err);
     }
 
     nextApp.render(req, res, '/onboard/orgs', {
+      account: {
+        photo: githubAccount.photo
+      },
       orgs
     });
   });

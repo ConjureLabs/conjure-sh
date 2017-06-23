@@ -1,14 +1,22 @@
 import { Component } from 'react';
 import styles, { classes } from '../styles.js';
+import { ReStore } from '../../../shared/ReStore';
 
 import Header from '../../../components/Header';
 import AnchorList from '../../../components/AnchorList';
 
 export default class OnboardOrgs extends Component {
   render() {
-    console.log(this.props.url);
+    const { query } = this.props.url;
+
+    const initialState = {
+      account: query.account
+    };
+
     return (
-      <div>
+      <ReStore store={initialState}>
+        <Header />
+
         <div className={classes.wrap}>
           <header>
             <sup>👋</sup>
@@ -21,16 +29,21 @@ export default class OnboardOrgs extends Component {
           </article>
 
           <main>
-{/*            <AnchorList
-              list={list}
-              onSelect={onSelect}
+            <AnchorList
+              list={query.orgs.map(org => {
+                return {
+                  label: org.login,
+                  value: org.id
+                };
+              })}
+              onSelect={item => console.log(item)}
               className={classes.anchorList}
-            />*/}
+            />
           </main>
 
           {styles}
         </div>
-      </div>
+      </ReStore>
     );
   }
 }
