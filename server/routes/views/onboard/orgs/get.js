@@ -1,13 +1,18 @@
 const Route = require('conjure-core/classes/Route');
 const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
-const nextApp = require('../../next');
+const nextApp = require('../../../../next');
 
 const route = new Route({
-  requireAuthentication: true
+  requireAuthentication: true,
+  skippedHandler: (req, res) => {
+    nextApp.render(req, res, '/_error');
+  }
 });
 
 route.push((req, res, next) => {
   const waterfall = [];
+
+  console.log('HIT');
 
   waterfall.push(callback => {
     const accountGithub = new DatabaseTable('account_github');

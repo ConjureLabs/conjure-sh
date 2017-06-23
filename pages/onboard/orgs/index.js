@@ -4,10 +4,9 @@ import styles, { classes } from '../styles.js';
 import Header from '../../../components/Header';
 import AnchorList from '../../../components/AnchorList';
 
-console.log(req.query);
-
 export default class OnboardOrgs extends Component {
   render() {
+    console.log(this.props.url);
     return (
       <div>
         <div className={classes.wrap}>
