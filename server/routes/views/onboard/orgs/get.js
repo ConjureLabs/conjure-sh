@@ -1,6 +1,7 @@
 const Route = require('conjure-core/classes/Route');
 const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
 const nextApp = require('../../../../next');
+const log = require('conjure-core/modules/log')('onboard orgs');
 
 const route = new Route({
   requireAuthentication: true,
@@ -52,7 +53,8 @@ route.push((req, res, next) => {
   const asyncWaterfall = require('conjure-core/modules/async/waterfall');
   asyncWaterfall(waterfall, (err, githubAccount, orgs) => {
     if (err) {
-      return next(err);
+      log.error(err);
+      return nextApp.render(req, res, '/_error');
     }
 
     nextApp.render(req, res, '/onboard/orgs', {
