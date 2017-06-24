@@ -14,6 +14,19 @@ route.push((req, res, next) => {
   const DatabaseTable = require('conjure-core/classes/DatabaseTable');
 
   waterfall.push(callback => {
+    if (
+      !req.cookies ||
+      !req.cookies['conjure-onboard-orgs'] ||
+      !req.cookies['conjure-onboard-orgs'].label ||
+      !req.cookies['conjure-onboard-orgs'].value
+    ) {
+      return callback(new UnexpectedError('Missing org selection payload'));
+    }
+
+    callback();
+  });
+
+  waterfall.push(callback => {
     const accountGithub = new DatabaseTable('account_github');
     accountGithub.select({
       account: req.user.id

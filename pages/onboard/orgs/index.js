@@ -3,7 +3,6 @@ import styles, { classes } from '../styles.js';
 import { ReStore } from '../../../shared/ReStore';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
-import Router from 'next/router';
 
 import Header from '../../../components/Header';
 import AnchorList from '../../../components/AnchorList';
@@ -27,7 +26,7 @@ export default class OnboardOrgs extends Component {
         return;
       }
 
-      Router.push('/onboard/billing');
+      window.location = '/onboard/billing';
     });
   }
 
