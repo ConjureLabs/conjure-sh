@@ -1,11 +1,36 @@
 import { Component } from 'react';
 import styles, { classes } from '../styles.js';
 import { ReStore } from '../../../shared/ReStore';
+import { post } from '../../../shared/xhr';
+import config from '../../../shared/config.js';
+import Router from 'next/router';
 
 import Header from '../../../components/Header';
 import AnchorList from '../../../components/AnchorList';
 
+let submitting = false;
+
 export default class OnboardOrgs extends Component {
+  makeSelection(item) {
+    // {label: "ConjureLabs", value: 1783213}
+    if (submitting) {
+      return;
+    }
+
+    submitting = true;
+
+    post(`${config.app.api.url}/api/onboard/orgs/selection`, item, (err, data) => {
+      if (err) {
+        console.error(err);
+        alert(err.message);
+        submitting = false;
+        return;
+      }
+
+      Router.push('/onboard/billing');
+    });
+  }
+
   render() {
     const { query } = this.props.url;
 
@@ -36,7 +61,7 @@ export default class OnboardOrgs extends Component {
                   value: org.id
                 };
               })}
-              onSelect={item => console.log(item)}
+              onSelect={this.makeSelection}
               className={classes.anchorList}
             />
           </main>
