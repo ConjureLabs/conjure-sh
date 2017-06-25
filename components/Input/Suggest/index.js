@@ -49,27 +49,37 @@ export default class Suggest extends Input {
 
   onKeyDown(event) {
     super.onKeyDown(...arguments);
-    
-    if (event.key !== 'ArrowDown') {
-      return;
-    }
 
     const { highlightedSelection, suggestionsShown } = this.state;
 
-    if (typeof highlightedSelection !== 'number') {
-      this.setState({
-        highlightedSelection: 0
-      });
-      return;
-    }
+    switch (event.key) {
+      case 'ArrowDown':
+        if (typeof highlightedSelection !== 'number') {
+          this.setState({
+            highlightedSelection: 0
+          });
+          break;
+        }
 
-    if (highlightedSelection >= suggestionsShown.length - 1) {
-      return;
-    }
+        if (highlightedSelection >= suggestionsShown.length - 1) {
+          break;
+        }
 
-    this.setState({
-      highlightedSelection: highlightedSelection + 1
-    });
+        this.setState({
+          highlightedSelection: highlightedSelection + 1
+        });
+        break;
+
+      case 'ArrowUp':
+        if (typeof highlightedSelection !== 'number' || highlightedSelection === 0) {
+          break;
+        }
+
+        this.setState({
+          highlightedSelection: highlightedSelection - 1
+        });
+        break;
+    }
   }
 
   onChange() {
