@@ -79,12 +79,21 @@ export default class Suggest extends Input {
           highlightedSelection: highlightedSelection - 1
         });
         break;
+
+      case 'Enter':
+        if (typeof highlightedSelection !== 'number') {
+          break;
+        }
+
+        this.makeSelection(suggestionsShown[highlightedSelection]);
+        break;
     }
   }
 
   onChange() {
     super.onChange(...arguments);
     this.shadowValue = this.input.value.trim();
+    this.selection = null;
   }
 
   updateSuggestions() {
@@ -115,6 +124,14 @@ export default class Suggest extends Input {
     });
   }
 
+  makeSelection(option) {
+    this.selection = option;
+    this.shadowValue = option.label;
+    this.input.value = option.label;
+    this.input.blur();
+    super.onChange();
+  }
+
   afterInput() {
     const { suggestionsShown } = this.state;
 
@@ -131,6 +148,9 @@ export default class Suggest extends Input {
                 this.setState({
                   highlightedSelection: i
                 });
+              }}
+              onMouseDown={() => {
+                this.makeSelection.bind(this)(suggestion);
               }}
             >
               {suggestion.label}
