@@ -120,7 +120,7 @@ export default class Suggest extends Input {
     }
 
     const filteredSuggestions = this.props.options.filter(option => {
-      return option.label.toLowerCase().indexOf(value) === 0;
+      return option.label.toString().toLowerCase().indexOf(value) === 0;
     });
 
     if (filteredSuggestions.length === 0) {

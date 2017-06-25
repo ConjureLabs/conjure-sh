@@ -6,6 +6,9 @@ import Header from '../../../components/Header';
 import TextInput from '../../../components/Input/Text';
 import CreditCardInput from '../../../components/Input/CreditCard';
 import CountrySuggestInput from '../../../components/Input/Suggest/Country';
+import MonthInput from '../../../components/Input/Month';
+import YearInput from '../../../components/Input/Year';
+import NumberInput from '../../../components/Input/Number';
 
 export default class OnboardBilling extends Component {
   render() {
@@ -38,6 +41,16 @@ export default class OnboardBilling extends Component {
                 <ol>
                   <li>
                     <CreditCardInput label='Number' />
+                  </li>
+                  <li>
+                    <TextInput label='Name' />
+                  </li>
+                  <li>
+                    <MonthInput label='MM' />
+                    <YearInput label='YYYY' start={new Date().getFullYear()} end={new Date().getFullYear() + 20} />
+                  </li>
+                  <li>
+                    <NumberInput maxLength='4' label='CVV' />
                   </li>
                 </ol>
               </section>
