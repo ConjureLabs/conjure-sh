@@ -49,16 +49,23 @@ export default class TextInput extends Component {
 
   onBlur() {
     const { onBlur } = this.props;
+    const { value } = this.input;
+    const { isFocused, initialPlaceholder } = this.state;
 
     if (typeof onBlur === 'function') {
       onBlur(...arguments);
     }
 
-    if (this.state.isFocused === true) {
-      this.setState({
-        isFocused: false
-      });
+    const stateChanges = {};
+
+    if (isFocused === true) {
+      stateChanges.isFocused = false;
     }
+    if (value === '' && initialPlaceholder === false) {
+      stateChanges.initialPlaceholder = true;
+    }
+
+    this.setState(stateChanges);
   }
 
   render() {
