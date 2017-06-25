@@ -7,6 +7,42 @@ import TextInput from '../../../components/Input/Text';
 import CreditCardInput from '../../../components/Input/CreditCard';
 import SuggestInput from '../../../components/Input/Suggest';
 
+
+import countryList from 'country-list';
+// const countrySuggestions = countryCodes.map(country => {
+//   return {
+//     label: country.name,
+//     value: country.iso2
+//   };
+// });
+
+// see https://stripe.com/docs/currencies#charge-currencies - todo: may want to filter to only currencies supported by stripe?
+/*
+  countryList().getCodeList() looks like:
+  {af: "Afghanistan", ax: "Åland Islands", al: "Albania", dz: "Algeria", as: "American Samoa"…}
+ */
+const countryCodeList = countryList().getCodeList();
+const countrySuggestions = Object.keys(countryCodeList).map(code => {
+  return {
+    label: countryCodeList[code],
+    value: code
+  };
+});
+
+const defaultSuggestions = [{
+  label: 'United States',
+  value: 'us'
+}, {
+  label: 'United Kingdom',
+  value: 'gb'
+}, {
+  label: 'Canada',
+  value: 'ca'
+}, {
+  label: 'Australia',
+  value: 'au'
+}];
+
 export default class OnboardBilling extends Component {
   render() {
     const { query } = this.props.url;
@@ -49,10 +85,8 @@ export default class OnboardBilling extends Component {
                   <li>
                     <SuggestInput
                       label='Country'
-                      options={[
-                        {label: 'United States', value: 'usa'},
-                        {label: 'Thailand', value: 'th'}
-                      ]}
+                      options={countrySuggestions}
+                      defaultSuggestions={defaultSuggestions}
                     />
                   </li>
                 </ol>
