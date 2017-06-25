@@ -25,7 +25,7 @@ export default props => {
   return (
     <SuggestInput
       options={options}
-      defaultOptions={options}
+      defaultSuggestions={options}
       {...carriedProps}
     />
   );

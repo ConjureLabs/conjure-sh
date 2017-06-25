@@ -42,7 +42,7 @@ export default props => {
   return (
     <SuggestInput
       options={options}
-      defaultOptions={options}
+      defaultSuggestions={options}
       suggestionsLimit={12}
       {...props}
     />
