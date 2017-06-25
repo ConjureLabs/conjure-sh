@@ -38,6 +38,8 @@ export default class Suggest extends Input {
   onBlur() {
     if (!this.selection) {
       this.input.value = '';
+    } else {
+      this.input.value = this.selection.label;
     }
     super.onBlur(...arguments);
     this.setState({
