@@ -58,20 +58,22 @@ $bodyPadding = 1.5rem
     .sectionsParent
       display: flex
       flex-direction: row
+      justify-content: center
         
       section
         display: block
+        margin-right: 10rem
+        
+        &:last-of-type
+          margin-right: 0
 
         .sectionLabel
           display: block
-          border-bottom: 1px solid $lightGray
           font-size: 1.6rem
           font-weight: 400
           margin-bottom: 3.2rem
           padding-bottom: 0.6rem
 
         ol
-          padding: 0 2rem
-
           li
             margin-top: 1.6rem
