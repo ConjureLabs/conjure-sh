@@ -85,6 +85,9 @@ export default class Input extends Component {
   render() {
     const { label, ...props } = this.props;
     const { isFocused, initialPlaceholder } = this.state;
+    const stateLabel = this.state.label; // children can override label shown
+
+    const labelShown = stateLabel || label;
 
     // these events are handled within this class
     delete props.onKeyUp;
@@ -98,7 +101,7 @@ export default class Input extends Component {
       <span className={classnames({
         [classes.initialPlaceholder]: !isFocused && initialPlaceholder
       })}>
-        {label ? (<label>{label}</label>) : null}
+        {labelShown ? (<label>{labelShown}</label>) : null}
 
         <input
           {...props}

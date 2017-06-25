@@ -18,8 +18,10 @@ export default class CreditCardInput extends Input {
     this.forcedInputProps.maxLength = '21';
   }
 
-  onKeyUp() {
+  onKeyUp(event) {
     super.onChange(...arguments);
+
+    const isDelete = event.keyCode === 8;
     let prunedValue = this.input.value.replace(nonDigitExpr, '');
     const cardType = this.determineCard();
 
@@ -32,22 +34,20 @@ export default class CreditCardInput extends Input {
 
     const format = cards[ cardType ].format;
     const newValueChunks = [];
-    console.log('pruned val', prunedValue);
     for (let i = 0; i < format.length; i++) {
       const chunkLen = format[i];
 
       newValueChunks.push(prunedValue.substr(0, chunkLen));
       prunedValue = prunedValue.substr(chunkLen);
 
-      console.log('new pruned val', prunedValue);
-
       if (!prunedValue.length) {
-        console.log('> break');
         break;
       }
     }
 
     if (
+      // do not want to do this if user is deleting
+      !isDelete &&
       // if the card number is not complete
       newValueChunks.length !== format.length &&
       // but the last chunk was completed
@@ -64,7 +64,7 @@ export default class CreditCardInput extends Input {
   }
 
   determineCard() {
-    const value = this.input.value.replace(/\D/g, '');
+    const value = this.input.value.replace(nonDigitExpr, '');
 
     // if the value is too long, we must have already found a match, so more checks would be wasteful
     if (value.length > maxCardPrefixLength) {
@@ -78,6 +78,11 @@ export default class CreditCardInput extends Input {
         // not breaking loop, so that the longest match is returned
       }
     }
+
+    console.log('setting state!', this.cardType)
+    this.setState({
+      label: this.cardType
+    });
 
     return this.cardType;
   }
