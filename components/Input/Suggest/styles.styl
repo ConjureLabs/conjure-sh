@@ -1,9 +1,11 @@
 @require '../../../shared/framework.styl'
 
 .suggestions
-  background: #f3f3f3
-  box-shadow: 0 0.2rem 0.6rem rgba($trueBlack, 0.12)
+  background: #242431
+  box-shadow: 0 0.2rem 0.6rem rgba($trueBlack, 0.24)
+  color: $trueWhite
   display: block
+  margin-top: -1px
   max-width: 100%
   overflow-x: hidden
   position: absolute
@@ -12,11 +14,14 @@
 
   > li
     background: transparent
-    border: 1px solid $lightGray
-    border-top: none
+    border-bottom: 1px solid $trueBlack
     cursor: pointer
     font-size: 1.4rem
-    padding: 0.6rem 0.4rem
+    line-height: 1.8rem
+    padding: 0.8rem 0.6rem
+    
+    &:last-of-type
+      border-bottom: none
     
     &.highlighted
-      background: #cfffbf
+      background: #6567a2
