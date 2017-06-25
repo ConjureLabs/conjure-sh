@@ -3,6 +3,7 @@ import styles, { classes } from '../styles.js';
 import { ReStore } from '../../../shared/ReStore';
 
 import Header from '../../../components/Header';
+import TextInput from '../../../components/Input/Text';
 
 export default class OnboardBilling extends Component {
   render() {
@@ -28,7 +29,15 @@ export default class OnboardBilling extends Component {
           </article>
 
           <main>
-            asdf
+            <section>
+              <h3>Card</h3>
+
+              <ol>
+                <li>
+                  <TextInput maxLength='19' label='Number' />
+                </li>
+              </ol>
+            </section>
           </main>
 
           {styles}
