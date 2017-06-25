@@ -4,6 +4,7 @@ import { ReStore } from '../../../shared/ReStore';
 
 import Header from '../../../components/Header';
 import TextInput from '../../../components/Input/Text';
+import Dropdown from '../../../components/Input/Dropdown';
 
 export default class OnboardBilling extends Component {
   render() {
@@ -45,7 +46,13 @@ export default class OnboardBilling extends Component {
 
                 <ol>
                   <li>
-                    <TextInput maxLength='19' label='Number' />
+                    <Dropdown
+                      label='Country'
+                      options={[
+                        {label: 'United States', value: 'usa'},
+                        {label: 'Thailand', value: 'th'}
+                      ]}
+                    />
                   </li>
                 </ol>
               </section>
