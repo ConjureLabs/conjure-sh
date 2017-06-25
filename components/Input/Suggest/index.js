@@ -1,5 +1,6 @@
 import Input from '../index.js';
 import styles, { classes } from './styles.js';
+import sortInsensitive from 'conjure-core/modules/utils/Array/sort-insensitive';
 
 export default class Suggest extends Input {
   constructor(props) {
@@ -7,6 +8,12 @@ export default class Suggest extends Input {
     this.type = 'text';
     this.suggestionsLimit = props.suggestionsLimit || 6;
     this.defaultSuggestions = Array.isArray(props.defaultSuggestions) && props.defaultSuggestions.length ? props.defaultSuggestions.slice(0, this.suggestionsLimit) : null;
+
+    // tracking user-inputted value, in case it clears, and we need to re-fill the input
+    this.shadowValue = null;
+
+    // tracking selection
+    this.selection = null;
 
     this.state.suggestionsShown = null;
 
@@ -20,24 +27,35 @@ export default class Suggest extends Input {
   }
 
   onFocus() {
+    if (this.shadowValue) {
+      this.input.value = this.shadowValue;
+    }
     super.onFocus(...arguments);
     this.updateSuggestions();
   }
 
   onBlur() {
+    if (!this.selection) {
+      this.input.value = '';
+    }
     super.onBlur(...arguments);
     this.setState({
       suggestionsShown: null
     });
   }
 
-  onKeyUp(event) {
+  onKeyUp() {
     super.onKeyUp(...arguments);
     this.updateSuggestions();
   }
 
+  onChange() {
+    super.onChange(...arguments);
+    this.shadowValue = this.input.value.trim();
+  }
+
   updateSuggestions() {
-    const value = this.input.value.trim();
+    const value = this.input.value.trim().toLowerCase();
     const defaultSuggestions = this.defaultSuggestions;
 
     if (!value) {
@@ -46,6 +64,22 @@ export default class Suggest extends Input {
       });
       return;
     }
+
+    const filteredSuggestions = this.props.options.filter(option => {
+      return option.label.toLowerCase().indexOf(value) === 0;
+    });
+
+    if (filteredSuggestions.length === 0) {
+      return this.setState({
+        suggestionsShown: null
+      });
+    }
+
+    sortInsensitive(filteredSuggestions, 'label');
+
+    this.setState({
+      suggestionsShown: filteredSuggestions.slice(0, this.suggestionsLimit)
+    });
   }
 
   afterInput() {
