@@ -8,24 +8,27 @@ export default class TextInput extends Component {
     super(props);
 
     this.state = {
-      placeholder: true
+      initialPlaceholder: true,
+      isFocused: false
     };
   }
 
   onChange() {
     const { onChange } = this.props;
+    const { value } = this.input;
+    const { initialPlaceholder, isFocused } = this.state;
 
     if (typeof onChange === 'function') {
       onChange(...arguments);
     }
 
-    if (this.input.value === '' && this.state.placeholder === false) {
+    if (value === '' && initialPlaceholder === false && isFocused === false) {
       this.setState({
-        placeholder: true
+        initialPlaceholder: true
       });
-    } else if (this.input.value !== '' && this.state.placeholder === true) {
+    } else if (value !== '' && initialPlaceholder === true) {
       this.setState({
-        placeholder: false
+        initialPlaceholder: false
       });
     }
   }
@@ -37,9 +40,9 @@ export default class TextInput extends Component {
       onFocus(...arguments);
     }
 
-    if (this.state.placeholder === true) {
+    if (this.state.isFocused === false) {
       this.setState({
-        placeholder: false
+        isFocused: true
       });
     }
   }
@@ -51,15 +54,16 @@ export default class TextInput extends Component {
       onBlur(...arguments);
     }
 
-    if (this.state.placeholder === false && this.input.value === '') {
+    if (this.state.isFocused === true) {
       this.setState({
-        placeholder: true
+        isFocused: false
       });
     }
   }
 
   render() {
     const { label, ...props } = this.props;
+    const { isFocused, initialPlaceholder } = this.state;
 
     // these events are handled within this class
     delete props.onChange;
@@ -68,7 +72,7 @@ export default class TextInput extends Component {
 
     return (
       <span className={classnames({
-        [classes.placeholder]: this.state.placeholder
+        [classes.initialPlaceholder]: !isFocused && initialPlaceholder
       })}>
         {label ? (<label>{label}</label>) : null}
 
