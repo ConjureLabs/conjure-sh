@@ -6,6 +6,7 @@ import Header from '../../../components/Header';
 import TextInput from '../../../components/Input/Text';
 import CreditCardInput from '../../../components/Input/CreditCard';
 import CountrySuggestInput from '../../../components/Input/Suggest/Country';
+import UsStateSuggest from '../../../components/Input/Suggest/UsState';
 import MonthInput from '../../../components/Input/Month';
 import YearInput from '../../../components/Input/Year';
 import NumberInput from '../../../components/Input/Number';
@@ -61,6 +62,12 @@ export default class OnboardBilling extends Component {
                 <ol>
                   <li>
                     <CountrySuggestInput />
+                  </li>
+                  <li>
+                    <NumberInput maxLength='5' label='Zip' />
+                  </li>
+                  <li>
+                    <UsStateSuggest />
                   </li>
                 </ol>
               </section>

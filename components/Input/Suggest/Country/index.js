@@ -34,7 +34,7 @@ export default props => {
     <SuggestInput
       label='Country'
       options={countrySuggestions}
-      defaultOptions={defaultSuggestions}
+      defaultSuggestions={defaultSuggestions}
       {...props}
     />
   );
