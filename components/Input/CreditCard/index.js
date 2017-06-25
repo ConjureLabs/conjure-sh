@@ -18,6 +18,10 @@ export default class CreditCardInput extends Input {
     this.forcedInputProps.maxLength = 19;
   }
 
+  get value() {
+    return this.input.value.replace(nonDigitExpr, '');
+  }
+
   onKeyUp(event) {
     super.onChange(...arguments);
 

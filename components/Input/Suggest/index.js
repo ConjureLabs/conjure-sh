@@ -23,6 +23,10 @@ export default class Suggest extends Input {
     this.state.highlightedSelection = null;
   }
 
+  get value() {
+    return this.selection ? this.selection.value : null;
+  }
+
   onFocus() {
     if (this.shadowValue) {
       this.input.value = this.shadowValue;

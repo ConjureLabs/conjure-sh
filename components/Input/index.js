@@ -19,6 +19,10 @@ export default class Input extends Component {
     // this.type should be set for any child component
   }
 
+  get value() {
+    return this.input.value;
+  }
+
   onKeyDown() {
     const { onKeyDown } = this.props;
 
