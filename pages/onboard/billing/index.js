@@ -29,15 +29,27 @@ export default class OnboardBilling extends Component {
           </article>
 
           <main>
-            <section>
-              <h3>Card</h3>
+            <div className={classes.sectionsParent}>
+              <section>
+                <span className={classes.sectionLabel}>Card</span>
 
-              <ol>
-                <li>
-                  <TextInput maxLength='19' label='Number' />
-                </li>
-              </ol>
-            </section>
+                <ol>
+                  <li>
+                    <TextInput maxLength='19' label='Number' />
+                  </li>
+                </ol>
+              </section>
+
+              <section>
+                <span className={classes.sectionLabel}>Billing Address</span>
+
+                <ol>
+                  <li>
+                    <TextInput maxLength='19' label='Number' />
+                  </li>
+                </ol>
+              </section>
+            </div>
           </main>
 
           {styles}

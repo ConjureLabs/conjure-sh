@@ -4,14 +4,16 @@ span
   position: relative
 
   label
+    color: $gray
     font-size: 1.2rem
     pointer-events: none
     position: absolute
-    top: -1.2rem
-    transition: font-size 0.2s, top 0.4s
+    top: -1.6rem
+    transition: color 0.2s, font-size 0.2s, top 0.4s
   
   &.initialPlaceholder
     label
+      color: $black
       font-size: 1.6rem
       top: 0.2rem
 
