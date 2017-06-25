@@ -104,6 +104,16 @@ export default class Suggest extends Input {
 
   onChange() {
     super.onChange(...arguments);
+
+    const value = this.input.value.trim();
+
+    // if the user manually types out a match, then we should honor it
+    if (Array.isArray(this.state.suggestionsShown) && value.toLowerCase() === this.state.suggestionsShown[0].label.toString().toLowerCase()) {
+      this.selection = this.state.suggestionsShown[0];
+      this.shadowValue = this.selection.label;
+      return;
+    }
+
     this.shadowValue = this.input.value.trim();
     this.selection = null;
   }
@@ -119,9 +129,13 @@ export default class Suggest extends Input {
       return;
     }
 
-    const filteredSuggestions = this.props.options.filter(option => {
+    const topSuggestions = this.props.options.filter(option => {
       return option.label.toString().toLowerCase().indexOf(value) === 0;
     });
+    const lowerSuggestions = topSuggestions.length >= this.suggestionsLimit ? [] : this.props.options.filter(option => {
+      return option.label.toString().toLowerCase().indexOf(value) > 0 && !topSuggestions.includes(option);
+    });
+    const filteredSuggestions = topSuggestions.concat(lowerSuggestions);
 
     if (filteredSuggestions.length === 0) {
       return this.setState({
