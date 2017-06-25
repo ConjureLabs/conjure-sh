@@ -15,7 +15,7 @@ export default class CreditCardInput extends Input {
     this.type = 'text';
     this.cardType = undefined;
 
-    this.forcedInputProps.maxLength = '21';
+    this.forcedInputProps.maxLength = 19;
   }
 
   onKeyUp(event) {
@@ -71,19 +71,30 @@ export default class CreditCardInput extends Input {
       return this.cardType;
     }
 
+    let newCardType = undefined;
     for (let i = 0; i < value.length; i++) {
       const currentSubstring = value.substr(0, i + 1);
       if (cardPrefixDict[currentSubstring]) {
-        this.cardType = cardPrefixDict[currentSubstring];
+        newCardType = cardPrefixDict[currentSubstring];
         // not breaking loop, so that the longest match is returned
       }
     }
 
-    console.log('setting state!', this.cardType)
+    // changing max length based on card type
+    if (newCardType !== undefined) {
+      const format = cards[ newCardType ].format;
+      this.forcedInputProps.maxLength = format.reduce((sum, current) => {
+        return sum + current;
+      }, format.length - 1 /* spaces added to card */);
+    } else {
+      this.forcedInputProps.maxLength = 19;
+    }
+
     this.setState({
-      label: this.cardType
+      label: newCardType
     });
 
+    this.cardType = newCardType;
     return this.cardType;
   }
 }
