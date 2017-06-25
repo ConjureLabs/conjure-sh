@@ -5,7 +5,7 @@ import { ReStore } from '../../../shared/ReStore';
 import Header from '../../../components/Header';
 import TextInput from '../../../components/Input/Text';
 import CreditCardInput from '../../../components/Input/CreditCard';
-import Dropdown from '../../../components/Input/Dropdown';
+import SuggestInput from '../../../components/Input/Suggest';
 
 export default class OnboardBilling extends Component {
   render() {
@@ -47,7 +47,7 @@ export default class OnboardBilling extends Component {
 
                 <ol>
                   <li>
-                    <Dropdown
+                    <SuggestInput
                       label='Country'
                       options={[
                         {label: 'United States', value: 'usa'},

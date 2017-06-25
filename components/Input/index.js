@@ -82,6 +82,16 @@ export default class Input extends Component {
     this.setState(stateChanges);
   }
 
+  // replace (in child component) with custom jsx to be rendered _before_ the <input>
+  beforeInput() {
+    return null;
+  }
+
+  // replace (in child component) with custom jsx to be rendered _after_ the <input>
+  afterInput() {
+    return null;
+  }
+
   render() {
     const { label, ...props } = this.props;
     const { isFocused, initialPlaceholder } = this.state;
@@ -103,6 +113,8 @@ export default class Input extends Component {
       })}>
         {labelShown ? (<label>{labelShown}</label>) : null}
 
+        {this.beforeInput()}
+
         <input
           {...props}
           {...this.forcedInputProps}
@@ -112,6 +124,8 @@ export default class Input extends Component {
           onBlur={this.onBlur.bind(this)}
           ref={input => this.input = input}
         />
+
+        {this.afterInput()}
 
         {styles}
       </span>
