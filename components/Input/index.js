@@ -15,6 +15,14 @@ export default class Input extends Component {
     // this.type should be set for any child component
   }
 
+  onKeyUp() {
+    const { onKeyUp } = this.props;
+
+    if (typeof onKeyUp === 'function') {
+      onKeyUp(...arguments);
+    }
+  }
+
   onChange() {
     const { onChange } = this.props;
     const { value } = this.input;
@@ -75,6 +83,7 @@ export default class Input extends Component {
     const { isFocused, initialPlaceholder } = this.state;
 
     // these events are handled within this class
+    delete props.onKeyUp;
     delete props.onChange;
     delete props.onFocus;
     delete props.onBlur;
@@ -89,6 +98,7 @@ export default class Input extends Component {
 
         <input
           {...props}
+          onKeyUp={this.onKeyUp.bind(this)}
           onChange={this.onChange.bind(this)}
           onFocus={this.onFocus.bind(this)}
           onBlur={this.onBlur.bind(this)}
