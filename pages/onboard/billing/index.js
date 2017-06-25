@@ -37,10 +37,7 @@ export default class OnboardBilling extends Component {
 
                 <ol>
                   <li>
-                    <CreditCardInput
-                      label='Number'
-                      maxLength='19'
-                    />
+                    <CreditCardInput label='Number' />
                   </li>
                 </ol>
               </section>

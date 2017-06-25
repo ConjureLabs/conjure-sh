@@ -6,17 +6,21 @@ import {
   maxCardPrefixLength
 } from './cards.js';
 
+const nonDigitExpr = /\D/g;
+
 export default class CreditCardInput extends Input {
   constructor(props) {
     super(props);
 
     this.type = 'text';
     this.cardType = undefined;
+
+    this.forcedInputProps.maxLength = '21';
   }
 
   onKeyUp() {
     super.onChange(...arguments);
-    let prunedValue = this.input.value.replace(/[^\d]/g, '');
+    let prunedValue = this.input.value.replace(nonDigitExpr, '');
     const cardType = this.determineCard();
 
     if (cardType === undefined) {
@@ -28,13 +32,17 @@ export default class CreditCardInput extends Input {
 
     const format = cards[ cardType ].format;
     const newValueChunks = [];
+    console.log('pruned val', prunedValue);
     for (let i = 0; i < format.length; i++) {
       const chunkLen = format[i];
 
       newValueChunks.push(prunedValue.substr(0, chunkLen));
       prunedValue = prunedValue.substr(chunkLen);
 
-      if (!prunedValue) {
+      console.log('new pruned val', prunedValue);
+
+      if (!prunedValue.length) {
+        console.log('> break');
         break;
       }
     }
@@ -56,11 +64,11 @@ export default class CreditCardInput extends Input {
   }
 
   determineCard() {
-    const value = this.input.value.replace(/[^\d]/g, '');
+    const value = this.input.value.replace(/\D/g, '');
 
     // if the value is too long, we must have already found a match, so more checks would be wasteful
     if (value.length > maxCardPrefixLength) {
-      return;
+      return this.cardType;
     }
 
     for (let i = 0; i < value.length; i++) {

@@ -12,6 +12,10 @@ export default class Input extends Component {
       isFocused: false
     };
 
+    this.forcedInputProps = {
+      // can be filled in by child components
+    };
+
     // this.type should be set for any child component
   }
 
@@ -98,6 +102,7 @@ export default class Input extends Component {
 
         <input
           {...props}
+          {...this.forcedInputProps}
           onKeyUp={this.onKeyUp.bind(this)}
           onChange={this.onChange.bind(this)}
           onFocus={this.onFocus.bind(this)}
