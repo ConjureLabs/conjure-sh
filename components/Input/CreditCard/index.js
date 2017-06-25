@@ -21,7 +21,7 @@ export default class CreditCardInput extends Input {
   onKeyUp(event) {
     super.onChange(...arguments);
 
-    const isDelete = event.keyCode === 8;
+    const isDelete = event.key === 'Backspace';
     let prunedValue = this.input.value.replace(nonDigitExpr, '');
     const cardType = this.determineCard();
 

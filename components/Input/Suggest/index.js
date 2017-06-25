@@ -1,6 +1,7 @@
 import Input from '../index.js';
 import styles, { classes } from './styles.js';
 import sortInsensitive from 'conjure-core/modules/utils/Array/sort-insensitive';
+import classnames from 'classnames';
 
 export default class Suggest extends Input {
   constructor(props) {
@@ -15,15 +16,11 @@ export default class Suggest extends Input {
     // tracking selection
     this.selection = null;
 
+    // [{ label: 'X', value: 'x' }, ...]
     this.state.suggestionsShown = null;
 
-     /*[{
-      label: 'Test AAA',
-      value: 'aaa'
-    }, {
-      label: 'Test BBB',
-      value: 'bbb'
-    }]; */
+    // highlighted option (does not need to be selected)
+    this.state.highlightedSelection = null;
   }
 
   onFocus() {
@@ -40,13 +37,39 @@ export default class Suggest extends Input {
     }
     super.onBlur(...arguments);
     this.setState({
-      suggestionsShown: null
+      suggestionsShown: null,
+      highlightedSelection: null
     });
   }
 
   onKeyUp() {
     super.onKeyUp(...arguments);
     this.updateSuggestions();
+  }
+
+  onKeyDown(event) {
+    super.onKeyDown(...arguments);
+    
+    if (event.key !== 'ArrowDown') {
+      return;
+    }
+
+    const { highlightedSelection, suggestionsShown } = this.state;
+
+    if (typeof highlightedSelection !== 'number') {
+      this.setState({
+        highlightedSelection: 0
+      });
+      return;
+    }
+
+    if (highlightedSelection >= suggestionsShown.length - 1) {
+      return;
+    }
+
+    this.setState({
+      highlightedSelection: highlightedSelection + 1
+    });
   }
 
   onChange() {
@@ -89,7 +112,17 @@ export default class Suggest extends Input {
       <ol className={classes.suggestions}>
         {suggestionsShown.map((suggestion, i) => {
           return (
-            <li key={`suggestion-${i}`}>
+            <li
+              className={classnames({
+                [classes.highlighted]: i === this.state.highlightedSelection
+              })}
+              key={`suggestion-${i}`}
+              onMouseOver={() => {
+                this.setState({
+                  highlightedSelection: i
+                });
+              }}
+            >
               {suggestion.label}
             </li>
           );

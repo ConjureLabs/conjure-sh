@@ -19,6 +19,14 @@ export default class Input extends Component {
     // this.type should be set for any child component
   }
 
+  onKeyDown() {
+    const { onKeyDown } = this.props;
+
+    if (typeof onKeyDown === 'function') {
+      onKeyDown(...arguments);
+    }
+  }
+
   onKeyUp() {
     const { onKeyUp } = this.props;
 
@@ -100,6 +108,7 @@ export default class Input extends Component {
     const labelShown = stateLabel || label;
 
     // these events are handled within this class
+    delete props.onKeyDown;
     delete props.onKeyUp;
     delete props.onChange;
     delete props.onFocus;
@@ -118,6 +127,7 @@ export default class Input extends Component {
         <input
           {...props}
           {...this.forcedInputProps}
+          onKeyDown={this.onKeyDown.bind(this)}
           onKeyUp={this.onKeyUp.bind(this)}
           onChange={this.onChange.bind(this)}
           onFocus={this.onFocus.bind(this)}
