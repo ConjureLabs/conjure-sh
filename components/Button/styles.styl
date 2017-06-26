@@ -5,6 +5,7 @@
   border-radius: 0.3rem
   box-shadow: 0 0.1rem 0.3rem rgba(#000, 0.16)
   cursor: pointer
+  disableSelect()
   display: inline-block
   gradient(#ffead3, #f9dcbd)
   height: 6.5rem
@@ -12,6 +13,11 @@
   transition: box-shadow 0.2s ease-in-out
   white-space: nowrap
   width: 29rem
+  
+  &.disabled
+    cursor: default
+    opacity: 0.42
+    pointer-event: none
   
   &.hallow
     background: none

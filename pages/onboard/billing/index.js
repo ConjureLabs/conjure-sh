@@ -125,8 +125,9 @@ export default class OnboardBilling extends Component {
             <Button
               size='medium'
               color='blue'
-              onClick={() => {}}
+              onClick={() => { console.log('hit'); }}
               className={classes.button}
+              disabled={true}
             >
               Continue
             </Button>
