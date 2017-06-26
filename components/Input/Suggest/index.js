@@ -7,6 +7,7 @@ export default class Suggest extends Input {
   constructor(props) {
     super(props);
     this.type = 'text';
+    this.options = props.options;
     this.suggestionsLimit = props.suggestionsLimit || 6;
     this.defaultSuggestions = Array.isArray(props.defaultSuggestions) && props.defaultSuggestions.length ? props.defaultSuggestions.slice(0, this.suggestionsLimit) : null;
 
@@ -131,10 +132,10 @@ export default class Suggest extends Input {
       return;
     }
 
-    const topSuggestions = this.props.options.filter(option => {
+    const topSuggestions = this.options.filter(option => {
       return option.label.toString().toLowerCase().indexOf(value) === 0;
     });
-    const lowerSuggestions = topSuggestions.length >= this.suggestionsLimit ? [] : this.props.options.filter(option => {
+    const lowerSuggestions = topSuggestions.length >= this.suggestionsLimit ? [] : this.options.filter(option => {
       return option.label.toString().toLowerCase().indexOf(value) > 0 && !topSuggestions.includes(option);
     });
     const filteredSuggestions = topSuggestions.concat(lowerSuggestions);

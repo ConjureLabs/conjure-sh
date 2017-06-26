@@ -38,13 +38,11 @@ const options = [{
   value: '12'
 }];
 
-export default props => {
-  return (
-    <SuggestInput
-      options={options}
-      defaultSuggestions={options}
-      suggestionsLimit={12}
-      {...props}
-    />
-  );
-};
+export default class MonthSuggest extends SuggestInput {
+  constructor(props) {
+    super(props);
+
+    this.options = options;
+    this.defaultSuggestions = options.slice(0, this.suggestionsLimit);
+  }
+}

@@ -16,6 +16,9 @@ export default class Input extends Component {
       // can be filled in by child components
     };
 
+    // can be filled in, by child component, to prune prop keys before rendering
+    this.propKeysPruned = [];
+
     // this.type should be set for any child component
   }
 
@@ -120,6 +123,10 @@ export default class Input extends Component {
     delete props.onBlur;
     // this is carried over to the span, but not the <input>
     delete props.className;
+
+    for (let i = 0; i < this.propKeysPruned.length; i++) {
+      delete props[ this.propKeysPruned[i] ];
+    }
 
     props.type = this.type ? this.type : props.type;
 

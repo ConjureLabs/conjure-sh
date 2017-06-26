@@ -29,13 +29,11 @@ const defaultSuggestions = [{
   value: 'au'
 }];
 
-export default props => {
-  return (
-    <SuggestInput
-      label='Country'
-      options={countrySuggestions}
-      defaultSuggestions={defaultSuggestions}
-      {...props}
-    />
-  );
-};
+export default class CountrySuggest extends SuggestInput {
+  constructor(props) {
+    super(props);
+
+    this.options = countrySuggestions;
+    this.defaultSuggestions = countrySuggestions.slice(0, this.suggestionsLimit);
+  }
+}
