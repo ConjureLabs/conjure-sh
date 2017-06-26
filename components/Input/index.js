@@ -110,6 +110,7 @@ export default class Input extends Component {
     const stateLabel = this.state.label; // children can override label shown
 
     const labelShown = stateLabel || label;
+    const carriedClassName = props.className;
 
     // these events are handled within this class
     delete props.onKeyDown;
@@ -117,13 +118,15 @@ export default class Input extends Component {
     delete props.onChange;
     delete props.onFocus;
     delete props.onBlur;
+    // this is carried over to the span, but not the <input>
+    delete props.className;
 
     props.type = this.type ? this.type : props.type;
 
     return (
       <span className={classnames({
         [classes.initialPlaceholder]: !isFocused && initialPlaceholder
-      })}>
+      }, carriedClassName)}>
         {labelShown ? (<label>{labelShown}</label>) : null}
 
         {this.beforeInput()}

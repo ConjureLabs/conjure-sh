@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import styles, { classes } from '../styles.js';
 import { ReStore } from '../../../shared/ReStore';
+import classnames from 'classnames';
 
 import Header from '../../../components/Header';
 import TextInput from '../../../components/Input/Text';
@@ -41,17 +42,35 @@ export default class OnboardBilling extends Component {
 
                 <ol>
                   <li>
-                    <CreditCardInput label='Number' />
+                    <CreditCardInput
+                      className={classes.formInput}
+                      label='Number'
+                    />
                   </li>
                   <li>
-                    <TextInput label='Name' />
+                    <TextInput
+                      className={classes.formInput}
+                      label='Name'
+                    />
                   </li>
                   <li>
-                    <MonthInput label='MM' />
-                    <YearInput label='YYYY' start={new Date().getFullYear()} end={new Date().getFullYear() + 20} />
+                    <MonthInput
+                      className={classnames(classes.formInput, classes.short)}
+                      label='MM'
+                    />
+                    <YearInput
+                      className={classnames(classes.formInput, classes.short)}
+                      label='YYYY'
+                      start={new Date().getFullYear()}
+                      end={new Date().getFullYear() + 20}
+                    />
                   </li>
                   <li>
-                    <NumberInput maxLength='4' label='CVV' />
+                    <NumberInput
+                      className={classes.formInput}
+                      maxLength='4'
+                      label='CVC'
+                    />
                   </li>
                 </ol>
               </section>
@@ -61,22 +80,42 @@ export default class OnboardBilling extends Component {
 
                 <ol>
                   <li>
-                    <CountrySuggestInput />
+                    <CountrySuggestInput 
+                      className={classes.formInput}
+                    />
                   </li>
                   <li>
-                    <NumberInput maxLength='5' label='Zip' />
+                    <NumberInput
+                      className={classes.formInput}
+                      maxLength='5'
+                      label='Zip'
+                    />
                   </li>
                   <li>
-                    <UsStateSuggest />
+                    <UsStateSuggest 
+                      className={classes.formInput}
+                    />
                   </li>
                   <li>
-                    <TextInput maxLength='200' label='City' />
+                    <TextInput
+                      className={classes.formInput}
+                      maxLength='200'
+                      label='City'
+                    />
                   </li>
                   <li>
-                    <TextInput maxLength='200' label='Address' />
+                    <TextInput
+                      className={classes.formInput}
+                      maxLength='200'
+                      label='Address'
+                    />
                   </li>
                   <li>
-                    <TextInput maxLength='200' label='Apt / Suite' />
+                    <TextInput
+                      className={classes.formInput}
+                      maxLength='200'
+                      label='Apt / Suite'
+                    />
                   </li>
                 </ol>
               </section>
