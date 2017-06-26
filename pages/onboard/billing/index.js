@@ -69,6 +69,15 @@ export default class OnboardBilling extends Component {
                   <li>
                     <UsStateSuggest />
                   </li>
+                  <li>
+                    <TextInput maxLength='200' label='City' />
+                  </li>
+                  <li>
+                    <TextInput maxLength='200' label='Address' />
+                  </li>
+                  <li>
+                    <TextInput maxLength='200' label='Apt / Suite' />
+                  </li>
                 </ol>
               </section>
             </div>
