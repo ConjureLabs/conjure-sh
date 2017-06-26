@@ -73,6 +73,19 @@
     
     .label
       color: #503a4b
+  
+  &.color_blue
+    gradient(#6567a2, darken(#6567a2, 4%))
+    
+    &.hallow
+      background: none
+      border: 1px solid #6567a2
+      
+      .label
+        color: #6567a2
+    
+    .label
+      color: $white
 
   /**
     Size alterations
@@ -85,3 +98,12 @@
       font-size: 1rem
       font-weight: normal
       line-height: 3.2rem
+  
+  &.size_medium
+    height: 4.8rem
+    width: 18rem
+    
+    .label
+      font-size: 1.4rem
+      font-weight: 400
+      line-height: 4.8rem

@@ -11,6 +11,7 @@ import UsStateSuggest from '../../../components/Input/Suggest/UsState';
 import MonthInput from '../../../components/Input/Month';
 import YearInput from '../../../components/Input/Year';
 import NumberInput from '../../../components/Input/Number';
+import Button from '../../../components/Button';
 
 export default class OnboardBilling extends Component {
   render() {
@@ -120,6 +121,14 @@ export default class OnboardBilling extends Component {
                 </ol>
               </section>
             </div>
+
+            <Button
+              size='medium'
+              color='blue'
+              onClick={() => {}}
+            >
+              Continue
+            </Button>
           </main>
 
           {styles}

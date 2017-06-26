@@ -39,6 +39,7 @@ export default class Button extends Component {
   static propTypes = {
     color: PropTypes.oneOf([
       'black',
+      'blue',
       'peach',
       'pink',
       'purple'
@@ -50,6 +51,7 @@ export default class Button extends Component {
 
     size: PropTypes.oneOf([
       'large',
+      'medium',
       'small'
     ]).isRequired
   }
