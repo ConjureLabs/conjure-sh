@@ -126,6 +126,7 @@ export default class OnboardBilling extends Component {
               size='medium'
               color='blue'
               onClick={() => {}}
+              className={classes.button}
             >
               Continue
             </Button>
