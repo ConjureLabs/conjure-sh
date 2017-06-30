@@ -16,10 +16,10 @@ export default class YearSuggest extends SuggestInput {
     this.propKeysPruned.push('start');
     this.propKeysPruned.push('end');
 
-    for (let i = parseInt(props.start, 10); i <= parseInt(props.end, 10); i++) {
+    for (let position = parseInt(props.start, 10); position <= parseInt(props.end, 10); position++) {
       this.options.push({
-        label: i,
-        value: i
+        label: position,
+        value: position
       });
     }
 
