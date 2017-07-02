@@ -31,7 +31,6 @@ export default class OnboardBilling extends Component {
   isFormFilledIn() {
     const cardKeys = Object.keys(this.inputs.card);
     for (let i = 0; i < cardKeys.length; i++) {
-      console.log('checking ' + cardKeys[i])
       if (!this.inputs.card[ cardKeys[i] ].value) {
         this.setState({
           formFilledIn: false
@@ -47,7 +46,7 @@ export default class OnboardBilling extends Component {
         continue;
       }
 
-      if (!this.inputs.card[ addressKeys[i] ].value) {
+      if (!this.inputs.address[ addressKeys[i] ].value) {
         this.setState({
           formFilledIn: false
         });
