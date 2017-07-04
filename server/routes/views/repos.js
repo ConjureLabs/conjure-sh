@@ -12,25 +12,13 @@ handlers.push((req, res, next) => {
   const DatabaseTable = require('conjure-core/classes/DatabaseTable');
   const accountGithub = new DatabaseTable('account_github');
 
-  // todo: assumes account has a github record in our db - we should have more handlers for services like bitbucket
-  accountGithub.select({
-    account: req.user.id
-  }, (err, rows) => {
+  const apiGetAccountGitHub = rquire('conjure-api/server/routes/api/account/github/get.js').direct;
+  apiGetAccountGitHub(req, (err, result) => {
     if (err) {
-      return next(err);
+      return callback(err);
     }
 
-    // should not be possible
-    if (!rows.length) {
-      return next(new UnexpectedError('Could not find GitHub account record'));
-    }
-
-    // should not be possible
-    if (rows.length > 1) {
-      return next(new UnexpectedError('Expected a single row for GitHub account record, received multiple'));
-    }
-
-    const githubAccount = rows[0];
+    const githubAccount = result.account;
 
     const github = require('octonode');
     const githubClient = github.client(githubAccount.access_token);

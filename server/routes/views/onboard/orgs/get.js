@@ -1,6 +1,5 @@
 const Route = require('conjure-core/classes/Route');
 const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
-const apiGetOrgs = rquire('conjure-api/server/routes/api/orgs/get.js').direct;
 const nextApp = require('../../../../next');
 const log = require('conjure-core/modules/log')('onboard orgs');
 
@@ -15,31 +14,18 @@ route.push((req, res) => {
   const waterfall = [];
 
   waterfall.push(callback => {
-    const DatabaseTable = require('conjure-core/classes/DatabaseTable');
-    const accountGithub = new DatabaseTable('account_github');
-
-    accountGithub.select({
-      account: req.user.id
-    }, (err, rows) => {
+    const apiGetAccountGitHub = rquire('conjure-api/server/routes/api/account/github/get.js').direct;
+    apiGetAccountGitHub(req, (err, result) => {
       if (err) {
         return callback(err);
       }
 
-      // should not be possible
-      if (!rows.length) {
-        return callback(new UnexpectedError('Could not find GitHub account record'));
-      }
-
-      // should not be possible
-      if (rows.length > 1) {
-        return callback(new UnexpectedError('Expected a signle row for GitHub account record, received multiple'));
-      }
-
-      callback(null, rows[0]);
+      callback(null, result.account);
     });
   });
 
   waterfall.push((gitHubAccount, callback) => {
+    const apiGetOrgs = rquire('conjure-api/server/routes/api/orgs/get.js').direct;
     apiGetOrgs(req, (err, result) => {
       if (err) {
         return callback(err);

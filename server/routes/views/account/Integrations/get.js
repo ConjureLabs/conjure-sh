@@ -18,29 +18,13 @@ route.push((req, res, next) => {
   const parallel = {};
 
   parallel.github = callback => {
-    const accountGithub = new DatabaseTable('account_github');
-
-    // todo: assumes account has a github record in our db - we should have more handlers for services like bitbucket
-    accountGithub.select({
-      account: req.user.id
-    }, (err, rows) => {
+    const apiGetAccountGitHub = rquire('conjure-api/server/routes/api/account/github/get.js').direct;
+    apiGetAccountGitHub(req, (err, result) => {
       if (err) {
-        return next(err);
+        return callback(err);
       }
 
-      // should not be possible
-      if (!rows.length) {
-        return next(new UnexpectedError('Could not find github account record'));
-      }
-
-      // should not be possible
-      if (rows.length > 1) {
-        return next(new UnexpectedError('Expected a single row for github account record, received multiple'));
-      }
-
-      const githubAccount = rows[0];
-
-      callback(null, githubAccount);
+      callback(null, result.account);
     });
   };
 

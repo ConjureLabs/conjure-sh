@@ -28,25 +28,13 @@ route.push((req, res, next) => {
   });
 
   waterfall.push(callback => {
-    const accountGithub = new DatabaseTable('account_github');
-    accountGithub.select({
-      account: req.user.id
-    }, (err, rows) => {
+    const apiGetAccountGitHub = rquire('conjure-api/server/routes/api/account/github/get.js').direct;
+    apiGetAccountGitHub(req, (err, result) => {
       if (err) {
         return callback(err);
       }
 
-      // should not be possible
-      if (!rows.length) {
-        return callback(new UnexpectedError('Could not find GitHub account record'));
-      }
-
-      // should not be possible
-      if (rows.length > 1) {
-        return callback(new UnexpectedError('Expected a signle row for GitHub account record, received multiple'));
-      }
-
-      callback(null, rows[0]);
+      callback(null, result.account);
     });
   });
 
