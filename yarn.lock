@@ -1407,7 +1407,7 @@ concat-map@0.0.1:
 
 "conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#a5aa39d16e9850580856cb21a6804eb4a0f0e8b7"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#494fcd05e0190e2215f1a11b8aa9c50d13961658"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
@@ -1423,7 +1423,17 @@ concat-map@0.0.1:
     pg "^6.2.3"
     request "^2.81.0"
 
-"conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git", "conjure-core@git+ssh://git@github.com:WiskeyTango/conjure-core.git":
+"conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git":
+  version "0.0.0"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#d2e1f92dc6d085b44949a71dd538fb0ac09b9a89"
+  dependencies:
+    uid "^0.0.2"
+    app-root-path "^2.0.1"
+    cors "^2.8.3"
+    octonode "^0.7.13"
+    stripe "^4.19.0"
+
+"conjure-core@git+ssh://git@github.com:WiskeyTango/conjure-core.git":
   version "0.0.0"
   resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#ee762fc971f88fcbcc3ae8a1f37928c9bfc15af7"
   dependencies:
@@ -2453,13 +2463,9 @@ https-browserify@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-0.0.1.tgz#3f91365cabe60b77ed0ebba24b454e3e09d95a82"
 
-iconv-lite@0.4.13:
+iconv-lite@0.4.13, iconv-lite@^0.4.5, iconv-lite@~0.4.13:
   version "0.4.13"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.13.tgz#1f88aba4ab0b1508e8312acc39345f36e992e2f2"
-
-iconv-lite@^0.4.5, iconv-lite@~0.4.13:
-  version "0.4.17"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.17.tgz#4fdaa3b38acbc2c031b045d0edcdfe1ecab18c8d"
 
 icss-replace-symbols@^1.1.0:
   version "1.1.0"
