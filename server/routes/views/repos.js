@@ -12,7 +12,7 @@ handlers.push((req, res, next) => {
   const DatabaseTable = require('conjure-core/classes/DatabaseTable');
   const accountGithub = new DatabaseTable('account_github');
 
-  const apiGetAccountGitHub = rquire('conjure-api/server/routes/api/account/github/get.js').direct;
+  const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
   apiGetAccountGitHub(req, (err, result) => {
     if (err) {
       return callback(err);

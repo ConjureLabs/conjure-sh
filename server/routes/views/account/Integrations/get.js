@@ -18,7 +18,7 @@ route.push((req, res, next) => {
   const parallel = {};
 
   parallel.github = callback => {
-    const apiGetAccountGitHub = rquire('conjure-api/server/routes/api/account/github/get.js').direct;
+    const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
     apiGetAccountGitHub(req, (err, result) => {
       if (err) {
         return callback(err);
