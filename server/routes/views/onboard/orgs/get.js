@@ -1,5 +1,6 @@
 const Route = require('conjure-core/classes/Route');
 const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
+const apiGetOrgs = rquire('conjure-api/server/routes/api/orgs/get.js').direct;
 const nextApp = require('../../../../next');
 const log = require('conjure-core/modules/log')('onboard orgs');
 
@@ -10,12 +11,13 @@ const route = new Route({
   }
 });
 
-route.push((req, res, next) => {
+route.push((req, res) => {
   const waterfall = [];
-  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
 
   waterfall.push(callback => {
+    const DatabaseTable = require('conjure-core/classes/DatabaseTable');
     const accountGithub = new DatabaseTable('account_github');
+
     accountGithub.select({
       account: req.user.id
     }, (err, rows) => {
@@ -37,16 +39,13 @@ route.push((req, res, next) => {
     });
   });
 
-  waterfall.push((githubAccount, callback) => {
-    const github = require('octonode');
-    const githubClient = github.client(githubAccount.access_token);
-
-    githubClient.get('/user/orgs', {}, (err, status, body) => {
+  waterfall.push((gitHubAccount, callback) => {
+    apiGetOrgs(req, (err, result) => {
       if (err) {
         return callback(err);
       }
 
-      return callback(null, githubAccount, body);
+      callback(null, githubAccount, result.orgs);
     });
   });
 
