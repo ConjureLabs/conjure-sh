@@ -15,7 +15,7 @@ handlers.push((req, res, next) => {
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
   apiGetAccountGitHub(req, (err, result) => {
     if (err) {
-      return callback(err);
+      return next(err);
     }
 
     const githubAccount = result.account;
