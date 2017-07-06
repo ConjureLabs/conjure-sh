@@ -3,6 +3,7 @@ import styles, { classes } from '../styles.js';
 import { ReStore } from '../../../shared/ReStore';
 import classnames from 'classnames';
 import { post } from '../../../shared/xhr';
+import config from '../../../shared/config.js';
 
 import Header from '../../../components/Header';
 import TextInput from '../../../components/Input/Text';
@@ -76,6 +77,7 @@ export default class OnboardBilling extends Component {
 
       values[category] = Object.keys(this.inputs[category]).reduce((mapping, inputKey) => {
         mapping[inputKey] = this.inputs[category][inputKey].value;
+        return mapping;
       }, {});
     }
 
