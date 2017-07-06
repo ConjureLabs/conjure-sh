@@ -2,6 +2,7 @@ import { Component } from 'react';
 import styles, { classes } from '../styles.js';
 import { ReStore } from '../../../shared/ReStore';
 import classnames from 'classnames';
+import { post } from '../../../shared/xhr';
 
 import Header from '../../../components/Header';
 import TextInput from '../../../components/Input/Text';
@@ -12,6 +13,8 @@ import MonthInput from '../../../components/Input/Month';
 import YearInput from '../../../components/Input/Year';
 import NumberInput from '../../../components/Input/Number';
 import Button from '../../../components/Button';
+
+let submitting = false;
 
 export default class OnboardBilling extends Component {
   constructor(props) {
@@ -56,6 +59,35 @@ export default class OnboardBilling extends Component {
 
     this.setState({
       formFilledIn: true
+    });
+  }
+
+  submit() {
+    if (submitting) {
+      return;
+    }
+
+    submitting = true;
+
+    const values = {};
+    const inputCategories = Object.keys(this.inputs);
+    for (let i = 0; i < inputCategories.length; i++) {
+      let category = inputCategories[i];
+
+      values[category] = Object.keys(this.inputs[category]).reduce((mapping, inputKey) => {
+        mapping[inputKey] = this.inputs[category][inputKey].value;
+      }, {});
+    }
+
+    post(`${config.app.api.url}/api/onboard/billing`, values, (err, data) => {
+      if (err) {
+        console.error(err);
+        alert(err.message);
+        submitting = false;
+        return;
+      }
+
+      window.location = '/onboard/repos';
     });
   }
 
@@ -194,7 +226,7 @@ export default class OnboardBilling extends Component {
             <Button
               size='medium'
               color='blue'
-              onClick={() => { console.log('hit'); }}
+              onClick={this.submit.bind(this)}
               className={classes.button}
               disabled={!this.state.formFilledIn}
             >
