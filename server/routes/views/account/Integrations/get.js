@@ -11,9 +11,6 @@ const route = new Route({
  */
 route.push((req, res, next) => {
   const async = require('async');
-  const UniqueArray = require('conjure-core/classes/Array/UniqueArray');
-  const GitHubRepo = require('conjure-core/classes/Repo/GitHub');
-  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
 
   const parallel = {};
 

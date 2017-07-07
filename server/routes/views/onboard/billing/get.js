@@ -12,7 +12,6 @@ const route = new Route({
 
 route.push((req, res, next) => {
   const waterfall = [];
-  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
 
   waterfall.push(callback => {
     if (

@@ -12,8 +12,42 @@ const route = new Route({
 
 route.push((req, res, next) => {
   const waterfall = [];
-  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
 
+  // verify cookie from orgs onboard set
+  waterfall.push(callback => {
+    if (
+      !req.cookies ||
+      !req.cookies['conjure-onboard-orgs'] ||
+      !req.cookies['conjure-onboard-orgs'].label ||
+      !req.cookies['conjure-onboard-orgs'].value
+    ) {
+      return callback(new UnexpectedError('Missing org selection payload'));
+    }
+
+    callback();
+  });
+
+  // customer credit card should exist
+  waterfall.push(callback => {
+    const DatabaseTable = require('conjure-core/classes/DatabaseTable');
+    const AccountCard = new DatabaseTable('account_card');
+
+    AccountCard.select({
+      account: req.user.id
+    }, (err, rows) => {
+      if (err) {
+        return callback(err);
+      }
+
+      if (rows.length === 0) {
+        return callback(new UnexpectedError('Missing credit card information'));
+      }
+
+      callback();
+    });
+  });
+
+  // get github account record
   waterfall.push(callback => {
     const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
     apiGetAccountGitHub(req, (err, result) => {
