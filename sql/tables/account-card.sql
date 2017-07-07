@@ -1,4 +1,4 @@
-CREATE TABLE account_cards (
+CREATE TABLE account_card (
   id SERIAL PRIMARY KEY,
   account INT REFERENCES account (id) NOT NULL,
   stripe_id VARCHAR(40) NOT NULL,
