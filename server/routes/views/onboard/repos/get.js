@@ -21,7 +21,8 @@ route.push((req, res, next) => {
       !req.cookies['conjure-onboard-orgs'].label ||
       !req.cookies['conjure-onboard-orgs'].value
     ) {
-      return callback(new UnexpectedError('Missing org selection payload'));
+      res.redirect('/onboard/orgs');
+      return;
     }
 
     callback();
@@ -40,7 +41,8 @@ route.push((req, res, next) => {
       }
 
       if (rows.length === 0) {
-        return callback(new UnexpectedError('Missing credit card information'));
+        res.redirect('/onboard/billing');
+        return;
       }
 
       callback();
