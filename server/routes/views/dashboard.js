@@ -4,11 +4,9 @@ const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
 const handlers = [];
 
 handlers.push((req, res, next) => {
-  const async = require('async');
+  const waterfall = [];
 
-  const parallel = {};
-
-  parallel.github = callback => {
+  waterfall.push(callback => {
     const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
     apiGetAccountGitHub(req, null, (err, result) => {
       if (err) {
@@ -17,17 +15,30 @@ handlers.push((req, res, next) => {
 
       callback(null, result.account);
     });
-  };
+  });
 
-  async.parallel(parallel, (err, results) => {
+  waterfall.push((gitHubAccount, callback) => {
+    const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').direct;
+    apiGetOrgs(req, null, (err, result) => {
+      if (err) {
+        return callback(err);
+      }
+
+      callback(null, gitHubAccount, result.orgs);
+    });
+  });
+
+  const asyncWaterfall = require('conjure-core/modules/async/waterfall');
+  asyncWaterfall(waterfall, (err, gitHubAccount, orgs) => {
     if (err) {
       return next(err);
     }
 
     nextApp.render(req, res, '/dashboard', {
       account: {
-        photo: results.github.photo // todo: not rely on github...
-      }
+        photo: gitHubAccount.photo // todo: not rely on github...
+      },
+      orgs
     });
   });
 });
