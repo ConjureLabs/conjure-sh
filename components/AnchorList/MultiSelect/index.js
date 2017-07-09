@@ -1,5 +1,6 @@
 import AnchorList from '../index.js';
 import styles, { classes } from './styles.js';
+import classnames from 'classnames';
 
 export default class AnchorMultiSelectList extends AnchorList {
   constructor() {
@@ -11,7 +12,7 @@ export default class AnchorMultiSelectList extends AnchorList {
 
   // assumes item.key is unique
   onClick(item) {
-    const { selected } = this.state;
+    const selected = this.state.selected.slice();
     const { key } = item;
     const arrIndex = selected.indexOf(key);
 
@@ -26,12 +27,14 @@ export default class AnchorMultiSelectList extends AnchorList {
     });
   }
 
-  prepareLi(item, li) {
-    if (this.state.selected.includes(item.key)) {
-      li.props.className += ` ${classes.highlight}`;
+  itemAdditionalClasses(item) {
+    if (!item || !item.key) {
+      return null;
     }
 
-    return li;
+    console.log(item);
+    console.log(this.state.selected.includes(item.key) ? classes.highlight : null);
+    return this.state.selected.includes(item.key) ? classes.highlight : null;
   }
 
   additionalContent() {

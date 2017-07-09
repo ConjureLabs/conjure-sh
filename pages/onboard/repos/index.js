@@ -2,10 +2,32 @@ import { Component } from 'react';
 import styles, { classes } from '../styles.js';
 import { ReStore } from '../../../shared/ReStore';
 
+import Button from '../../../components/Button';
 import Header from '../../../components/Header';
 import AnchorMultiList from '../../../components/AnchorList/MultiSelect';
 
 export default class OnboardRepos extends Component {
+  constructor() {
+    super();
+
+    this.anchorList; // set by ref
+
+    this.state = {
+      repoSelected: false
+    };
+  }
+
+  isRepoSelected() {
+    const listValue = this.anchorList.value;
+    this.setState({
+      repoSelected: listValue.length > 0
+    });
+  }
+
+  submit() {
+
+  }
+
   render() {
     const { query } = this.props.url;
 
@@ -50,10 +72,26 @@ export default class OnboardRepos extends Component {
           </article>
 
           <main>
-            <AnchorMultiList
-              list={repos}
-              className={classes.anchorList}
-            />
+            <div className={classes.listOuterWrap}>
+              <span className={classes.listWrap}>
+                <AnchorMultiList
+                  list={repos}
+                  className={classes.anchorList}
+                  onSelect={this.isRepoSelected.bind(this)}
+                  ref={ref => this.anchorList = ref}
+                />
+
+                <Button
+                  size='medium'
+                  color='blue'
+                  onClick={this.submit.bind(this)}
+                  className={classes.button}
+                  disabled={!this.state.repoSelected}
+                >
+                  Continue
+                </Button>
+              </span>
+            </div>
           </main>
 
           {styles}

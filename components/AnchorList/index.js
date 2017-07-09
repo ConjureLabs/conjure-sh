@@ -7,21 +7,21 @@ export default class AnchorList extends Component {
     this.props.onSelect(item);
   }
 
-  // can be overridden to 'prepare' and li for render (add a className, etc)
-  prepareLi(item, li) {
-    return li;
+  // should be overidden
+  itemAdditionalClasses(item) {
+    return null;
   }
 
-  // can be overridden to force additional jsx content (like <styles>)
+  // should be overidden
   additionalContent() {
     return null;
   }
 
   generateListItems(items) {
     return items.map(item => {
-      return this.prepareLi(item, (
+      return (
         <li
-          className={classes.item}
+          className={classnames(classes.item, this.itemAdditionalClasses(item))}
           key={item.key}
         >
           <a
@@ -36,7 +36,7 @@ export default class AnchorList extends Component {
             {item.label}
           </a>
         </li>
-      ));
+      );
     });
   }
 
