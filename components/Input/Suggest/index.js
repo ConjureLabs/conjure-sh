@@ -136,9 +136,11 @@ export default class Suggest extends Input {
     const topSuggestions = this.options.filter(option => {
       return option.label.toString().toLowerCase().indexOf(value) === 0;
     });
+    sortInsensitive(topSuggestions, 'label');
     const lowerSuggestions = topSuggestions.length >= this.suggestionsLimit ? [] : this.options.filter(option => {
       return option.label.toString().toLowerCase().indexOf(value) > 0 && !topSuggestions.includes(option);
     });
+    sortInsensitive(lowerSuggestions, 'label');
     const filteredSuggestions = topSuggestions.concat(lowerSuggestions);
 
     if (filteredSuggestions.length === 0) {
@@ -146,8 +148,6 @@ export default class Suggest extends Input {
         suggestionsShown: null
       });
     }
-
-    sortInsensitive(filteredSuggestions, 'label');
 
     this.setState({
       suggestionsShown: filteredSuggestions.slice(0, this.suggestionsLimit)
