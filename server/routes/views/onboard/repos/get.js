@@ -56,7 +56,7 @@ route.push((req, res, next) => {
 
     parallel.account = cb => {
       const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
-      apiGetAccountGitHub(req, (err, result) => {
+      apiGetAccountGitHub(req, null, (err, result) => {
         if (err) {
           return cb(err);
         }
@@ -67,7 +67,7 @@ route.push((req, res, next) => {
 
     parallel.repos = cb => {
       const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').direct;
-      apiGetRepos(req, (err, result) => {
+      apiGetRepos(req, null, (err, result) => {
         if (err) {
           return cb(err);
         }

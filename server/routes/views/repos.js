@@ -13,7 +13,7 @@ handlers.push((req, res, next) => {
   const accountGithub = new DatabaseTable('account_github');
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
-  apiGetAccountGitHub(req, (err, result) => {
+  apiGetAccountGitHub(req, null, (err, result) => {
     if (err) {
       return next(err);
     }
