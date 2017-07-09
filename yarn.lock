@@ -1407,7 +1407,7 @@ concat-map@0.0.1:
 
 "conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#133b5bbc53a3bbcb6081f6bdc898e524ecfbebed"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#ef066fd903d41dd6781d621a3e6f6c054be5edfb"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
