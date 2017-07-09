@@ -12,7 +12,10 @@ export PORT=3000;
 source $APP_DIR/.profile;
 node $APP_DIR/scripts/stylus/prepare.js;
 node $APP_DIR/scripts/config/generate-client-config.js;
-source $BASH_DIR/postgres/init-local.sh;
+
+if [ "$KEEP_DB" = "" ]; then
+  source $BASH_DIR/postgres/init-local.sh;
+fi
 
 cd $APP_DIR;
 yarn run dev;

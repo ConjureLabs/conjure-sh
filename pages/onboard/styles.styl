@@ -1,0 +1,104 @@
+@require '../../shared/framework.styl'
+
+$bodyPadding = 1.5rem
+
+.wrap
+  display: block
+  max-width: 80rem
+  margin: 6rem auto 0
+  padding: 0 $bodyPadding
+
+  header
+    display: block
+    text-align: center
+    margin: 3rem 0 6.4rem
+
+    sup
+      display: block
+      font-size: 11rem
+      margin-bottom: 3rem
+
+    span
+      border-bottom: 1px dotted $lightGray
+      font-size: 2rem
+      padding-bottom: 0.4rem
+
+  article
+    display: block
+    margin-bottom: 6rem
+    text-align: center
+
+    sup
+      display: inline-block
+      background: $blue
+      border-radius: 10rem
+      color: $white
+      font-size: 4rem
+      font-weight: 300
+      height: 10rem
+      line-height: 10rem
+      text-align: center
+      width: 10rem
+
+    span
+      display: inline-block
+      font-weight: 300
+      height: 10rem
+      line-height: 10rem
+      margin-left: 4rem
+      vertical-align: top
+
+  main
+    .button
+      float: right
+      margin-bottom: 4.2rem
+      
+    .listOuterWrap
+      display: flex
+      justify-content: center
+
+      .listWrap
+        display: inline-flex
+        flex-direction: column
+        
+      .button
+        align-self: flex-end
+
+    .anchorList
+      margin: 0 auto 4.2rem
+      width: 40rem
+    
+    .sectionsParent
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+      margin-bottom: 4.2rem
+        
+      section
+        display: block
+        margin-right: 10rem
+        
+        &:last-of-type
+          margin-right: 0
+
+        .sectionLabel
+          display: block
+          font-size: 1.6rem
+          font-weight: 400
+          margin-bottom: 3.2rem
+          padding-bottom: 0.6rem
+
+        > ol > li
+          margin-top: 2.4rem
+          width: 30rem
+
+          .formInput
+            display: inline-block
+            width: 100%
+            
+            &.short
+              margin-right: 8%
+              width: 46%
+              
+              &:last-of-type
+                margin-right: 0

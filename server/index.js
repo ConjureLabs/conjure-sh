@@ -1,6 +1,7 @@
 // first running any synchronous setup
 const setup = require('./setup');
 
+// dependencies
 const config = require('conjure-core/modules/config');
 const express = require('express');
 const nextApp = require('./next');
@@ -12,12 +13,15 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const log = require('conjure-core/modules/log')();
 
+// constants
 const port = config.app.web.port;
 const server = express();
 
 if (process.env.NODE_ENV !== 'production') {
+  // this results in full stacktraces, when not in prod
   Error.stackTraceLimit = Infinity;
 }
+// override node time
 process.env.TZ = 'America/Los_Angeles';
 
 // log fatal exceptions
@@ -37,10 +41,12 @@ process.on('uncaughtException', err => {
   });
 });
 
+// basic server config
 server.use(compression());
 server.set('port', port);
 server.use(morgan('combined'));
 
+// server passport cookie config
 server.use(cookieSession({
   cookie: {
     domain: `.${config.app.api.domain}`,
@@ -55,10 +61,12 @@ server.use(cookieSession({
   secret: config.session.secret
 }));
 
+// server passport config
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(cookieParser());
 
+// passport serialization
 passport.serializeUser((user, done) => {
   const DatabaseRow = require('conjure-core/classes/DatabaseRow');
   done(null, new DatabaseRow('account', user));
@@ -67,6 +75,7 @@ passport.deserializeUser((user, done) => {
   done(null, user);
 });
 
+// tracking req state (like ip address)
 server.use((req, res, next) => {
   req.state = {}; // used to track anything useful, along the lifetime of a request
   req.state.remoteAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
@@ -74,9 +83,11 @@ server.use((req, res, next) => {
   next();
 });
 
+// initialize routes
 server.use(setup.routes.views);
 server.use(setup.routes.c);
 
+// any non-caught GET route then goes on to the nextjs handler
 const catchAllRouter = express.Router();
 const nextDefaultGetHandler = nextApp.getRequestHandler();
 catchAllRouter.get('*', (req, res) => {
@@ -84,9 +95,11 @@ catchAllRouter.get('*', (req, res) => {
 });
 server.use(catchAllRouter);
 
+// startup next app
 nextApp
   .prepare()
   .then(() => {
+    // startup express
     server.listen(port, () => {
       log.info(`listening on :${port}`);
     });

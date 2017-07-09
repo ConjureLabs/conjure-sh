@@ -35,6 +35,11 @@ route.push((req, res, next) => {
       return res.redirect(302, '/logout');
     }
 
+    // checking if user needs onboarding
+    if (!rows[0].stripe_id) {
+      return res.redirect(302, '/onboard/orgs');
+    }
+
     // godspeed, señor
     return next();
   });

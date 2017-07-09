@@ -4,7 +4,11 @@ import classnames from 'classnames';
 
 export default class Button extends Component {
   handleOnClick() {
-    const { onClick } = this.props;
+    const { onClick, disabled } = this.props;
+
+    if (disabled) {
+      return;
+    }
 
     if (onClick) {
       onClick(new Event('Button Clicked'));
@@ -12,14 +16,15 @@ export default class Button extends Component {
   }
 
   render() {
-    const { className, children, color, size, hallow } = this.props;
+    const { className, children, color, size, hallow, disabled } = this.props;
 
     const rootClasses = classnames(
       classes.root,
       classes[`color_${color}`],
       classes[`size_${size}`],
       hallow === true ? classes.hallow : null,
-      className
+      className,
+      disabled ? classes.disabled : null
     );
 
     return (
@@ -39,6 +44,7 @@ export default class Button extends Component {
   static propTypes = {
     color: PropTypes.oneOf([
       'black',
+      'blue',
       'peach',
       'pink',
       'purple'
@@ -50,6 +56,7 @@ export default class Button extends Component {
 
     size: PropTypes.oneOf([
       'large',
+      'medium',
       'small'
     ]).isRequired
   }

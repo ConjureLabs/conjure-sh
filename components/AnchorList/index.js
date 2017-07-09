@@ -3,13 +3,25 @@ import styles, { classes } from './styles.js';
 import classnames from 'classnames';
 
 export default class AnchorList extends Component {
-  generateListItems(items) {
-    const { onSelect } = this.props;
+  onClick(item) {
+    this.props.onSelect(item);
+  }
 
+  // should be overidden
+  itemAdditionalClasses(item) {
+    return null;
+  }
+
+  // should be overidden
+  additionalContent() {
+    return null;
+  }
+
+  generateListItems(items) {
     return items.map(item => {
       return (
         <li
-          className={classes.item}
+          className={classnames(classes.item, this.itemAdditionalClasses(item))}
           key={item.key}
         >
           <a
@@ -17,7 +29,7 @@ export default class AnchorList extends Component {
             className={classes.link}
             onClick={e => {
               e.preventDefault();
-              onSelect(item);
+              this.onClick(item);
             }}
             key={item.label}
           >
@@ -38,6 +50,8 @@ export default class AnchorList extends Component {
         }
 
         {styles}
+
+        {this.additionalContent()}
       </ol>
     );
   }

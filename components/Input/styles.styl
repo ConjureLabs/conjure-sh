@@ -1,0 +1,30 @@
+@require '../../shared/framework.styl'
+
+span
+  position: relative
+
+  label
+    color: $gray
+    font-size: 1.2rem
+    font-style: normal
+    pointer-events: none
+    position: absolute
+    top: -1.6rem
+    transition: color 0.2s, font-size 0.2s, top 0.4s
+  
+  &.initialPlaceholder
+    label
+      color: $black
+      font-size: 1.6rem
+      font-style: italic
+      top: 0.2rem
+
+  input
+    border: none
+    border-bottom: 1px solid $lightGray
+    box-sizing: border-box
+    display: inline-block
+    font-size: 1.4rem
+    outline-width: 0
+    padding: 0.6rem 0.8rem
+    width: 100%

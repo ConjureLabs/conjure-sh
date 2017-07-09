@@ -1,5 +1,3 @@
-'use strict';
-
 export function get(url, callback) {
   fetch(url, {
     method: 'GET',

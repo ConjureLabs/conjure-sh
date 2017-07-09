@@ -38,6 +38,7 @@ function crawlRoutesDir(ignoreCurrentDir, dirpath, uriPathTokens) {
   const sortInsensitive = require('conjure-core/modules/utils/Array/sort-insensitive');
   sortInsensitive(list);
 
+  // first looking for subdirectories, getting their recursive routes, then pushing those into the main array
   for (let i = 0; i < list.length; i++) {
     const stat = fs.statSync(path.resolve(dirpath, list[i]));
 
@@ -55,6 +56,7 @@ function crawlRoutesDir(ignoreCurrentDir, dirpath, uriPathTokens) {
     }
   }
 
+  // looking for direct route handlers in current directory
   for (let i = 0; i < files.length; i++) {
     const verb = files[i].replace(jsFileExt, '').toLowerCase();
 

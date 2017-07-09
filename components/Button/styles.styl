@@ -5,6 +5,7 @@
   border-radius: 0.3rem
   box-shadow: 0 0.1rem 0.3rem rgba(#000, 0.16)
   cursor: pointer
+  disableSelect()
   display: inline-block
   gradient(#ffead3, #f9dcbd)
   height: 6.5rem
@@ -12,6 +13,11 @@
   transition: box-shadow 0.2s ease-in-out
   white-space: nowrap
   width: 29rem
+  
+  &.disabled
+    cursor: default
+    opacity: 0.42
+    pointer-event: none
   
   &.hallow
     background: none
@@ -73,6 +79,19 @@
     
     .label
       color: #503a4b
+  
+  &.color_blue
+    gradient(#6567a2, darken(#6567a2, 4%))
+    
+    &.hallow
+      background: none
+      border: 1px solid #6567a2
+      
+      .label
+        color: #6567a2
+    
+    .label
+      color: $white
 
   /**
     Size alterations
@@ -85,3 +104,12 @@
       font-size: 1rem
       font-weight: normal
       line-height: 3.2rem
+  
+  &.size_medium
+    height: 4.8rem
+    width: 18rem
+    
+    .label
+      font-size: 1.4rem
+      font-weight: 400
+      line-height: 4.8rem

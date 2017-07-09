@@ -4,6 +4,7 @@ import { post } from '../../shared/xhr';
 import Button from '../Button';
 import AnchorList from '../AnchorList';
 import styles, { classes } from './styles.js';
+import config from '../../shared/config.js';
 
 const enableWatch = Symbol('enable watch repo');
 

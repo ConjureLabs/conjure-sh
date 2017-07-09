@@ -38,11 +38,11 @@ class ReStore extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.store !== this.store) {
-      throw new Error('Can not alter ReStore.store data on the fly');
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.store !== this.store) {
+  //     throw new Error('Can not alter ReStore.store data on the fly');
+  //   }
+  // }
 
   getChildContext() {
     return {
