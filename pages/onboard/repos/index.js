@@ -35,7 +35,7 @@ export default class OnboardRepos extends Component {
 
     submitting = true;
 
-    post(`${config.app.api.url}/api/onboard/repos/selection`, this.anchorList.selected, (err, data) => {
+    post(`${config.app.api.url}/api/onboard/repos/selection`, this.anchorList.selected.map(selection => selection.value), (err, data) => {
       if (err) {
         console.error(err);
         alert(err.message);
