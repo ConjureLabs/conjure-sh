@@ -18,9 +18,10 @@ export default class OnboardRepos extends Component {
   }
 
   isRepoSelected() {
-    const listValue = this.anchorList.value;
+    const listSelected = this.anchorList.selected;
+    console.log(listSelected);
     this.setState({
-      repoSelected: listValue.length > 0
+      repoSelected: listSelected.length > 0
     });
   }
 

@@ -24,6 +24,8 @@ export default class AnchorMultiSelectList extends AnchorList {
 
     this.setState({
       selected
+    }, () => {
+      this.props.onSelect(item);
     });
   }
 
@@ -32,8 +34,6 @@ export default class AnchorMultiSelectList extends AnchorList {
       return null;
     }
 
-    console.log(item);
-    console.log(this.state.selected.includes(item.key) ? classes.highlight : null);
     return this.state.selected.includes(item.key) ? classes.highlight : null;
   }
 
