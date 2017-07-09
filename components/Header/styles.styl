@@ -14,30 +14,17 @@ $bodyPadding = 1.5rem
     margin: 0 auto
     padding: 0 $bodyPadding
   
-  .treeLocation
-    clear: none
-    float: left
-    font-size: 2rem
-    margin: 2rem 0 0 0
-    
-    .treeNav
-    .separator
+    .serviceName
       clear: none
+      color: $conjureColorMainDark
+      disableSelect()
       float: left
       font-size: 1.6rem
-      margin: 0.3rem 0 0 0.8rem
+      line-height: 2rem
+      margin: 2rem 0 0 0
       
-      &:not(.current)
-        cursor: pointer
-      
-      &.separator
-        color: $conjureColorMainDark
-      
-    .serviceName
-      color: $conjureColorMainDark
-      font-size: inherit
-      margin: 0
-      disableSelect()
+      sup
+        font-size: 2rem
 
   .userNav
     clear: none
