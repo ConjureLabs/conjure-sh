@@ -2,13 +2,15 @@ import { connect } from '../../shared/ReStore';
 import styles, { classes } from './styles.js';
 import classnames from 'classnames';
 
-const Header = ({ account }) => {
+const Header = ({ account, children }) => {
   return (
     <header className={classes.root}>
       <span className={classes.wrap}>
-        <h1 className={classes.serviceName}>
+        <h1>
           <sup>⎔</sup> Conjure
         </h1>
+
+        {children}
 
         <nav className={classes.userNav}>
           <span

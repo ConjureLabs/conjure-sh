@@ -9,29 +9,29 @@ $bodyPadding = 1.5rem
   height: 6rem
   
   .wrap
-    display: block
+    align-items: center
+    display: flex
+    flex-direction: row
     max-width: 80rem
     margin: 0 auto
     padding: 0 $bodyPadding
   
-    .serviceName
+    > h1
       clear: none
       color: $conjureColorMainDark
       disableSelect()
-      float: left
+      flex-grow: 1
       font-size: 1.6rem
       line-height: 2rem
-      margin: 2rem 0 0 0
       
       sup
         font-size: 2rem
 
   .userNav
+    align-self: flex-end
     clear: none
     display: block
     height: 6rem
-    float: right
-    margin-right: -$bodyPadding
     position: relative
     width: 3rem + $bodyPadding + $bodyPadding
 
