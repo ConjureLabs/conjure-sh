@@ -46,11 +46,16 @@ route.push((req, res, next) => {
 });
 
 /*
-  Must be logged in, kick user to repo listing
+  Must be logged in, kick user to conjure dashboard
  */
-const reposHandlers = require('./repos');
-reposHandlers.forEach(handler => {
+const dashboardHandlers = require('./dashboard');
+dashboardHandlers.forEach(handler => {
   route.push(handler);
 });
+
+// const reposHandlers = require('./repos');
+// reposHandlers.forEach(handler => {
+//   route.push(handler);
+// });
 
 module.exports = route;
