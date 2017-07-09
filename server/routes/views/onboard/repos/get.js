@@ -21,7 +21,7 @@ route.push((req, res, next) => {
       !req.cookies['conjure-onboard-orgs'].label ||
       !req.cookies['conjure-onboard-orgs'].value
     ) {
-      res.redirect('/onboard/orgs');
+      res.redirect(302, '/onboard/orgs');
       return;
     }
 
@@ -41,7 +41,7 @@ route.push((req, res, next) => {
       }
 
       if (rows.length === 0) {
-        res.redirect('/onboard/billing');
+        res.redirect(302, '/onboard/billing');
         return;
       }
 

@@ -20,7 +20,7 @@ route.push((req, res, next) => {
       !req.cookies['conjure-onboard-orgs'].label ||
       !req.cookies['conjure-onboard-orgs'].value
     ) {
-      res.redirect('/onboard/orgs');
+      res.redirect(302, '/onboard/orgs');
       return;
     }
 
