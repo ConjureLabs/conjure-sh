@@ -1,10 +1,14 @@
 import { Component } from 'react';
 import styles, { classes } from '../styles.js';
 import { ReStore } from '../../../shared/ReStore';
+import { post } from '../../../shared/xhr';
+import config from '../../../shared/config.js';
 
 import Button from '../../../components/Button';
 import Header from '../../../components/Header';
 import AnchorMultiList from '../../../components/AnchorList/MultiSelect';
+
+let submitting = false;
 
 export default class OnboardRepos extends Component {
   constructor() {
@@ -19,14 +23,28 @@ export default class OnboardRepos extends Component {
 
   isRepoSelected() {
     const listSelected = this.anchorList.selected;
-    console.log(listSelected);
     this.setState({
       repoSelected: listSelected.length > 0
     });
   }
 
   submit() {
+    if (submitting) {
+      return;
+    }
 
+    submitting = true;
+
+    post(`${config.app.api.url}/api/onboard/repos/selection`, this.anchorList.selected, (err, data) => {
+      if (err) {
+        console.error(err);
+        alert(err.message);
+        submitting = false;
+        return;
+      }
+
+      window.location = '/';
+    });
   }
 
   render() {
