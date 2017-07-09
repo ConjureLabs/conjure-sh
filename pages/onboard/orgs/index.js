@@ -57,7 +57,8 @@ export default class OnboardOrgs extends Component {
               list={query.orgs.map(org => {
                 return {
                   label: org.login,
-                  value: org.id
+                  value: org.id,
+                  key: org.id
                 };
               })}
               onSelect={this.makeSelection}

@@ -8,7 +8,7 @@ export default class AnchorList extends Component {
   }
 
   // can be overridden to 'prepare' and li for render (add a className, etc)
-  prepareLi(li) {
+  prepareLi(item, li) {
     return li;
   }
 

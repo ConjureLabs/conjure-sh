@@ -49,20 +49,44 @@ route.push((req, res, next) => {
     });
   });
 
-  // get github account record
+  // gather additional records
   waterfall.push(callback => {
-    const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
-    apiGetAccountGitHub(req, (err, result) => {
+    const async = require('async');
+    const parallel = {};
+
+    parallel.account = cb => {
+      const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
+      apiGetAccountGitHub(req, (err, result) => {
+        if (err) {
+          return cb(err);
+        }
+
+        cb(null, result.account);
+      });
+    };
+
+    parallel.repos = cb => {
+      const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').direct;
+      apiGetRepos(req, (err, result) => {
+        if (err) {
+          return cb(err);
+        }
+
+        cb(null, result.reposByOrg);
+      });
+    };
+
+    async.parallel(parallel, (err, results) => {
       if (err) {
         return callback(err);
       }
 
-      callback(null, result.account);
+      callback(null, results.account, results.repos);
     });
   });
 
   const asyncWaterfall = require('conjure-core/modules/async/waterfall');
-  asyncWaterfall(waterfall, (err, githubAccount) => {
+  asyncWaterfall(waterfall, (err, githubAccount, repos) => {
     if (err) {
       log.error(err);
       return nextApp.render(req, res, '/_error');
@@ -71,7 +95,9 @@ route.push((req, res, next) => {
     nextApp.render(req, res, '/onboard/repos', {
       account: {
         photo: githubAccount.photo
-      }
+      },
+      repos,
+      org: req.cookies['conjure-onboard-orgs']
     });
   });
 });
