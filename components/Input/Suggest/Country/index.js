@@ -34,6 +34,6 @@ export default class CountrySuggest extends SuggestInput {
     super(props);
 
     this.options = countrySuggestions;
-    this.defaultSuggestions = countrySuggestions.slice(0, this.suggestionsLimit);
+    this.defaultSuggestions = defaultSuggestions.slice(0, this.suggestionsLimit);
   }
 }

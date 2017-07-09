@@ -9,6 +9,7 @@ export default class Suggest extends Input {
     this.type = 'text';
     this.options = props.options;
     this.suggestionsLimit = props.suggestionsLimit || 6;
+    
     this.defaultSuggestions = Array.isArray(props.defaultSuggestions) && props.defaultSuggestions.length ? props.defaultSuggestions.slice(0, this.suggestionsLimit) : null;
 
     // tracking user-inputted value, in case it clears, and we need to re-fill the input
