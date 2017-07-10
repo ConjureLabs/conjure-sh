@@ -21,7 +21,6 @@ export default class Dashboard extends Component {
           <span className={classes.headerContent}>
             <select>
               {orgs.map(org => {
-                console.log(org);
                 return (
                   <option value={org.id}>{org.login}</option>
                 );
