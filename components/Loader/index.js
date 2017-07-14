@@ -2,7 +2,7 @@ import styles, { classes } from './styles.js';
 
 export default () => {
   return (
-    <span classNames={classes.loader}>
+    <span className={classes.loader}>
       {styles}
     </span>
   );
