@@ -18,7 +18,7 @@ const Timeline = ({ timeline }) => {
   }
 
   return (
-    <div>
+    <div className={classes.wrap}>
       {
         timeline.map(item => {
           return (
