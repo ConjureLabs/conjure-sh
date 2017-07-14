@@ -1,7 +1,7 @@
 import queryString from 'query-string';
 
 export function get(url, data, callback) {
-  fetch(`url${data ? '?' : ''}${queryString.stringify(data)}`, {
+  fetch(`${url}${data ? '?' : ''}${queryString.stringify(data)}`, {
     method: 'GET',
     credentials: 'include',
     cache: 'no-cache'

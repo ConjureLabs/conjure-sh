@@ -2,12 +2,12 @@ import { Component } from 'react';
 import { get } from '../../shared/xhr';
 import actions from './actions';
 import styles, { classes } from './styles.js';
-import { ReStore } from '../../shared/ReStore';
+import { ReStore, connect } from '../../shared/ReStore';
 import config from '../../shared/config.js';
 
 import Header from '../../components/Header';
 
-export default class Dashboard extends Component {
+class Dashboard extends Component {
   constructor(props) {
     super(props);
 
@@ -16,10 +16,14 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch.clearTimeline();
     this.pullTimeline();
   }
 
-  pullTimeline() {
+  pullTimeline(dispatchMethod) {
+    const { dispatch } = this.props;
+
     get(`${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, {
       page: 0
     }, (err, data) => {
@@ -29,28 +33,23 @@ export default class Dashboard extends Component {
         return;
       }
 
-      actions.pushTimeline({
-        addition: data
+      dispatch.pushTimeline({
+        addition: data.timeline
       });
     });
   }
 
   onDropdownChange() {
+    const { dispatch } = this.props;
+    dispatch.clearTimeline();
     this.pullTimeline();
   }
 
   render() {
-    // todo: avoid using props.url.query
-    const { query } = this.props.url;
-    const { account, orgs } = query;
-
-    const initialState = {
-      account,
-      timeline: null
-    };
+    const { orgs } = this.props;
 
     return (
-      <ReStore store={initialState} actions={actions}>
+      <div>
         <Header>
           <span className={classes.headerContent}>
             <select
@@ -59,7 +58,12 @@ export default class Dashboard extends Component {
             >
               {orgs.map(org => {
                 return (
-                  <option value={org.id}>{org.login}</option>
+                  <option
+                    value={org.login}
+                    key={org.id}
+                  >
+                    {org.login}
+                  </option>
                 );
               })}
             </select>
@@ -67,7 +71,33 @@ export default class Dashboard extends Component {
         </Header>
 
         {styles}
-      </ReStore>
+      </div>
     );
   }
 }
+
+const selector = store => {
+  return {
+    timeline: store.timeline
+  };
+};
+
+const ConnectedDashboard = connect(selector)(Dashboard);
+
+const PageContent = ({ url, children }) => {
+  // todo: avoid using props.url.query?
+  const { account, orgs } = url.query;
+
+  const initialState = {
+    account,
+    timeline: null
+  };
+
+  return (
+    <ReStore store={initialState} actions={actions}>
+      <ConnectedDashboard orgs={orgs} />
+    </ReStore>
+  );
+};
+
+export default PageContent;
