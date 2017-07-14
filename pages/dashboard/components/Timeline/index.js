@@ -5,19 +5,15 @@ import { ReStore, connect } from '../../../../shared/ReStore';
 import Loader from '../../../../components/Loader';
 
 const Timeline = ({ timeline }) => {
-  return (
-    <div className={classes.loader}>
-      <Loader />
-
-      <span className={classes.text}>hang tight</span>
-
-      {styles}
-    </div>
-  );
-
   if (!Array.isArray(timeline)) {
     return (
-      <Loader />
+      <div className={classes.loader}>
+        <Loader />
+
+        <span className={classes.text}>hang tight</span>
+
+        {styles}
+      </div>
     );
   }
 
