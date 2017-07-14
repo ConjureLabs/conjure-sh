@@ -1,8 +1,8 @@
-import styles from './styles.js';
+import styles, { classes } from './styles.js';
 
 export default () => {
   return (
-    <span>
+    <span classNames={classes.loader}>
       {styles}
     </span>
   );

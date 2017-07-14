@@ -6,6 +6,7 @@ import { ReStore, connect } from '../../shared/ReStore';
 import config from '../../shared/config.js';
 
 import Header from '../../components/Header';
+import Timeline from './components/Timeline';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -69,6 +70,8 @@ class Dashboard extends Component {
             </select>
           </span>
         </Header>
+
+        <Timeline />
 
         {styles}
       </div>
