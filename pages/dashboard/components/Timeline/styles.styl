@@ -18,22 +18,52 @@
   margin: 6rem auto 0
   padding: 0 $bodyPadding
 
-ol li
-  font-size: 1.6rem
+ol
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  margin-bottom: 2rem
 
-  &.status
-    &::before
-      background: #25d2da
-      border-radius: 1rem
-      content: ' '
-      display: inline-block
-      height: 1rem
-      line-height: 1.6rem
-      margin-right: 0.8rem
-      width: 1rem
-      
-    &.running::before
-      background: #25da43
+  li
+    color: $black
+    font-size: 1.4rem
+    line-height: 1.6rem
     
-    &.spundown::before
-      background: #d2d2d2
+    sup.svgIcon
+      background: url(/static/images/icons/missing.svg) no-repeat center center
+      display: inline-block
+      height: 1.6rem
+      margin-right: 0.8rem
+      vertical-align: bottom
+      width: 1.6rem
+
+    &.status
+      width: 14rem
+
+      sup
+        background: #25d2da
+        border-radius: 1rem
+        content: ' '
+        display: inline-block
+        height: 1rem
+        line-height: 1.6rem
+        margin-right: 0.8rem
+        width: 1rem
+      &.running sup
+        background: #25da43
+      &.spundown sup
+        background: #d2d2d2
+        
+    &.repo
+      width: 26rem
+      
+      sup
+        background-image: url(/static/images/icons/repo.svg)
+      &.privateRepo sup
+        background-image: url(/static/images/icons/lock.svg)
+      
+    &.branch
+      flex-grow: 1
+    
+      sup
+        background-image: url(/static/images/icons/git-branch.svg)

@@ -71,9 +71,27 @@ const Timeline = ({ timeline }) => {
 
           return (
             <ol key={item.id}>
-              <li className={classnames(classes.status, classes[statusKey])}>{item.status}</li>
-              <li>{item.branch}</li>
-              <li>{duration}</li>
+              <li className={classnames(classes.status, classes[statusKey])}>
+                <sup />
+                {item.status}
+              </li>
+
+              <li className={classnames({
+                [classes.repo]: true,
+                [classes.privateRepo]: item.repo_private === true
+              })}>
+                <sup className={classes.svgIcon} />
+                {item.repo}
+              </li>
+
+              <li className={classes.branch}>
+                <sup className={classes.svgIcon} />
+                {item.branch}
+              </li>
+
+              <li className={classes.duration}>
+                {duration}
+              </li>
             </ol>
           );
         })
