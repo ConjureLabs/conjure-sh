@@ -84,9 +84,9 @@ class Timeline extends Component {
   mockRender() {
     const filler = ['Today', null, null, null, 'Yesterday', null, null];
 
-    const fillerContent = filler.map(dayHeaderText => {
+    const fillerContent = filler.map((dayHeaderText, i) => {
       return (
-        <article>
+        <article key={`filler-${i}`}>
           {
             dayHeaderText === null ? null : (
               <header>
@@ -163,8 +163,8 @@ class Timeline extends Component {
             if (itemStartDay !== headerDay) {
               headerDay = itemStartDay;
               dateHeader = (
-                <header>
-                  <ol key={`day-${headerDay}`}>
+                <header key={`day-${headerDay}`}>
+                  <ol>
                     <li className={classes.status}>
                       {
                         headerDay === today ? 'Today' :
@@ -191,10 +191,10 @@ class Timeline extends Component {
             ) : item.status;
 
             return (
-              <article>
+              <article key={item.id}>
                 {dateHeader}
 
-                <ol key={item.id}>
+                <ol>
                   <li className={classnames(classes.status, classes[item.statusKey])}>
                     <sup />
                     {statusNode}
