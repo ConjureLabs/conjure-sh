@@ -96,10 +96,48 @@ class Timeline extends Component {
       );
     }
 
+    // `day` is in seconds, need it in ms
+    const dayMs = day * 1000;
+
+    // setting timeline date header to tomorrow, so that it triggers on first pass
+    let headerDay = new Date();
+    headerDay.setDate(headerDay.getDate() + 1);
+    // converting date object to number of days
+    // `day` is in seconds, need to convert to ms
+    headerDay = Math.floor(headerDay / dayMs);
+
+    const today = Math.floor(new Date() / dayMs);
+    const yesterday = today - 1;
+
     return (
       <div className={classes.wrap}>
         {
           timelinePrepared.map(item => {
+            // check if we should inject a new date header
+            let dateHeader;
+            const itemStartDay = Math.floor(new Date(item.start) / dayMs);
+
+            if (itemStartDay !== headerDay) {
+              headerDay = itemStartDay;
+              dateHeader = (
+                <header>
+                  <ol key={`day-${headerDay}`}>
+                    <li className={classes.status}>
+                      {
+                        headerDay === today ? 'Today' :
+                          headerDay === yesterday ? 'Yesterday' :
+                          moment(new Date(headerDay * dayMs)).format('LL')
+                      }
+                    </li>
+                    <li className={classes.repo}>Repo</li>
+                    <li className={classes.branch}>Branch</li>
+                    <li className={classes.duration}>Duration</li>
+                  </ol>
+                </header>
+              );
+            }
+
+            // if container is running, link to it
             const statusNode = item.status === 'Running' ? (
               <a
                 href={item.url}
@@ -110,39 +148,43 @@ class Timeline extends Component {
             ) : item.status;
 
             return (
-              <ol key={item.id}>
-                <li className={classnames(classes.status, classes[item.statusKey])}>
-                  <sup />
-                  {statusNode}
-                </li>
+              <article>
+                {dateHeader}
 
-                <li className={classnames({
-                  [classes.repo]: true,
-                  [classes.privateRepo]: item.repo_private === true
-                })}>
-                  <sup className={classes.svgIcon} />
-                  <a
-                    href={item.repoUrl}
-                    target='_blank'
-                  >
-                    {item.repo}
-                  </a>
-                </li>
+                <ol key={item.id}>
+                  <li className={classnames(classes.status, classes[item.statusKey])}>
+                    <sup />
+                    {statusNode}
+                  </li>
 
-                <li className={classes.branch}>
-                  <sup className={classes.svgIcon} />
-                  <a
-                    href={item.branchUrl}
-                    target='_blank'
-                  >
-                    {item.branch}
-                  </a>
-                </li>
+                  <li className={classnames({
+                    [classes.repo]: true,
+                    [classes.privateRepo]: item.repo_private === true
+                  })}>
+                    <sup className={classes.svgIcon} />
+                    <a
+                      href={item.repoUrl}
+                      target='_blank'
+                    >
+                      {item.repo}
+                    </a>
+                  </li>
 
-                <li className={classes.duration}>
-                  {item.duration}
-                </li>
-              </ol>
+                  <li className={classes.branch}>
+                    <sup className={classes.svgIcon} />
+                    <a
+                      href={item.branchUrl}
+                      target='_blank'
+                    >
+                      {item.branch}
+                    </a>
+                  </li>
+
+                  <li className={classes.duration}>
+                    {item.duration}
+                  </li>
+                </ol>
+              </article>
             );
           })
         }
