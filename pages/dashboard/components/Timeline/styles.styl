@@ -17,3 +17,23 @@
   max-width: 80rem
   margin: 6rem auto 0
   padding: 0 $bodyPadding
+
+ol li
+  font-size: 1.6rem
+
+  &.status
+    &::before
+      background: #25d2da
+      border-radius: 1rem
+      content: ' '
+      display: inline-block
+      height: 1rem
+      line-height: 1.6rem
+      margin-right: 0.8rem
+      width: 1rem
+      
+    &.running::before
+      background: #25da43
+    
+    &.spundown::before
+      background: #d2d2d2

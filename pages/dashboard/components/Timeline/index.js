@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import { ReStore, connect } from '../../../../shared/ReStore';
+import classnames from 'classnames';
 
 import Loader from '../../../../components/Loader';
 
@@ -70,7 +71,7 @@ const Timeline = ({ timeline }) => {
 
           return (
             <ol key={item.id}>
-              <li className={classes[statusKey]}>{item.status}</li>
+              <li className={classnames(classes.status, classes[statusKey])}>{item.status}</li>
               <li>{item.branch}</li>
               <li>{duration}</li>
             </ol>
