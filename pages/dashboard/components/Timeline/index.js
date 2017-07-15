@@ -52,9 +52,9 @@ const Timeline = ({ timeline, org }) => {
             let durationMinutes = Math.floor(remainingSeconds / minute);
             let durationSeconds = remainingSeconds % minute;
 
-            if (durationDays === durationHours === durationMinutes === 0) {
+            if (durationDays === 0 && durationHours === 0 && durationMinutes === 0) {
               duration = `${durationSeconds} second${durationSeconds === 1 ? '' : 's'}`;
-            } else if (durationDays === durationHours === 0) {
+            } else if (durationDays === 0 && durationHours === 0) {
               duration = minute / 2 < durationSeconds ? `${durationMinutes + 1} minutes` : `${durationMinutes} minute${durationMinutes === 1 ? '' : 's'}`;
             } else if (durationDays === 0) {
               duration = hour / 2 < (durationMinutes * minute) ? `${durationHours + 1} hours` : `${durationHours} hour${durationHours === 1 ? '' : 's'}`;
