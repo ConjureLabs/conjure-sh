@@ -69,11 +69,20 @@ const Timeline = ({ timeline, org }) => {
             }
           }
 
+          const statusNode = item.status === 'Running' ? (
+            <a
+              href={item.url}
+              target='_blank'
+            >
+              Running
+            </a>
+          ) : item.status;
+
           return (
             <ol key={item.id}>
               <li className={classnames(classes.status, classes[statusKey])}>
                 <sup />
-                {item.status}
+                {statusNode}
               </li>
 
               <li className={classnames({
@@ -81,12 +90,22 @@ const Timeline = ({ timeline, org }) => {
                 [classes.privateRepo]: item.repo_private === true
               })}>
                 <sup className={classes.svgIcon} />
-                <a href={`https://github.com/${org}/${item.repo}/`}>{item.repo}</a>
+                <a
+                  href={`https://github.com/${org}/${item.repo}/`}
+                  target='_blank'
+                >
+                  {item.repo}
+                </a>
               </li>
 
               <li className={classes.branch}>
                 <sup className={classes.svgIcon} />
-                <a href={`https://github.com/${org}/${item.repo}/tree/${item.branch}`}>{item.branch}</a>
+                <a
+                  href={`https://github.com/${org}/${item.repo}/tree/${item.branch}`}
+                  target='_blank'
+                >
+                  {item.branch}
+                </a>
               </li>
 
               <li className={classes.duration}>
