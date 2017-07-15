@@ -21,7 +21,7 @@ class Dashboard extends Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch.clearTimeline();
-    this.pullTimeline();
+    this.onDropdownChange();
   }
 
   pullTimeline(apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0}) {
@@ -43,7 +43,9 @@ class Dashboard extends Component {
 
   onDropdownChange() {
     const { dispatch } = this.props;
-    dispatch.setOrg(this.orgDropdown.value);
+    dispatch.setOrg({
+      org: this.orgDropdown.value
+    });
     this.pullTimeline();
   }
 
@@ -110,7 +112,7 @@ const PageContent = ({ url, children }) => {
 
   const initialState = {
     account,
-    org: orgs.length ? orgs[0].login : null,
+    org: null,
     pagingHref: null,
     timeline: null
   };
