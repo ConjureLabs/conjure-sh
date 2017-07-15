@@ -1,17 +1,5 @@
 @require '../../../../shared/framework.styl'
 
-.loader
-  align-items: center
-  display: flex
-  flex-direction: column
-  margin: 16rem 0
-
-  .text
-    color: $lightGray
-    font-size: 2.4rem
-    font-weight: 600
-    margin-top: 4rem
-
 .wrap
   display: block
   max-width: 80rem
@@ -75,3 +63,18 @@ ol
     
       sup
         background-image: url(/static/images/icons/git-branch.svg)
+   
+// for filler (loading) content placehoders     
+.filler
+  opacity: 0.26
+
+  del
+    display: inline-block
+    height: 1.2rem
+    width: 8rem
+    background: #d2d2d2
+    border-radius: 1.6rem
+  li.repo
+  li.branch
+    del
+      width: 12.4rem

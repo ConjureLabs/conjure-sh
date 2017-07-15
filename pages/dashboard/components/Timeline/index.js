@@ -81,19 +81,62 @@ class Timeline extends Component {
     });
   }
 
+  mockRender() {
+    const filler = ['Today', null, null, null, 'Yesterday', null, null];
+
+    const fillerContent = filler.map(dayHeaderText => {
+      return (
+        <article>
+          {
+            dayHeaderText === null ? null : (
+              <header>
+                <ol>
+                  <li className={classes.status}>{dayHeaderText}</li>
+                  <li className={classes.repo}>Repo</li>
+                  <li className={classes.branch}>Branch</li>
+                  <li className={classes.duration}>Duration</li>
+                </ol>
+              </header>
+            )
+          }
+
+          <ol>
+            <li className={classnames(classes.status, classes.spundown)}>
+              <sup />
+              <del />
+            </li>
+
+            <li className={classes.repo}>
+              <sup className={classes.svgIcon} />
+              <del />
+            </li>
+
+            <li className={classes.branch}>
+              <sup className={classes.svgIcon} />
+              <del />
+            </li>
+
+            <li className={classes.duration}>
+              <del />
+            </li>
+          </ol>
+        </article>
+      );
+    });
+
+    return (
+      <div className={classnames(classes.wrap, classes.filler)}>
+        {fillerContent}
+        {styles}
+      </div>
+    );
+  }
+
   render() {
     const timelinePrepared = this.prepareTimeline();
-
+    
     if (!Array.isArray(timelinePrepared)) {
-      return (
-        <div className={classes.loader}>
-          <Loader />
-
-          <span className={classes.text}>hang tight</span>
-
-          {styles}
-        </div>
-      );
+      return this.mockRender();
     }
 
     // `day` is in seconds, need it in ms
