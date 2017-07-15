@@ -36,7 +36,7 @@ route.push((req, res, next) => {
     }
 
     // checking if user needs onboarding
-    if (!rows[0].stripe_id) {
+    if (rows[0].onboarded === false) {
       return res.redirect(302, '/onboard/orgs');
     }
 

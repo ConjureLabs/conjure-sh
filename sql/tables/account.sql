@@ -3,6 +3,7 @@ CREATE TABLE account (
   name VARCHAR(200),
   email VARCHAR(255) UNIQUE,
   stripe_id VARCHAR(40) UNIQUE,
+  onboarded BOOLEAN,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );

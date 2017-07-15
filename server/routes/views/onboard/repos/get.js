@@ -13,6 +13,32 @@ const route = new Route({
 route.push((req, res, next) => {
   const waterfall = [];
 
+  // check if account is valid, and should be seeing onboard flow
+  waterfall.push(callback => {
+    const DatabaseTable = require('conjure-core/classes/DatabaseTable');
+    const account = new DatabaseTable('account');
+
+    account.select({
+      id: req.user.id
+    }, (err, rows) => {
+      if (err) {
+        return callback(err);
+      }
+
+      // record does not exist in our db - force logout
+      if (!rows.length) {
+        return res.redirect(302, '/logout');
+      }
+
+      // if already onboarded, then user should not be on this view
+      if (rows[0].onboarded === true) {
+        return res.redirect(302, '/');
+      }
+
+      return callback();
+    });
+  });
+
   // verify cookie from orgs onboard set
   waterfall.push(callback => {
     if (
