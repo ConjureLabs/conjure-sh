@@ -1,6 +1,6 @@
 const Route = require('conjure-core/classes/Route');
 const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
-const nextApp = require('../../../../next');
+const nextApp = require('../../../next');
 const log = require('conjure-core/modules/log')('onboard orgs');
 
 const route = new Route({
@@ -64,29 +64,28 @@ route.push((req, res) => {
   // checking if any orgs user has access to are already listening to changes
   // and that the user has access to at least one repo within that org
   waterfall.push((gitHubAccount, orgs, callback) => {
-    const repoChecks = orgs.reduce((parallel, org) => {
-      parallel[org] = cb => {
+    const repoChecks = {};
+    orgs.forEach(org => {
+      repoChecks[org.login] = cb => {
         const database = require('conjure-core/modules/database');
-        database.query('SELECT COUNT(*) num FROM watched_repo WHERE org = $1', [org], (err, result) => {
+        database.query('SELECT COUNT(*) num FROM watched_repo WHERE org = $1', [org.login], (err, result) => {
           if (err) {
             return cb(err);
           }
 
-          callback(null, (
+          console.log('ROWS', result.rows);
+
+          cb(null, (
             Array.isArray(result.rows) &&
             result.rows.length &&
-            typeof result.rows[0].num === 'number'
-            && result.rows[0].num > 0
+            parseInt(result.rows[0].num, 10) > 0
           ));
         });
       };
-
-      return parallel;
-    }, {});
+    });
 
     const async = require('async');
-
-    async.parallelLimit(parallel, 4, (err, results) => {
+    async.parallelLimit(repoChecks, 4, (err, results) => {
       if (err) {
         return callback(err);
       }
@@ -97,7 +96,7 @@ route.push((req, res) => {
 
       // if this account has no access to any listened repo, they must start full onboarding
       if (alreadyAvailable.length === 0) {
-        res.redirect(302, '/onboard/orgs');
+        return res.redirect(302, '/onboard/orgs');
       }
 
       // continue to partial onboarding
