@@ -42,7 +42,7 @@ class Dashboard extends Component {
 
   onDropdownChange() {
     const { dispatch } = this.props;
-    dispatch.clearTimeline();
+    dispatch.setOrg(this.orgDropdown.value);
     this.pullTimeline();
   }
 
@@ -93,6 +93,7 @@ const PageContent = ({ url, children }) => {
 
   const initialState = {
     account,
+    org: orgs.length ? orgs[0].login : null,
     timeline: null
   };
 

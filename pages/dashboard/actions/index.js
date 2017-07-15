@@ -1,3 +1,10 @@
+const setOrg = (store, { org }) => {
+  return Object.assign({}, store, {
+    timeline: null, // clearing timeline, which will cause loader and xhr
+    org
+  });
+};
+
 const clearTimeline = store => {
   return Object.assign({}, store, {
     timeline: null
@@ -23,6 +30,7 @@ const unshiftTimeline = (store, { addition }) => {
 };
 
 export default {
+  setOrg,
   clearTimeline,
   pushTimeline,
   unshiftTimeline

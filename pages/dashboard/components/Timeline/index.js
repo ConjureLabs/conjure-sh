@@ -10,7 +10,7 @@ const minute = 60;
 const hour = 60 * minute;
 const day = 24 * hour;
 
-const Timeline = ({ timeline }) => {
+const Timeline = ({ timeline, org }) => {
   if (!Array.isArray(timeline)) {
     return (
       <div className={classes.loader}>
@@ -81,12 +81,12 @@ const Timeline = ({ timeline }) => {
                 [classes.privateRepo]: item.repo_private === true
               })}>
                 <sup className={classes.svgIcon} />
-                {item.repo}
+                <a href={`https://github.com/${org}/${item.repo}/`}>{item.repo}</a>
               </li>
 
               <li className={classes.branch}>
                 <sup className={classes.svgIcon} />
-                {item.branch}
+                <a href={`https://github.com/${org}/${item.repo}/tree/${item.branch}`}>{item.branch}</a>
               </li>
 
               <li className={classes.duration}>
@@ -104,7 +104,8 @@ const Timeline = ({ timeline }) => {
 
 const selector = store => {
   return {
-    timeline: store.timeline
+    timeline: store.timeline,
+    org: store.org
   };
 };
 
