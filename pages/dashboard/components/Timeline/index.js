@@ -4,8 +4,6 @@ import { ReStore, connect } from '../../../../shared/ReStore';
 import classnames from 'classnames';
 import moment from 'moment';
 
-import Loader from '../../../../components/Loader';
-
 const exprAllSpaces = /\s/g;
 
 // in seconds

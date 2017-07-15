@@ -11,12 +11,13 @@ const clearTimeline = store => {
   });
 };
 
-const pushTimeline = (store, { addition }) => {
+const pushTimeline = (store, { addition, pagingHref }) => {
   const timeline = (store.timeline || []).slice();
   timeline.push(...addition);
 
   return Object.assign({}, store, {
-    timeline
+    timeline,
+    pagingHref
   });
 };
 

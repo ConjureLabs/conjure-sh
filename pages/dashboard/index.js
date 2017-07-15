@@ -4,8 +4,10 @@ import actions from './actions';
 import styles, { classes } from './styles.js';
 import { ReStore, connect } from '../../shared/ReStore';
 import config from '../../shared/config.js';
+import classnames from 'classnames';
 
 import Header from '../../components/Header';
+import Button from '../../components/Button';
 import Timeline from './components/Timeline';
 
 class Dashboard extends Component {
@@ -22,12 +24,10 @@ class Dashboard extends Component {
     this.pullTimeline();
   }
 
-  pullTimeline(dispatchMethod) {
+  pullTimeline(apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0}) {
     const { dispatch } = this.props;
 
-    get(`${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, {
-      page: 0
-    }, (err, data) => {
+    get(apiUrl, apiArgs, (err, data) => {
       if (err) {
         console.error(err);
         alert(err.message);
@@ -35,7 +35,8 @@ class Dashboard extends Component {
       }
 
       dispatch.pushTimeline({
-        addition: data.timeline
+        addition: data.timeline,
+        pagingHref: data.paging.next
       });
     });
   }
@@ -47,7 +48,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { orgs } = this.props;
+    const { orgs, pagingHref } = this.props;
 
     return (
       <div>
@@ -73,6 +74,21 @@ class Dashboard extends Component {
 
         <Timeline />
 
+        {!pagingHref ? null : (
+          <div className={classnames(classes.wrap, classes.paging)}>
+            <Button
+              size='small'
+              color='blue'
+              hallow={true}
+              onClick={() => {
+                this.pullTimeline(pagingHref, null);
+              }}
+            >
+              View More
+            </Button>
+          </div>
+        )}
+
         {styles}
       </div>
     );
@@ -81,7 +97,8 @@ class Dashboard extends Component {
 
 const selector = store => {
   return {
-    timeline: store.timeline
+    timeline: store.timeline,
+    pagingHref: store.pagingHref
   };
 };
 
@@ -94,6 +111,7 @@ const PageContent = ({ url, children }) => {
   const initialState = {
     account,
     org: orgs.length ? orgs[0].login : null,
+    pagingHref: null,
     timeline: null
   };
 
