@@ -15,7 +15,7 @@ route.push((req, res, next) => {
 
   waterfall.push(callback => {
     const DatabaseTable = require('conjure-core/classes/DatabaseTable');
-    DatabaseTable.select('containers', {
+    DatabaseTable.select('container', {
       url_uid: uid
     }, (err, proxies) => {
       if (err) {
@@ -34,7 +34,7 @@ route.push((req, res, next) => {
   waterfall.push((proxyRecord, callback) => {
     const DatabaseTable = require('conjure-core/classes/DatabaseTable');
     DatabaseTable.select('watched_repo', {
-      id: proxyRecord.reo
+      id: proxyRecord.repo
     }, (err, records) => {
       if (err) {
         return callback(err);
@@ -55,29 +55,40 @@ route.push((req, res, next) => {
 
       // must be a private repo - will need to check if user has perms
       // not using our own db, will check against github directly
-      const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
-      apiGetAccountGitHub(req, null, (err, result) => {
+      const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').direct;
+      apiGetRepos(req, null, (err, result) => {
         if (err) {
-          return next(err);
+          return cb(err);
         }
 
-        const githubAccount = result.account;
+        const orgRepos = result.reposByOrg[ watchedRepo.org ];
 
-        const github = require('octonode');
-        const githubClient = github.client(githubAccount.access_token);
+        // if user has no repos in the containers org...
+        if (!orgRepos) {
+          return next();
+        }
 
-        githubClient
-          .repo(`${watchedRepo.org}/${watchedRepo.name}`)
-          .info((err, info) => {
-            if (err) {
-              return callback(err);
-            }
+        // filtering down to the container's repo record
+        let repo;
+        for (let i = 0; i < orgRepos.length; i++) {
+          if (orgRepos[i].id === watchedRepo.service_repo_id) {
+            repo = orgRepos[i];
+            continue;
+          }
+        }
 
-            console.log('REPO INFO');
-            console.log(info);
+        // if that repo does not exist, kick to 404
+        if (!repo) {
+          return next();
+        }
 
-            callback(null, proxyRecord);
-          });
+        // if perms are not correct, kick to 404
+        // only check if have read access
+        if (!repo.permissions || repo.permissions.pull !== true) {
+          return next();
+        }
+
+        callback(null, proxyRecord);
       });
     });
   });
