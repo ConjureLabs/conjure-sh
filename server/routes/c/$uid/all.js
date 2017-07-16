@@ -74,9 +74,9 @@ route.push((req, res, next) => {
         // filtering down to the container's repo record
         let repo;
         for (let i = 0; i < orgRepos.length; i++) {
-          if (orgRepos[i].id === watchedRepo.service_repo_id) {
+          if (orgRepos[i].id === parseInt(watchedRepo.service_repo_id, 10)) {
             repo = orgRepos[i];
-            continue;
+            break;
           }
         }
 
@@ -106,9 +106,8 @@ route.push((req, res, next) => {
     const ReqProxy = require('conjure-core/classes/Req/Proxy');
 
     const proxy = new ReqProxy({
-      host: proxyRecord.host,
-      path: uriRemainder,
-      port: proxyRecord.port
+      domain: proxyRecord.host,
+      path: uriRemainder
     });
 
     proxy.forward(req, res);
