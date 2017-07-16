@@ -67,6 +67,15 @@ export default class OnboardOverlap extends Component {
                 );
               })}
             </ol>
+
+            <Decision
+              primaryText='Skip to Dashboard'
+              secondaryText='Set up another Org'
+              onPrimaryClick={() => { console.log('PRIMARY CLICKED'); }}
+              onSecondaryClick={() => {
+                window.location = '/onboard/orgs';
+              }}
+            />
           </main>
 
           {styles}
