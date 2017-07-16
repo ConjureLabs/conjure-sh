@@ -6,6 +6,7 @@ import config from '../../../shared/config.js';
 
 import Header from '../../../components/Header';
 import AnchorList from '../../../components/AnchorList';
+import Decision from '../../../components/Decision';
 
 let submitting = false;
 

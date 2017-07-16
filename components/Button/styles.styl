@@ -53,6 +53,25 @@
 
     .label
       color: #ddd
+  
+  &.color_gray
+    gradient(rgba(#bbbbbb, 0.72), rgba(#a8a8a8, 0.72))
+    
+    &.hallow
+      background: none
+      border: 1px solid #bbbbbb
+      
+      .label
+        color: #bbbbbb
+
+    &:hover
+      gradient(#bbbbbb, #3a3a3a)
+      
+      &.hallow
+        background: rgba(#bbbbbb, 0.14)
+
+    .label
+      color: #ddd
       
   &.color_pink
     gradient(#FF8EDE, darken(#FF8EDE, 4%))

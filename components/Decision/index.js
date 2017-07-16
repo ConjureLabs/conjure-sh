@@ -22,7 +22,7 @@ export default class Decision extends Component {
   }
 
   render() {
-    const { className, secondaryText, hallow, disabled } = this.props;
+    const { className, secondaryText, hallow, disabled, size, color } = this.props;
 
     const rootClasses = classnames(
       classes.root,
@@ -36,6 +36,8 @@ export default class Decision extends Component {
           onClick={this.handleClick.bind(this, 'secondary')}
           disabled={disabled === true}
           hallow={hallow === true}
+          size={size}
+          color='gray'
         >
           {secondaryText}
         </Button>
@@ -45,6 +47,8 @@ export default class Decision extends Component {
           onClick={this.handleClick.bind(this, 'primary')}
           disabled={disabled === true}
           hallow={hallow === true}
+          size={size}
+          color={color}
         >
           {primaryText}
         </Button>
