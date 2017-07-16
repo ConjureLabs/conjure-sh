@@ -9,8 +9,6 @@ const handlers = [];
 handlers.push((req, res, next) => {
   const UniqueArray = require('conjure-core/classes/Array/UniqueArray');
   const GitHubRepo = require('conjure-core/classes/Repo/GitHub');
-  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
-  const accountGithub = new DatabaseTable('account_github');
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
   apiGetAccountGitHub(req, null, (err, result) => {
