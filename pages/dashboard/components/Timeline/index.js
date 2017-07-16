@@ -33,40 +33,45 @@ class Timeline extends Component {
       let ms;
       let duration;
 
-      switch (item.status) {
-        case 'Spinning Up':
-        case 'Running':
-          ms = new Date() - new Date(item.start);
-          break;
+      findDuration: {
+        switch (item.status) {
+          case 'Spinning Up':
+            duration = '-';
+            break findDuration;
 
-        case 'Spun Down':
-          ms = new Date(item.stop) - new Date(item.start);
-          break;
-      }
+          case 'Running':
+            ms = new Date() - new Date(item.start);
+            break;
 
-      if (typeof ms === 'number') {
-        let remainingSeconds = Math.ceil(ms / 1000);
-        let durationDays = Math.floor(remainingSeconds / day);
-        remainingSeconds %= day;
-        let durationHours = Math.floor(remainingSeconds / hour);
-        remainingSeconds %= hour;
-        let durationMinutes = Math.floor(remainingSeconds / minute);
-        let durationSeconds = remainingSeconds % minute;
-
-        if (durationDays === 0 && durationHours === 0 && durationMinutes === 0) {
-          duration = `${durationSeconds} second${durationSeconds === 1 ? '' : 's'}`;
-        } else if (durationDays === 0 && durationHours === 0) {
-          duration = minute / 2 < durationSeconds ? `${durationMinutes + 1} minutes` : `${durationMinutes} minute${durationMinutes === 1 ? '' : 's'}`;
-        } else if (durationDays === 0) {
-          duration = hour / 2 < (durationMinutes * minute) ? `${durationHours + 1} hours` : `${durationHours} hour${durationHours === 1 ? '' : 's'}`;
-        } else {
-          duration = day / 2 < (durationHours * hour) ? `${durationDays + 1} days` : `${durationDays} day${durationDays === 1 ? '' : 's'}`;
+          case 'Spun Down':
+            ms = new Date(item.stop) - new Date(item.start);
+            break;
         }
 
-        if (item.status === 'Spun Down') {
-          duration = `Ran ${duration}`;
-        } else {
-          duration = `Up for ${duration}`;
+        if (typeof ms === 'number') {
+          let remainingSeconds = Math.ceil(ms / 1000);
+          let durationDays = Math.floor(remainingSeconds / day);
+          remainingSeconds %= day;
+          let durationHours = Math.floor(remainingSeconds / hour);
+          remainingSeconds %= hour;
+          let durationMinutes = Math.floor(remainingSeconds / minute);
+          let durationSeconds = remainingSeconds % minute;
+
+          if (durationDays === 0 && durationHours === 0 && durationMinutes === 0) {
+            duration = `${durationSeconds} second${durationSeconds === 1 ? '' : 's'}`;
+          } else if (durationDays === 0 && durationHours === 0) {
+            duration = minute / 2 < durationSeconds ? `${durationMinutes + 1} minutes` : `${durationMinutes} minute${durationMinutes === 1 ? '' : 's'}`;
+          } else if (durationDays === 0) {
+            duration = hour / 2 < (durationMinutes * minute) ? `${durationHours + 1} hours` : `${durationHours} hour${durationHours === 1 ? '' : 's'}`;
+          } else {
+            duration = day / 2 < (durationHours * hour) ? `${durationDays + 1} days` : `${durationDays} day${durationDays === 1 ? '' : 's'}`;
+          }
+
+          if (item.status === 'Spun Down') {
+            duration = `Ran ${duration}`;
+          } else {
+            duration = `Up for ${duration}`;
+          }
         }
       }
 
