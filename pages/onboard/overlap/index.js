@@ -11,14 +11,10 @@ import Decision from '../../../components/Decision';
 let submitting = false;
 
 export default class OnboardOverlap extends Component {
-  makeSelection(item) {
-    if (submitting) {
-      return;
-    }
-
+  handleSkip() {
     submitting = true;
 
-    post(`${config.app.api.url}/api/onboard/orgs/selection`, item, (err, data) => {
+    post(`${config.app.api.url}/api/onboard/skip`, {}, (err, data) => {
       if (err) {
         console.error(err);
         alert(err.message);
@@ -26,7 +22,7 @@ export default class OnboardOverlap extends Component {
         return;
       }
 
-      window.location = '/onboard/billing';
+      window.location = '/';
     });
   }
 
@@ -75,7 +71,7 @@ export default class OnboardOverlap extends Component {
               color='blue'
               primaryText='Skip to Dashboard'
               secondaryText='Set up a different Org'
-              onPrimaryClick={() => { console.log('PRIMARY CLICKED'); }}
+              onPrimaryClick={this.handleSkip.bind(this)}
               onSecondaryClick={() => {
                 window.location = '/onboard/orgs';
               }}
