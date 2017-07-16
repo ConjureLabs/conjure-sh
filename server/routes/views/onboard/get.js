@@ -73,8 +73,6 @@ route.push((req, res) => {
             return cb(err);
           }
 
-          console.log('ROWS', result.rows);
-
           cb(null, (
             Array.isArray(result.rows) &&
             result.rows.length &&
