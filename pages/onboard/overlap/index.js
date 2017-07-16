@@ -74,7 +74,7 @@ export default class OnboardOverlap extends Component {
               size='medium'
               color='blue'
               primaryText='Skip to Dashboard'
-              secondaryText='Set up another Org'
+              secondaryText='Set up a different Org'
               onPrimaryClick={() => { console.log('PRIMARY CLICKED'); }}
               onSecondaryClick={() => {
                 window.location = '/onboard/orgs';
