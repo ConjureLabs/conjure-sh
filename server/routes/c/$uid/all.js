@@ -24,6 +24,7 @@ route.push((req, res, next) => {
 
       if (!proxies.length) {
         // no proxy record found - kick this forward, which should result in a 404
+        log.info(`No container found for uid ${uid}`);
         return next();
       }
 
@@ -42,6 +43,7 @@ route.push((req, res, next) => {
 
       if (!records.length) {
         // no watched repo record found - kick this forward, which should result in a 404
+        log.info(`No 'watched_repo' record found for container row`); // this should not happen
         return next();
       }
 
@@ -65,6 +67,7 @@ route.push((req, res, next) => {
 
         // if user has no repos in the containers org...
         if (!orgRepos) {
+          log.info(`Restricted viewing of container '${uid}', within org ${watchedRepo.org} - user does not have access to org`);
           return next();
         }
 
@@ -79,12 +82,14 @@ route.push((req, res, next) => {
 
         // if that repo does not exist, kick to 404
         if (!repo) {
+          log.info(`Restricted viewing of container '${uid}', within org ${watchedRepo.org} - user does not have access to repo`);
           return next();
         }
 
         // if perms are not correct, kick to 404
         // only check if have read access
         if (!repo.permissions || repo.permissions.pull !== true) {
+          log.info(`Restricted viewing of container '${uid}', within org ${watchedRepo.org} - user does not have proper perms`);
           return next();
         }
 
