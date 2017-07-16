@@ -70,6 +70,9 @@ export default class OnboardOverlap extends Component {
             </ol>
 
             <Decision
+              className={classes.decision}
+              size='medium'
+              color='blue'
               primaryText='Skip to Dashboard'
               secondaryText='Set up another Org'
               onPrimaryClick={() => { console.log('PRIMARY CLICKED'); }}

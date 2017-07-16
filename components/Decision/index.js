@@ -22,7 +22,7 @@ export default class Decision extends Component {
   }
 
   render() {
-    const { className, secondaryText, hallow, disabled, size, color } = this.props;
+    const { className, primaryText, secondaryText, hallow, disabled, size, color } = this.props;
 
     const rootClasses = classnames(
       classes.root,
@@ -52,6 +52,8 @@ export default class Decision extends Component {
         >
           {primaryText}
         </Button>
+
+        {styles}
       </span>
     );
   }
