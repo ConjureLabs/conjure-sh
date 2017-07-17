@@ -4,7 +4,6 @@ const setup = require('./setup');
 // dependencies
 const config = require('conjure-core/modules/config');
 const express = require('express');
-const subdomain = require('express-subdomain');
 const nextApp = require('./next');
 const compression = require('compression');
 const morgan = require('morgan');
@@ -94,7 +93,6 @@ server.use(setup.routes.views);
 
 // // container subdomain wizardry
 // const containerViewRoute = require('./container.view.js');
-// server.use(subdomain('*.view', containerViewRoute.expressRouter('all', '*')));
 
 // any non-caught GET route then goes on to the nextjs handler
 const catchAllRouter = express.Router();

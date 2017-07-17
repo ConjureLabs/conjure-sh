@@ -1961,10 +1961,6 @@ expose-loader@^0.7.3:
   version "0.7.3"
   resolved "https://registry.yarnpkg.com/expose-loader/-/expose-loader-0.7.3.tgz#35fbd3659789e4faa81f59de8b7e9fc39e466d51"
 
-express-subdomain@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/express-subdomain/-/express-subdomain-1.0.5.tgz#990ef97940b7f4c2823d9593648b79be858a638b"
-
 express@4.14.0:
   version "4.14.0"
   resolved "https://registry.yarnpkg.com/express/-/express-4.14.0.tgz#c1ee3f42cdc891fb3dc650a8922d51ec847d0d66"
