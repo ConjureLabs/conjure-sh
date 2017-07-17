@@ -6,6 +6,8 @@ const route = new Route({
 });
 
 route.push((req, res, next) => {
+  console.log(req.url);
+
   const uid = req.params.uid;
   const uriRemainder = req.url.replace(/^\/c\/[a-z0-9]+(\/?.*)$/, '$1');
 

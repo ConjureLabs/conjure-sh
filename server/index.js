@@ -67,6 +67,11 @@ server.use(passport.initialize());
 server.use(passport.session());
 server.use(cookieParser());
 
+server.use((req, res, next) => {
+  console.log(req.headers);
+  return next();
+});
+
 // passport serialization
 passport.serializeUser((user, done) => {
   const DatabaseRow = require('conjure-core/classes/DatabaseRow');
@@ -87,9 +92,9 @@ server.use((req, res, next) => {
 // initialize routes
 server.use(setup.routes.views);
 
-// container subdomain wizardry
-const containerViewRoute = require('./container.view.js');
-server.use(subdomain('*.view', containerViewRoute.expressRouter('all', '*')));
+// // container subdomain wizardry
+// const containerViewRoute = require('./container.view.js');
+// server.use(subdomain('*.view', containerViewRoute.expressRouter('all', '*')));
 
 // any non-caught GET route then goes on to the nextjs handler
 const catchAllRouter = express.Router();

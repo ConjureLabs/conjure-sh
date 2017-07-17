@@ -20,9 +20,16 @@ Any sensitive keys should be set in `./.profile`, which is applied before runnin
 
 ```bash
 brew install yarn
+brew install dnsmasq
 yarn global add eslint babel-eslint jscs webpack
 yarn install
 ```
+
+###### Dnsmasq
+
+dnsmasq needs some extra config. It allows you to use any `.dev` domain (`conjure.dev`, `abc.view.conjure.dev`, etc), which is needed for viewing running containers.
+
+See [this guide](https://passingcuriosity.com/2013/dnsmasq-dev-osx/) for instructions.
 
 ##### Database Setup
 
