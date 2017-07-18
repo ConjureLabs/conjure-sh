@@ -10,7 +10,7 @@ handlers.push((req, res, next) => {
   const UniqueArray = require('conjure-core/classes/Array/UniqueArray');
   const GitHubRepo = require('conjure-core/classes/Repo/GitHub');
 
-  const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
+  const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
   apiGetAccountGitHub(req, null, (err, result) => {
     if (err) {
       return next(err);

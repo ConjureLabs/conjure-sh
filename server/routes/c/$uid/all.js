@@ -57,7 +57,7 @@ route.push((req, res, next) => {
 
       // must be a private repo - will need to check if user has perms
       // not using our own db, will check against github directly
-      const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').direct;
+      const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call;
       apiGetRepos(req, null, (err, result) => {
         if (err) {
           return cb(err);

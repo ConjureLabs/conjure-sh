@@ -7,7 +7,7 @@ handlers.push((req, res, next) => {
   const waterfall = [];
 
   waterfall.push(callback => {
-    const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').direct;
+    const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
     apiGetAccountGitHub(req, null, (err, result) => {
       if (err) {
         return callback(err);
@@ -18,7 +18,7 @@ handlers.push((req, res, next) => {
   });
 
   waterfall.push((gitHubAccount, callback) => {
-    const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').direct;
+    const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call;
     apiGetOrgs(req, null, (err, result) => {
       if (err) {
         return callback(err);

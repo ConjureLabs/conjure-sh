@@ -1,15 +1,27 @@
 const Route = require('conjure-core/classes/Route');
 const log = require('conjure-core/modules/log')('container proxy');
+const nextApp = require('./next');
 
-const route = new Route({
-  wildcard: true
-});
+// const route = new Route({
+//   wildcard: true,
+//   skippedHandler: (req, res) => {
+//     nextApp.render(req, res, '/_error');
+//   }
+// });
 
-route.push((req, res, next) => {
-  console.log(req.url);
+const containerViewExpr = /^(\w+)\.view\.conjure\.dev(?!\w)/;
 
-  const uid = req.params.uid;
-  const uriRemainder = req.url.replace(/^\/c\/[a-z0-9]+(\/?.*)$/, '$1');
+module.exports = (req, res, next) => {
+  const viewMatch = containerViewExpr.exec(req.headers.host);
+
+  console.log(req.headers, containerViewExpr.exec(req.headers.host));
+  if (!viewMatch) {
+    return next();
+  }
+
+  console.log(req.cookies);
+
+  const uid = viewMatch[1];
 
   const async = require('async');
 
@@ -59,10 +71,10 @@ route.push((req, res, next) => {
 
       // must be a private repo - will need to check if user has perms
       // not using our own db, will check against github directly
-      const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').direct;
+      const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call;
       apiGetRepos(req, null, (err, result) => {
         if (err) {
-          return cb(err);
+          return callback(err);
         }
 
         const orgRepos = result.reposByOrg[ watchedRepo.org ];
@@ -109,11 +121,11 @@ route.push((req, res, next) => {
 
     const proxy = new ReqProxy({
       domain: proxyRecord.host,
-      path: uriRemainder
+      path: req.url
     });
 
     proxy.forward(req, res);
   });
-});
+};
 
-module.exports = route;
+// module.exports = route;

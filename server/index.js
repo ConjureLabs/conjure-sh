@@ -48,28 +48,23 @@ server.use(morgan('combined'));
 
 // server passport cookie config
 server.use(cookieSession({
-  cookie: {
-    domain: `.${config.app.api.domain}`,
-    httpOnly: true,
-    maxAge: config.session.duration,
-    overwrite: true,
-    sameSite: 'lax',
-    secure: config.app.api.protocol === 'https',
-    signed: true
-  },
   name: 'conjure',
-  secret: config.session.secret
+  secret: config.session.secret,
+
+  // cookie options
+  domain: `.${config.app.api.domain}`,
+  httpOnly: true,
+  maxAge: config.session.duration,
+  overwrite: true,
+  sameSite: 'lax',
+  secure: config.app.api.protocol === 'https',
+  signed: true
 }));
 
 // server passport config
 server.use(passport.initialize());
 server.use(passport.session());
 server.use(cookieParser());
-
-server.use((req, res, next) => {
-  console.log(req.headers);
-  return next();
-});
 
 // passport serialization
 passport.serializeUser((user, done) => {
@@ -88,11 +83,19 @@ server.use((req, res, next) => {
   next();
 });
 
+const containerViewHandler = require('./container.view.js');
+server.use((req, res, next) => {
+  console.log(req.isAuthenticated());
+
+  if (!req.isAuthenticated()) {
+    return next();
+  }
+
+  containerViewHandler(req, res, next);
+});
+
 // initialize routes
 server.use(setup.routes.views);
-
-// // container subdomain wizardry
-// const containerViewRoute = require('./container.view.js');
 
 // any non-caught GET route then goes on to the nextjs handler
 const catchAllRouter = express.Router();
