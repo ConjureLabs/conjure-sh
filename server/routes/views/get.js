@@ -53,9 +53,4 @@ dashboardHandlers.forEach(handler => {
   route.push(handler);
 });
 
-// const reposHandlers = require('./repos');
-// reposHandlers.forEach(handler => {
-//   route.push(handler);
-// });
-
 module.exports = route;
