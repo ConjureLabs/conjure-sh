@@ -85,8 +85,6 @@ server.use((req, res, next) => {
 
 const containerViewHandler = require('./container.view.js');
 server.use((req, res, next) => {
-  console.log(req.isAuthenticated());
-
   if (!req.isAuthenticated()) {
     return next();
   }

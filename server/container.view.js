@@ -1,25 +1,20 @@
-const Route = require('conjure-core/classes/Route');
 const log = require('conjure-core/modules/log')('container proxy');
 const nextApp = require('./next');
 
-// const route = new Route({
-//   wildcard: true,
-//   skippedHandler: (req, res) => {
-//     nextApp.render(req, res, '/_error');
-//   }
-// });
-
+const subdomainExpr = /^([\w\.]*)\.conjure\.dev(?!\w)/;
 const containerViewExpr = /^(\w+)\.view\.conjure\.dev(?!\w)/;
 
 module.exports = (req, res, next) => {
-  const viewMatch = containerViewExpr.exec(req.headers.host);
-
-  console.log(req.headers, containerViewExpr.exec(req.headers.host));
-  if (!viewMatch) {
+  // if not a subdomain request, kick to next, unless www.
+  const subdomainMatch = subdomainExpr.exec(req.headers.host);
+  if (!subdomainMatch || subdomainMatch[1] === 'www') {
     return next();
   }
 
-  console.log(req.cookies);
+  const viewMatch = containerViewExpr.exec(req.headers.host);
+  if (!viewMatch) {
+    return nextApp.render(req, res, '/_error');
+  }
 
   const uid = viewMatch[1];
 
@@ -120,12 +115,11 @@ module.exports = (req, res, next) => {
     const ReqProxy = require('conjure-core/classes/Req/Proxy');
 
     const proxy = new ReqProxy({
-      domain: proxyRecord.host,
-      path: req.url
+      domain: process.env.NODE_ENV === 'development' ? 'localhost' : proxyRecord.host, // todo: may want to config this
+      path: req.url,
+      port: proxyRecord.port
     });
 
     proxy.forward(req, res);
   });
 };
-
-// module.exports = route;

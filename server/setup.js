@@ -75,7 +75,6 @@ log.timeEnd('finished setup');
 
 module.exports = {
   routes: {
-    views: crawlRoutesDir(true, viewsRoutesDir),
-    c: crawlRoutesDir(false, containerRoutesDir)
+    views: crawlRoutesDir(true, viewsRoutesDir)
   }
 };
