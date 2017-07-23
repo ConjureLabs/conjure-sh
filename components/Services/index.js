@@ -34,12 +34,12 @@ class Services extends Component {
   }
 
   render() {
-    const { integrations } = this.props;
+    const { integrations, className } = this.props;
 
     console.log(this.props);
 
     return (
-      <main className={classes.root}>
+      <main className={classnames(classes.root, className)}>
         <span className={classes.wrap}>
           {Object.keys(integrations).map(key => {
             const integration = integrations[key];

@@ -1,8 +1,9 @@
 import styles, { classes } from './styles.js';
+import classnames from 'classnames';
 
-export default () => {
+export default ({ className }) => {
   return (
-    <span className={classes.wrap}>
+    <span className={classnames(classes.wrap, className)}>
       <span className={classes.loader}>
         {styles}
       </span>
