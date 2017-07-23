@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import classnames from 'classnames';
 

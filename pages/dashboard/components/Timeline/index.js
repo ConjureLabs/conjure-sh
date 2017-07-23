@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import { ReStore, connect } from '../../../../shared/ReStore';
+import EmptyState from '../../../../components/EmptyState';
 import classnames from 'classnames';
 import moment from 'moment';
 
@@ -140,6 +141,21 @@ class Timeline extends Component {
     
     if (!Array.isArray(timelinePrepared)) {
       return this.mockRender();
+    }
+
+    if (!timelinePrepared.length) {
+      return (
+        <div className={classes.wrap}>
+          <EmptyState
+            className={classes.emptyState}
+            emoji='🤖'
+            headerText={`There's no activity yet`}
+            bodyText='Instances will spin up automatically whenever you create a Pull Request in GitHub'
+          />
+
+          {styles}
+        </div>
+      );
     }
 
     // `day` is in seconds, need it in ms
