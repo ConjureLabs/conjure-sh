@@ -1,5 +1,7 @@
 import queryString from 'query-string';
 
+// todo: need to update get and post to return an error if http statusCode !== 200
+
 export function get(url, data, callback) {
   fetch(`${url}${data ? '?' : ''}${queryString.stringify(data)}`, {
     method: 'GET',

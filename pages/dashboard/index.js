@@ -45,7 +45,7 @@ class Dashboard extends Component {
 
   queueDeltaCheck(deltaUrl) {
     setTimeout(() => {
-      this.checkDelta(deltaUrl);
+      this.checkDelta.bind(this)(deltaUrl);
     }, 30 * 1000);
   }
 
@@ -70,10 +70,10 @@ class Dashboard extends Component {
       const { dispatch } = this.props;
 
       dispatch.setTimelineDelta({
-        timelineDela: data.count
+        delta: data.count
       });
 
-      this.queueDeltaCheck();
+      this.queueDeltaCheck(deltaUrl);
     });
   }
 
@@ -86,7 +86,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { orgs, pagingHref, timelineDela } = this.props;
+    const { orgs, pagingHref, timelineDelta } = this.props;
 
     return (
       <div>
@@ -110,7 +110,11 @@ class Dashboard extends Component {
           </span>
         </Header>
 
-        <span>Timeline delta is {timelineDela}</span>
+        {
+          isNaN(timelineDelta) ? null : (
+            <span>Timeline delta is {timelineDelta}</span>
+          )
+        }
 
         <Timeline />
 
