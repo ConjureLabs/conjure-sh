@@ -24,7 +24,7 @@ class Dashboard extends Component {
     this.onDropdownChange();
   }
 
-  pullTimeline(apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0}) {
+  pullTimeline(apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0 }) {
     const { dispatch } = this.props;
 
     get(apiUrl, apiArgs, (err, data) => {
@@ -38,6 +38,42 @@ class Dashboard extends Component {
         addition: data.timeline,
         pagingHref: data.paging.next
       });
+
+      this.queueDeltaCheck(data.delta);
+    });
+  }
+
+  queueDeltaCheck(deltaUrl) {
+    setTimeout(() => {
+      this.checkDelta(deltaUrl);
+    }, 30 * 1000);
+  }
+
+  checkDelta(deltaUrl) {
+    get(deltaUrl, null, (err, data) => {
+      if (err) {
+        console.error(err);
+        alert(err.message);
+        return;
+      }
+
+      if (data.count === 0) {
+        return this.queueDeltaCheck(deltaUrl);
+      }
+
+      const { timeline } = this.props;
+
+      if (!timeline.length) {
+        return this.pullTimeline();
+      }
+
+      const { dispatch } = this.props;
+
+      dispatch.setTimelineDelta({
+        timelineDela: data.count
+      });
+
+      this.queueDeltaCheck();
     });
   }
 
@@ -50,7 +86,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { orgs, pagingHref } = this.props;
+    const { orgs, pagingHref, timelineDela } = this.props;
 
     return (
       <div>
@@ -73,6 +109,8 @@ class Dashboard extends Component {
             </select>
           </span>
         </Header>
+
+        <span>Timeline delta is {timelineDela}</span>
 
         <Timeline />
 
@@ -100,7 +138,8 @@ class Dashboard extends Component {
 const selector = store => {
   return {
     timeline: store.timeline,
-    pagingHref: store.pagingHref
+    pagingHref: store.pagingHref,
+    timelineDela: store.timelineDela
   };
 };
 

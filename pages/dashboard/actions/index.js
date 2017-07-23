@@ -30,9 +30,16 @@ const unshiftTimeline = (store, { addition }) => {
   });
 };
 
+const setTimelineDelta = (store, { delta }) => {
+  return Object.assign({}, store, {
+    timelineDelta: delta
+  });
+};
+
 export default {
   setOrg,
   clearTimeline,
   pushTimeline,
-  unshiftTimeline
+  unshiftTimeline,
+  setTimelineDelta
 };

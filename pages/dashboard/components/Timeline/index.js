@@ -12,6 +12,8 @@ const minute = 60;
 const hour = 60 * minute;
 const day = 24 * hour;
 
+let deltaCheckTimeout;
+
 class Timeline extends Component {
   componentDidMount() {
     // forcing timestamps to update every 2 minutes
