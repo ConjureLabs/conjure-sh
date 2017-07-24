@@ -10,6 +10,8 @@ import Header from '../../components/Header';
 import Button from '../../components/Button';
 import Timeline from './components/Timeline';
 
+const activelyPullingDelta = false;
+
 class Dashboard extends Component {
   constructor(props) {
     super(props);
@@ -41,6 +43,61 @@ class Dashboard extends Component {
 
       this.queueDeltaCheck(data.delta);
     });
+  }
+
+  pullTimelineDelta(apiArgs) {
+    if (activelyPullingDelta === true) {
+      return;
+    }
+
+    activelyPullingDelta = true;
+
+    const { dispatch, timeline, timelineDelta } = this.props;
+    const deltaFetched = [];
+    let countDeltaFetched = 0;
+
+    function finish() {
+      dispatch.clearTimelineDelta({}, () => {
+        activelyPullingDelta = false;
+
+        // should be not possible
+        if (deltaFetched.length === 0) {
+          return;
+        }
+
+        dispatch.unshiftTimeline({
+          addition: deltaFetched.length > timelineDelta ? deltaFetched.slice(0, timelineDelta);
+        });
+      });
+    }
+
+    // todo: the 32 should be configured
+    function pullNext(apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0 }) {
+      // apiUrl should not be null, but will assume done if it is, anyway
+      if (apiUrl === null || deltaFetched.length >= timelineDelta) {
+        return finish();
+      }
+
+      get(apiUrl, apiArgs, (err, data) => {
+        if (err) {
+          console.error(err);
+          alert(err.message);
+          activelyPullingDelta = false;
+          return;
+        }
+
+        for (let i = 0; i < data.timeline.length; i++) {
+          // assuming at least one timeline state record, since pullNext should not be able to be called otherwise
+          if (data.timeline[i].id === timeline[0].id) {
+            return finish();
+          }
+          deltaFetched.push(data.timeline[i]);
+        }
+
+        // must have more rows to pull, so kicking off another request
+        pullNext(data.paging.next);
+      });
+    }
   }
 
   queueDeltaCheck(deltaUrl) {
@@ -112,7 +169,12 @@ class Dashboard extends Component {
 
         {
           isNaN(timelineDelta) ? null : (
-            <span>Timeline delta is {timelineDelta}</span>
+            <span
+              className={classes.viewNew}
+              onClick={this.pullTimelineDelta.bind(this)}
+            >
+              View {timelineDelta} new activit{timelineDelta === 1 ? 'y' : 'ies'}
+            </span>
           )
         }
 

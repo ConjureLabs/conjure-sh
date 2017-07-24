@@ -13,7 +13,7 @@ class ReStore extends Component {
     }, props);
 
     const dispatch = Object.keys(actions).reduce((mapping, actionName) => {
-      mapping[actionName] = data => {
+      mapping[actionName] = (data, callback) => {
         const state = this.state;
         const oldStore = state.store;
         const newStore = actions[actionName](oldStore, data);
@@ -27,6 +27,10 @@ class ReStore extends Component {
           prettyLog('Prev Store', oldStore);
           prettyLog('ReStore Action', actionName);
           prettyLog('Next Store', newStore);
+
+          if (typeof callback === 'function') {
+            callback(oldStore, newStore);
+          }
         });
       };
       return mapping;
