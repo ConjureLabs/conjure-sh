@@ -47,5 +47,6 @@ export default {
   clearTimeline,
   pushTimeline,
   unshiftTimeline,
-  setTimelineDelta
+  setTimelineDelta,
+  clearTimelineDelta
 };
