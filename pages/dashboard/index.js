@@ -10,7 +10,7 @@ import Header from '../../components/Header';
 import Button from '../../components/Button';
 import Timeline from './components/Timeline';
 
-const activelyPullingDelta = false;
+let activelyPullingDelta = false;
 
 class Dashboard extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class Dashboard extends Component {
         }
 
         dispatch.unshiftTimeline({
-          addition: deltaFetched.length > timelineDelta ? deltaFetched.slice(0, timelineDelta);
+          addition: deltaFetched
         });
       });
     }
@@ -167,16 +167,14 @@ class Dashboard extends Component {
           </span>
         </Header>
 
-        {
-          isNaN(timelineDelta) ? null : (
-            <span
-              className={classes.viewNew}
-              onClick={this.pullTimelineDelta.bind(this)}
-            >
-              View {timelineDelta} new activit{timelineDelta === 1 ? 'y' : 'ies'}
-            </span>
-          )
-        }
+        {isNaN(timelineDelta) || timelineDelta <= 0 ? null : (
+          <span
+            className={classes.viewNew}
+            onClick={this.pullTimelineDelta.bind(this)}
+          >
+            View {timelineDelta} new activit{timelineDelta === 1 ? 'y' : 'ies'}
+          </span>
+        )}
 
         <Timeline />
 
@@ -205,7 +203,7 @@ const selector = store => {
   return {
     timeline: store.timeline,
     pagingHref: store.pagingHref,
-    timelineDela: store.timelineDela
+    timelineDelta: store.timelineDelta
   };
 };
 
@@ -219,7 +217,8 @@ const PageContent = ({ url, children }) => {
     account,
     org: null,
     pagingHref: null,
-    timeline: null
+    timeline: null,
+    timelineDelta: null
   };
 
   return (

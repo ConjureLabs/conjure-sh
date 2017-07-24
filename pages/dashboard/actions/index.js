@@ -32,7 +32,7 @@ const unshiftTimeline = (store, { addition }) => {
 
 const setTimelineDelta = (store, { delta }) => {
   return Object.assign({}, store, {
-    timelineDelta: delta
+    timelineDelta: +delta
   });
 };
 
