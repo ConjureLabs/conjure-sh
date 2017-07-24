@@ -45,7 +45,7 @@ class Dashboard extends Component {
     });
   }
 
-  pullTimelineDelta(apiArgs) {
+  pullTimelineDelta() {
     if (activelyPullingDelta === true) {
       return;
     }
@@ -56,7 +56,7 @@ class Dashboard extends Component {
     const deltaFetched = [];
     let countDeltaFetched = 0;
 
-    function finish() {
+    const finish = () => {
       dispatch.clearTimelineDelta({}, () => {
         activelyPullingDelta = false;
 
@@ -69,10 +69,10 @@ class Dashboard extends Component {
           addition: deltaFetched
         });
       });
-    }
+    };
 
     // todo: the 32 should be configured
-    function pullNext(apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0 }) {
+    const pullNext = (apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0 }) => {
       // apiUrl should not be null, but will assume done if it is, anyway
       if (apiUrl === null || deltaFetched.length >= timelineDelta) {
         return finish();
@@ -97,7 +97,9 @@ class Dashboard extends Component {
         // must have more rows to pull, so kicking off another request
         pullNext(data.paging.next);
       });
-    }
+    };
+
+    pullNext();
   }
 
   queueDeltaCheck(deltaUrl) {

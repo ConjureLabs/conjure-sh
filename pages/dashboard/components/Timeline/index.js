@@ -69,12 +69,6 @@ class Timeline extends Component {
           } else {
             duration = day / 2 < (durationHours * hour) ? `${durationDays + 1} days` : `${durationDays} day${durationDays === 1 ? '' : 's'}`;
           }
-
-          if (item.status === 'Spun Down') {
-            duration = `Ran ${duration}`;
-          } else {
-            duration = `Up for ${duration}`;
-          }
         }
       }
 
