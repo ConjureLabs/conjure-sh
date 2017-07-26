@@ -1,5 +1,8 @@
 @require '../../shared/framework.styl'
 
+.root
+  position: relative
+
 .wrap
   display: block
   max-width: 80rem
@@ -12,3 +15,23 @@
   
 .headerContent
   flex-grow: 1
+
+.viewNew
+  display: flex
+  flex-direction: row
+  justify-content: center
+  position: absolute
+  top: 7.2rem
+  width: 100%
+  
+  .actionable
+    background: $blue
+    border: 1px solid darken($blue, 8%)
+    border-radius: 0.3rem
+    color: $white
+    cursor: pointer
+    display: inline-block
+    font-size: 1.4rem
+    font-weight: bold
+    padding: 1rem 2.4rem
+    text-transform: lowercase

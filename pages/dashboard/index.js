@@ -148,7 +148,7 @@ class Dashboard extends Component {
     const { orgs, pagingHref, timelineDelta } = this.props;
 
     return (
-      <div>
+      <div className={classes.root}>
         <Header>
           <span className={classes.headerContent}>
             <select
@@ -170,12 +170,16 @@ class Dashboard extends Component {
         </Header>
 
         {isNaN(timelineDelta) || timelineDelta <= 0 ? null : (
-          <span
+          <div
             className={classes.viewNew}
-            onClick={this.pullTimelineDelta.bind(this)}
           >
-            View {timelineDelta} new activit{timelineDelta === 1 ? 'y' : 'ies'}
-          </span>
+            <span
+              className={classes.actionable}
+              onClick={this.pullTimelineDelta.bind(this)}
+            >
+              View {timelineDelta} new activit{timelineDelta === 1 ? 'y' : 'ies'}
+            </span>
+          </div>
         )}
 
         <Timeline />
