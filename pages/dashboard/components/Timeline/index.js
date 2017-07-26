@@ -15,11 +15,22 @@ const day = 24 * hour;
 let deltaCheckTimeout;
 
 class Timeline extends Component {
+  constructor(props) {
+    super(props);
+
+    // for interval reference tracking
+    this.intervals = {};
+  }
+
   componentDidMount() {
     // forcing timestamps to update every 2 minutes
-    setInterval(() => {
+    this.intervals.forcedUpdate = setInterval(() => {
       this.forceUpdate();
     }, 2 * 60 * 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.intervals.forcedUpdate);
   }
 
   prepareTimeline() {

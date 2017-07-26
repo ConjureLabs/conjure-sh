@@ -18,12 +18,19 @@ class Dashboard extends Component {
 
     // set at render
     this.orgDropdown = null;
+
+    // for setTimeout reference tracking
+    this.timeouts = {};
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch.clearTimeline();
     this.onDropdownChange();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeouts.deltaCheck);
   }
 
   pullTimeline(apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0 }) {
@@ -103,7 +110,7 @@ class Dashboard extends Component {
   }
 
   queueDeltaCheck(deltaUrl) {
-    setTimeout(() => {
+    this.timeouts.deltaCheck = setTimeout(() => {
       this.checkDelta.bind(this)(deltaUrl);
     }, 30 * 1000);
   }
