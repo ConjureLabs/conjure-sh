@@ -173,12 +173,15 @@ class Dashboard extends Component {
           <div
             className={classes.viewNew}
           >
-            <span
-              className={classes.actionable}
+            <Button
+              size='small'
+              color='gray'
+              hallow={true}
+              className={classes.button}
               onClick={this.pullTimelineDelta.bind(this)}
             >
               View {timelineDelta} new activit{timelineDelta === 1 ? 'y' : 'ies'}
-            </span>
+            </Button>
           </div>
         )}
 
