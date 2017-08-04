@@ -1,17 +1,28 @@
 import styles, { classes } from './styles.js';
-import EmptyState from '../../../components/EmptyState';
+import { ReStore } from '../../../../shared/ReStore';
 
-export default () => {
+import EmptyState from '../../../components/EmptyState';
+import Header from '../../../components/Header';
+
+export default ({ query }) => {
+  const initialState = {
+    account: query.account
+  };
+
   return (
-    <div className={classes.wrap}>
-      <EmptyState
-        className={classes.emptyState}
-        emoji='🔓'
-        headerText='You do not have the correct permissions for this instance'
-        bodyText='Contact the org/repo owner to request access'
-      />
+    <ReStore store={initialState}>
+      <Header />
+
+      <div className={classes.wrap}>
+        <EmptyState
+          className={classes.emptyState}
+          emoji='🔓'
+          headerText='You do not have the correct permissions for this instance'
+          bodyText='Contact the org/repo owner to request access'
+        />
+      </div>
 
       {styles}
-    </div>
+    </ReStore>
   );
 };
