@@ -6,7 +6,7 @@ export default () => {
     <div className={classes.wrap}>
       <EmptyState
         className={classes.emptyState}
-        emoji='🔓'
+        emoji='🔒'
         headerText='This container is private'
         bodyText='You must log into Conjure to view this content'
       />

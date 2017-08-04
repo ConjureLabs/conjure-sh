@@ -16,7 +16,7 @@ export default ({ query }) => {
       <div className={classes.wrap}>
         <EmptyState
           className={classes.emptyState}
-          emoji='🔓'
+          emoji='🔒'
           headerText='You do not have the correct permissions for this instance'
           bodyText='Contact the org/repo owner to request access'
         />
