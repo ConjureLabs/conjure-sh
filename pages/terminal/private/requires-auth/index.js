@@ -1,5 +1,7 @@
 import styles, { classes } from './styles.js';
-import EmptyState from '../../../components/EmptyState';
+
+import EmptyState from '../../../../components/EmptyState';
+import Button from '../../../../components/Button';
 
 export default () => {
   return (
@@ -8,8 +10,18 @@ export default () => {
         className={classes.emptyState}
         emoji='🔒'
         headerText='This container is private'
-        bodyText='You must log into Conjure to view this content'
+        bodyText='You must sign into Conjure to view this content'
       />
+
+      <div className={classes.actionWrap}>
+        <Button
+          color='purple'
+          size='medium'
+          onClick={() => {}}
+        >
+          Sign In
+        </Button>
+      </div>
 
       {styles}
     </div>
