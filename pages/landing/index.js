@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
