@@ -13,6 +13,7 @@ export default class RequiresAuth extends Component {
 
   submitForm(e) {
     e.preventDefault();
+    document.getElementById('redirection').value = window.location;
     this.form.submit();
   }
 
@@ -31,7 +32,13 @@ export default class RequiresAuth extends Component {
           className={classes.trueForm}
           method='post'
           ref={form => this.form = form}
-        />
+        >
+          <input
+            id='redirection'
+            type='text'
+            name='redirection'
+          />
+        </form>
 
         <div className={classes.actionWrap}>
           <Button
