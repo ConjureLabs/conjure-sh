@@ -10,7 +10,6 @@ CREATE TABLE account_repo (
   name VARCHAR(516),
   access_rights repo_access_rights_types NOT NULL,
   private BOOLEAN NOT NULL,
-  disabled BOOLEAN NOT NULL,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE,
   UNIQUE (service, service_repo_id, account)
