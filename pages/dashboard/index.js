@@ -158,7 +158,14 @@ class Dashboard extends Component {
       <div className={classes.root}>
         <Header>
           <span className={classes.headerContent}>
+            {
+              orgs.length <= 1 ? null : (
+                <label htmlFor='org-select'>Organization:</label>
+              )
+            }
+
             <select
+              id='org-select'
               ref={ref => this.orgDropdown = ref}
               onChange={this.onDropdownChange.bind(this)}
             >
@@ -167,6 +174,7 @@ class Dashboard extends Component {
                   <option
                     value={org.login}
                     key={org.id}
+                    disabled={org.length <= 1}
                   >
                     {org.login}
                   </option>
