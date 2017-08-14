@@ -13,6 +13,6 @@ CREATE TABLE account_repo (
   disabled BOOLEAN NOT NULL,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE,
-  UNIQUE (service, service_repo_id)
+  UNIQUE (service, service_repo_id, account)
 );
 COMMENT ON TABLE account_repo IS 'repos visible by conjure accounts';
