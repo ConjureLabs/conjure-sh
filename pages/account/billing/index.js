@@ -37,10 +37,20 @@ export default class AccountBilling extends Component {
         <div className={classes.wrap}>
           {cards.map(card => {
             return (
-              <CreditCardSummary
-                className={classes.card}
-                {...card}
-              />
+              <div className={classes.card}>
+                <span className={classes.actions}>
+                  <a
+                    href=''
+                    onClick={() => {}}
+                  >
+                    Delete Card
+                  </a>
+                </span>
+
+                <CreditCardSummary
+                  {...card}
+                />
+              </div>
             );
           })}
 
