@@ -23,10 +23,10 @@ const Header = ({ account, children }) => {
           <ol className={classes.links}>
             <li className={classes.item}>
               <a
-                href='/settings'
+                href='/billing'
                 className={classes.link}
               >
-                Settings
+                Billing
               </a>
             </li>
 

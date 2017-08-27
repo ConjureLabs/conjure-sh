@@ -25,22 +25,27 @@ route.push((req, res, next) => {
     });
   };
 
-  async.parallel(parallel, (err, integrations) => {
+  parallel.cards = callback => {
+    const apiGetAccountCards = require('conjure-api/server/routes/api/account/cards/get.js').call;
+    apiGetAccountCards(req, null, (err, result) => {
+      if (err) {
+        return callback(err);
+      }
+
+      callback(null, result.cards);
+    });
+  };
+
+  async.parallel(parallel, (err, records) => {
     if (err) {
       return next(err);
     }
 
-    nextApp.render(req, res, '/account/integrations', {
+    nextApp.render(req, res, '/account/billing', {
       account: {
-        photo: integrations.github.photo // todo: not rely on github...
+        photo: records.github.photo // todo: not rely on github...
       },
-      integrations: Object.keys(integrations).reduce((mapping, key) => {
-        mapping[key] = {
-          username: integrations[key].username,
-          email: integrations[key].email
-        };
-        return mapping;
-      }, {})
+      cards: records.cards
     });
   });
 });
