@@ -3,13 +3,15 @@ import styles, { classes } from './styles.js';
 import { ReStore } from '../../../shared/ReStore';
 
 import Header from '../../../components/Header';
+import CreditCardSummary from '../../../components/CreditCardSummary';
 
 export default class AccountBilling extends Component {
   render() {
     const { query } = this.props.url;
+    const { account, cards } = query;
 
     const initialState = {
-      account: query.account
+      account: account
     };
 
     return (
@@ -17,6 +19,14 @@ export default class AccountBilling extends Component {
         <Header />
 
         <div className={classes.wrap}>
+          {cards.map(card => {
+            return (
+              <CreditCardSummary
+                {...card}
+              />
+            );
+          })}
+
           {styles}
         </div>
       </ReStore>
