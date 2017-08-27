@@ -6,7 +6,7 @@ const Header = ({ account, children }) => {
   return (
     <header className={classes.root}>
       <span className={classes.wrap}>
-        <h1>
+        <h1 onClick={() => { window.location = '/'; }}>
           <sup>⎔</sup> Conjure
         </h1>
 
