@@ -2,6 +2,8 @@
 
 // for height & width of card ui, see https://graphicdesign.stackexchange.com/questions/629/what-are-the-dimensions-of-a-business-card - i used the normal US ratio, which is 1.75
 
+$cardPadding = 2.4rem
+
 .root
   border: 1px solid darken($blue, 26%)
   border-radius: 0.4rem
@@ -14,7 +16,7 @@
   height: 11.2rem
   letter-spacing: 0.14rem
   overflow: hidden
-  padding: 2.4rem
+  padding: $cardPadding
   position: relative
   transition: box-shadow 0.2s ease-in-out
   width: 23.2rem
@@ -33,9 +35,9 @@
         margin-right: 0
 
   .details
-    bottom: 2.4rem
+    bottom: $cardPadding
     display: block
-    left: 2.4rem
+    left: $cardPadding
     position: absolute
     
     .expirationWrap
@@ -64,8 +66,8 @@
     display: block
     height: 3rem
     position: absolute
-    top: 2.4rem
-    right: 2.4rem
+    top: $cardPadding
+    right: $cardPadding
     width: 4.79rem
     
     &.american-express
