@@ -1,6 +1,8 @@
+import classnames from 'classnames';
+
 import styles, { classes } from './styles.js';
 import { cards } from '../../utils/credit-cards/index.js';
-
+import config from '../../shared/config.js';
 
 export default ({ name, expiration, last4, brand }) => {
   const cardUsed = cards[brand] ? cards[brand] : cards.Visa;
@@ -13,9 +15,16 @@ export default ({ name, expiration, last4, brand }) => {
     const prefix = '*'.repeat(Math.max(length - 4, 0));
     return `${prefix}${last4}`;
   });
+  const brandLogoClassname = !cards[brand] ? null : brand.toLowerCase().replace(/\s+/, '-');
+
+  const logoComponent = brandLogoClassname ? (
+    <ins className={classnames(classes.logo, classes[brandLogoClassname])} />
+  ) : null;
 
   return (
     <article className={classes.root}>
+      {logoComponent}
+
       <div className={classes.number}>
         {mungedNumberTokens.map(token => {
           return (

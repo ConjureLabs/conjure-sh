@@ -15,6 +15,7 @@
   letter-spacing: 0.14rem
   overflow: hidden
   padding: 2.4rem
+  position: relative
   transition: box-shadow 0.2s ease-in-out
   width: 23.2rem
 
@@ -54,3 +55,26 @@
       display: block
       margin-top: 1.2rem
       white-space: nowrap
+      
+  .logo
+    background: url(/static/images/logos/payment/nada.svg) no-repeat center center
+    background-size: cover
+    display: block
+    height: 3rem
+    position: absolute
+    top: 2.4rem
+    right: 2.4rem
+    width: 4.79rem
+    
+    &.american-express
+      background-image: url(/static/images/logos/payment/amex.svg)
+    &.unionpay
+      background-image: url(/static/images/logos/payment/unionpay.svg)
+    &.diners-club
+      background-image: url(/static/images/logos/payment/diners.svg)
+    &.jcb
+      background-image: url(/static/images/logos/payment/jcb.svg)
+    &.mastercard
+      background-image: url(/static/images/logos/payment/mastercard.svg)
+    &.visa
+      background-image: url(/static/images/logos/payment/visa.svg)
