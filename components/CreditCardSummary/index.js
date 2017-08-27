@@ -27,7 +27,6 @@ export default ({ name, expiration, last4, brand }) => {
       </div>
 
       <div className={classes.details}>
-        <span className={classes.name}>{name}</span>
         <span className={classes.expirationWrap}>
           <label>Good Thru</label>
           <span className={classes.expiration}>
@@ -40,6 +39,8 @@ export default ({ name, expiration, last4, brand }) => {
             </ins>
           </span>
         </span>
+
+        <span className={classes.name}>{name}</span>
       </div>
 
       {styles}
