@@ -22,6 +22,7 @@ export default class AccountBilling extends Component {
           {cards.map(card => {
             return (
               <CreditCardSummary
+                className={classes.card}
                 {...card}
               />
             );

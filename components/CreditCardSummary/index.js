@@ -4,7 +4,7 @@ import styles, { classes } from './styles.js';
 import { cards } from '../../utils/credit-cards/index.js';
 import config from '../../shared/config.js';
 
-export default ({ name, expiration, last4, brand }) => {
+export default ({ name, expiration, last4, brand, className }) => {
   const cardUsed = cards[brand] ? cards[brand] : cards.Visa;
   const brandFormatTokens = cardUsed.format.length;
   const mungedNumberTokens = cardUsed.format.map((length, i) => {
@@ -22,7 +22,7 @@ export default ({ name, expiration, last4, brand }) => {
   ) : null;
 
   return (
-    <article className={classes.root}>
+    <article className={classnames(classes.root, className)}>
       {logoComponent}
 
       <div className={classes.number}>
