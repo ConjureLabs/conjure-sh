@@ -2,6 +2,7 @@ import { Component } from 'react';
 import classnames from 'classnames';
 import styles, { classes } from './card-ui-styles.js';
 import { del } from '../../../shared/xhr';
+import config from '../../../shared/config.js';
 
 import CreditCardSummary from '../../../components/CreditCardSummary';
 
@@ -21,10 +22,12 @@ export default class AccountBilling extends Component {
     }
 
     const actions = [];
+    const { card } = this.props;
 
     if (this.state.promptConfirm === false) {
       actions.push((
         <a
+          key={`action-${card.id}-delete`}
           href=''
           className={classes.delete}
           onClick={e => {
@@ -40,6 +43,7 @@ export default class AccountBilling extends Component {
     } else {
       actions.push((
         <a
+          key={`action-${card.id}-confirm-delete`}
           href=''
           className={classes.confirm}
           onClick={e => {
@@ -58,6 +62,7 @@ export default class AccountBilling extends Component {
 
       actions.push((
         <a
+          key={`action-${card.id}-cancel-delete`}
           href=''
           className={classes.cancel}
           onClick={e => {

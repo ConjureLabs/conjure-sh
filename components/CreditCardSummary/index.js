@@ -26,9 +26,12 @@ export default ({ name, expiration, last4, brand, className }) => {
       {logoComponent}
 
       <div className={classes.number}>
-        {mungedNumberTokens.map(token => {
+        {mungedNumberTokens.map((token, i) => {
           return (
-            <span className={classes.token}>
+            <span
+              key={`card-${i}`}
+              className={classes.token}
+            >
               {token}
             </span>
           );

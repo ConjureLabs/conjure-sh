@@ -35,6 +35,7 @@ export default ({ url }) => {
         {cards.map(card => {
           return (
             <CardUI
+              key={`account-card-${card.id}`}
               card={card}
               className={classes.card}
             />
