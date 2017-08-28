@@ -45,7 +45,8 @@ export default class AccountBilling extends Component {
           onClick={e => {
             e.preventDefault();
             this.setState({
-              deleting: true
+              deleting: true,
+              promptConfirm: false
             }, () => {
               this.deleteCard();
             });
@@ -85,7 +86,9 @@ export default class AccountBilling extends Component {
       if (err) {
         console.error(err);
         alert(err.message);
-        submitting = false;
+        this.setState({
+          deleting: false
+        });
         return;
       }
 
