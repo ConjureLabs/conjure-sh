@@ -45,7 +45,9 @@ export default ({ name, expiration, last4, brand, className }) => {
             <ins className={classes.token}>
               {expiration.month}
             </ins>
-            /
+            <ins className={classes.separator}>
+              /
+            </ins>
             <ins className={classes.token}>
               {`${('' + expiration.year).substr(-2)}`}
             </ins>

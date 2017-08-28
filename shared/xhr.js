@@ -10,7 +10,7 @@ export function get(url, data, callback) {
   })
     .then(response => {
       if (!response.ok) {
-        return new Error(Response.statusText);
+        throw new Error(response.statusText);
       }
       return response.json();
     })
@@ -35,7 +35,7 @@ export function post(url, data, callback) {
   })
     .then(response => {
       if (!response.ok) {
-        return new Error(Response.statusText);
+        throw new Error(response.statusText);
       }
       return response.json();
     })
@@ -55,7 +55,7 @@ export function del(url, data, callback) {
   })
     .then(response => {
       if (!response.ok) {
-        return new Error(Response.statusText);
+        throw new Error(response.statusText);
       }
       return response.json();
     })
