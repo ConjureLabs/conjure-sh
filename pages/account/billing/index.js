@@ -8,6 +8,11 @@ import CardUI from './card-ui.js';
 export default ({ url }) => {
   const { account, cards } = url.query;
 
+  if (cards.length === 0) {
+    window.location = '/account/billing/entry';
+    return;
+  }
+
   const initialState = {
     account: account
   };
