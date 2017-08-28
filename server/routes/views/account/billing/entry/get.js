@@ -1,5 +1,5 @@
 const Route = require('conjure-core/classes/Route');
-const nextApp = require('../../../../next');
+const nextApp = require('../../../../../next');
 const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
 
 const route = new Route({
