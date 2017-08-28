@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import classnames from 'classnames';
 import styles, { classes } from './card-ui-styles.js';
+import { del } from '../../../shared/xhr';
 
 import CreditCardSummary from '../../../components/CreditCardSummary';
 
@@ -75,6 +76,22 @@ export default class AccountBilling extends Component {
         {actions}
       </span>
     );
+  }
+
+  deleteCard() {
+    const { card } = this.props;
+
+    del(`${config.app.api.url}/api/account/card/${card.id}`, null, err => {
+      if (err) {
+        console.error(err);
+        alert(err.message);
+        submitting = false;
+        return;
+      }
+
+      // todo: update the store value, force main view to update...
+      console.log('okay');
+    });
   }
 
   render() {
