@@ -46,3 +46,23 @@ export function post(url, data, callback) {
       callback(err);
     });
 }
+
+export function del(url, data, callback) {
+  fetch(`${url}${data ? '?' : ''}${queryString.stringify(data)}`, {
+    method: 'DELETE',
+    credentials: 'include',
+    cache: 'no-cache'
+  })
+    .then(response => {
+      if (!response.ok) {
+        return new Error(Response.statusText);
+      }
+      return response.json();
+    })
+    .then(json => {
+      callback(null, json);
+    })
+    .catch(err => {
+      callback(err);
+    });
+}
