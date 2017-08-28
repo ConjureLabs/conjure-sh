@@ -61,9 +61,15 @@ function prepareStylus(filePath) {
       }
 
       const classLookup = {};
-      const pathTokens = path.parse(filePath).dir
+      const pathParsed = path.parse(filePath);
+      const pathTokens = pathParsed.dir
         .substr(projectDir.length + 1)
         .split('/');
+
+      // if a file is not the typical styles.styl (say, component.styles.styl), then we need to track that to avoid name collision
+      if (pathParsed.base !== 'styles.styl') {
+        pathTokens.push(pathParsed.name.replace(/\.+/g, '-'));
+      }
 
       // see https://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors
       css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?=\s|\{|\.|:|,|$])/g, function (_, className) {
