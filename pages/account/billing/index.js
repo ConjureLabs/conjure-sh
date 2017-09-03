@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import actions from './actions';
 import styles, { classes } from './styles.js';
-import { ReStore } from '../../../shared/ReStore';
+import { ReStore, connect } from '../../../shared/ReStore';
 
 import Header from '../../../components/Header';
 import Button from '../../../components/Button';
@@ -10,12 +10,6 @@ import CardUI from './card-ui.js';
 class Billing extends Component {
   render() {
     const { account, cards } = this.props;
-
-    // if no cards available, then redirect user to billing entry view
-    if (cards.length === 0) {
-      window.location = '/account/billing/entry';
-      return;
-    }
 
     return (
       <span>
@@ -28,7 +22,7 @@ class Billing extends Component {
               hallow={false}
               size='small'
               onClick={() => {
-                window.location='/account/billing/entry';
+                window.location = '/account/billing/entry';
               }}
             >
               Add New Card
@@ -65,11 +59,6 @@ const ConnectedBilling = connect(selector)(Billing);
 
 export default ({ url }) => {
   const { account, cards } = url.query;
-
-  if (cards.length === 0) {
-    window.location = '/account/billing/entry';
-    return;
-  }
 
   const initialState = {
     account,

@@ -41,6 +41,11 @@ route.push((req, res, next) => {
       return next(err);
     }
 
+    // if no credit cards available, then kick user to billing entry view
+    if (cards.length === 0) {
+      return res.redirect(302, '/account/billing/entry');
+    }
+
     nextApp.render(req, res, '/account/billing', {
       account: {
         photo: records.github.photo // todo: not rely on github...
