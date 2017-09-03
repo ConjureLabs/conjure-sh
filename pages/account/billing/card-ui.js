@@ -3,12 +3,14 @@ import classnames from 'classnames';
 import styles, { classes } from './card-ui-styles.js';
 import { del } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
+import { connect } from '../../../shared/ReStore.js';
 
 import CreditCardSummary from '../../../components/CreditCardSummary';
 
-export default class AccountBilling extends Component {
-  constructor(props) {
+class CardUi extends Component {
+  constructor(props, context) {
     super(props);
+    console.log(props, context);
 
     this.state = {
       deleting: false,
@@ -85,7 +87,7 @@ export default class AccountBilling extends Component {
   }
 
   deleteCard() {
-    const { card } = this.props;
+    const { card, dispatch } = this.props;
 
     del(`${config.app.api.url}/api/account/card/${card.id}`, null, err => {
       if (err) {
@@ -97,8 +99,13 @@ export default class AccountBilling extends Component {
         return;
       }
 
-      // todo: update the store value, force main view to update...
-      console.log('okay');
+      dispatch.removeCard({
+        card
+      }, () => {
+        this.setState({
+          deleting: false
+        });
+      });
     });
   }
 
@@ -118,3 +125,11 @@ export default class AccountBilling extends Component {
     );
   }
 }
+
+const selector = store => {
+  return {
+    cards: store.cards
+  };
+};
+
+export default connect(selector)(CardUi);

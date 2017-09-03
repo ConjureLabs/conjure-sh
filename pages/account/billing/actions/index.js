@@ -8,7 +8,13 @@ const addCard = (store, { card }) => {
 };
 
 const removeCard = (store, { card }) => {
-  const index = store.cards.indexOf(card);
+  let index = -1;
+  for (let i = 0; i < store.cards.length; i++) {
+    if (store.cards[i].id === card.id) {
+      index = i;
+      break;
+    }
+  }
 
   if (index === -1) {
     return store;

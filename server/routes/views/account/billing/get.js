@@ -42,7 +42,7 @@ route.push((req, res, next) => {
     }
 
     // if no credit cards available, then kick user to billing entry view
-    if (cards.length === 0) {
+    if (records.cards.length === 0) {
       return res.redirect(302, '/account/billing/entry');
     }
 
