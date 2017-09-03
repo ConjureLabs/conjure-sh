@@ -101,10 +101,6 @@ class CardUi extends Component {
 
       dispatch.removeCard({
         card
-      }, () => {
-        this.setState({
-          deleting: false
-        });
       });
     });
   }
