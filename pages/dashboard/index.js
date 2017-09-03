@@ -233,7 +233,7 @@ const selector = store => {
 
 const ConnectedDashboard = connect(selector)(Dashboard);
 
-const PageContent = ({ url, children }) => {
+export default ({ url, children }) => {
   // todo: avoid using props.url.query?
   const { account, orgs } = url.query;
 
@@ -251,5 +251,3 @@ const PageContent = ({ url, children }) => {
     </ReStore>
   );
 };
-
-export default PageContent;
