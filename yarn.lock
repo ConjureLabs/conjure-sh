@@ -75,6 +75,12 @@ amdefine@>=0.0.4:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/amdefine/-/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
 
+amqp@^0.2.6:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/amqp/-/amqp-0.2.6.tgz#d97fee5143026fa0b4fd6a5d56485f0448eb37ca"
+  dependencies:
+    lodash "^4.0.0"
+
 ansi-html@0.0.7:
   version "0.0.7"
   resolved "https://registry.yarnpkg.com/ansi-html/-/ansi-html-0.0.7.tgz#813584021962a9e9e6fd039f940d12f56ca7859e"
@@ -1407,7 +1413,7 @@ concat-map@0.0.1:
 
 "conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#af2d00519dde7a0c9b9c3ae535fcafa0dd67296a"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#ccc4cfed662515f5aabaaefc08921ec0fcc7aa26"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
@@ -1425,9 +1431,10 @@ concat-map@0.0.1:
 
 "conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#f26fdf790a8a9dfcd79c609e6a59905fcc4b0c83"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#50f57a1fc1d7ff53491e35874a54bef8daf10e9e"
   dependencies:
     uid "^0.0.2"
+    amqp "^0.2.6"
     app-root-path "^2.0.1"
     cors "^2.8.3"
     octonode "^0.7.13"
@@ -2859,7 +2866,7 @@ lodash.uniq@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.uniq/-/lodash.uniq-4.5.0.tgz#d0225373aeb652adc1bc82e4945339a842754773"
 
-lodash@^4.14.0, lodash@^4.2.0, lodash@^4.5.1, lodash@^4.6.1:
+lodash@^4.0.0, lodash@^4.14.0, lodash@^4.2.0, lodash@^4.5.1, lodash@^4.6.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
