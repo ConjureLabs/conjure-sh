@@ -1,5 +1,4 @@
 const nextApp = require('../../next');
-const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
 
 const handlers = [];
 
