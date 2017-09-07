@@ -1,9 +1,10 @@
+const Route = require('conjure-core/classes/Route');
 const nextApp = require('../../../next');
 
-const handlers = [];
+const route = new Route();
 
-handlers.push((req, res, next) => {
+route.push((req, res, next) => {
   nextApp.render(req, res, '/docs');
 });
 
-module.exports = handlers;
+module.exports = route;
