@@ -1,4 +1,4 @@
-import { connect } from '../../shared/ReStore';
+import { connect } from 'federal';
 import styles, { classes } from './styles.js';
 import classnames from 'classnames';
 

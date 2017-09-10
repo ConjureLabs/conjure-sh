@@ -1,9 +1,9 @@
 import { Component } from 'react';
+import { connect } from 'federal';
 import classnames from 'classnames';
 import styles, { classes } from './card-ui-styles.js';
 import { del } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
-import { connect } from '../../../shared/ReStore.js';
 
 import CreditCardSummary from '../../../components/CreditCardSummary';
 

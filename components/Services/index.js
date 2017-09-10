@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { connect } from '../../shared/ReStore';
+import { connect } from 'federal';
 import { post } from '../../shared/xhr';
 import Button from '../Button';
 import classnames from 'classnames';

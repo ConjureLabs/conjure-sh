@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import styles, { classes } from '../styles.js';
-import { ReStore } from '../../../shared/ReStore';
+import Federal from 'federal';
 import classnames from 'classnames';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
@@ -101,7 +101,7 @@ export default class OnboardBilling extends Component {
     };
 
     return (
-      <ReStore store={initialState}>
+      <Federal store={initialState}>
         <Header />
 
         <div className={classes.wrap}>
@@ -238,7 +238,7 @@ export default class OnboardBilling extends Component {
 
           {styles}
         </div>
-      </ReStore>
+      </Federal>
     );
   }
 }

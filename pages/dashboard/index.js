@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { get } from '../../shared/xhr';
 import actions from './actions';
 import styles, { classes } from './styles.js';
-import { ReStore, connect } from '../../shared/ReStore';
+import Federal, { connect } from 'federal';
 import config from '../../shared/config.js';
 import classnames from 'classnames';
 
@@ -246,8 +246,8 @@ export default ({ url, children }) => {
   };
 
   return (
-    <ReStore store={initialState} actions={actions}>
+    <Federal store={initialState} actions={actions}>
       <ConnectedDashboard orgs={orgs} />
-    </ReStore>
+    </Federal>
   );
 };

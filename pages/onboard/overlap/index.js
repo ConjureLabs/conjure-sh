@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import styles, { classes } from '../styles.js';
-import { ReStore } from '../../../shared/ReStore';
+import Federal from 'federal';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
@@ -28,7 +28,6 @@ export default class OnboardOverlap extends Component {
 
   render() {
     const { query } = this.props.url;
-    console.log(query);
     const { account, orgsAlreadyAvailable, orgs } = query;
 
     const initialState = {
@@ -36,7 +35,7 @@ export default class OnboardOverlap extends Component {
     };
 
     return (
-      <ReStore store={initialState}>
+      <Federal store={initialState}>
         <Header />
 
         <div className={classes.wrap}>
@@ -80,7 +79,7 @@ export default class OnboardOverlap extends Component {
 
           {styles}
         </div>
-      </ReStore>
+      </Federal>
     );
   }
 }

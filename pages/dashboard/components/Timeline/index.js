@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import styles, { classes } from './styles.js';
-import { ReStore, connect } from '../../../../shared/ReStore';
+import { connect } from 'federal';
 import EmptyState from '../../../../components/EmptyState';
 import classnames from 'classnames';
 import moment from 'moment';

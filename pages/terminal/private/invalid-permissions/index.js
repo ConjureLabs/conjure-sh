@@ -1,5 +1,5 @@
 import styles, { classes } from './styles.js';
-import { ReStore } from '../../../../shared/ReStore';
+import Federal from 'federal';
 
 import EmptyState from '../../../components/EmptyState';
 import Header from '../../../components/Header';
@@ -10,7 +10,7 @@ export default ({ query }) => {
   };
 
   return (
-    <ReStore store={initialState}>
+    <Federal store={initialState}>
       <Header />
 
       <div className={classes.wrap}>
@@ -23,6 +23,6 @@ export default ({ query }) => {
       </div>
 
       {styles}
-    </ReStore>
+    </Federal>
   );
 };

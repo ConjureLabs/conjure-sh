@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import actions from './actions';
 import styles, { classes } from './styles.js';
-import { ReStore, connect } from '../../../shared/ReStore';
+import Federal, { connect } from 'federal';
 
 import Header from '../../../components/Header';
 import Button from '../../../components/Button';
@@ -66,8 +66,8 @@ export default ({ url }) => {
   };
 
   return (
-    <ReStore store={initialState} actions={actions}>
+    <Federal store={initialState} actions={actions}>
       <ConnectedBilling />
-    </ReStore>
+    </Federal>
   );
 };
