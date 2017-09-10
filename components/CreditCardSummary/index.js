@@ -1,7 +1,7 @@
 import classnames from 'classnames';
 
 import styles, { classes } from './styles.js';
-import { cards } from '../../utils/credit-cards/index.js';
+import { cards } from '../../shared/credit-cards.js';
 import config from '../../shared/config.js';
 
 export default ({ name, expiration, last4, brand, className }) => {

@@ -4,7 +4,7 @@ import {
   cards,
   cardPrefixDict,
   maxCardPrefixLength
-} from '../../../utils/credit-cards/index.js';
+} from '../../../shared/credit-cards.js';
 
 const nonDigitExpr = /\D/g;
 
