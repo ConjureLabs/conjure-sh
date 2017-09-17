@@ -83,15 +83,8 @@ server.use((req, res, next) => {
   next();
 });
 
-const containerViewHandler = require('./container.view.js');
-server.use((req, res, next) => {
-  containerViewHandler(req, res, next);
-});
-
-const containerLogsHandler = require('./container.logs.js');
-server.use((req, res, next) => {
-  containerLogsHandler(req, res, next);
-});
+// container routes (to view web or logs)
+server.use(require('./container-routes'));
 
 // initialize routes
 server.use(setup.routes.views);

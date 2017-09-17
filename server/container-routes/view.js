@@ -1,24 +1,7 @@
 const log = require('conjure-core/modules/log')('container proxy');
 const nextApp = require('./next');
 
-// todo: fix `subdomainExpr` for non-development
-const subdomainExpr = /^([\w\.]*)\.conjure\.dev(?!\w)/;
-const containerViewExpr = /^(\w+)\.view\.conjure\.dev(?!\w)/;
-
-module.exports = (req, res, next) => {
-  // if not a subdomain request, kick to next, unless www.
-  const subdomainMatch = subdomainExpr.exec(req.headers.host);
-  if (!subdomainMatch || subdomainMatch[1] === 'www') {
-    return next();
-  }
-
-  const viewMatch = containerViewExpr.exec(req.headers.host);
-  if (!viewMatch) {
-    return next();
-  }
-
-  const uid = viewMatch[1];
-
+module.exports = (req, res, uid, next) => {
   const async = require('async');
 
   const waterfall = [];
