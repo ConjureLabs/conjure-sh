@@ -36,7 +36,7 @@ module.exports = (req, res, next) => {
       if (!proxies.length) {
         // no proxy record found - kick this forward, which should result in a 404
         log.info(`No container found for uid ${uid}`);
-        return next();
+        return nextApp.render(req, res, '/_error');
       }
 
       callback(null, proxies[0]);
@@ -56,7 +56,7 @@ module.exports = (req, res, next) => {
       if (!records.length) {
         // no watched repo record found - kick this forward, which should result in a 404
         log.info(`No 'watched_repo' record found for container row`); // this should not happen
-        return next();
+        return nextApp.render(req, res, '/_error');
       }
 
       const watchedRepo = records[0];
