@@ -3,7 +3,7 @@ const nextApp = require('./next');
 
 // todo: fix `subdomainExpr` for non-development
 const subdomainExpr = /^([\w\.]*)\.conjure\.dev(?!\w)/;
-const containerViewExpr = /^(\w+)\.logs\.conjure\.dev(?!\w)/;
+const containerLogsExpr = /^(\w+)\.logs\.conjure\.dev(?!\w)/;
 
 module.exports = (req, res, next) => {
   // if not a subdomain request, kick to next, unless www.
@@ -12,12 +12,12 @@ module.exports = (req, res, next) => {
     return next();
   }
 
-  const viewMatch = containerViewExpr.exec(req.headers.host);
-  if (!viewMatch) {
-    return nextApp.render(req, res, '/_error');
+  const logMatch = containerLogsExpr.exec(req.headers.host);
+  if (!logMatch) {
+    return next();
   }
 
-  const uid = viewMatch[1];
+  const uid = logMatch[1];
 
   const async = require('async');
 

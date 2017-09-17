@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
 
   const viewMatch = containerViewExpr.exec(req.headers.host);
   if (!viewMatch) {
-    return nextApp.render(req, res, '/_error');
+    return next();
   }
 
   const uid = viewMatch[1];
