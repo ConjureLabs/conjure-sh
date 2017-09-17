@@ -1,8 +1,8 @@
-const log = require('conjure-core/modules/log')('container proxy');
+const log = require('conjure-core/modules/log')('container logs');
 const nextApp = require('./next');
 
 const subdomainExpr = /^([\w\.]*)\.conjure\.dev(?!\w)/;
-const containerViewExpr = /^(\w+)\.view\.conjure\.dev(?!\w)/;
+const containerViewExpr = /^(\w+)\.logs\.conjure\.dev(?!\w)/;
 
 module.exports = (req, res, next) => {
   // if not a subdomain request, kick to next, unless www.
