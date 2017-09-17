@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
   }
 
   const containerMatch = containerLogsExpr.exec(req.headers.host);
-  if (!logMatch) {
+  if (!containerMatch) {
     return next();
   }
 
@@ -29,7 +29,7 @@ module.exports = (req, res, next) => {
       const logsHandler = require('./logs.js');
       return logsHandler(req, res, containerId, next);
 
-    default
+    default:
       return nextApp.render(req, res, '/_error');
   }
 };

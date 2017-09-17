@@ -1,5 +1,5 @@
 const log = require('conjure-core/modules/log')('container proxy');
-const nextApp = require('./next');
+const nextApp = require('../next');
 
 module.exports = (req, res, uid, next) => {
   const async = require('async');
