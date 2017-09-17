@@ -2,6 +2,7 @@ import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import { connect } from 'federal';
 import EmptyState from '../../../../components/EmptyState';
+import AnchorHoverList from '../../../../components/AnchorHoverList';
 import classnames from 'classnames';
 import moment from 'moment';
 
@@ -208,12 +209,20 @@ class Timeline extends Component {
 
             // if container is running, link to it
             const statusNode = item.status === 'Running' ? (
-              <a
-                href={item.url}
-                target='_blank'
-              >
-                Running
-              </a>
+              <AnchorHoverList
+                anchors={[
+                  {
+                    href: item.url,
+                    target: '_blank',
+                    label: 'Running'
+                  },
+                  {
+                    href: item.url,
+                    target: '_blank',
+                    label: 'Follow Logs'
+                  },
+                ]}
+              />
             ) : item.status;
 
             return (
