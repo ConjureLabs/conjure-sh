@@ -196,7 +196,7 @@ class Timeline extends Component {
                       {
                         headerDay === today ? 'Today' :
                           headerDay === yesterday ? 'Yesterday' :
-                          moment(new Date(headerDay * dayMs)).format('LL')
+                          moment(new Date(headerDay * dayMs)).format('ll')
                       }
                     </li>
                     <li className={classes.repo}>Repo</li>
