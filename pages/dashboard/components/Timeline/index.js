@@ -216,12 +216,12 @@ class Timeline extends Component {
                 className={classes.runningInstanceAnchors}
                 anchors={[
                   {
-                    href: item.url,
+                    href: item.view,
                     target: '_blank',
                     label: 'Running'
                   },
                   {
-                    href: item.url,
+                    href: item.logs,
                     target: '_blank',
                     label: 'Follow Logs'
                   },
