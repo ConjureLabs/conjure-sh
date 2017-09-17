@@ -22,6 +22,7 @@ module.exports = (req, res, next) => {
 
   const waterfall = [];
 
+  // pull up the container record being accessed
   waterfall.push(callback => {
     const DatabaseTable = require('conjure-core/classes/DatabaseTable');
     DatabaseTable.select('container', {
@@ -41,6 +42,7 @@ module.exports = (req, res, next) => {
     });
   });
 
+  // check permissions
   waterfall.push((proxyRecord, callback) => {
     const DatabaseTable = require('conjure-core/classes/DatabaseTable');
     DatabaseTable.select('watched_repo', {
