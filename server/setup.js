@@ -11,7 +11,6 @@ log.timeStart('finished setup');
 
 // crawling routes
 const viewsRoutesDir = path.resolve(__dirname, 'routes', 'views');
-const containerRoutesDir = path.resolve(__dirname, 'routes', 'c');
 const jsFileExt = /\.js$/;
 const startingDollarSign = /^\$/;
 const validVerbs = ['all', 'get', 'post', 'put', 'patch', 'delete'];
