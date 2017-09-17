@@ -60,13 +60,14 @@ module.exports = (req, res, next) => {
 
       const watchedRepo = records[0];
 
-      // if not a private repo, just let the user view it
-      // todo: have owner restrictions, to lower billing, able to disallow anon views
+      // if not a private repo, just let the user tail logs
+      // todo: have owner restrictions, to lower billing, able to disallow anon tail logs
+      // todo: determine if public views should have logs exposed
       if (!watchedRepo.private) {
         return callback(null, proxyRecord);
       }
 
-      // if user is not logged in, then prevent viewing until they do
+      // if user is not logged in, then prevent tailing logs until they do
       if (!req.isAuthenticated()) {
         return nextApp.render(req, res, '/terminal/private/requires-auth');
       }
@@ -91,7 +92,7 @@ module.exports = (req, res, next) => {
 
           // if user has no repos in the containers org...
           if (!orgRepos) {
-            log.info(`Restricted viewing of container '${uid}', within org ${watchedRepo.org} - user does not have access to org`);
+            log.info(`Restricted logs of container '${uid}', within org ${watchedRepo.org} - user does not have access to org`);
             nextApp.render(req, res, '/terminal/private/invalid-permissions', {
               account: {
                 photo: gitHubAccount.photo // todo: not rely on github...
@@ -112,7 +113,7 @@ module.exports = (req, res, next) => {
 
           // if that repo does not exist, kick to 404
           if (!repo) {
-            log.info(`Restricted viewing of container '${uid}', within org ${watchedRepo.org} - user does not have access to repo`);
+            log.info(`Restricted logs of container '${uid}', within org ${watchedRepo.org} - user does not have access to repo`);
             nextApp.render(req, res, '/terminal/private/invalid-permissions', {
               account: {
                 photo: gitHubAccount.photo // todo: not rely on github...
@@ -125,7 +126,7 @@ module.exports = (req, res, next) => {
           // if perms are not correct, kick to 404
           // only check if have read access
           if (!repo.permissions || repo.permissions.pull !== true) {
-            log.info(`Restricted viewing of container '${uid}', within org ${watchedRepo.org} - user does not have proper perms`);
+            log.info(`Restricted logs of container '${uid}', within org ${watchedRepo.org} - user does not have proper perms`);
             nextApp.render(req, res, '/terminal/private/invalid-permissions', {
               account: {
                 photo: gitHubAccount.photo // todo: not rely on github...
@@ -146,15 +147,7 @@ module.exports = (req, res, next) => {
       return next(err);
     }
 
-    const ReqProxy = require('conjure-core/classes/Req/Proxy');
-
-    // was successful, so proxy the request to the docker instance
-    const proxy = new ReqProxy({
-      domain: process.env.NODE_ENV === 'development' ? 'localhost' : proxyRecord.host, // todo: may want to config this
-      path: req.url,
-      port: proxyRecord.port
-    });
-
-    proxy.forward(req, res);
+    // was successful, so start tailing logs
+    res.send('SHOULD SEND LOGS NOW');
   });
 };
