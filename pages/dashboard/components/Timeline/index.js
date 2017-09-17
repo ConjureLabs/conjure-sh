@@ -207,9 +207,13 @@ class Timeline extends Component {
               );
             }
 
+            console.log(item);
+
             // if container is running, link to it
             const statusNode = item.status === 'Running' ? (
               <AnchorHoverList
+                key={`running-instance-${item.id}`}
+                className={classes.runningInstanceAnchors}
                 anchors={[
                   {
                     href: item.url,
