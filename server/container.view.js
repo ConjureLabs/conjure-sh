@@ -1,6 +1,7 @@
 const log = require('conjure-core/modules/log')('container proxy');
 const nextApp = require('./next');
 
+// todo: fix `subdomainExpr` for non-development
 const subdomainExpr = /^([\w\.]*)\.conjure\.dev(?!\w)/;
 const containerViewExpr = /^(\w+)\.view\.conjure\.dev(?!\w)/;
 
