@@ -4,4 +4,13 @@
 module.exports = (req, res, containerRecord, next) => {
   // was successful, so start tailing logs
   res.send('SHOULD SEND LOGS NOW');
+
+  const request = require('request');
+  request.get(`http://conjure.dev:2999/api/org/ConjureLabs/container/${containerRecord.url_uid}/logs`, (err, res, body) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log(body);
+    }
+  });
 };
