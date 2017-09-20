@@ -7,10 +7,9 @@ module.exports = (req, res, containerRecord, next) => {
 
   const request = require('request');
   request.get(`http://conjure.dev:2999/api/org/ConjureLabs/container/${containerRecord.url_uid}/logs`, (err, res, body) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log(body);
-    }
+    res.pipe(process.stdout);
+    res.on('end', function() {
+      console.log('finished');
+    });
   });
 };
