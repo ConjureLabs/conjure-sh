@@ -2,15 +2,22 @@
 // todo: determine if public views should have logs exposed
 
 module.exports = (req, res, containerRecord, next) => {
-  // was successful, so start tailing logs
-  res.send('SHOULD SEND LOGS NOW');
-
   const request = require('request');
   request.get(`http://conjure.dev:2999/api/org/ConjureLabs/container/${containerRecord.url_uid}/logs`, (err, _, body) => {
-    // res.pipe(process.stdout);
-    // res.on('end', function() {
-    //   console.log('finished');
-    // });
-    res.send(body);
+    if (err) {
+      return next(err);
+    }
+
+    // body --> {"sessionKey":"d?neg%eDh2@u14P|4~~YRV@x~2j6h:P&S6n,4E%l9gc16?-TAoJK,-KG&@akqMR@"}
+    
+    if (!body || !body.sessionKey) {
+      const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
+      return next(new UnexpectedError('No session key given for logs tailing'));
+    }
+
+    const nextApp = require('../next');
+    nextApp.render(req, res, '/container/logs', {
+      sessionKey: body.sessionKey
+    });
   });
 };
