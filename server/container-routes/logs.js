@@ -6,10 +6,11 @@ module.exports = (req, res, containerRecord, next) => {
   res.send('SHOULD SEND LOGS NOW');
 
   const request = require('request');
-  request.get(`http://conjure.dev:2999/api/org/ConjureLabs/container/${containerRecord.url_uid}/logs`, (err, res, body) => {
-    res.pipe(process.stdout);
-    res.on('end', function() {
-      console.log('finished');
-    });
+  request.get(`http://conjure.dev:2999/api/org/ConjureLabs/container/${containerRecord.url_uid}/logs`, (err, _, body) => {
+    // res.pipe(process.stdout);
+    // res.on('end', function() {
+    //   console.log('finished');
+    // });
+    res.send(body);
   });
 };
