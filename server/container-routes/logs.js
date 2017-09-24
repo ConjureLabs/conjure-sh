@@ -3,7 +3,11 @@
 
 module.exports = (req, res, containerRecord, next) => {
   const request = require('request');
-  request.get(`http://conjure.dev:2999/api/org/ConjureLabs/container/${containerRecord.url_uid}/logs`, (err, _, body) => {
+  request({
+    method: 'GET',
+    url: `http://conjure.dev:2999/api/org/ConjureLabs/container/${containerRecord.url_uid}/logs`,
+    json: true
+  }, (err, _, body) => {
     if (err) {
       return next(err);
     }
@@ -15,11 +19,12 @@ module.exports = (req, res, containerRecord, next) => {
       return next(new UnexpectedError('No session key given for logs tailing'));
     }
 
+    console.log(body);
+
     const nextApp = require('../next');
     nextApp.render(req, res, '/container/logs', {
       sessionKey: body.sessionKey,
-      hostname: body.hostname,
-      port: body.port,
+      host: body.host,
       containerUid: containerRecord.url_uid
     });
   });

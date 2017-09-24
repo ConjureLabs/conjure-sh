@@ -8,6 +8,10 @@ const clientConfig = {
   app: {
     api: {
       url: config.app.api.url
+    },
+
+    worker: {
+      port: config.app.worker.port
     }
   }
 };
