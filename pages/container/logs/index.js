@@ -15,18 +15,25 @@ export default class ContainerLogs extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props);
     const { host, containerUid, sessionKey } = this.props.url.query;
 
     console.log(`${config.app.worker.protocol}//${host}:${config.app.worker.port}`);
-    const socket = io(`${config.app.worker.protocol}//${host}:${config.app.worker.port}/container/logs`);
+    const socket = io(`//localhost:${config.app.worker.port}/container/logs`);
 
     socket.emit('auth', {
       containerUid,
       sessionKey
     });
 
-    socket.on('content', content => {
+    socket.on('out', content => {
+      console.log(content);
+      this.setState({
+        logsContent: this.state.logsContent + content
+      });
+    });
+
+    socket.on('err', content => {
+      console.log(content);
       this.setState({
         logsContent: this.state.logsContent + content
       });
@@ -41,7 +48,9 @@ export default class ContainerLogs extends Component {
 
   render() {
     return (
-      <div>{this.state.logContent}</div>
+      <div>
+        <pre>{this.state.logsContent}</pre>
+      </div>
     );
   }
 }
