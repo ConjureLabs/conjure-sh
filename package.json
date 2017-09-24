@@ -46,6 +46,7 @@
     "react": "15.4.2",
     "react-dom": "15.4.2",
     "request": "^2.81.0",
+    "socket.io-client": "^2.0.3",
     "style-loader": "^0.16.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
