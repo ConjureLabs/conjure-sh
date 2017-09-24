@@ -1461,7 +1461,7 @@ concat-map@0.0.1:
 
 "conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#c2ecc448c7ecd83f20662a2d51bee68d108fe03d"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#1368221369ccf0b5ef211eed91f8287081bbe6a6"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
@@ -1479,7 +1479,7 @@ concat-map@0.0.1:
 
 "conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#3f06a97d5ff829333f49168ce5070a3f15225f56"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#521950b77ec8ce0a8003f38c108ff74a5cf5aa47"
   dependencies:
     amqp "^0.2.6"
     app-root-path "^2.0.1"
@@ -5051,6 +5051,15 @@ type-is@~1.6.13, type-is@~1.6.14, type-is@~1.6.15:
 ua-parser-js@^0.7.9:
   version "0.7.12"
   resolved "https://registry.yarnpkg.com/ua-parser-js/-/ua-parser-js-0.7.12.tgz#04c81a99bdd5dc52263ea29d24c6bf8d4818a4bb"
+
+uglify-js@^2.4.19:
+  version "2.8.29"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.29.tgz#29c5733148057bb4e1f75df35b7a9cb72e6a59dd"
+  dependencies:
+    source-map "~0.5.1"
+    yargs "~3.10.0"
+  optionalDependencies:
+    uglify-to-browserify "~1.0.0"
 
 uglify-js@^2.8.27, uglify-js@^2.8.5:
   version "2.8.28"
