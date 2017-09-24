@@ -11,7 +11,8 @@ const clientConfig = {
     },
 
     worker: {
-      port: config.app.worker.port
+      port: config.app.worker.port,
+      protocol: config.app.worker.protocol
     }
   }
 };

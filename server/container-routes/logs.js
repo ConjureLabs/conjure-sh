@@ -12,14 +12,14 @@ module.exports = (req, res, containerRecord, next) => {
       return next(err);
     }
 
+    console.log(body);
+
     // body --> {"sessionKey":"d?neg%eDh2@u14P|4~~YRV@x~2j6h:P&S6n,4E%l9gc16?-TAoJK,-KG&@akqMR@"}
     
     if (!body || !body.sessionKey) {
       const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
       return next(new UnexpectedError('No session key given for logs tailing'));
     }
-
-    console.log(body);
 
     const nextApp = require('../next');
     nextApp.render(req, res, '/container/logs', {

@@ -18,8 +18,8 @@ export default class ContainerLogs extends Component {
     console.log(this.props);
     const { host, containerUid, sessionKey } = this.props.url.query;
 
-    console.log(`//${host}:${config.app.worker.port}`);
-    const socket = io(`//${host}:${config.app.worker.port}/container/logs`);
+    console.log(`${config.app.worker.protocol}//${host}:${config.app.worker.port}`);
+    const socket = io(`${config.app.worker.protocol}//${host}:${config.app.worker.port}/container/logs`);
 
     socket.emit('auth', {
       containerUid,
