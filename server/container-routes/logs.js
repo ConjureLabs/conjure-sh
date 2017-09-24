@@ -17,7 +17,10 @@ module.exports = (req, res, containerRecord, next) => {
 
     const nextApp = require('../next');
     nextApp.render(req, res, '/container/logs', {
-      sessionKey: body.sessionKey
+      sessionKey: body.sessionKey,
+      hostname: body.hostname,
+      port: body.port,
+      containerUid: containerRecord.url_uid
     });
   });
 };
