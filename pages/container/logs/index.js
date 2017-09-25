@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import io from 'socket.io-client';
+import styles, { classes } from './styles.js';
 
 import config from '../../../shared/config.js';
 
@@ -26,14 +27,12 @@ export default class ContainerLogs extends Component {
     });
 
     socket.on('out', content => {
-      console.log(content);
       this.setState({
         logsContent: this.state.logsContent + content
       });
     });
 
     socket.on('err', content => {
-      console.log(content);
       this.setState({
         logsContent: this.state.logsContent + content
       });
@@ -48,9 +47,20 @@ export default class ContainerLogs extends Component {
 
   render() {
     return (
-      <div>
-        <pre>{this.state.logsContent}</pre>
+      <div className={classes.root}>
+        <pre dangerouslySetInnerHTML={{ __html: styledContent(this.state.logsContent) }} />
+        {styles}
       </div>
     );
   }
+}
+
+import AnsiConverter from 'ansi-to-html';
+const converter = new AnsiConverter({
+  fg: '#000',
+  bg: '#FFF'
+});
+
+function styledContent(content) {
+  return converter.toHtml(content);
 }

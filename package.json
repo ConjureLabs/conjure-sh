@@ -11,6 +11,7 @@
     "start": "bash ./bash/yarn/start.sh"
   },
   "dependencies": {
+    "ansi-to-html": "^0.6.3",
     "async": "^2.3.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
