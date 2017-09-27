@@ -53,6 +53,25 @@
 
     .label
       color: #ddd
+
+  &.color_white
+    gradient(#fff, darken(#fff, 8%))
+
+    &.hallow
+      background: none
+      border: 1px solid #fff
+
+      .label
+        color: #fff
+
+    &:hover
+      gradient(darken(#fff, 2%), darken(#fff, 10%))
+      
+      &.hallow
+        background: rgba(#fff, 0.14)
+
+    .label
+      color: $black
   
   &.color_gray
     gradient(rgba(#bbbbbb, 0.72), rgba(#a8a8a8, 0.72))

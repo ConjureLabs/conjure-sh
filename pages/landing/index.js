@@ -42,7 +42,7 @@ export default class Landing extends Component {
               <li className={classes.item}>
                 <Button
                   size='small'
-                  color='black'
+                  color='white'
                   onClick={this.submitForm.bind(this)}
                 >
                   Sign Up
@@ -55,14 +55,14 @@ export default class Landing extends Component {
             <p className={classes.mark}>⎔</p>
             <p className={classes.firstImpression}>
               <sup className={classes.name}>Conjure</sup>
-              <span>brings your branches to life</span>
+              <span>runs your development branches</span>
             </p>
 
             <div>
               <Button
                 size='large'
                 className={classes.cta}
-                color='purple'
+                color='white'
                 onClick={this.submitForm.bind(this)}
               >
                 <span className={classes.label}>Sign Up</span>

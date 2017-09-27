@@ -48,7 +48,8 @@ export default class Button extends Component {
       'gray',
       'peach',
       'pink',
-      'purple'
+      'purple',
+      'white'
     ]).isRequired,
 
     hallow: PropTypes.bool,

@@ -4,7 +4,7 @@ $bodyPadding = 1.5rem
 
 .root
   background: $conjureColorMain
-  border-bottom: 1px solid $conjureColorMainSlightlyDark
+  border-bottom: 1px solid $conjureColorMainSlightlyDifferent
   display: block
   height: 6rem
   
@@ -18,7 +18,7 @@ $bodyPadding = 1.5rem
   
     > h1
       clear: none
-      color: $conjureColorMainDark
+      color: $conjureColorMainVeryDifferent
       cursor: pointer
       disableSelect()
       flex-grow: 1
@@ -53,10 +53,10 @@ $bodyPadding = 1.5rem
       display: none
       
     &:hover
-      background: $black
+      background: $conjureColorMainSlightlyDifferent
       
       .links
-        background: $black
+        background: $conjureColorMainSlightlyDifferent
         display: block
         position: absolute
         right: 0rem
@@ -69,4 +69,4 @@ $bodyPadding = 1.5rem
           padding: 2rem ($bodyPadding + 2rem)
           
           &:hover
-            background: $trueBlack
+            background: $conjureColorMain
