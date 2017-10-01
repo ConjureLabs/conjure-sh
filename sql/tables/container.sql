@@ -3,7 +3,7 @@ CREATE TABLE container (
   repo INT REFERENCES watched_repo(id),
   branch VARCHAR(255) NOT NULL, -- 255 is max github length
   -- commit_sha VARCHAR(40) NOT NULL,
-  domain VARCHAR(200),
+  -- domain VARCHAR(200),
   port INT,
   container_id VARCHAR(64),
   url_uid VARCHAR(24) NOT NULL,
