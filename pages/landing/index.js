@@ -3,6 +3,8 @@ import styles, { classes } from './styles.js';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
 
+import Glimpse from './components/Glimpse';
+
 export default class Landing extends Component {
   constructor(props) {
     super(props);
@@ -71,7 +73,7 @@ export default class Landing extends Component {
             </div>
           </div>
 
-          <div className={classes.browserTeaser} />
+          <Glimpse />
         </header>
 
         {styles}
