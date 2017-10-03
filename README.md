@@ -1,5 +1,7 @@
 <p align="center">
-<strong>c o n j u r e</strong> <kbd>⎔</kbd>
+  <strong>c o n j u r e</strong>
+  <kbd>⎔</kbd>
+  <strong>w e b</strong>
 </p>
 
 ### Conjure Web
