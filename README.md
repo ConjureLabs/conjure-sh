@@ -1,4 +1,6 @@
-<kbd>⎔</kbd>
+<p align="center">
+  <kbd>⎔</kbd>
+</p>
 
 ### Conjure Web
 
