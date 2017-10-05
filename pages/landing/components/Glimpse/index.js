@@ -76,10 +76,10 @@ export default class Glimpse extends Component {
         </div>
 
         <div className={classes.content}>
-          <span className={classes.title}>New Sidebar</span>
           <ins>Open</ins>
+          <span className={classes.title}>New Sidebar</span>
 
-          <span className={classes.commentWrap}>
+          <span className={classnames(classes.commentWrap, classes.first)}>
             <span className={classes.author} />
 
             <span className={classes.comment}>
