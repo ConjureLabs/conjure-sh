@@ -72,7 +72,7 @@ function prepareStylus(filePath) {
       }
 
       // see https://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors
-      css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?=\s|\{|\.|:|,|$])/g, function (_, className) {
+      css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?=\s|\{|\.|:|,|\)|$])/g, function (_, className) {
         if (!classLookup[className]) {
           classNameCount++;
 
