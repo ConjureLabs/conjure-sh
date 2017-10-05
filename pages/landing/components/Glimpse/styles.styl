@@ -1,6 +1,11 @@
 @require '../../../../shared/framework.styl'
 
 .root
+.root *
+  cursor: default
+  disableSelect()
+
+.root
   display: block
   width: 80rem
   height: 46rem
@@ -74,6 +79,10 @@
         &.fromConjure
           opacity: 0
           margin-left: 5rem
+          transition: opacity 1.4s ease-in-out
+          
+          &.inViewport
+            opacity: 1
         
         &:not(.fromConjure)::before
           position: absolute
