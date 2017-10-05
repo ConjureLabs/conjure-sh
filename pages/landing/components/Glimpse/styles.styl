@@ -34,6 +34,7 @@
 
   .content
     padding: 3.2rem 8rem
+    position: relative
 
     .title
       display: block
@@ -48,10 +49,39 @@
       padding: 0.6rem
       color: $white
       font-size: 1rem
+      margin-top: 0.8rem
+    
+    .commentWrap
+      display: block
+      margin-top: 1.2rem
 
-    .author
-      display: inline-block
-      height: 3.2rem
-      width: 3.2rem
-      background: pink
-      border-radius: 5px
+      .author
+        display: inline-block
+        height: 3.2rem
+        width: 3.2rem
+        background: pink
+        border-radius: 5px
+        margin-right: 2rem
+        vertical-align: top
+      
+      .comment
+        display: inline-block
+        border: 1px solid #c0d3eb
+        border-radius: 3px
+        overflow: hidden
+        width: 32rem
+        
+        .header
+          display: block
+          font-size: 1.2rem
+          background: #f1f8ff
+          border-bottom: 1px solid #c0d3eb
+          padding: 1rem 1.4rem
+          
+          .handle
+            font-weight: bold
+        
+        .body
+          display: block
+          padding: 1.2rem 1.4rem
+          font-size: 1.2rem
