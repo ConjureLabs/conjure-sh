@@ -131,6 +131,39 @@ export default class Glimpse extends Component {
           </span>
         </div>
 
+        <ul className={classes.rightSide}>
+          <li>
+            <span className={classes.title}>Reviewers</span>
+            <ul className={classes.teammates}>
+              <li>
+                <span className={classes.author} />
+                <span className={classes.handle}>dan</span>
+              </li>
+              <li>
+                <span className={classes.author} />
+                <span className={classes.handle}>ray</span>
+              </li>
+              <li>
+                <span className={classes.author} />
+                <span className={classes.handle}>casey</span>
+              </li>
+              <li>
+                <span className={classes.author} />
+                <span className={classes.handle}>jamie</span>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <span className={classes.title}>Assignees</span>
+            <ul className={classes.teammates}>
+              <li>
+                <span className={classes.author} />
+                <span className={classes.handle}>mandel</span>
+              </li>
+            </ul>
+          </li>
+        </ul>
+
         {styles}
       </div>
     );

@@ -15,6 +15,7 @@
   border-radius: 3px
   box-shadow: 0 0.2rem 0.6rem rgba(#000, 0.36)
   overflow: hidden
+  position: relative
 
   .toolbar
     display: block
@@ -157,3 +158,45 @@
         .commit
           font-size: 0.8rem
           vertical-align: top
+
+  .rightSide
+    position: absolute
+    top: 5.6rem
+    right: 8rem
+    font-size: 1.2rem
+    color: $gray
+
+    > li
+      border-bottom: 1px solid $lightGray
+      padding-bottom: 1.6rem
+      margin-bottom: 1.6rem
+      width: 16rem
+      
+      &:last-of-type
+        border-bottom: none
+      
+      .title
+        display: block
+        font-weight: bold
+        margin-bottom: 0.8rem
+        
+      .teammates
+        li
+          display: block
+          margin-bottom: 0.4rem
+          
+          &:last-of-type
+            margin-bottom: 0
+          
+          .author
+            display: inline-block
+            height: 1rem
+            width: 1rem
+            background: $lightGray
+            background-size: contain
+            border-radius: 3px
+            margin-right: 0.8rem
+            vertical-align: top
+          
+          .handle
+            vertical-align: top
