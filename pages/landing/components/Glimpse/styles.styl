@@ -34,7 +34,6 @@
 
   .content
     padding: 3.2rem 8rem
-    position: relative
 
     .title
       display: block
@@ -68,8 +67,23 @@
         display: inline-block
         border: 1px solid #c0d3eb
         border-radius: 3px
-        overflow: hidden
         width: 32rem
+        position: relative
+        
+        &::before
+          position: absolute
+          top: 9px
+          left: -16px
+          right: 100%
+          display: block
+          width: 0
+          height: 0
+          pointer-events: none
+          content: " "
+          border-color: transparent
+          border-style: solid solid outset
+          border-right-color: #c0d3eb
+          border-width: 8px
         
         .header
           display: block
@@ -77,11 +91,29 @@
           background: #f1f8ff
           border-bottom: 1px solid #c0d3eb
           padding: 1rem 1.4rem
+          position: relative
+          
+          &::before
+            position: absolute
+            top: 9px
+            left: -15px
+            right: 100%
+            display: block
+            width: 0
+            height: 0
+            pointer-events: none
+            content: " "
+            border-color: transparent
+            border-style: solid solid outset
+            border-right-color: #f1f8ff
+            border-width: 8px
           
           .handle
             font-weight: bold
+            margin-right: 0.4rem
         
         .body
           display: block
           padding: 1.2rem 1.4rem
           font-size: 1.2rem
+          line-height: 1.6rem

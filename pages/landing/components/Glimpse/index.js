@@ -23,7 +23,7 @@ export default () => {
               commented on Oct 4
             </div>
 
-            <span className={classes.body}>This is some text and more text</span>
+            <span className={classes.body}>Updated the sidebar so that it's easier for users to get to settings</span>
           </span>
         </span>
       </div>
