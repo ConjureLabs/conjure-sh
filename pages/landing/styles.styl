@@ -46,6 +46,9 @@
 .ctaContainer
   display: block
   text-align: center
+  
+  &.standAlone
+    padding: 10rem 0
 
   .mark
     font-size: 10rem
@@ -94,6 +97,13 @@
       margin-right: 1.6rem
       margin-top: -0.2rem
       width: 3.2rem
+      
+  &.standAlone
+    .cta
+      box-shadow: 0 0.32rem 1.6rem 0.16rem rgba(#000, 0.42)
+      
+      &:hover
+        box-shadow: 0 0.32rem 2.2rem 0.2rem rgba(#000, 0.6)
 
   .info
     color: $conjureColorMainSlightlyDifferent

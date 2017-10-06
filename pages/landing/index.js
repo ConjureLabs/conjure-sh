@@ -2,7 +2,7 @@ import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
-
+import classnames from 'classnames';
 import Glimpse from './components/Glimpse';
 
 export default class Landing extends Component {
@@ -122,6 +122,20 @@ export default class Landing extends Component {
                 </li>
               </ol>
             </article>
+          </div>
+        </div>
+
+        <div className={classnames(classes.ctaContainer, classes.standAlone)}>
+          <div>
+            <Button
+              size='large'
+              className={classes.cta}
+              color='black'
+              onClick={this.submitForm.bind(this)}
+            >
+              <span className={classes.label}>Sign Up</span>
+            </Button>
+            <sub className={classes.info}>With GitHub</sub>
           </div>
         </div>
 
