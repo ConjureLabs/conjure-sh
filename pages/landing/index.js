@@ -81,7 +81,7 @@ export default class Landing extends Component {
           <div>
             <article>
               <header>
-                <h3>Conjure for Developers</h3>
+                <h3>Conjure is for Developers</h3>
                 <span>Conjure streamlines the peer review process, letting engineers focus on what they do best, and avoid context switch.</span>
               </header>
 
@@ -103,7 +103,7 @@ export default class Landing extends Component {
 
             <article>
               <header>
-                <h3>Conjure for Product</h3>
+                <h3>Conjure is for Product</h3>
                 <span>Conjure gives you a visibility into what changes your team is working on. See changes before they are ship, and get feedback to engineers and design.</span>
               </header>
 
