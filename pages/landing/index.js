@@ -55,10 +55,11 @@ export default class Landing extends Component {
 
           <div className={classes.ctaContainer}>
             <p className={classes.mark}>⎔</p>
-            <p className={classes.firstImpression}>
+            <div className={classes.firstImpression}>
               <sup className={classes.name}>Conjure</sup>
               <span>runs your development branches</span>
-            </p>
+              <p>Conjure watches development branches, and provides engineers and product managers a link to view working changes.</p>
+            </div>
 
             <div>
               <Button
