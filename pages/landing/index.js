@@ -88,7 +88,7 @@ export default class Landing extends Component {
               <ol>
                 <li>
                   <span className={classes.gotIt}>✓</span>
-                  <span className={classes.label}>View changes easy</span>
+                  <span className={classes.label}>View changes easily</span>
                 </li>
                 <li>
                   <span className={classes.gotIt}>✓</span>
@@ -110,7 +110,7 @@ export default class Landing extends Component {
               <ol>
                 <li>
                   <span className={classes.gotIt}>✓</span>
-                  <span className={classes.label}>View changes easy</span>
+                  <span className={classes.label}>View changes easily</span>
                 </li>
                 <li>
                   <span className={classes.gotIt}>✓</span>
