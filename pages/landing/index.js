@@ -2,7 +2,6 @@ import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
-import classnames from 'classnames';
 
 import Glimpse from './components/Glimpse';
 
@@ -88,16 +87,16 @@ export default class Landing extends Component {
 
               <ol>
                 <li>
-                  <span className={classes.number}>1</span>
-                  <span className={classes.label}>Code</span>
+                  <span className={classes.gotIt}>✓</span>
+                  <span className={classes.label}>View changes easy</span>
                 </li>
                 <li>
-                  <span className={classes.number}>2</span>
-                  <span className={classnames(classes.label, classes.standOut)}>Conjure</span>
+                  <span className={classes.gotIt}>✓</span>
+                  <span className={classes.label}>Tail logs</span>
                 </li>
                 <li>
-                  <span className={classes.number}>3</span>
-                  <span className={classes.label}>Merge</span>
+                  <span className={classes.gotIt}>✓</span>
+                  <span className={classes.label}>GitHub integration</span>
                 </li>
               </ol>
             </article>
@@ -110,16 +109,16 @@ export default class Landing extends Component {
 
               <ol>
                 <li>
-                  <span className={classes.number}>1</span>
-                  <span className={classes.label}>Assign</span>
+                  <span className={classes.gotIt}>✓</span>
+                  <span className={classes.label}>View changes easy</span>
                 </li>
                 <li>
-                  <span className={classes.number}>2</span>
-                  <span className={classnames(classes.label, classes.standOut)}>Conjure</span>
+                  <span className={classes.gotIt}>✓</span>
+                  <span className={classes.label}>Know what's in progress</span>
                 </li>
                 <li>
-                  <span className={classes.number}>3</span>
-                  <span className={classes.label}>Feedback</span>
+                  <span className={classes.gotIt}>✓</span>
+                  <span className={classes.label}>Give developer feedback</span>
                 </li>
               </ol>
             </article>
