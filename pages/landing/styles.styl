@@ -2,7 +2,6 @@
 
 .header
   background: $conjureColorMain
-  background-size: cover
   display: block
   height: 64rem
   width: 100%
@@ -112,3 +111,79 @@
 
 .trueForm
   display: none
+  
+.steps
+  background: #fbfbfb
+  border: 1px solid darken(#fbfbfb, 3%)
+  border-width: 1px 0
+  display: block
+  height: 46rem
+  width: 100%
+  margin-top: 56rem
+  
+  > div
+    display: block
+    width: 80rem
+    padding: 6rem
+    margin: 0 auto
+    
+    > article
+      display: block
+      float: left
+      clear: none
+      width: 32rem
+      margin-right: 14rem
+      
+      &:last-of-type
+        margin-right: 0
+  
+  header
+    display: block
+    text-align: left
+    
+    h3
+      display: block
+      font-size: 2.6rem
+    
+    span
+      font-size: 1.2rem
+      display: block
+      margin: 2.4rem 0
+      line-height: 1.8rem
+  
+  ol
+    display: block
+    margin-top: 4rem
+
+    li
+      display: block
+      position: relative
+      margin-bottom: 3.2rem
+      
+      &:last-of-type
+        margin-bottom: 0
+      
+      .number
+        font-size: 2rem
+        font-weight: 600
+        color: $white
+        border: 1px solid rgba($conjureColorMainVeryDifferent, 0.64)
+        background: rgba($conjureColorMainVeryDifferent, 0.64)
+        border-radius: 50%
+        height: 4rem
+        width: 4rem
+        line-height: 4rem
+        text-align: center
+        display: block
+      
+      .label
+        font-size: 2.4rem
+        font-weight: 900
+        color: rgba($black, 0.86)
+        white-space: nowrap
+        position: absolute
+        top: 2.4rem
+        left: 2.4rem
+
+        &.standOut
+          color: $black

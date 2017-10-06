@@ -2,6 +2,7 @@ import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
+import classnames from 'classnames';
 
 import Glimpse from './components/Glimpse';
 
@@ -76,6 +77,54 @@ export default class Landing extends Component {
 
           <Glimpse />
         </header>
+
+        <div className={classes.steps} id='#how-it-works'>
+          <div>
+            <article>
+              <header>
+                <h3>Conjure for Developers</h3>
+                <span>Conjure streamlines the peer review process, letting engineers focus on what they do best, and avoid context switch.</span>
+              </header>
+
+              <ol>
+                <li>
+                  <span className={classes.number}>1</span>
+                  <span className={classes.label}>Code</span>
+                </li>
+                <li>
+                  <span className={classes.number}>2</span>
+                  <span className={classnames(classes.label, classes.standOut)}>Conjure</span>
+                </li>
+                <li>
+                  <span className={classes.number}>3</span>
+                  <span className={classes.label}>Merge</span>
+                </li>
+              </ol>
+            </article>
+
+            <article>
+              <header>
+                <h3>Conjure for Product</h3>
+                <span>Conjure gives you a visibility into what changes your team is working on. See changes before they are ship, and get feedback to engineers and design.</span>
+              </header>
+
+              <ol>
+                <li>
+                  <span className={classes.number}>1</span>
+                  <span className={classes.label}>Assign</span>
+                </li>
+                <li>
+                  <span className={classes.number}>2</span>
+                  <span className={classnames(classes.label, classes.standOut)}>Conjure</span>
+                </li>
+                <li>
+                  <span className={classes.number}>3</span>
+                  <span className={classes.label}>Feedback</span>
+                </li>
+              </ol>
+            </article>
+          </div>
+        </div>
 
         {styles}
       </div>
