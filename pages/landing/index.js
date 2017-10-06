@@ -139,6 +139,13 @@ export default class Landing extends Component {
           </div>
         </div>
 
+        <footer className={classes.footer}>
+          <a href='#'>About</a>
+          <a href='#'>Investors</a>
+          <a href='#'>Privacy</a>
+          <a href='#'>Terms</a>
+        </footer>
+
         {styles}
       </div>
     );
