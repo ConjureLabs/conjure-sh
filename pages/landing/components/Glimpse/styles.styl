@@ -6,30 +6,30 @@
   disableSelect()
 
 .root
-  display: block
-  width: 80rem
-  height: 46rem
   background: $white
-  margin: 8rem auto
   border: 1px solid $conjureColorMain
   border-radius: 3px
   box-shadow: 0 0.2rem 0.6rem rgba(#000, 0.36)
+  display: block
+  height: 46rem
+  margin: 8rem auto
   overflow: hidden
   position: relative
+  width: 80rem
 
   .toolbar
-    display: block
     background: $black
-    width: 100%
+    display: block
     height: 2.4rem
+    width: 100%
 
     ins
+      border-radius: 100%
       display: inline-block
       height: 1rem
-      width: 1rem
-      border-radius: 100%
       margin-left: 0.76rem
       margin-top: 0.7rem
+      width: 1rem
 
       &:nth-child(1)
         background: #ff5750
@@ -42,93 +42,93 @@
     padding: 3.2rem 8rem
 
     .title
-      display: block
-      font-weight: bold
-      color: rgba($black, 0.68)
-      font-size: 2rem
-      float: left
       clear: right
+      color: rgba($black, 0.68)
+      display: block
+      float: left
+      font-size: 2rem
+      font-weight: bold
 
     ins
-      display: block
       background: #25c439
       border-radius: 3px
-      padding: 0.6rem
+      clear: none
       color: $white
+      display: block
+      float: left
       font-size: 1rem
       margin-right: 1.2rem
-      float: left
-      clear: none
-    
+      padding: 0.6rem
+
     .commentWrap
-      display: block
-      margin-top: 1.2rem
-      float: left
       clear: both
+      display: block
+      float: left
+      margin-top: 1.2rem
       
       &.first
         margin-top: 3.2rem
 
       .author
+        background: url(/static/images/gh-avatar-example.jpg) no-repeat 0 0
+        background-size: contain
+        border-radius: 5px
         display: inline-block
         height: 3.2rem
-        width: 3.2rem
-        background: url(/static/images/gh-avatar-example.jpg) no-repeat 0 0
-        border-radius: 5px
         margin-right: 2rem
         vertical-align: top
-        background-size: contain
+        width: 3.2rem
       
       .comment
-        display: inline-block
         border: 1px solid #c0d3eb
         border-radius: 3px
-        width: 32rem
+        display: inline-block
         position: relative
+        width: 32rem
         
         &.fromConjure
-          opacity: 0
           margin-left: 5rem
+          opacity: 0
           transition: opacity 1.2s ease-out
           
           &.inViewport
             opacity: 1
         
         &:not(.fromConjure)::before
-          position: absolute
-          top: 9px
-          left: -16px
-          right: 100%
-          display: block
-          width: 0
-          height: 0
-          pointer-events: none
-          content: " "
           border-color: transparent
-          border-style: solid solid outset
           border-right-color: #c0d3eb
-          border-width: 8px
-        
-        &:not(.fromConjure) .header::before
-          position: absolute
-          top: 9px
-          left: -15px
-          right: 100%
-          display: block
-          width: 0
-          height: 0
-          pointer-events: none
-          content: " "
-          border-color: transparent
           border-style: solid solid outset
-          border-right-color: #f1f8ff
           border-width: 8px
-        
-        .header
+          content: " "
           display: block
-          font-size: 1.2rem
+          height: 0
+          left: -16px
+          pointer-events: none
+          position: absolute
+          right: 100%
+          top: 9px
+          width: 0
+
+        &:not(.fromConjure) .header::before
+          border-color: transparent
+          border-right-color: #f1f8ff
+          border-style: solid solid outset
+          border-width: 8px
+          content: " "
+          display: block
+          height: 0
+          left: -15px
+          pointer-events: none
+          position: absolute
+          right: 100%
+          top: 9px
+          width: 0
+
+        .header
           background: #f1f8ff
           border-bottom: 1px solid #c0d3eb
+          display: block
+          font-size: 1.2rem
           padding: 1rem 1.4rem
           position: relative
 
@@ -137,22 +137,22 @@
             margin-right: 0.4rem
         
         .body
+          color: $gray
           display: block
-          padding: 1.2rem 1.4rem
           font-size: 1.2rem
           line-height: 1.6rem
-          color: $gray
-          
+          padding: 1.2rem 1.4rem
+
           .simulateLink
-            color: #0366d6
             border-bottom: 1px solid #0366d6
+            color: #0366d6
 
     .timeline
-      display: block
-      padding: 1rem 0 0 7rem
-      float: left
       clear: both
+      display: block
+      float: left
       opacity: 0.86
+      padding: 1rem 0 0 7rem
 
       li
         display: block
@@ -162,32 +162,32 @@
           margin-bottom: 0
         
         .author
-          display: inline-block
-          height: 1rem
-          width: 1rem
           background: url(/static/images/gh-avatar-example.jpg) no-repeat 0 0
           background-size: contain
           border-radius: 3px
+          display: inline-block
+          height: 1rem
           margin-right: 0.8rem
           vertical-align: top
-        
+          width: 1rem
+
         .commit
+          color: $gray
           font-size: 0.8rem
           vertical-align: top
-          color: $gray
 
   .rightSide
-    position: absolute
-    top: 11rem
-    right: 8rem
-    font-size: 1.2rem
     color: $gray
+    font-size: 1.2rem
     opacity: 0.86
+    position: absolute
+    right: 8rem
+    top: 11rem
 
     > li
       border-bottom: 1px solid rgba($lightGray, 0.48)
-      padding-bottom: 1.6rem
       margin-bottom: 1.6rem
+      padding-bottom: 1.6rem
       width: 16rem
       
       &:last-of-type
@@ -207,14 +207,13 @@
             margin-bottom: 0
           
           .author
+            background: $lightGray
+            border-radius: 3px
             display: inline-block
             height: 1rem
-            width: 1rem
-            background: $lightGray
-            background-size: contain
-            border-radius: 3px
             margin-right: 0.8rem
             vertical-align: top
+            width: 1rem
           
           .handle
             vertical-align: top
