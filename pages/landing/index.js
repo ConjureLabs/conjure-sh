@@ -118,7 +118,7 @@ export default class Landing extends Component {
                 </li>
                 <li>
                   <span className={classes.gotIt}>✓</span>
-                  <span className={classes.label}>Give developer feedback</span>
+                  <span className={classes.label}>Give developers feedback</span>
                 </li>
               </ol>
             </article>
