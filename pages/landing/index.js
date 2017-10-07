@@ -77,7 +77,7 @@ export default class Landing extends Component {
           <Glimpse className={classes.glimpse} />
         </header>
 
-        <div className={classes.steps} id='#how-it-works'>
+        <div className={classes.sell} id='#how-it-works'>
           <div>
             <article>
               <header>
