@@ -110,14 +110,6 @@
     display: block
     font-size: 1.8rem
     margin-top: 1.6rem
-    
-.browserTeaser
-  background: url(/static/images/views/landing/browser-teaser.jpg) no-repeat top center
-  background-size: cover
-  display: block
-  height: 50rem
-  margin: 9rem auto 0
-  width: 80rem
 
 .trueForm
   display: none
@@ -213,3 +205,18 @@
     font-weight: 600
     margin-right: 1.6rem
     opacity: 0.24
+
+@media only screen and (max-width: 840px) 
+  .ctaContainer
+    &.standAlone
+      padding: 10rem 0
+
+    .firstImpression
+      font-size: 3rem
+  
+  .glimpse
+    margin: 4rem auto
+    transform: scale(0.8)
+  
+  .steps
+    margin-top: 42rem

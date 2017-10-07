@@ -60,10 +60,11 @@ export default class Glimpse extends Component {
 
   render() {
     const { inViewport } = this.state;
+    const { className } = this.props;
 
     return (
       <div
-        className={classes.root}
+        className={classnames(classes.root, className)}
         ref={ref => {
           this.conjureContent = ref;
           this.checkIfInViewport();
