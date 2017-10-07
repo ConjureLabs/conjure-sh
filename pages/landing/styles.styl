@@ -264,7 +264,9 @@
     height: auto
     margin-top: 0
     
-    > div   
+    > div
+      width: auto
+
       > article
         float: none
         margin: 0 auto 8rem !important
@@ -303,3 +305,9 @@
         margin-left: auto
         margin-right: auto
         width: 20rem
+
+@media only screen and (max-width: 700px)
+  .ctaContainer
+    .firstImpression
+      p
+        width: 36rem
