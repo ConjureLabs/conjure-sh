@@ -255,3 +255,51 @@
 
         .label
           font-size: 1.4rem
+
+@media only screen and (max-width: 800px) 
+  .glimpse
+    display: none
+  
+  .sell
+    height: auto
+    margin-top: 0
+    
+    > div   
+      > article
+        float: none
+        margin: 0 auto 8rem !important
+        text-align: center
+        
+        &:last-of-type
+          margin-bottom: 0 !important
+    
+    ol
+      background: #fff
+      border-radius: 3px
+      box-shadow: 0 0.3rem 0.8rem rgba(#000, 0.2)
+      display: inline-block
+      margin-left: auto
+      margin-right: auto
+      margin-top: 2rem
+      padding: 2rem
+      text-align: left
+
+      li
+        display: block
+        margin-bottom: 1.2rem
+        
+        .gotIt
+          font-size: 1rem
+          height: 1.4rem
+          line-height: 1.4rem
+          margin-right: 0.8rem
+          width: 1.4rem
+    
+    header
+      text-align: center
+
+      span
+        height: auto
+        margin-left: auto
+        margin-right: auto
+        width: 20rem
