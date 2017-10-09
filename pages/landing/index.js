@@ -104,7 +104,7 @@ export default class Landing extends Component {
             <article>
               <header>
                 <h3>Conjure is for Product</h3>
-                <span>Conjure gives you a visibility into what changes your team is working on. See changes before they are ship, and get feedback to engineers and design.</span>
+                <span>Conjure gives you a visibility into what changes your team is working on. See changes before they ship, and get feedback to engineers and design.</span>
               </header>
 
               <ol>
