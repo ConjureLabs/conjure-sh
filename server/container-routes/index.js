@@ -38,7 +38,10 @@ module.exports = (req, res, next) => {
   }
 };
 
+const validRequestors = {};
+
 function checkPermissions(req, res, uid, handler, next) {
+  const skipWaterfall = {};
   const async = require('async');
 
   const waterfall = [];
@@ -61,6 +64,16 @@ function checkPermissions(req, res, uid, handler, next) {
 
       callback(null, containers[0]);
     });
+  });
+
+  // check if perms already set
+  waterfall.push((containerRecord, callback) => {
+    if (validRequestors[ req.cookies.conjure ]) {
+      // console.log('YES');
+      return callback(skipWaterfall, containerRecord);
+    }
+    // console.log('NO');
+    callback(null, containerRecord);
   });
 
   // check permissions
@@ -162,10 +175,11 @@ function checkPermissions(req, res, uid, handler, next) {
   });
 
   async.waterfall(waterfall, (err, containerRecord) => {
-    if (err) {
+    if (err && err !== skipWaterfall) {
       return next(err);
     }
 
+    validRequestors[ req.cookies.conjure ] = true;
     require(`./${handler}.js`)(req, res, containerRecord, next);
   });
 }
