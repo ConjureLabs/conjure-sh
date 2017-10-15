@@ -10,6 +10,9 @@
     "lint": "bash ./bash/yarn/lint.sh",
     "start": "bash ./bash/yarn/start.sh"
   },
+  "engines": {
+    "node": ">=8.7.0"
+  },
   "dependencies": {
     "ansi-to-html": "^0.6.3",
     "async": "^2.3.0",
