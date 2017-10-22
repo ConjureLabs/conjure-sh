@@ -1,79 +1,45 @@
 const Route = require('conjure-core/classes/Route');
-const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
 const nextApp = require('../../../../next');
 const log = require('conjure-core/modules/log')('onboard orgs');
 
 const route = new Route({
   requireAuthentication: true,
-  skippedHandler: (req, res) => {
+  skippedHandler: async (req, res) => {
     nextApp.render(req, res, '/_error');
   }
 });
 
-route.push((req, res) => {
-  const waterfall = [];
-
+route.push(async (req, res) => {
   // check if account is valid, and should be seeing onboard flow
-  waterfall.push(callback => {
-    const DatabaseTable = require('conjure-core/classes/DatabaseTable');
-    const account = new DatabaseTable('account');
-
-    account.select({
-      id: req.user.id
-    }, (err, rows) => {
-      if (err) {
-        return callback(err);
-      }
-
-      // record does not exist in our db - force logout
-      if (!rows.length) {
-        return res.redirect(302, '/logout');
-      }
-
-      // if already onboarded, then user should not be on this view
-      if (rows[0].onboarded === true) {
-        return res.redirect(302, '/');
-      }
-
-      return callback();
-    });
+  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
+  const account = new DatabaseTable('account');
+  const accountRows = await account.select({
+    id: req.user.id
   });
 
-  waterfall.push(callback => {
-    const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
-    apiGetAccountGitHub(req, null, (err, result) => {
-      if (err) {
-        return callback(err);
-      }
+  // record does not exist in our db - force logout
+  if (!accountRows.length) {
+    return res.redirect(302, '/logout');
+  }
 
-      callback(null, result.account);
-    });
-  });
+  // if already onboarded, then user should not be on this view
+  if (accountRows[0].onboarded === true) {
+    return res.redirect(302, '/');
+  }
 
-  waterfall.push((gitHubAccount, callback) => {
-    const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call;
-    apiGetOrgs(req, null, (err, result) => {
-      if (err) {
-        return callback(err);
-      }
+  // get github account record
+  const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
+  const accountGitHubResult = apiGetAccountGitHub(req);
 
-      callback(null, gitHubAccount, result.orgs);
-    });
-  });
+  // get orgs
+  const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call;
+  const orgsResult = apiGetOrgs(req);
 
-  const asyncWaterfall = require('conjure-core/modules/async/waterfall');
-  asyncWaterfall(waterfall, (err, gitHubAccount, orgs) => {
-    if (err) {
-      log.error(err);
-      return nextApp.render(req, res, '/_error');
-    }
-
-    nextApp.render(req, res, '/onboard/orgs', {
-      account: {
-        photo: gitHubAccount.photo
-      },
-      orgs
-    });
+  nextApp.render(req, res, '/onboard/orgs', {
+    account: {
+      photo: (await accountGitHubResult).account.photo
+    },
+    orgs: (await orgsResult).orgs
   });
 });
 

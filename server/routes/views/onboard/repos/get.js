@@ -1,5 +1,4 @@
 const Route = require('conjure-core/classes/Route');
-const UnexpectedError = require('conjure-core/modules/err').UnexpectedError;
 const nextApp = require('../../../../next');
 const log = require('conjure-core/modules/log')('onboard repos');
 
