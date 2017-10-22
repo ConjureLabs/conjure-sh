@@ -38,7 +38,6 @@ route.push(async (req, res) => {
   }
 
   // customer credit card should exist
-  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
   const AccountCard = new DatabaseTable('account_card');
   const cardRows = await AccountCard.select({
     account: req.user.id

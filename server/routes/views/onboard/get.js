@@ -42,16 +42,6 @@ route.push(async (req, res) => {
     return database.query('SELECT COUNT(*) num FROM watched_repo WHERE org = $1', [org.login]);
   });
 
-  for (let i = 0; i < watchedRepoResults.length; i++) {
-    const reuslt = watchedRepoResults[i];
-
-    if (
-      Array.isArray(result.rows) &&
-      result.rows.length &&
-      parseInt(result.rows[0].num, 10) > 0
-    )
-  }
-
   const repoChecks = orgs.reduce((mapping, org, i) => {
     const result = watchedRepoResults[i];
 
