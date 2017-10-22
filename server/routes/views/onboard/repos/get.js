@@ -5,126 +5,65 @@ const log = require('conjure-core/modules/log')('onboard repos');
 
 const route = new Route({
   requireAuthentication: true,
-  skippedHandler: (req, res) => {
+  skippedHandler: async (req, res) => {
     nextApp.render(req, res, '/_error');
   }
 });
 
-route.push((req, res, next) => {
-  const waterfall = [];
-
-  // check if account is valid, and should be seeing onboard flow
-  waterfall.push(callback => {
-    const DatabaseTable = require('conjure-core/classes/DatabaseTable');
-    const account = new DatabaseTable('account');
-
-    account.select({
-      id: req.user.id
-    }, (err, rows) => {
-      if (err) {
-        return callback(err);
-      }
-
-      // record does not exist in our db - force logout
-      if (!rows.length) {
-        return res.redirect(302, '/logout');
-      }
-
-      // if already onboarded, then user should not be on this view
-      if (rows[0].onboarded === true) {
-        return res.redirect(302, '/');
-      }
-
-      return callback();
-    });
+route.push(async (req, res) => {
+  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
+  const account = new DatabaseTable('account');
+  const accountRows = await account.select({
+    id: req.user.id
   });
+
+  // record does not exist in our db - force logout
+  if (!accountRows.length) {
+    return res.redirect(302, '/logout');
+  }
+
+  // if already onboarded, then user should not be on this view
+  if (accountRows[0].onboarded === true) {
+    return res.redirect(302, '/');
+  }
 
   // verify cookie from orgs onboard set
-  waterfall.push(callback => {
-    if (
-      !req.cookies ||
-      !req.cookies['conjure-onboard-orgs'] ||
-      !req.cookies['conjure-onboard-orgs'].label ||
-      !req.cookies['conjure-onboard-orgs'].value
-    ) {
-      res.redirect(302, '/onboard/orgs');
-      return;
-    }
-
-    callback();
-  });
+  if (
+    !req.cookies ||
+    !req.cookies['conjure-onboard-orgs'] ||
+    !req.cookies['conjure-onboard-orgs'].label ||
+    !req.cookies['conjure-onboard-orgs'].value
+  ) {
+    res.redirect(302, '/onboard/orgs');
+    return;
+  }
 
   // customer credit card should exist
-  waterfall.push(callback => {
-    const DatabaseTable = require('conjure-core/classes/DatabaseTable');
-    const AccountCard = new DatabaseTable('account_card');
-
-    AccountCard.select({
-      account: req.user.id
-    }, (err, rows) => {
-      if (err) {
-        return callback(err);
-      }
-
-      if (rows.length === 0) {
-        res.redirect(302, '/onboard/billing');
-        return;
-      }
-
-      callback();
-    });
+  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
+  const AccountCard = new DatabaseTable('account_card');
+  const cardRows = await AccountCard.select({
+    account: req.user.id
   });
 
-  // gather additional records
-  waterfall.push(callback => {
-    const async = require('async');
-    const parallel = {};
+  if (cardRows.length === 0) {
+    res.redirect(302, '/onboard/billing');
+    return;
+  }
 
-    parallel.account = cb => {
-      const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
-      apiGetAccountGitHub(req, null, (err, result) => {
-        if (err) {
-          return cb(err);
-        }
+  // get github account record
+  const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
+  const accountGitHubResult = apiGetAccountGitHub(req);
 
-        cb(null, result.account);
-      });
-    };
+  // get repos
+  const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call;
+  const reposResult = apiGetRepos(req);
 
-    parallel.repos = cb => {
-      const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call;
-      apiGetRepos(req, null, (err, result) => {
-        if (err) {
-          return cb(err);
-        }
-
-        cb(null, result.reposByOrg);
-      });
-    };
-
-    async.parallel(parallel, (err, results) => {
-      if (err) {
-        return callback(err);
-      }
-
-      callback(null, results.account, results.repos);
-    });
-  });
-
-  const asyncWaterfall = require('conjure-core/modules/async/waterfall');
-  asyncWaterfall(waterfall, (err, githubAccount, repos) => {
-    if (err) {
-      log.error(err);
-      return nextApp.render(req, res, '/_error');
-    }
-
-    nextApp.render(req, res, '/onboard/repos', {
-      account: {
-        photo: githubAccount.photo
-      },
-      repos,
-      org: req.cookies['conjure-onboard-orgs']
-    });
+  nextApp.render(req, res, '/onboard/repos', {
+    account: {
+      photo: (await accountGitHubResult).account.photo
+    },
+    repos: (await reposResult).reposByOrg,
+    org: req.cookies['conjure-onboard-orgs']
   });
 });
 
