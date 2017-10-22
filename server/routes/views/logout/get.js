@@ -5,7 +5,7 @@ const route = new Route();
 /*
   Passport session logout
  */
-route.push((req, res) => {
+route.push(async (req, res) => {
   req.logout();
   res.redirect(302, '/');
 });
