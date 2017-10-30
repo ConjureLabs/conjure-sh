@@ -12,7 +12,7 @@ route.push(async (req, res) => {
     return;
   }
 
-  nextApp.render(req, res, '/landing');
+  nextApp.render(req, res, '/landing', req.query);
 });
 
 /*

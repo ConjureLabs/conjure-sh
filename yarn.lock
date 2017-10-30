@@ -1581,14 +1581,14 @@ concat-map@0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
 
-"conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git#task/node-8":
+"conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#b9b20ea8a507a035b0fa5cc3da9bcbbefd0a253f"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#64e7a0cebac726bde7324146f54cb5ef9ebc4d1e"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
     compression "1.6.2"
-    conjure-core "git+ssh://git@github.com:ConjureLabs/conjure-core.git#task/node-8"
+    conjure-core "git+ssh://git@github.com:ConjureLabs/conjure-core.git"
     cookie-parser "1.4.3"
     cookie-session "2.0.0-alpha.2"
     debug "2.6.0"
@@ -1599,9 +1599,9 @@ concat-map@0.0.1:
     pg "^6.2.3"
     request-promise-native "^1.0.5"
 
-"conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git#task/node-8":
+"conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#a9375a9ebefd39103da9bdfb1f5a483f2a4643b7"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#0251ce673c1c6a925cdcec3d7dc4954cc5343757"
   dependencies:
     amqp "^0.2.6"
     app-root-path "^2.0.1"
