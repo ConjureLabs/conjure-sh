@@ -62,8 +62,8 @@ NODE_ENV=development yarn start
 ##### yarn Commands
 
 ```bash
-# starts the app
-yarn start
+# starts the (dev) app
+yarn run dev
 
 # run lints
 yarn run lint
