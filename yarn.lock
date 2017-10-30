@@ -1583,7 +1583,7 @@ concat-map@0.0.1:
 
 "conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git#task/node-8":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#832108e8797707ca5013b746bc11530a877a4559"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#b9b20ea8a507a035b0fa5cc3da9bcbbefd0a253f"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
