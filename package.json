@@ -4,9 +4,8 @@
   "private": true,
   "main": "./server",
   "scripts": {
-    "build": "bash ./bash/yarn/build.sh",
-    "dev": "bash ./bash/yarn/run-dev.sh",
     "build": "next build",
+    "dev": "bash ./bash/yarn/run-dev.sh",
     "docker-cleanup": "bash ./bash/yarn/docker-cleanup.sh",
     "lint": "bash ./bash/yarn/lint.sh",
     "start": "next start"
