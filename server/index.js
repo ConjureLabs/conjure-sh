@@ -52,7 +52,7 @@ server.use(cookieSession({
   secret: config.session.secret,
 
   // cookie options
-  domain: `.${config.app.api.domain}`,
+  domain: process.env.NODE_ENV === 'production' ? '.conjure.sh' : `.${config.app.api.domain}`,
   httpOnly: true,
   maxAge: config.session.duration,
   overwrite: true,
@@ -74,6 +74,17 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
+
+if (config.app.web.protocol === 'https') {
+  const forcedHttpsRouter = express.Router();
+  forcedHttpsRouter.get('*', (req, res, next) => {
+    if (req.headers && req.headers['x-forwarded-proto'] === 'https') {
+      return next();
+    }
+    res.redirect(`${config.app.web.url}${req.url}`);
+  });
+  server.use(forcedHttpsRouter);
+}
 
 // tracking req state (like ip address)
 server.use((req, res, next) => {

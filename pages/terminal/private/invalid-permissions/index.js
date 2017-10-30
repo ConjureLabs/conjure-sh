@@ -1,8 +1,8 @@
 import styles, { classes } from './styles.js';
 import Federal from 'federal';
 
-import EmptyState from '../../../components/EmptyState';
-import Header from '../../../components/Header';
+import EmptyState from '../../../../components/EmptyState';
+import Header from '../../../../components/Header';
 
 export default ({ query }) => {
   const initialState = {

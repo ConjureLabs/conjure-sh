@@ -1,5 +1,4 @@
 #! /bin/bash
-# Called on `yarn start`
 
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;
@@ -24,4 +23,4 @@ if [ "$KEEP_DB" = "" ]; then
 fi
 
 cd $APP_DIR;
-yarn run dev;
+node ./server/;

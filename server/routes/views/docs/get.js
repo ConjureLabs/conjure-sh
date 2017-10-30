@@ -3,7 +3,7 @@ const nextApp = require('../../../next');
 
 const route = new Route();
 
-route.push((req, res, next) => {
+route.push(async (req, res) => {
   nextApp.render(req, res, '/docs');
 });
 

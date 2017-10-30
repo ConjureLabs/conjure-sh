@@ -4,11 +4,14 @@
   "private": true,
   "main": "./server",
   "scripts": {
-    "dev": "node ./server/",
     "build": "next build",
+    "dev": "bash ./bash/yarn/run-dev.sh",
     "docker-cleanup": "bash ./bash/yarn/docker-cleanup.sh",
     "lint": "bash ./bash/yarn/lint.sh",
-    "start": "bash ./bash/yarn/start.sh"
+    "start": "next start"
+  },
+  "engines": {
+    "node": ">=8.7.0"
   },
   "dependencies": {
     "ansi-to-html": "^0.6.3",
