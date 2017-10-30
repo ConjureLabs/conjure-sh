@@ -24,9 +24,11 @@ export default class Glimpse extends Component {
       };
     } else {
       // if can't add listeners, then just force state
-      this.setState({
-        inViewport: true
-      });
+      try {
+        this.setState({
+          inViewport: true
+        });
+      } catch (err) {}
     }
   }
 
@@ -49,13 +51,15 @@ export default class Glimpse extends Component {
       return;
     }
 
-    this.setState({
-      inViewport: true
-    }, () => {
-      if (this.removeBoundHandler) {
-        this.removeBoundHandler();
-      }
-    });
+    try {
+      this.setState({
+        inViewport: true
+      }, () => {
+        if (this.removeBoundHandler) {
+          this.removeBoundHandler();
+        }
+      });
+    } catch (err) {}
   }
 
   render() {

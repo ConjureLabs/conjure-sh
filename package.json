@@ -4,6 +4,7 @@
   "private": true,
   "main": "./server",
   "scripts": {
+    "build": "bash ./bash/yarn/build.sh",
     "dev": "node ./server/",
     "build": "next build",
     "docker-cleanup": "bash ./bash/yarn/docker-cleanup.sh",

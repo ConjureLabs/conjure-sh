@@ -14,6 +14,12 @@ export default class MyDocument extends Document {
     return (
       <html>
         <Head>
+          {
+            process.env.NODE_ENV === 'production' ? (
+              <script async src='https://www.googletagmanager.com/gtag/js?id=UA-108457027-1' />
+              <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-108457027-1');` }} />
+            ) : null
+          }
           <title>Conjure</title>
           <meta charSet='utf-8' />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
