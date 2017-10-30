@@ -1,9 +1,9 @@
-import queryString from 'query-string';
+import { stringify } from 'querystring';
 
 // todo: need to update get and post to return an error if http statusCode !== 200
 
 export function get(url, data, callback) {
-  fetch(`${url}${data ? '?' : ''}${queryString.stringify(data)}`, {
+  fetch(`${url}${data ? '?' : ''}${stringify(data)}`, {
     method: 'GET',
     credentials: 'include',
     cache: 'no-cache'
@@ -54,7 +54,7 @@ export function post(url, data, callback) {
 }
 
 export function del(url, data, callback) {
-  fetch(`${url}${data ? '?' : ''}${queryString.stringify(data)}`, {
+  fetch(`${url}${data ? '?' : ''}${stringify(data)}`, {
     method: 'DELETE',
     credentials: 'include',
     cache: 'no-cache'
