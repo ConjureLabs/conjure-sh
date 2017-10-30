@@ -5,7 +5,7 @@
   "main": "./server",
   "scripts": {
     "build": "bash ./bash/yarn/build.sh",
-    "dev": "bash ./bash/yarn/start.sh",
+    "dev": "bash ./bash/yarn/run-dev.sh",
     "build": "next build",
     "docker-cleanup": "bash ./bash/yarn/docker-cleanup.sh",
     "lint": "bash ./bash/yarn/lint.sh",
