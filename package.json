@@ -5,11 +5,11 @@
   "main": "./server",
   "scripts": {
     "build": "bash ./bash/yarn/build.sh",
-    "dev": "node ./server/",
+    "dev": "bash ./bash/yarn/start.sh",
     "build": "next build",
     "docker-cleanup": "bash ./bash/yarn/docker-cleanup.sh",
     "lint": "bash ./bash/yarn/lint.sh",
-    "start": "bash ./bash/yarn/start.sh"
+    "start": "next start"
   },
   "engines": {
     "node": ">=8.7.0"

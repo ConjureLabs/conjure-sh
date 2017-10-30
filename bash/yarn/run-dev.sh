@@ -22,5 +22,4 @@ if [ "$KEEP_DB" = "" ]; then
   source $BASH_DIR/postgres/init-local.sh;
 fi
 
-cd $APP_DIR;
-yarn run dev;
+node $APP_DIR/server/;
