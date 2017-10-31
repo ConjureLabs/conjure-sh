@@ -41,6 +41,11 @@ process.on('uncaughtException', err => {
   });
 });
 
+// log uncaught rejections
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled Rejection at: Promise', promise, 'reason:', reason);
+});
+
 // basic server config
 server.use(compression());
 server.set('port', port);
