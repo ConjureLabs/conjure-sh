@@ -33,8 +33,7 @@ route.push(async (req, res) => {
     !req.cookies['conjure-onboard-orgs'].label ||
     !req.cookies['conjure-onboard-orgs'].value
   ) {
-    res.redirect(302, '/onboard/orgs');
-    return;
+    return res.redirect(302, '/onboard/orgs');
   }
 
   // customer credit card should exist
@@ -44,8 +43,7 @@ route.push(async (req, res) => {
   });
 
   if (cardRows.length === 0) {
-    res.redirect(302, '/onboard/billing');
-    return;
+    return res.redirect(302, '/onboard/billing');
   }
 
   // get github account record

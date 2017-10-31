@@ -7,12 +7,9 @@ const route = new Route();
   Logged-out landing page
  */
 route.push(async (req, res) => {
-  if (req.isAuthenticated()) {
-    // next...
-    return;
+  if (!req.isAuthenticated()) {
+    return nextApp.render(req, res, '/landing', req.query);
   }
-
-  nextApp.render(req, res, '/landing', req.query);
 });
 
 /*

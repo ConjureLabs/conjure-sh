@@ -33,8 +33,7 @@ route.push(async (req, res, next) => {
     !req.cookies['conjure-onboard-orgs'].label ||
     !req.cookies['conjure-onboard-orgs'].value
   ) {
-    res.redirect(302, '/onboard/orgs');
-    return;
+    return res.redirect(302, '/onboard/orgs');
   }
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
