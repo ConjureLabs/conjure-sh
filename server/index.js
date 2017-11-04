@@ -1,3 +1,5 @@
+require('conjure-core/modules/utils/process/handle-exceptions');
+
 // first running any synchronous setup
 const setup = require('./setup');
 
@@ -22,28 +24,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 // override node time
 process.env.TZ = 'America/Los_Angeles';
-
-// log fatal exceptions
-process.on('uncaughtException', err => {
-  if (err.message) {
-    console.error('Caught exception (message): ', err.message);
-  }
-  if (err.stack) {
-    console.error('Caught exception (stack): ', err.stack);
-  }
-  if (!err.message && !err.stack) {
-    console.error('Caught exception:', err);
-  }
-
-  process.nextTick(() => {
-    process.exit();
-  });
-});
-
-// log uncaught rejections
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('Unhandled Rejection at: Promise', promise, 'reason:', reason);
-});
 
 // basic server config
 server.use(compression());
