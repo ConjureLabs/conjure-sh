@@ -66,7 +66,7 @@ function crawlRoutesDir(ignoreCurrentDir, dirpath, uriPathTokens) {
     const individualRoute = require(path.resolve(dirpath, files[i]));
     routes.push(individualRoute.expressRouter(verb, '/' + uriPathTokens.join('/')));
   }
-  
+
   return routes;
 }
 

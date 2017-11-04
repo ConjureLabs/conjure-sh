@@ -7,7 +7,6 @@ const express = require('express');
 const nextApp = require('./next');
 const compression = require('compression');
 const morgan = require('morgan');
-const path = require('path');
 const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');

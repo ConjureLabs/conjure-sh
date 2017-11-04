@@ -22,7 +22,9 @@ const fs = require('fs');
 
 const sharedDir = path.resolve(__dirname, '..', '..', 'shared');
 
-const configContent = `export default ${JSON.stringify(clientConfig)};\n`;
+const configContent = `/* eslint-disable */
+// jscs:disable
+export default ${JSON.stringify(clientConfig)};\n`;
 
 fs.writeFileSync(path.resolve(sharedDir, 'config.js'), configContent, 'utf8');
 console.log('Generated client config');

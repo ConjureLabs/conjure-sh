@@ -58,7 +58,10 @@
     "webpack": "^2.4.1"
   },
   "devDependencies": {
+    "babel-eslint": "8.0.1",
     "babel-plugin-transform-decorators": "6.24.1",
-    "babel-plugin-transform-react-jsx": "6.24.1"
+    "babel-plugin-transform-react-jsx": "6.24.1",
+    "eslint": "4.10.0",
+    "jscs": "3.0.7"
   }
 }

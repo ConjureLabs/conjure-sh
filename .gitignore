@@ -2,11 +2,11 @@
 .idea
 *.rdb
 node_modules
-npm-debug.log
-webpack-build.log
+*.log
 public/build
 .profile
 .next
 components/**/styles*.js
 pages/**/styles*.js
 shared/config.js
+package-lock.json
