@@ -1583,7 +1583,7 @@ concat-map@0.0.1:
 
 "conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#64e7a0cebac726bde7324146f54cb5ef9ebc4d1e"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#5fb631a5d2bf3e34cb13001d7042ed1eece15ac4"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
@@ -1597,11 +1597,10 @@ concat-map@0.0.1:
     passport "^0.4.0"
     passport-github "^1.1.0"
     pg "^6.2.3"
-    request-promise-native "^1.0.5"
 
 "conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#015e0a02b25b54c802bb4e3c71adfc5e9f985f76"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#514e5ca8d6c069c37b49baef16d14fd54488d294"
   dependencies:
     amqp "^0.2.6"
     app-root-path "^2.0.1"
@@ -4114,8 +4113,8 @@ pg@^6.2.3:
     semver "4.3.2"
 
 pg@^7.3.0:
-  version "7.3.0"
-  resolved "https://registry.yarnpkg.com/pg/-/pg-7.3.0.tgz#275e27466e54a645f6b4a16f6acadf6b849ad83b"
+  version "7.4.0"
+  resolved "https://registry.yarnpkg.com/pg/-/pg-7.4.0.tgz#e256061d2c52723c3c858defb97f1159ca660f83"
   dependencies:
     buffer-writer "1.0.1"
     js-string-escape "1.0.1"
@@ -4827,7 +4826,7 @@ request-promise-core@1.1.1:
   dependencies:
     lodash "^4.13.1"
 
-request-promise-native@1.0.5, request-promise-native@^1.0.5:
+request-promise-native@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/request-promise-native/-/request-promise-native-1.0.5.tgz#5281770f68e0c9719e5163fd3fab482215f4fda5"
   dependencies:

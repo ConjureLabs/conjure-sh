@@ -1,5 +1,4 @@
 {
-  "esnext": true,
   "excludeFiles": [ "node_modules/**" ],
   "disallowTrailingWhitespace": true,
   "requireLineFeedAtFileEnd": true,
@@ -23,7 +22,7 @@
   ],
   "requireSpaceAfterBinaryOperators": true,
   "requireSpacesInAnonymousFunctionExpression": {
-      "beforeOpeningCurlyBrace": true
+    "beforeOpeningCurlyBrace": true
   },
   "requireSpacesInConditionalExpression": {
     "afterTest": true,
