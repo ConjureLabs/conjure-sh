@@ -51,8 +51,9 @@ async function checkPermissions(req, res, uid, handler, next) {
   const DatabaseTable = require('conjure-core/classes/DatabaseTable');
 
   // pull up the container record being accessed
+  let containers;
   try {
-    const containers = await DatabaseTable.select('container', {
+    containers = await DatabaseTable.select('container', {
       url_uid: uid
     });
   } catch(err) {
@@ -73,8 +74,9 @@ async function checkPermissions(req, res, uid, handler, next) {
   }
 
   // check permissions
+  let watchedRepoRecords;
   try {
-    const watchedRepoRecords = await DatabaseTable.select('watched_repo', {
+    watchedRepoRecords = await DatabaseTable.select('watched_repo', {
       id: containerRecord.repo
     });
   } catch(err) {
