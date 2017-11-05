@@ -7,7 +7,7 @@ const route = new Route();
  */
 route.push(async (req, res) => {
   req.logout();
-  res.redirect(302, '/');
+  return res.redirect(302, '/');
 });
 
 module.exports = route;

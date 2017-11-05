@@ -5,7 +5,7 @@ const log = require('conjure-core/modules/log')('onboard repos');
 const route = new Route({
   requireAuthentication: true,
   skippedHandler: async (req, res) => {
-    nextApp.render(req, res, '/_error');
+    return nextApp.render(req, res, '/_error');
   }
 });
 
@@ -54,7 +54,7 @@ route.push(async (req, res) => {
   const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call;
   const reposResult = apiGetRepos(req);
 
-  nextApp.render(req, res, '/onboard/repos', {
+  return nextApp.render(req, res, '/onboard/repos', {
     account: {
       photo: (await accountGitHubResult).account.photo
     },

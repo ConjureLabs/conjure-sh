@@ -5,7 +5,7 @@ const log = require('conjure-core/modules/log')('onboard orgs');
 const route = new Route({
   requireAuthentication: true,
   skippedHandler: (req, res) => {
-    nextApp.render(req, res, '/_error');
+    return nextApp.render(req, res, '/_error');
   }
 });
 
@@ -18,12 +18,12 @@ route.push(async (req, res) => {
   });
 
   // record does not exist in our db - force logout
-  if (!rows.length) {
+  if (!accountRows.length) {
     return res.redirect(302, '/logout');
   }
 
   // if already onboarded, then user should not be on this view
-  if (rows[0].onboarded === true) {
+  if (accountRows[0].onboarded === true) {
     return res.redirect(302, '/');
   }
 
@@ -62,7 +62,7 @@ route.push(async (req, res) => {
   }
 
   // continue to partial onboarding
-  nextApp.render(req, res, '/onboard/overlap', {
+  return nextApp.render(req, res, '/onboard/overlap', {
     account: {
       photo: (await accountGitHubResult).account.photo
     },

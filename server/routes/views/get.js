@@ -47,7 +47,7 @@ route.push(async (req, res) => {
   const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call;
   const orgsResult = apiGetOrgs(req);
 
-  nextApp.render(req, res, '/dashboard', {
+  return nextApp.render(req, res, '/dashboard', {
     account: {
       photo: (await accountGitHubResult).account.photo // todo: not rely on github...
     },
