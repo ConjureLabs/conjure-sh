@@ -1,12 +1,13 @@
 import { connect } from 'federal';
 import styles, { classes } from './styles.js';
-import classnames from 'classnames';
 
 const Header = ({ account, children }) => {
   return (
     <header className={classes.root}>
       <span className={classes.wrap}>
-        <h1 onClick={() => { window.location = '/'; }}>
+        <h1 onClick={() => {
+          window.location = '/';
+        }}>
           <sup>⎔</sup> Conjure
         </h1>
 

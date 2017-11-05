@@ -8,7 +8,7 @@ export default class AnchorList extends Component {
   }
 
   // should be overidden
-  itemAdditionalClasses(item) {
+  itemAdditionalClasses(/* item */) {
     return null;
   }
 

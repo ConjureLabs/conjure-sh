@@ -81,7 +81,7 @@ export default class OnboardBilling extends Component {
       }, {});
     }
 
-    post(`${config.app.api.url}/api/onboard/billing`, values, (err, data) => {
+    post(`${config.app.api.url}/api/onboard/billing`, values, err => {
       if (err) {
         console.error(err);
         alert(err.message);

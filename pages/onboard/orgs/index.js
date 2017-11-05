@@ -18,7 +18,7 @@ export default class OnboardOrgs extends Component {
 
     submitting = true;
 
-    post(`${config.app.api.url}/api/onboard/orgs/selection`, item, (err, data) => {
+    post(`${config.app.api.url}/api/onboard/orgs/selection`, item, err => {
       if (err) {
         console.error(err);
         alert(err.message);

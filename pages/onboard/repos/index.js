@@ -14,7 +14,7 @@ export default class OnboardRepos extends Component {
   constructor() {
     super();
 
-    this.anchorList; // set by ref
+    this.anchorList = null; // set by ref
 
     this.state = {
       repoSelected: false
@@ -35,7 +35,7 @@ export default class OnboardRepos extends Component {
 
     submitting = true;
 
-    post(`${config.app.api.url}/api/onboard/repos/selection`, this.anchorList.selected.map(selection => selection.value), (err, data) => {
+    post(`${config.app.api.url}/api/onboard/repos/selection`, this.anchorList.selected.map(selection => selection.value), err => {
       if (err) {
         console.error(err);
         alert(err.message);

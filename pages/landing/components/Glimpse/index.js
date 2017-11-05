@@ -173,4 +173,4 @@ export default class Glimpse extends Component {
       </div>
     );
   }
-};
+}

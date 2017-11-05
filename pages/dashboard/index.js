@@ -61,7 +61,6 @@ class Dashboard extends Component {
 
     const { dispatch, timeline, timelineDelta } = this.props;
     const deltaFetched = [];
-    let countDeltaFetched = 0;
 
     const finish = () => {
       dispatch.clearTimelineDelta({}, () => {
@@ -233,7 +232,7 @@ const selector = store => {
 
 const ConnectedDashboard = connect(selector)(Dashboard);
 
-export default ({ url, children }) => {
+export default ({ url }) => {
   // todo: avoid using props.url.query?
   const { account, orgs } = url.query;
 

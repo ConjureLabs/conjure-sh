@@ -1,6 +1,5 @@
 const Route = require('conjure-core/classes/Route');
 const nextApp = require('../../../../next');
-const log = require('conjure-core/modules/log')('onboard orgs');
 
 const route = new Route({
   requireAuthentication: true,

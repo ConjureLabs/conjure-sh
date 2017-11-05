@@ -8,13 +8,14 @@ import Header from '../../../components/Header';
 import AnchorList from '../../../components/AnchorList';
 import Decision from '../../../components/Decision';
 
-let submitting = false;
+// eslint thinks this var is not used, even though it is
+let submitting = false; // eslint-disable-line no-unused-vars
 
 export default class OnboardOverlap extends Component {
   handleSkip() {
     submitting = true;
 
-    post(`${config.app.api.url}/api/onboard/skip`, {}, (err, data) => {
+    post(`${config.app.api.url}/api/onboard/skip`, {}, err => {
       if (err) {
         console.error(err);
         alert(err.message);
@@ -28,7 +29,7 @@ export default class OnboardOverlap extends Component {
 
   render() {
     const { query } = this.props.url;
-    const { account, orgsAlreadyAvailable, orgs } = query;
+    const { account, orgsAlreadyAvailable } = query;
 
     const initialState = {
       account: account

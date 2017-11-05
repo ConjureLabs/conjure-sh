@@ -1,3 +1,4 @@
+/*eslint no-sync: 0*/
 /*
 source ./.profile && node ./scripts/config/generate-client-config.js
  */
@@ -22,9 +23,7 @@ const fs = require('fs');
 
 const sharedDir = path.resolve(__dirname, '..', '..', 'shared');
 
-const configContent = `/* eslint-disable */
-// jscs:disable
-export default ${JSON.stringify(clientConfig)};\n`;
+const configContent = `/* eslint-disable */\n// jscs:disable\n\nexport default ${JSON.stringify(clientConfig)};\n`;
 
 fs.writeFileSync(path.resolve(sharedDir, 'config.js'), configContent, 'utf8');
 console.log('Generated client config');

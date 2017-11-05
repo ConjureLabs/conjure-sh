@@ -1,3 +1,4 @@
+/*eslint no-sync: 0*/
 /*
 node ./scripts/stylus/prepare.js
  */
@@ -72,7 +73,7 @@ function prepareStylus(filePath) {
       }
 
       // see https://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors
-      css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?=\s|\{|\.|:|,|\)|$])/g, function (_, className) {
+      css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?=\s|\{|\.|:|,|\)|$])/g, function classnameReplacements(_, className) {
         if (!classLookup[className]) {
           classNameCount++;
 
@@ -90,7 +91,7 @@ function prepareStylus(filePath) {
       const isNative = filePath.substr(-12) === '.native.styl'; // native <style> tag, not jsx
       const jsxDefault = `const css = \`${css}\`;\n\export default (<style ${isNative ? '' : 'jsx '}dangerouslySetInnerHTML={{ __html: css }} />);`;
       const jsxLookup = `const classes = ${JSON.stringify(classLookup)};\nexport { classes };`;
-      const jsxContent = `import React from 'react';\n\n${jsxDefault}\n\n${jsxLookup}\n`;
+      const jsxContent = `/* eslint-disable */\n// jscs:disable\n\nimport React from 'react';\n\n${jsxDefault}\n\n${jsxLookup}\n`;
       const jsxFilePath = filePath.replace(/\.styl$/, '.js');
 
       fs.writeFileSync(jsxFilePath, jsxContent, 'utf8');

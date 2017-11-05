@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { connect } from 'federal';
-import { post } from '../../shared/xhr';
 import Button from '../Button';
 import classnames from 'classnames';
 import AnchorList from '../AnchorList';
@@ -51,7 +50,7 @@ class Services extends Component {
       </main>
     );
   }
-};
+}
 
 const selector = store => {
   return {

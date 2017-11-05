@@ -22,7 +22,7 @@ class Waitlist extends Component {
   }
 }
 
-export default ({ url, children }) => {
+export default ({ url }) => {
   const { account } = url.query;
 
   const initialState = {

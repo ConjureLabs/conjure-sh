@@ -108,16 +108,20 @@ async function checkPermissions(req, res, uid, handler, next) {
   // not using our own db, will check against github directly
   const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call;
   const getReposResult = await apiGetRepos(req);
-  const orgRepos = result.reposByOrg[ watchedRepo.org ];
+  const orgRepos = getReposResult.reposByOrg[ watchedRepo.org ];
+
+  const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call;
+  let orgsResult;
 
   // if user has no repos in the containers org...
   if (!orgRepos) {
     log.info(`Restricted access of container '${uid}', within org ${watchedRepo.org} - user does not have access to org`);
+    orgsResult = apiGetOrgs(req);
     nextApp.render(req, res, '/terminal/private/invalid-permissions', {
       account: {
         photo: gitHubAccount.photo // todo: not rely on github...
       },
-      orgs
+      orgs: (await orgsResult).orgs
     });
     return;
   }
@@ -134,11 +138,12 @@ async function checkPermissions(req, res, uid, handler, next) {
   // if that repo does not exist, kick to 404
   if (!repo) {
     log.info(`Restricted access of container '${uid}', within org ${watchedRepo.org} - user does not have access to repo`);
+    orgsResult = apiGetOrgs(req);
     nextApp.render(req, res, '/terminal/private/invalid-permissions', {
       account: {
         photo: gitHubAccount.photo // todo: not rely on github...
       },
-      orgs
+      orgs: (await orgsResult).orgs
     });
     return;
   }
@@ -147,14 +152,15 @@ async function checkPermissions(req, res, uid, handler, next) {
   // only check if have read access
   if (!repo.permissions || repo.permissions.pull !== true) {
     log.info(`Restricted access of container '${uid}', within org ${watchedRepo.org} - user does not have proper perms`);
+    orgsResult = apiGetOrgs(req);
     nextApp.render(req, res, '/terminal/private/invalid-permissions', {
       account: {
         photo: gitHubAccount.photo // todo: not rely on github...
       },
-      orgs
+      orgs: (await orgsResult).orgs
     });
     return;
   }
 
   onSuccess(containerRecord);
-};
+}

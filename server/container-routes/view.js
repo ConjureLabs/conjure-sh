@@ -1,4 +1,4 @@
-module.exports = (req, res, containerRecord, next) => {
+module.exports = (req, res, containerRecord) => {
   const ReqProxy = require('conjure-core/classes/Req/Proxy');
 
   // was successful, so proxy the request to the docker instance

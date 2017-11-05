@@ -40,7 +40,7 @@ const clearTimelineDelta = store => {
   return Object.assign({}, store, {
     timelineDelta: null
   });
-}
+};
 
 export default {
   setOrg,

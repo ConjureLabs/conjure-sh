@@ -9,7 +9,7 @@ import CardUI from './card-ui.js';
 
 class Billing extends Component {
   render() {
-    const { account, cards } = this.props;
+    const { cards } = this.props;
 
     return (
       <span>

@@ -54,4 +54,4 @@ export default class RequiresAuth extends Component {
       </div>
     );
   }
-};
+}

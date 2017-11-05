@@ -13,8 +13,6 @@ const minute = 60;
 const hour = 60 * minute;
 const day = 24 * hour;
 
-let deltaCheckTimeout;
-
 class Timeline extends Component {
   constructor(props) {
     super(props);
@@ -222,7 +220,7 @@ class Timeline extends Component {
                     href: item.logs,
                     target: '_blank',
                     label: 'Follow Logs'
-                  },
+                  }
                 ]}
               />
             ) : item.status;
@@ -273,7 +271,7 @@ class Timeline extends Component {
       </div>
     );
   }
-};
+}
 
 const selector = store => {
   return {

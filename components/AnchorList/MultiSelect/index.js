@@ -1,6 +1,5 @@
 import AnchorList from '../index.js';
 import styles, { classes } from './styles.js';
-import classnames from 'classnames';
 
 export default class AnchorMultiSelectList extends AnchorList {
   constructor() {
