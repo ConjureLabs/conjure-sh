@@ -11,6 +11,10 @@ const clientConfig = {
       url: config.app.api.url
     },
 
+    web: {
+      url: config.app.web.url
+    },
+
     worker: {
       port: config.app.worker.port,
       protocol: config.app.worker.protocol

@@ -1,6 +1,7 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
 import nativeStyles from './styles.native.js';
+import config from '../shared/config';
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
@@ -17,6 +18,8 @@ export default class MyDocument extends Document {
           { process.env.NODE_ENV === 'production' ? <script async src='https://www.googletagmanager.com/gtag/js?id=UA-108457027-1' /> : null }
           { process.env.NODE_ENV === 'production' ? <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-108457027-1');` }} />  : null }
           <title>Conjure</title>
+          <meta name='description' content='Containers for your Pull Requests, giving you a link to view changes directly in GitHub' />
+          <meta name='og:description' content={config.app.web.url} />
           <meta charSet='utf-8' />
           <meta name='viewport' content='initial-scale=1.0, width=device-width' />
           <meta name='theme-color' content='#ffffff' />
