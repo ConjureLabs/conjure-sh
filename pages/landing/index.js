@@ -32,33 +32,22 @@ export default class Landing extends Component {
 
             <ol className={classes.linkslist}>
               <li className={classes.item}>
-                <a
-                  className={classes.link}
-                  onClick={this.submitForm.bind(this)}
-                  href=''
-                >
-                  Sign In
-                </a>
-              </li>
-
-              <li className={classes.item}>
                 <Button
                   size='small'
                   color='white'
                   onClick={this.submitForm.bind(this)}
+                  hallow={true}
                 >
-                  Sign Up
+                  Sign In
                 </Button>
               </li>
             </ol>
           </nav>
 
           <div className={classes.ctaContainer}>
-            <p className={classes.mark}>⎔</p>
             <div className={classes.firstImpression}>
-              <sup className={classes.name}>Conjure</sup>
-              <span>runs your development branches</span>
-              <p>Conjure watches development branches, and provides engineers and product managers a link to view working changes.</p>
+              Containers for your development branches
+              <p>Easily sync your GitHub projects with Conjure and start viewing in minutes!</p>
             </div>
 
             <div>
@@ -70,7 +59,7 @@ export default class Landing extends Component {
               >
                 <span className={classes.label}>Sign Up</span>
               </Button>
-              <sub className={classes.info}>With GitHub</sub>
+              <sub className={classes.info}>2 containers free, for 2 weeks</sub>
             </div>
           </div>
 
@@ -81,8 +70,8 @@ export default class Landing extends Component {
           <div>
             <article>
               <header>
-                <h3>Conjure is for Developers</h3>
-                <span>Conjure streamlines the peer review process, letting engineers focus on what they do best, and avoid context switch.</span>
+                <h3>For Developers</h3>
+                <span>Conjure streamlines the peer review process, letting engineers focus on what they do best, avoiding context switch.</span>
               </header>
 
               <ol>
@@ -103,8 +92,8 @@ export default class Landing extends Component {
 
             <article>
               <header>
-                <h3>Conjure is for Product</h3>
-                <span>Conjure gives you a visibility into what changes your team is working on. See changes before they ship, and give feedback to engineers and design.</span>
+                <h3>For Product</h3>
+                <span>Conjure gives visibility into what changes your team is working on. See changes before they ship, and give feedback to engineers and design.</span>
               </header>
 
               <ol>
@@ -140,13 +129,13 @@ export default class Landing extends Component {
         </div>
 
         <footer className={classes.footer}>
-          <a href='#'>About</a>
+          <span>Copyright &copy; 2017 Conjure Labs, Inc.</span>
           <del>|</del>
-          <a href='#'>Investors</a>
+          <a href='/about'>About</a>
           <del>|</del>
-          <a href='#'>Privacy</a>
+          <a href='/privacy'>Privacy</a>
           <del>|</del>
-          <a href='#'>Terms</a>
+          <a href='/tos'>Terms</a>
         </footer>
 
         {styles}
