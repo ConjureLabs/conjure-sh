@@ -135,7 +135,7 @@ export default class Landing extends Component {
           <del>|</del>
           <a href='/privacy'>Privacy</a>
           <del>|</del>
-          <a href='/tos'>Terms</a>
+          <a href='/terms'>Terms</a>
         </footer>
 
         {styles}
