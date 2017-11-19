@@ -26,7 +26,7 @@ export default class OnboardOrgs extends Component {
         return;
       }
 
-      window.location = '/onboard/billing';
+      window.location = '/onboard/plan';
     });
   }
 

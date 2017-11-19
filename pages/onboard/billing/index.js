@@ -107,11 +107,11 @@ export default class OnboardBilling extends Component {
         <div className={classes.wrap}>
           <header>
             <sup>💳</sup>
-            <span>The first N of bandwidth will be free.</span>
+            <span>2 containers free, for 2 weeks.</span>
           </header>
 
           <article>
-            <sup>2</sup>
+            <sup>3</sup>
             <span>Billing</span>
           </article>
 

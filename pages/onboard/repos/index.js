@@ -86,8 +86,8 @@ export default class OnboardRepos extends Component {
           </header>
 
           <article>
-            <sup>3</sup>
-            <span>What repos should Conjure bring to life?</span>
+            <sup>4</sup>
+            <span>What repos should Conjure watch?</span>
           </article>
 
           <main>

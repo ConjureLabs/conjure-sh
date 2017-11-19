@@ -9,6 +9,7 @@ const route = new Route({
 });
 
 route.push(async (req, res) => {
+  // check if account is valid, and should be seeing onboard flow
   const DatabaseTable = require('conjure-core/classes/DatabaseTable');
   const account = new DatabaseTable('account');
   const accountRows = await account.select({
@@ -25,7 +26,6 @@ route.push(async (req, res) => {
     return res.redirect(302, '/');
   }
 
-  // verify cookie from orgs onboard set
   if (
     !req.cookies ||
     !req.cookies['conjure-onboard-orgs'] ||
@@ -36,37 +36,20 @@ route.push(async (req, res) => {
   }
 
   if (
-    !req.cookies ||
-    !req.cookies['conjure-onboard-plan'] ||
-    !req.cookies['conjure-onboard-plan'].name
+    req.cookies &&
+    req.cookies['conjure-onboard-plan'] &&
+    req.cookies['conjure-onboard-plan'].name
   ) {
-    return res.redirect(302, '/onboard/plan');
-  }
-
-  // customer credit card should exist
-  const AccountCard = new DatabaseTable('account_card');
-  const cardRows = await AccountCard.select({
-    account: req.user.id
-  });
-
-  if (cardRows.length === 0) {
     return res.redirect(302, '/onboard/billing');
   }
 
-  // get github account record
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
-  const accountGitHubResult = apiGetAccountGitHub(req);
+  const gitHubAccount = (await apiGetAccountGitHub(req)).account;
 
-  // get repos
-  const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call;
-  const reposResult = apiGetRepos(req);
-
-  return nextApp.render(req, res, '/onboard/repos', {
+  return nextApp.render(req, res, '/onboard/plan', {
     account: {
-      photo: (await accountGitHubResult).account.photo
-    },
-    repos: (await reposResult).reposByOrg,
-    org: req.cookies['conjure-onboard-orgs']
+      photo: gitHubAccount.photo
+    }
   });
 });
 
