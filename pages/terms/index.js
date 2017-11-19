@@ -111,6 +111,38 @@ export default () => (
           <span>Licensee agrees that its purchases are not contingent on the delivery of any future functionality or features, or dependent on any oral or written public comments made by Company regarding future functionality or features.</span>
         </p>
       </div>
+
+      <div className={classes.section}>
+        <p>
+          <span className={classes.part}>6.</span>
+          <span className={classes.label}>Term; Expiration and Termination.</span>
+          <span>These TOS shall continue in effect for the term and any renewal term as specified in an Order (collectively, the <span className={classes.term}>"Term"</span>). If either party materially breaches these TOS, the other party shall have the right to terminate the applicable Order and in the case where no Order exists, these TOS (and, in each case, all licenses granted herein) upon thirty (30) days (ten (10) days in the case of non-payment and immediately in the case of a breach of <span className={classes.reference}>Sections 3(b)</span>) written notice of any such breach, unless such breach is cured during such notice period. In the case of a free trial or Company otherwise providing the Service at no cost to a Licensee, Company shall have, upon Licensee or any Users failing to use the Service for more than six (6) consecutive months, the right, in its sole discretion, to terminate all User Accounts of Licensee and terminate Licensee's and all Licensee's Users' access to and use of the Service without notice. Upon expiration or termination of an Order or these TOS, Licensee shall immediately be unable access and use the Service, all Licensee Content may be deleted from the Service at Company's sole discretion (such information can not be recovered once Licensee's Account or any User Account is terminated) and Licensee shall return or destroy all copies of all Content and all portions thereof in Licensee's possession and so certify to Company, if such certification is requested by Company. <span className={classes.reference}>Sections 3(b)</span> and <span className={classes.reference}>5 through 14</span> of these TOS, shall survive termination or expiration of these TOS. Termination is not an exclusive remedy and all other remedies shall be available whether or not termination occurs.</span>
+        </p>
+      </div>
+
+      <div className={classes.section}>
+        <p>
+          <span className={classes.part}>7.</span>
+          <span className={classes.label}>Indemnification.</span>
+          <span>Licensee and each User shall defend, indemnify and hold harmless Company from all damages, settlements, attorneys' fees and expenses related to any third-party claim, suite or demand (i) arising from Licensee or any User's use of the Service or Content in breach of these TOS or in violation of applicable law, or (ii) alleging that the Licensee Content infringes or misappropriates such third party's intellectual property rights or violates applicable law; provided Licensee is promptly notified of any and all threats, suits, claims and proceedings related thereto and given reasonable assistance by Company (at Licensee's cost). Company reserves the right to assume the exclusive defense and control of any matter that is subject to indemnification under this <span className={classes.reference}>Section 7</span>. In such case, Licensee and Users agree to cooperate with any reasonable requests in assisting Company's defense of such matter.</span>
+        </p>
+      </div>
+
+      <div className={classes.section}>
+        <p>
+          <span className={classes.part}>8.</span>
+          <span className={classnames(classes.label, classes.loud)}>Disclaimer of Warranties.</span>
+          <span className={classes.loud}>The Service may be temporarily unavailable for scheduled maintenance or for unscheduled emergency maintenance, either by Company or by third-party providers, or because of other causes beyond Company's reasonable control, but Company shall use reasnoable efforts to provide advance notice in writing or by email of any scheduled Service disruption. However, the Service, including the Site and Content, and all server and network components are provided on an "as is" and "as available" basis without any warranties of any kind, and Company expressly disclaims any and all warranties, whether express or implied, including, but not limited to, implied warranties of merchantability, title, fitness for a particular purpose, and noninfringement. Licensee and Users acknowledge that Company does not warrent that the Service will be uninterrupted, timely, secure, error-free or virus-free, nor does Company make any warranty as to the results that may be obtained from use of the Service, and no information, advice or services obtained by Licensee or Users from Company or through the Service shall create any warranty not expressly stated in these TOS.</span>
+        </p>
+      </div>
+
+      <div className={classes.section}>
+        <p>
+          <span className={classes.part}>9.</span>
+          <span className={classnames(classes.label, classes.loud)}>Limitation of Liability.</span>
+          <span className={classes.loud}>Under no circumstances and under no legal theory (whether in contract, tort or otherwise) shall Company be liable to Licensee, any User or any third-party for (a) any indirect, incidental, special, exemplary, consequential or punitive damages. Including lost profits, lost sales or business, lost data, goodwill, or other intangible losses or (b) for any direct damages, cost, losses or liabilities in excess of the fees actually paid by Licensee in the six (6) months preceding the event giving rise to Licensee's or User's claim or, if no fees apply, one hundred dollars (US$100). The provisions of this section allocate the risk under these TOS between the parties and parties have relied on tehse limitations in determining wheter to enter into these TOS. Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply to Licensee or some Users. In the states, Company's liability will be limited to the greatest extent permitted by law.</span>
+        </p>
+      </div>
     </main>
 
     <footer className={classes.footer}>
