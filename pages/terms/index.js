@@ -143,6 +143,44 @@ export default () => (
           <span className={classes.loud}>Under no circumstances and under no legal theory (whether in contract, tort or otherwise) shall Company be liable to Licensee, any User or any third-party for (a) any indirect, incidental, special, exemplary, consequential or punitive damages. Including lost profits, lost sales or business, lost data, goodwill, or other intangible losses or (b) for any direct damages, cost, losses or liabilities in excess of the fees actually paid by Licensee in the six (6) months preceding the event giving rise to Licensee's or User's claim or, if no fees apply, one hundred dollars (US$100). The provisions of this section allocate the risk under these TOS between the parties and parties have relied on tehse limitations in determining wheter to enter into these TOS. Some states do not allow the exclusion of implied warranties or limitation of liability for incidental or consequential damages, which means that some of the above limitations may not apply to Licensee or some Users. In the states, Company's liability will be limited to the greatest extent permitted by law.</span>
         </p>
       </div>
+
+      <div className={classes.section}>
+        <p>
+          <span className={classes.part}>10.</span>
+          <span className={classes.label}>Proprietary Rights; Limited License to Company; Feedback.</span>
+        </p>
+        <p className={classes.subSection}>
+          <span className={classes.part}>(a)</span>
+          <span className={classes.label}>Reservation of Rights.</span>
+          <span>Subject to the limited rights expressly granted hereunder, Company and its licensors reserve all of Company's and its licensors right, title and interest in and to the Service, including all of Company's and its licensors related intellectual property rights. No rights are granted to Licensee hereunder other than as expressly set forth herein.</span>
+        </p>
+        <p className={classes.subSection}>
+          <span className={classes.part}>(b)</span>
+          <span className={classes.label}>License to Company by Licensee to Host Licensee Content.</span>
+          <span>Licensee hereby grants Company a worldwide, non-exclusive, royalty-free, fully paid, sublicensable, limited-term license to host, copy, transmit and display Licensee Content that Licensee or any User posts to the Service, solely as necessary for Company to provide the Service in accordance with these TOS. Subject to the limited licenses granted herein, Company acquires no right, title or interest from Licensee or Licensee's licensors under these TOS in or to Licensee Content.</span>
+        </p>
+        <p className={classes.subSection}>
+          <span className={classes.part}>(c)</span>
+          <span className={classes.label}>License by Licensee to Use Feedback.</span>
+          <span>Licensee hereby grants to Company a worldwide, perpetual, irrevocable, royalty-free license to use and incorporate into the Service any suggestion, enhancement request, recommendation, correction or other feedback provided by Licensee or Users relating to the operation of the Service.</span>
+        </p>
+      </div>
+
+      <div className={classes.section}>
+        <p>
+          <span className={classes.part}>11.</span>
+          <span className={classes.label}>Confidentiality.</span>
+          <span>Any technical, financial, business or other information provided by one party (the <span className={classes.term}>"Disclosing Party"</span>) to the other party (the <span className={classes.term}>"Receiving Party"</span>) and designated as confidential or proprietary or that reasonably should be understood to be confidential given the nature of the information and the circumstances of disclosure (<span className={classes.term}>"Confidential Information"</span>) shall be held in confidence and not disclosed and shall not be used except to the extent necessary to carry out the Receiving Party's obligations or express rights hereunder, except as otherwise authorized by the Disclosing Party in writing. For clarity, the Service and Content shall be deemed Confidential Information of Company whether or not otherwise designated as such. The Receiving Party shall use the same degree of care that it uses to protect the confidentiality of its own confidential information of like kind (but not less than reasonable care). These obligations will not apply to information that (i) was previously known by the Receiving Party, as demonstrated by documents or files in existence at the time of disclosure, (ii) is generally and freely publicly available through no fault of the Receiving Party, (iii) the Receiving Party otherwise rightfully obtains from third parties without restriction, or (iv) is independently developed by the Receiving Party without reference to or reliance on the Disclosing Party's Confidential Information, as demonstrated by documents or files in existence at the time of disclosure. The Receiving Party may disclose Confidential Information of the Disclosing Party to the extent compelled by law to do so, provided the Receiving Party gives the Disclosing Party prior notice of the compelled disclosure (to the extent legally permitted) and reasonable assistance, at the Disclosing Party's cost, if the Disclosing Party wishes to contest the disclosure. If the Receiving Party is compelled by law to disclose the Disclosing Party's Confidential Information as part of a civil proceeding to which the Disclosing Party is a party, and the Disclosing Party is not contesting the disclosure, the Disclosing Party will reimburse the Receiving Party for its reasonable cost of compiling and providing secure access to that Confidential Information. In the event that such protective order or other remedy is not obtained, the Receiving Party shall furnish only that portion of the Confidential Information that is legally required and use commercially reasonable efforts to obtain assurance that confidential treatment will be accorded the Confidential Information.</span>
+        </p>
+      </div>
+
+      <div className={classes.section}>
+        <p>
+          <span className={classes.part}>12.</span>
+          <span className={classes.label}>Protection of Confidential Licensee Content; Security.</span>
+          <span>Company shall maintain administrative, physical, and technical safeguards for protection of the security, confidentiality and integrity of Licensee Content that is Licensee's Confidential Information (<span className={classes.term}>"Confidential Licensee Content"</span>). Those safeguards shall include, but will not be limited to, measures for preventing access, use, modification or disclosure of Confidential Licensee Content by Company's personnel except (a) to provide the Service and prevent or address service or technical problems, (b) as compelled by law in accordance with <span className={classes.reference}>Section 11 (Confidentiality)</span> above, or (c) as Licensee expressly permits in writing.</span>
+        </p>
+      </div>
     </main>
 
     <footer className={classes.footer}>
