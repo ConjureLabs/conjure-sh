@@ -13,7 +13,7 @@ export default () => (
     <main className={classes.wrap}>
       <h2>Conjure Terms of Service</h2>
 
-      <span className={classes.topNote}>Last updated November 18, 2017.</span>
+      <span className={classes.topNote}>Last updated November 19, 2017.</span>
 
       <div className={classes.section}>
         <p className={classes.loud}>The following terms of service (these <span className={classes.term}>"TOS"</span>) shall be deemed incorporated by reference into each other (as defined below) between Conjure Labs, Inc. a Delaware corporation DBA Conjure (<span className={classes.term}>"Conjure"</span> or <span className={classes.term}>"Company"</span> or <span className={classes.term}>"we"</span>) and the licensee identified therein (<span className={classes.term}>"Licensee"</span>).</p>
