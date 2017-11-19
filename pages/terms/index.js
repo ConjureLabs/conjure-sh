@@ -88,6 +88,29 @@ export default () => (
           <span>Licensee shall be responsible for obtaining and maintaining any equipment and ancillary services needed to connect to, access or otherwise use the Service, including, without limitation, modems, hardware, server, software, operating system, networking, web servers, long distance and local telephone service (collectively, <span className={classes.term}>"Equipment"</span>). Licensee shall be responsible for ensuring that such Equipment is compatible with the Service (and, to the extent applicable, the Software) and complies with all configurations and specifications set forth in Company's published policies then in effect. Licensee shall also be responsible for maintaining the security of the Equipment, Licensee's Account, all passwords (including but not limited to administrative and User passwords) and files, and for all uses of Licensee Account or the Equipment with or without Licensee's knowledge or consent.</span>
         </p>
       </div>
+
+      <div className={classes.section}>
+        <p>
+          <span className={classes.part}>5.</span>
+          <span className={classes.label}>Fees and Payment.</span>
+        </p>
+        <p className={classes.subSection}>
+          <span className={classes.part}>(a)</span>
+          <span>Licensee shall pay Company the fees set forth in an Order in accordance with the terms set forth therein; provided that Company may change any applicable fees upon thirty (30) days' notice at any time and such new fees shall become effective for any subsequent renewal Term. All payments shall be made in U.S. dollars. Any payments more than thirty (30) days overdue will bear a late payment fee of one and one-half percent (1.5%) per month, or, if lower, the maximum rate allowed by law. In addition, Licensee will pay all taxes, shipping, duties, withholdings and the like, as well as all pre-approved out of pocket expenses incurred by Company in connection with any consulting and/or support services, promptly upon invoice. If Licensee is paying any fees by credit card, Licensee shall provide Company complete and accurate information regarding the applicable credit card. Licensee represents and warrants that all such information is correct and that Licensee is authorized to use such credit card. Licensee will promptly update its account information with any changes (for example, a change in billing address or credit card expiration date) that may occur. Licensee hereby authorizes Company to bill such credit card in advance on a periodic basis in accordance with the terms of these TOS and an Order, and Licensee further agrees to pay any charges so incurred. Licensee will maintain, and Company will be entitled to audit, any records relevant to Licensee's use of the Service hereunder. Company may audit such records on reasonable notice at Company's cost (or if the audits reveal material non-compliance with these TOS, at Licensee’s cost).</span>
+        </p>
+        <p className={classes.subSection}>
+          <span className={classes.part}>(b)</span>
+          <span>For any upgrade in a subscription level for a month-to-month service plan, Company shall automatically charge Licensee the new subscription fee, effective as of the date the service upgrade is requested and for each subsequent one-month recurring cycle pursuant to the billing method applicable to Licensee. If Company is providing Licensee the Service pursuant to a yearly service plan, Company will immediately charge Licensee any increase in subscription level plan cost pursuant to the billing method applicable to Licensee, prorated for the remaining Term of Licensee's yearly billing cycle; provided, however, any decrease in a subscription level plan cost shall only take effect upon the renewal date of the then current yearly service plan. Licensee's downgrading its subscription level may cause the loss of features or capacity of Licensee's Account. Company does not accept any liability for such loss.</span>
+        </p>
+        <p className={classes.subSection}>
+          <span className={classes.part}>(c)</span>
+          <span>If any amount owing by Licensee under these TOS for the Service is thirty (30) or more days overdue (or ten (10) or more days overdue in the case of amounts Licensee has authorized Company to charge to Licensee's credit card), Company may, in its sole discretion and without limiting its other rights and remedies, suspend Licensee's and any User's access to the Service and/or otherwise limit the functionality of the Service until such amounts are paid in full.</span>
+        </p>
+        <p className={classes.subSection}>
+          <span className={classes.part}>(d)</span>
+          <span>Licensee agrees that its purchases are not contingent on the delivery of any future functionality or features, or dependent on any oral or written public comments made by Company regarding future functionality or features.</span>
+        </p>
+      </div>
     </main>
 
     <footer className={classes.footer}>
