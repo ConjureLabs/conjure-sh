@@ -37,14 +37,10 @@ route.push(async (req, res) => {
   const batchAll = require('conjure-core/modules/utils/Promise/batch-all');
   const watchedRepoResults = await batchAll(4, orgs, org => {
     const database = require('conjure-core/modules/database');
-    console.log('SELECT COUNT(*) num FROM watched_repo WHERE org = $1');
     return database.query('SELECT COUNT(*) num FROM watched_repo WHERE org = $1', [org.login]);
   });
 
-  console.log(orgs, watchedRepoResults);
-
   const repoChecks = orgs.reduce((mapping, org, i) => {
-    console.log(i);
     const result = watchedRepoResults[i];
 
     mapping[org.login] = (

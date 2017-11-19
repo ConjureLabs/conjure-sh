@@ -35,6 +35,8 @@ export default class OnboardPlan extends Component {
   render() {
     const { query } = this.props.url;
 
+    console.log(query);
+
     const initialState = {
       account: query.account
     };
@@ -82,7 +84,6 @@ export default class OnboardPlan extends Component {
                     this.submit('boostrap');
                   }}
                   className={classes.button}
-                  disabled={!this.state.formFilledIn}
                 >
                   Select
                 </Button>
@@ -114,7 +115,6 @@ export default class OnboardPlan extends Component {
                     this.submit('startup');
                   }}
                   className={classes.button}
-                  disabled={!this.state.formFilledIn}
                 >
                   Select
                 </Button>
@@ -146,7 +146,6 @@ export default class OnboardPlan extends Component {
                     this.submit('business');
                   }}
                   className={classes.button}
-                  disabled={!this.state.formFilledIn}
                 >
                   Select
                 </Button>
@@ -178,7 +177,6 @@ export default class OnboardPlan extends Component {
                     this.submit('premium');
                   }}
                   className={classes.button}
-                  disabled={!this.state.formFilledIn}
                 >
                   Select
                 </Button>
