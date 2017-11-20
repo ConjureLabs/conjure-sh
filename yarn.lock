@@ -1750,7 +1750,7 @@ concat-stream@^1.6.0:
 
 "conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#b2c7b08f00c17c3f6f02d1563eee4aa56141a6e2"
+  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#8af377b754d2b6f3631228119b3f09cea18d1544"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
