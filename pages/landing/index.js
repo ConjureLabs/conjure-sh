@@ -75,6 +75,8 @@ export default class Landing extends Component {
             </header>
 
             <Plans />
+
+            <sub>2 containers free, for 2 weeks</sub>
           </div>
         </div>
 
