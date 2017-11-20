@@ -43,7 +43,7 @@ export default class OnboardPlan extends Component {
 
     return (
       <Federal store={initialState}>
-        <Header />
+        <Header limited={true} />
 
         <div className={classes.wrap}>
           <header>

@@ -1,27 +1,27 @@
 import { connect } from 'federal';
 import styles, { classes } from './styles.js';
 
-const Header = ({ account, children }) => {
-  return (
-    <header className={classes.root}>
-      <span className={classes.wrap}>
-        <h1 onClick={() => {
-          window.location = '/';
-        }}>
-          <sup>⎔</sup> Conjure
-        </h1>
+const Header = ({ account, children, limited = false }) => (
+  <header className={classes.root}>
+    <span className={classes.wrap}>
+      <h1 onClick={() => {
+        window.location = '/';
+      }}>
+        <sup>⎔</sup> Conjure
+      </h1>
 
-        {children}
+      {children}
 
-        <nav className={classes.userNav}>
-          <span
-            className={classes.avatar}
-            style={{
-              backgroundImage: `url(${account.photo})`
-            }}
-          />
+      <nav className={classes.userNav}>
+        <span
+          className={classes.avatar}
+          style={{
+            backgroundImage: `url(${account.photo})`
+          }}
+        />
 
-          <ol className={classes.links}>
+        <ol className={classes.links}>
+          {limited === true ? null : (
             <li className={classes.item}>
               <a
                 href='/account/billing'
@@ -30,23 +30,23 @@ const Header = ({ account, children }) => {
                 Billing
               </a>
             </li>
+          )}
 
-            <li className={classes.item}>
-              <a
-                href='/logout'
-                className={classes.link}
-              >
-                Logout
-              </a>
-            </li>
-          </ol>
-        </nav>
-      </span>
+          <li className={classes.item}>
+            <a
+              href='/logout'
+              className={classes.link}
+            >
+              Logout
+            </a>
+          </li>
+        </ol>
+      </nav>
+    </span>
 
-      {styles}
-    </header>
-  );
-};
+    {styles}
+  </header>
+);
 
 const selector = store => {
   return {
