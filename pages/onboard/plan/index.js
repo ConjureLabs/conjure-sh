@@ -62,7 +62,7 @@ export default class OnboardPlan extends Component {
                 <ins />
 
                 <div className={classes.cost}>
-                  <h3>$100</h3>
+                  <h3>$50</h3>
                   <p>per month</p>
                 </div>
 
@@ -72,7 +72,7 @@ export default class OnboardPlan extends Component {
                 </div>
 
                 <ul>
-                  <li><span className={classes.gotIt}>✓</span> <strong>2</strong> Parallel containers</li>
+                  <li><span className={classes.gotIt}>✓</span> <strong>1</strong> container</li>
                   <li><span className={classes.gotIt}>✓</span> Unlimited build minutes</li>
                   <li><span className={classes.gotIt}>✓</span> Unlimited repositories</li>
                   <li><span className={classes.gotIt}>✓</span> Unlimited collaborators</li>
