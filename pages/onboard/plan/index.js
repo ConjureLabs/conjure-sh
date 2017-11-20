@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import styles, { classes } from '../styles.js';
+import styles, { classes } from './styles.js';
 import Federal from 'federal';
 import classnames from 'classnames';
 import { post } from '../../../shared/xhr';
@@ -53,27 +53,29 @@ export default class OnboardPlan extends Component {
 
           <article>
             <sup>2</sup>
-            <span>Conjure Plan</span>
+            <span>Choose a Plan</span>
           </article>
 
           <main>
             <ol>
               <li>
-                <header>
+                <ins />
+
+                <div className={classes.cost}>
                   <h3>$100</h3>
-                  <span>per month</span>
-                </header>
+                  <p>per month</p>
+                </div>
 
                 <div className={classes.label}>
                   <h4>Boostrap</h4>
-                  <span>Ideal for small projects</span>
+                  <p>Ideal for small projects</p>
                 </div>
 
                 <ul>
-                  <li><strong>2</strong> Parallel containers</li>
-                  <li>Unlimited build minutes</li>
-                  <li>Unlimited repositories</li>
-                  <li>Unlimited collaborators</li>
+                  <li><span className={classes.gotIt}>✓</span> <strong>2</strong> Parallel containers</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited build minutes</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited repositories</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited collaborators</li>
                 </ul>
 
                 <Button
@@ -90,21 +92,23 @@ export default class OnboardPlan extends Component {
               </li>
 
               <li>
-                <header>
+                <ins />
+
+                <div className={classes.cost}>
                   <h3>$200</h3>
-                  <span>per month</span>
-                </header>
+                  <p>per month</p>
+                </div>
 
                 <div className={classes.label}>
                   <h4>Startup</h4>
-                  <span>Ideal for small teams</span>
+                  <p>Ideal for small teams</p>
                 </div>
 
                 <ul>
-                  <li><strong>4</strong> Parallel containers</li>
-                  <li>Unlimited build minutes</li>
-                  <li>Unlimited repositories</li>
-                  <li>Unlimited collaborators</li>
+                  <li><span className={classes.gotIt}>✓</span> <strong>4</strong> Parallel containers</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited build minutes</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited repositories</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited collaborators</li>
                 </ul>
 
                 <Button
@@ -121,21 +125,23 @@ export default class OnboardPlan extends Component {
               </li>
 
               <li>
-                <header>
+                <ins />
+
+                <div className={classes.cost}>
                   <h3>$500</h3>
-                  <span>per month</span>
-                </header>
+                  <p>per month</p>
+                </div>
 
                 <div className={classes.label}>
                   <h4>Business</h4>
-                  <span>Ideal for growing companies</span>
+                  <p>Ideal for growing companies</p>
                 </div>
 
                 <ul>
-                  <li><strong>10</strong> Parallel containers</li>
-                  <li>Unlimited build minutes</li>
-                  <li>Unlimited repositories</li>
-                  <li>Unlimited collaborators</li>
+                  <li><span className={classes.gotIt}>✓</span> <strong>10</strong> Parallel containers</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited build minutes</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited repositories</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited collaborators</li>
                 </ul>
 
                 <Button
@@ -152,21 +158,23 @@ export default class OnboardPlan extends Component {
               </li>
 
               <li>
-                <header>
+                <ins />
+
+                <div className={classes.cost}>
                   <h3>$900</h3>
-                  <span>per month</span>
-                </header>
+                  <p>per month</p>
+                </div>
 
                 <div className={classes.label}>
                   <h4>Premium</h4>
-                  <span>Ideal for larger teams</span>
+                  <p>Ideal for larger teams</p>
                 </div>
 
                 <ul>
-                  <li><strong>20</strong> Parallel containers</li>
-                  <li>Unlimited build minutes</li>
-                  <li>Unlimited repositories</li>
-                  <li>Unlimited collaborators</li>
+                  <li><span className={classes.gotIt}>✓</span> <strong>20</strong> Parallel containers</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited build minutes</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited repositories</li>
+                  <li><span className={classes.gotIt}>✓</span> Unlimited collaborators</li>
                 </ul>
 
                 <Button
