@@ -1,0 +1,82 @@
+@require '../../../../shared/framework.styl'
+
+.root
+  display: flex
+  flex-direction: row
+  margin-bottom: 8rem
+  
+  > li
+    align-items: center
+    background: $white
+    border: 1px solid $lightGray
+    border-right: none
+    display: flex
+    flex-direction: column
+    position: relative
+    width: 25%
+    
+    ins
+      display: block
+      height: 0
+      left: -1px
+      position: absolute
+      top: -1px
+      width: 0
+      border-left: 4rem solid $lightGray
+      border-bottom: 4rem solid transparent
+    
+    &:nth-child(2) ins
+      border-left-color: #23B3EB  
+    &:nth-child(3) ins
+      border-left-color: #02ef56
+    &:nth-child(4) ins
+      border-left-color: #fdcb14
+    
+    &:last-of-type
+      border-right: 1px solid $lightGray
+
+  .cost
+    display: block
+    margin: 3rem 0 5.2rem
+    text-align: center
+
+    h3
+      font-size: 2.4rem
+      font-weight: 400
+
+    p
+      font-size: 1.2rem
+      font-weight: 100
+      margin-top: 1.2rem
+
+  .label
+    display: block
+    text-align: center
+    margin-bottom: 4.6rem
+    
+    h4
+      font-size: 1.8rem
+      font-weight: 400
+
+    p
+      font-size: 1.2rem
+      font-weight: 100
+      margin-top: 1.2rem
+  
+  ul
+    display: block
+    margin-bottom: 2rem
+    padding: 1.4rem
+    
+    li
+      display: block
+      font-size: 1.2rem
+      margin-bottom: 1rem
+      
+      strong
+        font-weight: bold
+      
+      .gotIt
+        color: $gray
+        font-weight: 900
+        margin-right: 0.6rem

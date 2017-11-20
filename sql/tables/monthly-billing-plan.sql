@@ -6,7 +6,7 @@ CREATE TABLE monthly_billing_plan (
   activated TIMESTAMP WITH TIME ZONE,
   deactivated TIMESTAMP WITH TIME ZONE
 );
-COMMENT ON TABLE billing_plan IS 'lookup table for active and past monthly billing plans';
+COMMENT ON TABLE monthly_billing_plan IS 'lookup table for active and past monthly billing plans';
 
 INSERT INTO monthly_billing_plan(cost, parallel_container_limit, added, activated) VALUES(50, 1, NOW(), NOW());
 INSERT INTO monthly_billing_plan(cost, parallel_container_limit, added, activated) VALUES(200, 4, NOW(), NOW());

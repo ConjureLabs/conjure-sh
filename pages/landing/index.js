@@ -3,7 +3,9 @@ import styles, { classes } from './styles.js';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
 import classnames from 'classnames';
+
 import Glimpse from './components/Glimpse';
+import Plans from './components/Plans';
 
 export default class Landing extends Component {
   constructor(props) {
@@ -65,6 +67,16 @@ export default class Landing extends Component {
 
           <Glimpse className={classes.glimpse} />
         </header>
+
+        <div className={classes.plans}>
+          <div>
+            <header>
+                <h3>A Plan for Every Team</h3>
+            </header>
+
+            <Plans />
+          </div>
+        </div>
 
         <div className={classes.sell} id='#how-it-works'>
           <div>
