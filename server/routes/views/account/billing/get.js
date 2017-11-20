@@ -9,7 +9,7 @@ const route = new Route({
   Repos listing
  */
 route.push(async (req, res) => {
-  const apiGetAccountCards = require('conjure-api/server/routes/api/account/cards/get.js').call;
+  const apiGetAccountCards = require('conjure-api/server/routes/api/account/billing/cards/get.js').call;
   const cards = (await apiGetAccountCards(req)).cards;
   
   // if no credit cards available, then kick user to billing entry view

@@ -11,7 +11,7 @@ import Button from '../../../components/Button';
 let submitting = false;
 
 export default class OnboardPlan extends Component {
-  submit(planName) {
+  submit(parallelContainerLimit) {
     if (submitting) {
       return;
     }
@@ -19,7 +19,7 @@ export default class OnboardPlan extends Component {
     submitting = true;
 
     post(`${config.app.api.url}/api/onboard/plan/selection`, {
-      name: planName
+      containerLimit: parallelContainerLimit
     }, err => {
       if (err) {
         console.error(err);
@@ -83,7 +83,7 @@ export default class OnboardPlan extends Component {
                   color='blue'
                   hallow={true}
                   onClick={() => {
-                    this.submit('boostrap');
+                    this.submit(1);
                   }}
                   className={classes.button}
                 >
@@ -116,7 +116,7 @@ export default class OnboardPlan extends Component {
                   color='blue'
                   hallow={false}
                   onClick={() => {
-                    this.submit('startup');
+                    this.submit(4);
                   }}
                   className={classes.button}
                 >
@@ -149,7 +149,7 @@ export default class OnboardPlan extends Component {
                   color='blue'
                   hallow={true}
                   onClick={() => {
-                    this.submit('business');
+                    this.submit(10);
                   }}
                   className={classes.button}
                 >
@@ -182,7 +182,7 @@ export default class OnboardPlan extends Component {
                   color='blue'
                   hallow={true}
                   onClick={() => {
-                    this.submit('premium');
+                    this.submit(20);
                   }}
                   className={classes.button}
                 >

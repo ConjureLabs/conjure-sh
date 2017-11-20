@@ -26,6 +26,7 @@ route.push(async (req, res) => {
     return res.redirect(302, '/');
   }
 
+  // verify cookie from orgs onboard set
   if (
     !req.cookies ||
     !req.cookies['conjure-onboard-orgs'] ||
@@ -35,11 +36,13 @@ route.push(async (req, res) => {
     return res.redirect(302, '/onboard/orgs');
   }
 
-  if (
-    !req.cookies ||
-    !req.cookies['conjure-onboard-plan'] ||
-    !req.cookies['conjure-onboard-plan'].name
-  ) {
+  // checking if a plan exists, for this user
+  const AccountMonthlyBillingPlan = new DatabaseTable('account_monthly_billing_plan');
+  const planRows = await AccountMonthlyBillingPlan.select({
+    account: req.user.id
+  });
+
+  if (planRows.length === 0) {
     return res.redirect(302, '/onboard/plan');
   }
 

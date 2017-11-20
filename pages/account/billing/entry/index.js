@@ -83,7 +83,7 @@ export default class AccountBillingEntry extends Component {
       }, {});
     }
 
-    post(`${config.app.api.url}/api/account/card`, values, err => {
+    post(`${config.app.api.url}/api/account/billing/card`, values, err => {
       if (err) {
         console.error(err);
         alert(err.message);
