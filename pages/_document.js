@@ -8,7 +8,6 @@ import Footer from '../components/Footer';
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
-    console.log(this.props);
     const { html, head, errorHtml, chunks } = renderPage();
     const styles = flush();
 

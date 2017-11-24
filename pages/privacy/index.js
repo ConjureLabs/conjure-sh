@@ -1,5 +1,3 @@
-import Footer from '../../components/Footer';
-
 import styles, { classes } from './styles.js';
 
 export default () => (
@@ -60,8 +58,6 @@ export default () => (
       <h3>Single Sign-On</h3>
       <p>You can log in to the Website and the Service using sign-in services such as OAuth (e.g. Sign-In with GitHub). These services will authenticate your identity and provide you the option to share certain personally identifying information with Conjure, such as your name and email address.</p> 
     </main>
-
-    <Footer />
 
     {styles}
   </div>
