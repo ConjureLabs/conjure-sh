@@ -36,7 +36,17 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <Main className={classes.main} />
-          <Footer />
+          
+          <footer className={classes.footer}>
+            <span>Copyright &copy; 2017 Conjure Labs, Inc.</span>
+            <del>|</del>
+            <a href='/about'>About</a>
+            <del>|</del>
+            <a href='/privacy'>Privacy</a>
+            <del>|</del>
+            <a href='/terms'>Terms</a>
+          </footer>
+
           <NextScript />
           {styles}
         </body>
