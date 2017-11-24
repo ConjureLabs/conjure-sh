@@ -4,8 +4,6 @@ import nativeStyles from './styles.native.js';
 import styles, { classes } from './styles.js';
 import config from '../shared/config';
 
-import Footer from '../components/Footer';
-
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
     const { html, head, errorHtml, chunks } = renderPage();
