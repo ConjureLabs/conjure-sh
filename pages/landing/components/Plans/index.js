@@ -14,7 +14,7 @@ export default ({ className }) => (
 
       <div className={classes.label}>
         <h4>Boostrap</h4>
-        <p>Ideal for small projects</p>
+        <p>For small projects</p>
       </div>
 
       <ul>
@@ -35,7 +35,7 @@ export default ({ className }) => (
 
       <div className={classes.label}>
         <h4>Startup</h4>
-        <p>Ideal for small teams</p>
+        <p>For small teams</p>
       </div>
 
       <ul>
@@ -56,7 +56,7 @@ export default ({ className }) => (
 
       <div className={classes.label}>
         <h4>Business</h4>
-        <p>Ideal for growing companies</p>
+        <p>For growing companies</p>
       </div>
 
       <ul>
@@ -77,7 +77,7 @@ export default ({ className }) => (
 
       <div className={classes.label}>
         <h4>Premium</h4>
-        <p>Ideal for larger teams</p>
+        <p>For larger teams</p>
       </div>
 
       <ul>
