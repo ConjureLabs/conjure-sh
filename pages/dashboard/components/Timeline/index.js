@@ -156,7 +156,7 @@ class Timeline extends Component {
             className={classes.emptyState}
             emoji='🤖'
             headerText={`There's no activity yet`}
-            bodyText='Instances will spin up automatically whenever you create a Pull Request in GitHub'
+            bodyText='Containers will spin up automatically whenever you create a Pull Request in GitHub'
           />
 
           {styles}
