@@ -136,7 +136,7 @@ export default class Landing extends Component {
               color='black'
               onClick={this.submitForm.bind(this)}
             >
-              <span className={classes.label}>Sign Up</span>
+              <span className={classes.label}>Get Started</span>
             </Button>
             <sub className={classes.info}>With GitHub</sub>
           </div>
