@@ -1,7 +1,6 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
-import nativeStyles from './styles.native.js';
-import styles, { classes } from './styles.js';
+import nativeStyles, { classes } from './styles.native.js';
 import config from '../shared/config';
 
 export default class MyDocument extends Document {
@@ -46,7 +45,6 @@ export default class MyDocument extends Document {
           </footer>
 
           <NextScript />
-          {styles}
         </body>
       </html>
     );
