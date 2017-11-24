@@ -1,8 +1,10 @@
 import { Component } from 'react';
 import styles, { classes } from './styles.js';
+import classnames from 'classnames';
+
+import Footer from '../../components/Footer';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
-import classnames from 'classnames';
 
 import Glimpse from './components/Glimpse';
 import Plans from './components/Plans';
@@ -142,15 +144,7 @@ export default class Landing extends Component {
           </div>
         </div>
 
-        <footer className={classes.footer}>
-          <span>Copyright &copy; 2017 Conjure Labs, Inc.</span>
-          <del>|</del>
-          <a href='/about'>About</a>
-          <del>|</del>
-          <a href='/privacy'>Privacy</a>
-          <del>|</del>
-          <a href='/terms'>Terms</a>
-        </footer>
+        <Footer />
 
         {styles}
       </div>

@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { post } from '../../../../shared/xhr';
 import config from '../../../../shared/config.js';
 
+import Footer from '../../../../components/Footer';
 import Header from '../../../../components/Header';
 import TextInput from '../../../../components/Input/Text';
 import CreditCardInput from '../../../../components/Input/CreditCard';
@@ -227,6 +228,8 @@ export default class AccountBillingEntry extends Component {
               Add Card
             </Button>
           </main>
+
+          <Footer />
 
           {styles}
         </div>

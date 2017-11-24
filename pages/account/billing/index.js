@@ -3,6 +3,7 @@ import actions from './actions';
 import styles, { classes } from './styles.js';
 import Federal, { connect } from 'federal';
 
+import Footer from '../../../components/Footer';
 import Header from '../../../components/Header';
 import Button from '../../../components/Button';
 import CardUI from './card-ui.js';
@@ -40,6 +41,8 @@ class Billing extends Component {
               />
             );
           })}
+
+          <Footer />
 
           {styles}
         </div>

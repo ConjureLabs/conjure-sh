@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
+import Footer from '../../../components/Footer';
 import Header from '../../../components/Header';
 import TextInput from '../../../components/Input/Text';
 import CreditCardInput from '../../../components/Input/CreditCard';
@@ -235,6 +236,8 @@ export default class OnboardBilling extends Component {
               Continue
             </Button>
           </main>
+
+          <Footer />
 
           {styles}
         </div>

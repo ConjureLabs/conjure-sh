@@ -5,6 +5,7 @@ import classnames from 'classnames';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
+import Footer from '../../../components/Footer';
 import Header from '../../../components/Header';
 import Button from '../../../components/Button';
 
@@ -53,7 +54,7 @@ export default class OnboardPlan extends Component {
 
           <article>
             <sup>2</sup>
-            <span>Choose a Plan</span>
+            <span>Choose a Pricing Plan</span>
           </article>
 
           <main>
@@ -191,6 +192,8 @@ export default class OnboardPlan extends Component {
               </li>
             </ol>
           </main>
+
+          <Footer />
 
           {styles}
         </div>
