@@ -1,10 +1,14 @@
 import Document, { Head, Main, NextScript } from 'next/document';
 import flush from 'styled-jsx/server';
 import nativeStyles from './styles.native.js';
+import styles, { classes } from './styles.js';
 import config from '../shared/config';
+
+import Footer from '../components/Footer';
 
 export default class MyDocument extends Document {
   static getInitialProps({ renderPage }) {
+    console.log(this.props);
     const { html, head, errorHtml, chunks } = renderPage();
     const styles = flush();
 
@@ -32,8 +36,10 @@ export default class MyDocument extends Document {
           {nativeStyles}
         </Head>
         <body>
-          <Main />
+          <Main className={classes.main} />
+          <Footer />
           <NextScript />
+          {styles}
         </body>
       </html>
     );

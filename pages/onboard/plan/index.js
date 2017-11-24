@@ -5,7 +5,6 @@ import classnames from 'classnames';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
-import Footer from '../../../components/Footer';
 import Header from '../../../components/Header';
 import Button from '../../../components/Button';
 
@@ -192,8 +191,6 @@ export default class OnboardPlan extends Component {
               </li>
             </ol>
           </main>
-
-          <Footer />
 
           {styles}
         </div>

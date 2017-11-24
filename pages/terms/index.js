@@ -1,7 +1,5 @@
 import classnames from 'classnames';
 
-import Footer from '../../components/Footer';
-
 import styles, { classes } from './styles.js';
 
 export default () => (
@@ -214,8 +212,6 @@ export default () => (
         </p>
       </div>
     </main>
-
-    <Footer />
 
     {styles}
   </div>

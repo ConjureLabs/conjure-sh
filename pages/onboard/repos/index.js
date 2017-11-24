@@ -4,7 +4,6 @@ import Federal from 'federal';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
-import Footer from '../../../components/Footer';
 import Button from '../../../components/Button';
 import Header from '../../../components/Header';
 import AnchorMultiList from '../../../components/AnchorList/MultiSelect';
@@ -113,8 +112,6 @@ export default class OnboardRepos extends Component {
               </span>
             </div>
           </main>
-
-          <Footer />
 
           {styles}
         </div>

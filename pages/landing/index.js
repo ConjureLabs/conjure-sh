@@ -2,7 +2,6 @@ import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import classnames from 'classnames';
 
-import Footer from '../../components/Footer';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
 
@@ -143,8 +142,6 @@ export default class Landing extends Component {
             <sub className={classes.info}>With GitHub</sub>
           </div>
         </div>
-
-        <Footer />
 
         {styles}
       </div>

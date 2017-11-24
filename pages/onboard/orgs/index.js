@@ -4,7 +4,6 @@ import Federal from 'federal';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
-import Footer from '../../../components/Footer';
 import Header from '../../../components/Header';
 import AnchorList from '../../../components/AnchorList';
 
@@ -66,8 +65,6 @@ export default class OnboardOrgs extends Component {
               className={classes.anchorList}
             />
           </main>
-
-          <Footer />
 
           {styles}
         </div>

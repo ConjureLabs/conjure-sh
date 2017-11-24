@@ -1,7 +1,6 @@
 import styles, { classes } from './styles.js';
 import Federal from 'federal';
 
-import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 
 const Waitlist = () => (
@@ -15,8 +14,6 @@ const Waitlist = () => (
         <span>The Conjure Team</span>
       </div>
     </div>
-
-    <Footer />
 
     {styles}
   </div>

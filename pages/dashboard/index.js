@@ -6,7 +6,6 @@ import Federal, { connect } from 'federal';
 import config from '../../shared/config.js';
 import classnames from 'classnames';
 
-import Footer from '../../components/Footer';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import Timeline from './components/Timeline';
@@ -216,8 +215,6 @@ class Dashboard extends Component {
             </Button>
           </div>
         )}
-
-        <Footer />
 
         {styles}
       </div>
