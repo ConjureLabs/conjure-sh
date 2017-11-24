@@ -10,7 +10,6 @@ import CreditCardSummary from '../../../components/CreditCardSummary';
 class CardUi extends Component {
   constructor(props, context) {
     super(props);
-    console.log(props, context);
 
     this.state = {
       deleting: false,

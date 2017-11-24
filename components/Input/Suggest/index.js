@@ -94,15 +94,14 @@ export default class Suggest extends Input {
         }
 
         this.makeSelection(suggestionsShown[highlightedSelection]);
+        // todo: right now Enter blurs, and we need the next input to focus
         break;
 
       case 'Tab':
-        if (typeof highlightedSelection !== 'number') {
+        if (typeof highlightedSelection === 'number') {
+          this.makeSelection(suggestionsShown[highlightedSelection]);
           break;
         }
-
-        this.makeSelection(suggestionsShown[highlightedSelection]);
-        break;
 
         if (!Array.isArray(suggestionsShown)) {
           break;
