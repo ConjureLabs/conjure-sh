@@ -97,6 +97,13 @@ export default class Suggest extends Input {
         break;
 
       case 'Tab':
+        if (typeof highlightedSelection !== 'number') {
+          break;
+        }
+
+        this.makeSelection(suggestionsShown[highlightedSelection]);
+        break;
+
         if (!Array.isArray(suggestionsShown)) {
           break;
         }
