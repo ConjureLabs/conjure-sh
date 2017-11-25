@@ -2,6 +2,7 @@ import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import classnames from 'classnames';
 
+import Layout from '../../components/Layout';
 import Button from '../../components/Button';
 import config from '../../shared/config.js';
 
@@ -21,7 +22,7 @@ export default class Landing extends Component {
 
   render() {
     return (
-      <div className={classes.root}>
+      <Layout withHeader={false} withWrap={false} className={classes.root}>
         <form
           action={`${config.app.api.url}/auth/github`}
           className={classes.trueForm}
@@ -144,7 +145,7 @@ export default class Landing extends Component {
         </div>
 
         {styles}
-      </div>
+      </Layout>
     );
   }
 }

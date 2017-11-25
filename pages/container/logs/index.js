@@ -2,6 +2,8 @@ import { Component } from 'react';
 import io from 'socket.io-client';
 import styles, { classes } from './styles.js';
 
+import Layout from '../../../components/Layout';
+
 import config from '../../../shared/config.js';
 
 export default class ContainerLogs extends Component {
@@ -46,11 +48,18 @@ export default class ContainerLogs extends Component {
   }
 
   render() {
+    const { url } = this.props;
+
     return (
-      <div className={classes.root}>
-        <pre dangerouslySetInnerHTML={{ __html: styledContent(this.state.logsContent) }} />
+      <Layout
+        url={url}
+        title='Logs'
+      >
+        <div className={classes.content}>
+          <pre dangerouslySetInnerHTML={{ __html: styledContent(this.state.logsContent) }} />
+        </div>
         {styles}
-      </div>
+      </Layout>
     );
   }
 }

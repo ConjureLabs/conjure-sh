@@ -3,18 +3,20 @@ import actions from './actions';
 import styles, { classes } from './styles.js';
 import Federal, { connect } from 'federal';
 
-import Header from '../../../components/Header';
+import Layout from '../../../components/Layout';
 import Button from '../../../components/Button';
 import CardUI from './card-ui.js';
 
 class Billing extends Component {
   render() {
-    const { cards } = this.props;
+    const { url, cards } = this.props;
 
     return (
-      <span>
-        <Header />
-
+      <Layout
+        url={url}
+        title='Account Billing'
+        withWrap={false}
+      >
         <div className={classes.buttonWrap}>
           <div className={classes.wrap}>
             <Button
@@ -43,7 +45,7 @@ class Billing extends Component {
 
           {styles}
         </div>
-      </span>
+      </Layout>
     );
   }
 }
@@ -55,19 +57,19 @@ const selector = store => {
   };
 };
 
-const ConnectedBilling = connect(selector)(Billing);
+export default connect(selector)(Billing);
 
-export default ({ url }) => {
-  const { account, cards } = url.query;
+// export default ({ url }) => {
+//   const { account, cards } = url.query;
 
-  const initialState = {
-    account,
-    cards
-  };
+//   const initialState = {
+//     account,
+//     cards
+//   };
 
-  return (
-    <Federal store={initialState} actions={actions}>
-      <ConnectedBilling />
-    </Federal>
-  );
-};
+//   return (
+//     <Federal store={initialState} actions={actions}>
+//       <ConnectedBilling />
+//     </Federal>
+//   );
+// };

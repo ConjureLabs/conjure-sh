@@ -6,7 +6,7 @@ import Federal, { connect } from 'federal';
 import config from '../../shared/config.js';
 import classnames from 'classnames';
 
-import Header from '../../components/Header';
+import Layout from '../../components/Layout';
 import Button from '../../components/Button';
 import Timeline from './components/Timeline';
 
@@ -153,36 +153,34 @@ class Dashboard extends Component {
   render() {
     const { orgs, pagingHref, timelineDelta } = this.props;
 
+    {/*<span className={classes.headerContent}>
+        {
+          orgs.length <= 1 ? null : (
+            <label htmlFor='org-select'>Organization:</label>
+          )
+        }
+
+        <select
+          id='org-select'
+          ref={ref => this.orgDropdown = ref}
+          onChange={this.onDropdownChange.bind(this)}
+        >
+          {orgs.map(org => {
+            return (
+              <option
+                value={org.login}
+                key={org.id}
+                disabled={org.length <= 1}
+              >
+                {org.login}
+              </option>
+            );
+          })}
+        </select>
+      </span>*/}
+
     return (
-      <div className={classes.root}>
-        <Header>
-          <span className={classes.headerContent}>
-            {
-              orgs.length <= 1 ? null : (
-                <label htmlFor='org-select'>Organization:</label>
-              )
-            }
-
-            <select
-              id='org-select'
-              ref={ref => this.orgDropdown = ref}
-              onChange={this.onDropdownChange.bind(this)}
-            >
-              {orgs.map(org => {
-                return (
-                  <option
-                    value={org.login}
-                    key={org.id}
-                    disabled={org.length <= 1}
-                  >
-                    {org.login}
-                  </option>
-                );
-              })}
-            </select>
-          </span>
-        </Header>
-
+      <Layout>
         {isNaN(timelineDelta) || timelineDelta <= 0 ? null : (
           <div
             className={classes.viewNew}
@@ -217,7 +215,7 @@ class Dashboard extends Component {
         )}
 
         {styles}
-      </div>
+      </Layout>
     );
   }
 }
@@ -230,23 +228,23 @@ const selector = store => {
   };
 };
 
-const ConnectedDashboard = connect(selector)(Dashboard);
+export default connect(selector)(Dashboard);
 
-export default ({ url }) => {
-  // todo: avoid using props.url.query?
-  const { account, orgs } = url.query;
+// export default ({ url }) => {
+//   // todo: avoid using props.url.query?
+//   const { account, orgs } = url.query;
 
-  const initialState = {
-    account,
-    org: null,
-    pagingHref: null,
-    timeline: null,
-    timelineDelta: null
-  };
+//   const initialState = {
+//     account,
+//     org: null,
+//     pagingHref: null,
+//     timeline: null,
+//     timelineDelta: null
+//   };
 
-  return (
-    <Federal store={initialState} actions={actions}>
-      <ConnectedDashboard orgs={orgs} />
-    </Federal>
-  );
-};
+//   return (
+//     <Federal store={initialState} actions={actions}>
+//       <ConnectedDashboard orgs={orgs} />
+//     </Federal>
+//   );
+// };
