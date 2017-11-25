@@ -192,13 +192,13 @@ export default ({ url }) => (
         <span className={classes.part}>(a)</span>
         <span className={classes.label}>Reporting Instances of Copyright Infringement.</span>
         <span>Company will promptly process and investigate notices of alleged infringement and will take appropriate actions under the DMCA and other applicable intellectual property laws with respect to any alleged or actual infringement. A notification of claimed copyright infringement should be emailed to Company's Copyright Agent at info@conjure.sh (subject line: "DMCA Takedown Request"). To be effective, the notification must be in writing and contain the following information: (i) an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright or other intellectual property interest; (ii) a description of the copyrighted work or other intellectual property that you claim has been infringed; (iii) a description of where the material that you claim is infringing is located on the Site, with enough detail that we may find it on the Site; (iv) your address, telephone number, and email address; (v) a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright or intellectual property owner, its agent, or the law; (vi) a statement by you, made under penalty of perjury, that the above information in your Notice is accurate and that you are the copyright or intellectual property owner or authorized to act on the copyright or intellectual property owner's behalf. You may also contact us by mail at:</span>
-        <ol>
-          <li>Attention: Conjure Copyright Agent</li>
-          <li>Conjure</li>
-          <li>1045 Lake St, Apt 4</li>
-          <li>San Francisco, CA, 94118</li>
-          <li>United States</li>
-        </ol>
+        <div className={classes.list}>
+          <span>Attention: Conjure Copyright Agent</span>
+          <span>Conjure</span>
+          <span>1045 Lake St, Apt 4</span>
+          <span>San Francisco, CA, 94118</span>
+          <span>United States</span>
+        </div>
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(b)</span>
