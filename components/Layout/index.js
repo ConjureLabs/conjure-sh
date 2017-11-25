@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Federal, { connect } from '../../Federal';
+import Federal, { connect } from 'federal';
 import classnames from 'classnames';
 
 import Header from '../Header';
