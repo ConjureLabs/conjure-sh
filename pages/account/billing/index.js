@@ -50,12 +50,10 @@ class Billing extends Component {
   }
 }
 
-const selector = store => {
-  return {
-    account: store.account,
-    cards: store.cards
-  };
-};
+const selector = store => ({
+  account: store.account,
+  cards: store.cards
+});
 
 export default connect(selector)(Billing);
 

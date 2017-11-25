@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { get } from '../../shared/xhr';
 import actions from './actions';
 import styles, { classes } from './styles.js';
-import Federal, { connect } from 'federal';
+import { connect } from '../../Federal';
 import config from '../../shared/config.js';
 import classnames from 'classnames';
 
@@ -151,36 +151,10 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { orgs, pagingHref, timelineDelta } = this.props;
-
-    {/*<span className={classes.headerContent}>
-        {
-          orgs.length <= 1 ? null : (
-            <label htmlFor='org-select'>Organization:</label>
-          )
-        }
-
-        <select
-          id='org-select'
-          ref={ref => this.orgDropdown = ref}
-          onChange={this.onDropdownChange.bind(this)}
-        >
-          {orgs.map(org => {
-            return (
-              <option
-                value={org.login}
-                key={org.id}
-                disabled={org.length <= 1}
-              >
-                {org.login}
-              </option>
-            );
-          })}
-        </select>
-      </span>*/}
+    const { url, orgs, pagingHref, timelineDelta } = this.props;
 
     return (
-      <Layout>
+      <div>
         {isNaN(timelineDelta) || timelineDelta <= 0 ? null : (
           <div
             className={classes.viewNew}
@@ -196,6 +170,32 @@ class Dashboard extends Component {
             </Button>
           </div>
         )}
+
+        <span className={classes.repoSelection}>
+          {
+            orgs.length <= 1 ? null : (
+              <label htmlFor='org-select'>Organization:</label>
+            )
+          }
+
+          <select
+            id='org-select'
+            ref={ref => this.orgDropdown = ref}
+            onChange={this.onDropdownChange.bind(this)}
+          >
+            {orgs.map(org => {
+              return (
+                <option
+                  value={org.login}
+                  key={org.id}
+                  disabled={org.length <= 1}
+                >
+                  {org.login}
+                </option>
+              );
+            })}
+          </select>
+        </span>
 
         <Timeline />
 
@@ -215,36 +215,24 @@ class Dashboard extends Component {
         )}
 
         {styles}
-      </Layout>
+      </div>
     );
   }
 }
 
-const selector = store => {
-  return {
-    timeline: store.timeline,
-    pagingHref: store.pagingHref,
-    timelineDelta: store.timelineDelta
-  };
-};
+const selector = store => ({
+  timeline: store.timeline,
+  pagingHref: store.pagingHref,
+  timelineDelta: store.timelineDelta
+});
 
-export default connect(selector)(Dashboard);
+const ConnectedDashbord = connect(selector, actions)(Dashboard);
 
-// export default ({ url }) => {
-//   // todo: avoid using props.url.query?
-//   const { account, orgs } = url.query;
-
-//   const initialState = {
-//     account,
-//     org: null,
-//     pagingHref: null,
-//     timeline: null,
-//     timelineDelta: null
-//   };
-
-//   return (
-//     <Federal store={initialState} actions={actions}>
-//       <ConnectedDashboard orgs={orgs} />
-//     </Federal>
-//   );
-// };
+export default props => (
+  <Layout url={props.url}>
+    <ConnectedDashbord
+      {...props}
+      orgs={props.url.query.orgs}
+    />
+  </Layout>
+);

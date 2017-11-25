@@ -121,10 +121,8 @@ class CardUi extends Component {
   }
 }
 
-const selector = store => {
-  return {
-    cards: store.cards
-  };
-};
+const selector = store => ({
+  cards: store.cards
+});
 
 export default connect(selector)(CardUi);

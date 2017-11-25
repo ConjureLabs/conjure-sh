@@ -273,11 +273,9 @@ class Timeline extends Component {
   }
 }
 
-const selector = store => {
-  return {
-    timeline: store.timeline,
-    org: store.org
-  };
-};
+const selector = store => ({
+  timeline: store.timeline,
+  org: store.org
+});
 
 export default connect(selector)(Timeline);

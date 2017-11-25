@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
-import Federal, { connect } from 'federal';
+import Federal, { connect } from '../../Federal';
 import classnames from 'classnames';
 
 import Header from '../Header';
@@ -12,7 +12,7 @@ import styles, { classes } from './styles.js';
 export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true }) => {
   const { account } = url.query;
 
-  const initialState = {
+  const initialStore = {
     account,
     org: null,
     pagingHref: null,
@@ -21,7 +21,7 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
   };
 
   return (
-    <Federal store={initialState} actions={{}} className={classnames(classes.root, className)}>
+    <div className={classes.root}>
       <Head>
         { process.env.NODE_ENV === 'production' ? <script async src='https://www.googletagmanager.com/gtag/js?id=UA-108457027-1' /> : null }
         { process.env.NODE_ENV === 'production' ? <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-108457027-1');` }} />  : null }
@@ -40,25 +40,31 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
         {nativeStyles}
       </Head>
 
-      {withHeader !== true ? null : (<Header limited={limitedHeader} wrapped={wrappedHeader} />)}
+      <Federal store={initialStore}>
+        <div className={classnames(classes.page, className)}>
+          {withHeader !== true ? null : (<Header limited={limitedHeader} wrapped={wrappedHeader} />)}
 
-      {withWrapper !== true ? children : (
-        <main className={classes.wrap}>
-          {children}
-        </main>
-      )}
+          <div className={classes.content}>
+            {withWrapper !== true ? children : (
+              <main className={classes.wrap}>
+                {children}
+              </main>
+            )}
+          </div>
 
-      {withFooter !== true ? null : (
-        <footer className={classes.footer}>
-          <span>Copyright &copy; 2017 Conjure Labs, Inc.</span>
-          <del>|</del>
-          <Link href='/privacy'><a>Privacy</a></Link>
-          <del>|</del>
-          <Link href='/terms'><a>Terms</a></Link>
-        </footer>
-      )}
+          {withFooter !== true ? null : (
+            <footer className={classes.footer}>
+              <span>Copyright &copy; 2017 Conjure Labs, Inc.</span>
+              <del>|</del>
+              <Link href='/privacy'><a>Privacy</a></Link>
+              <del>|</del>
+              <Link href='/terms'><a>Terms</a></Link>
+            </footer>
+          )}
+        </div>
+      </Federal>
 
       {styles}
-    </Federal>
+    </div>
   );
 };
