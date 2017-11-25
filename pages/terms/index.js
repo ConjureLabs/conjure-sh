@@ -7,6 +7,7 @@ import styles, { classes } from './styles.js';
 export default ({ url }) => (
   <Layout
     url={url}
+    title='Terms of Service'
     className={classes.root}
     wrappedHeader={false}
   >

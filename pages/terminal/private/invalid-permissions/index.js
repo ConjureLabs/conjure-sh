@@ -1,28 +1,21 @@
 import styles, { classes } from './styles.js';
-import Federal from 'federal';
 
+import Layout from '../../../../components/Layout';
 import EmptyState from '../../../../components/EmptyState';
-import Header from '../../../../components/Header';
 
-export default ({ query }) => {
-  const initialState = {
-    account: query.account
-  };
+export default ({ url }) => (
+  <Layout
+    url={url}
+    title='Invalid Permissions'
+    wrappedHeader={false}
+  >
+    <EmptyState
+      className={classes.emptyState}
+      emoji='🔒'
+      headerText='You do not have the correct permissions for this instance'
+      bodyText='Contact the org/repo owner to request access'
+    />
 
-  return (
-    <Federal store={initialState}>
-      <Header />
-
-      <div className={classes.wrap}>
-        <EmptyState
-          className={classes.emptyState}
-          emoji='🔒'
-          headerText='You do not have the correct permissions for this instance'
-          bodyText='Contact the org/repo owner to request access'
-        />
-      </div>
-
-      {styles}
-    </Federal>
-  );
-};
+    {styles}
+  <Layout>
+);

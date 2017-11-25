@@ -1,10 +1,12 @@
 import styles, { classes } from './styles.js';
-import Federal from 'federal';
 
 import Layout from '../../components/Layout';
 
-const Waitlist = () => (
-  <Layout title='Waitlist'>
+const Waitlist = ({ url }) => (
+  <Layout
+    url={url}
+    title='Waitlist'
+  >
     <div className={classes.content}>
       <h1>Alpha Waitlist</h1>
       <p>Thanks for signing up! Conjure is currently in an Alpha release, and is rolling out full access based on a waitlist.</p>
@@ -15,17 +17,3 @@ const Waitlist = () => (
     {styles}
   </Layout>
 );
-
-export default ({ url }) => {
-  const { account } = url.query;
-
-  const initialState = {
-    account
-  };
-
-  return (
-    <Federal store={initialState}>
-      <Waitlist />
-    </Federal>
-  );
-};

@@ -2,6 +2,7 @@ import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import config from '../../../../shared/config.js';
 
+import Layout from '../../../../components/Layout';
 import EmptyState from '../../../../components/EmptyState';
 import Button from '../../../../components/Button';
 
@@ -18,8 +19,14 @@ export default class RequiresAuth extends Component {
   }
 
   render() {
+    const { url } = this.props;
+
     return (
-      <div className={classes.wrap}>
+      <Layout
+        url={url}
+        title='Private Container'
+        wrappedHeader={false}
+      >
         <EmptyState
           className={classes.emptyState}
           emoji='🔒'
@@ -51,7 +58,7 @@ export default class RequiresAuth extends Component {
         </div>
 
         {styles}
-      </div>
+      <Layout>
     );
   }
 }

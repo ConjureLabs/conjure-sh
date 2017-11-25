@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import styles, { classes } from '../styles.js';
-import Federal from 'federal';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
@@ -33,42 +32,34 @@ export default class OnboardOrgs extends Component {
   render() {
     const { query } = this.props.url;
 
-    const initialState = {
-      account: query.account
-    };
-
     return (
-      <Federal store={initialState}>
-        <Header limited={true} />
+      <Layout url={url} limitedHeader={true}>
+        <header>
+          <sup>👋</sup>
+          <span>Welcome to Conjure! Let's get started.</span>
+        </header>
 
-        <div className={classes.wrap}>
-          <header>
-            <sup>👋</sup>
-            <span>Welcome to Conjure! Let's get started.</span>
-          </header>
+        <article>
+          <sup>1</sup>
+          <span>Select the GitHub organization or account You'd like to use with Conjure</span>
+        </article>
 
-          <article>
-            <sup>1</sup>
-            <span>Select the GitHub organization or account You'd like to use with Conjure</span>
-          </article>
+        <main>
+          <AnchorList
+            list={query.orgs.map(org => {
+              return {
+                label: org.login,
+                value: org.id,
+                key: org.id
+              };
+            })}
+            onSelect={this.makeSelection}
+            className={classes.anchorList}
+          />
+        </main>
 
-          <main>
-            <AnchorList
-              list={query.orgs.map(org => {
-                return {
-                  label: org.login,
-                  value: org.id,
-                  key: org.id
-                };
-              })}
-              onSelect={this.makeSelection}
-              className={classes.anchorList}
-            />
-          </main>
-
-          {styles}
-        </div>
-      </Federal>
+        {styles}
+      </Layout>
     );
   }
 }
