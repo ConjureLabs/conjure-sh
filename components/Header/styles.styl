@@ -3,31 +3,36 @@
 $bodyPadding = 1.5rem
 
 .root
+  align-items: center
   background: $conjureColorMain
   border-bottom: 1px solid $conjureColorMainSlightlyDifferent
-  display: block
+  display: flex
+  flex-direction: row
   height: 6rem
-  
-  .wrap
-    align-items: center
+  justify-content: center
+  padding: 0 $bodyPadding
+
+  .content
     display: flex
-    flex-direction: row
-    max-width: 80rem
-    margin: 0 auto
-    padding: 0 $bodyPadding
+    width: 100%
   
-    > h1
-      clear: none
-      color: $conjureColorMainVeryDifferent
-      cursor: pointer
-      disableSelect()
-      flex-grow: 1
-      font-size: 1.4rem
-      line-height: 2rem
+    &.wrap
+      width: 80rem
+  
+  .title
+    clear: none
+    color: $conjureColorMainVeryDifferent
+    cursor: pointer
+    disableSelect()
+    font-size: 1.4rem
+    line-height: 2rem
+    
+    sup
+      font-size: 2rem
+      margin-right: 0.4rem
       
-      sup
-        font-size: 2rem
-        margin-right: 0.4rem
+  .filler
+    flex-grow: 1
 
   .userNav
     align-self: flex-end

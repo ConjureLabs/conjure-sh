@@ -1,47 +1,51 @@
+import classnames from 'classnames';
+import Link from 'next/link';
 import { connect } from 'federal';
+
 import styles, { classes } from './styles.js';
 
-const Header = ({ account, children, limited = false }) => (
+const Header = ({ account, children, wrapped = true, limited = false }) => (
   <header className={classes.root}>
-    <span className={classes.wrap}>
-      <h1 onClick={() => {
-        window.location = '/';
-      }}>
-        <sup>⎔</sup> Conjure
-      </h1>
+    <span className={classnames({
+      [classes.content]: true,
+      [classes.wrap]: wrapped
+    })}>
+      <Link href='/'>
+        <h1 className={classes.title}>
+          <sup>⎔</sup> Conjure
+        </h1>
+      </Link>
+
+      <sub className={classes.filler} />
 
       {children}
 
-      <nav className={classes.userNav}>
-        <span
-          className={classes.avatar}
-          style={{
-            backgroundImage: `url(${account.photo})`
-          }}
-        />
+      {!account ? null : (
+        <nav className={classes.userNav}>
+          <span
+            className={classes.avatar}
+            style={{
+              backgroundImage: `url(${account.photo})`
+            }}
+          />
 
-        <ol className={classes.links}>
-          {limited === true ? null : (
+          <ol className={classes.links}>
+            {limited === true ? null : (
+              <li className={classes.item}>
+                <Link href='/account/billing'>
+                  <a className={classes.link}>Billing</a>
+                </Link>
+              </li>
+            )}
+
             <li className={classes.item}>
-              <a
-                href='/account/billing'
-                className={classes.link}
-              >
-                Billing
-              </a>
+              <Link href='/logout'>
+                <a className={classes.link}>Logout</a>
+              </Link>
             </li>
-          )}
-
-          <li className={classes.item}>
-            <a
-              href='/logout'
-              className={classes.link}
-            >
-              Logout
-            </a>
-          </li>
-        </ol>
-      </nav>
+          </ol>
+        </nav>
+      )}
     </span>
 
     {styles}
