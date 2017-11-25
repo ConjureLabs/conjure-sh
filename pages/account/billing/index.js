@@ -9,14 +9,10 @@ import CardUI from './card-ui.js';
 
 class Billing extends Component {
   render() {
-    const { url, cards } = this.props;
+    const { cards } = this.props;
 
     return (
-      <Layout
-        url={url}
-        title='Account Billing'
-        withWrapper={false}
-      >
+      <div>
         <div className={classes.buttonWrap}>
           <div className={classes.wrap}>
             <Button
@@ -45,7 +41,7 @@ class Billing extends Component {
 
           {styles}
         </div>
-      </Layout>
+      </div>
     );
   }
 }
@@ -55,19 +51,14 @@ const selector = store => ({
   cards: store.cards
 });
 
-export default connect(selector)(Billing);
+const ConnectedBilling = connect(selector, actions)(Billing);
 
-// export default ({ url }) => {
-//   const { account, cards } = url.query;
-
-//   const initialState = {
-//     account,
-//     cards
-//   };
-
-//   return (
-//     <Federal store={initialState} actions={actions}>
-//       <ConnectedBilling />
-//     </Federal>
-//   );
-// };
+export default props => (
+  <Layout
+    url={props.url}
+    title='Account Billing'
+    withWrapper={false}
+  >
+    <ConnectedBilling {...props} />
+  </Layout>
+);

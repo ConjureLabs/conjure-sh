@@ -10,10 +10,11 @@ import nativeStyles from './styles.native.js';
 import styles, { classes } from './styles.js';
 
 export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true }) => {
-  const { account } = url.query;
+  const { account, cards } = url.query;
 
   const initialStore = {
     account,
+    cards,
     org: null,
     pagingHref: null,
     timeline: null,

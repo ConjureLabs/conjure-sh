@@ -102,126 +102,124 @@ export default class AccountBillingEntry extends Component {
         url={url}
         title='New Credit Card'
       >
-        <main>
-          <div className={classes.sectionsParent}>
-            <section>
-              <span className={classes.sectionLabel}>Card</span>
+        <div className={classes.sectionsParent}>
+          <section>
+            <span className={classes.sectionLabel}>Card</span>
 
-              <ol>
-                <li>
-                  <CreditCardInput
-                    className={classes.formInput}
-                    label='Number'
-                    ref={ref => this.inputs.card.number = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-                <li>
-                  <TextInput
-                    className={classes.formInput}
-                    label='Name'
-                    ref={ref => this.inputs.card.name = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-                <li>
-                  <MonthInput
-                    className={classnames(classes.formInput, classes.short)}
-                    label='MM'
-                    ref={ref => this.inputs.card.mm = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                  <YearInput
-                    className={classnames(classes.formInput, classes.short)}
-                    label='YYYY'
-                    start={new Date().getFullYear()}
-                    end={new Date().getFullYear() + 20}
-                    ref={ref => this.inputs.card.yyyy = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-                <li>
-                  <NumberInput
-                    className={classes.formInput}
-                    maxLength='4'
-                    label='CVC'
-                    ref={ref => this.inputs.card.cvc = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-              </ol>
-            </section>
+            <ol>
+              <li>
+                <CreditCardInput
+                  className={classes.formInput}
+                  label='Number'
+                  ref={ref => this.inputs.card.number = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+              <li>
+                <TextInput
+                  className={classes.formInput}
+                  label='Name'
+                  ref={ref => this.inputs.card.name = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+              <li>
+                <MonthInput
+                  className={classnames(classes.formInput, classes.short)}
+                  label='MM'
+                  ref={ref => this.inputs.card.mm = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+                <YearInput
+                  className={classnames(classes.formInput, classes.short)}
+                  label='YYYY'
+                  start={new Date().getFullYear()}
+                  end={new Date().getFullYear() + 20}
+                  ref={ref => this.inputs.card.yyyy = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+              <li>
+                <NumberInput
+                  className={classes.formInput}
+                  maxLength='4'
+                  label='CVC'
+                  ref={ref => this.inputs.card.cvc = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+            </ol>
+          </section>
 
-            <section>
-              <span className={classes.sectionLabel}>Billing Address</span>
+          <section>
+            <span className={classes.sectionLabel}>Billing Address</span>
 
-              <ol>
-                <li>
-                  <CountrySuggestInput 
-                    className={classes.formInput}
-                    label='Country'
-                    ref={ref => this.inputs.address.country = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-                <li>
-                  <NumberInput
-                    className={classes.formInput}
-                    maxLength='5'
-                    label='Zip'
-                    ref={ref => this.inputs.address.zip = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-                <li>
-                  <UsStateSuggest 
-                    className={classes.formInput}
-                    label='State'
-                    ref={ref => this.inputs.address.state = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-                <li>
-                  <TextInput
-                    className={classes.formInput}
-                    maxLength='200'
-                    label='City'
-                    ref={ref => this.inputs.address.city = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-                <li>
-                  <TextInput
-                    className={classes.formInput}
-                    maxLength='200'
-                    label='Address'
-                    ref={ref => this.inputs.address.addr1 = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-                <li>
-                  <TextInput
-                    className={classes.formInput}
-                    maxLength='200'
-                    label='Apt / Suite'
-                    ref={ref => this.inputs.address.addr2 = ref}
-                    onChange={this.isFormFilledIn.bind(this)}
-                  />
-                </li>
-              </ol>
-            </section>
-          </div>
+            <ol>
+              <li>
+                <CountrySuggestInput 
+                  className={classes.formInput}
+                  label='Country'
+                  ref={ref => this.inputs.address.country = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+              <li>
+                <NumberInput
+                  className={classes.formInput}
+                  maxLength='5'
+                  label='Zip'
+                  ref={ref => this.inputs.address.zip = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+              <li>
+                <UsStateSuggest 
+                  className={classes.formInput}
+                  label='State'
+                  ref={ref => this.inputs.address.state = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+              <li>
+                <TextInput
+                  className={classes.formInput}
+                  maxLength='200'
+                  label='City'
+                  ref={ref => this.inputs.address.city = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+              <li>
+                <TextInput
+                  className={classes.formInput}
+                  maxLength='200'
+                  label='Address'
+                  ref={ref => this.inputs.address.addr1 = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+              <li>
+                <TextInput
+                  className={classes.formInput}
+                  maxLength='200'
+                  label='Apt / Suite'
+                  ref={ref => this.inputs.address.addr2 = ref}
+                  onChange={this.isFormFilledIn.bind(this)}
+                />
+              </li>
+            </ol>
+          </section>
+        </div>
 
-          <Button
-            size='medium'
-            color='blue'
-            onClick={this.submit.bind(this)}
-            className={classes.button}
-            disabled={!this.state.formFilledIn}
-          >
-            Add Card
-          </Button>
-        </main>
+        <Button
+          size='medium'
+          color='blue'
+          onClick={this.submit.bind(this)}
+          className={classes.button}
+          disabled={!this.state.formFilledIn}
+        >
+          Add Card
+        </Button>
 
         {styles}
       </Layout>
