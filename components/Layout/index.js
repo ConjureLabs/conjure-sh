@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import Federal, { connect } from 'federal';
 import classnames from 'classnames';
 
@@ -20,6 +19,8 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
     timeline: null,
     timelineDelta: null
   };
+
+  console.log(initialStore);
 
   return (
     <div className={classes.root}>
@@ -57,9 +58,9 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
             <footer className={classes.footer}>
               <span>Copyright &copy; 2017 Conjure Labs, Inc.</span>
               <del>|</del>
-              <Link href='/privacy'><a>Privacy</a></Link>
+              <a href='/privacy'>Privacy</a>
               <del>|</del>
-              <Link href='/terms'><a>Terms</a></Link>
+              <a href='/terms'>Terms</a>
             </footer>
           )}
         </div>

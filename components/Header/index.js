@@ -1,5 +1,4 @@
 import classnames from 'classnames';
-import Link from 'next/link';
 import { connect } from 'federal';
 
 import styles, { classes } from './styles.js';
@@ -10,11 +9,11 @@ const Header = ({ account, children, wrapped = true, limited = false }) => (
       [classes.content]: true,
       [classes.wrap]: wrapped
     })}>
-      <Link href='/'>
+      <a href='/'>
         <h1 className={classes.title}>
           <sup>⎔</sup> Conjure
         </h1>
-      </Link>
+      </a>
 
       <sub className={classes.filler} />
 
@@ -32,16 +31,12 @@ const Header = ({ account, children, wrapped = true, limited = false }) => (
           <ol className={classes.links}>
             {limited === true ? null : (
               <li className={classes.item}>
-                <Link href='/account/billing'>
-                  <a className={classes.link}>Billing</a>
-                </Link>
+                <a href='/account/billing' className={classes.link}>Billing</a>
               </li>
             )}
 
             <li className={classes.item}>
-              <Link href='/logout'>
-                <a className={classes.link}>Logout</a>
-              </Link>
+              <a href='/logout' className={classes.link}>Logout</a>
             </li>
           </ol>
         </nav>

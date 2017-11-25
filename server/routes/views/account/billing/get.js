@@ -20,6 +20,8 @@ route.push(async (req, res) => {
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
   const gitHubAccount = (await apiGetAccountGitHub(req)).account;
 
+  console.log('CARDS', cards);
+
   return nextApp.render(req, res, '/account/billing', {
     account: {
       photo: gitHubAccount.photo // todo: not rely on github...
