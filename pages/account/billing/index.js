@@ -15,7 +15,7 @@ class Billing extends Component {
       <Layout
         url={url}
         title='Account Billing'
-        withWrap={false}
+        withWrapper={false}
       >
         <div className={classes.buttonWrap}>
           <div className={classes.wrap}>

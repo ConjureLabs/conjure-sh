@@ -21,8 +21,15 @@ export default class Landing extends Component {
   }
 
   render() {
+    const { url } = this.props;
+
     return (
-      <Layout withHeader={false} withWrap={false} className={classes.root}>
+      <Layout
+        url={url}
+        withHeader={false}
+        withWrapper={false}
+        className={classes.root}
+      >
         <form
           action={`${config.app.api.url}/auth/github`}
           className={classes.trueForm}

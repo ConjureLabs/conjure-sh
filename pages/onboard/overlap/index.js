@@ -36,43 +36,45 @@ export default class OnboardOverlap extends Component {
 
     return (
       <Layout url={url} limitedHeader={true}>
-        <header>
-          <sup>👋</sup>
-          <span>Welcome to Conjure! Let's get started.</span>
-        </header>
+        <div className={classes.content}>
+          <header>
+            <sup>👋</sup>
+            <span>Welcome to Conjure! Let's get started.</span>
+          </header>
 
-        <article>
-          <span>
-            {
-              orgsAlreadyAvailable.length === 1 ? `Looks like there's already an Org on Conjure that you have access to:` :
-                `Looks like there are already ${orgsAlreadyAvailable.length} Orgs on Conjure that you have access to:`
-            }
-          </span>
-        </article>
+          <article>
+            <span>
+              {
+                orgsAlreadyAvailable.length === 1 ? `Looks like there's already an Org on Conjure that you have access to:` :
+                  `Looks like there are already ${orgsAlreadyAvailable.length} Orgs on Conjure that you have access to:`
+              }
+            </span>
+          </article>
 
-        <main className={classes.textListWrap}>
-          <ol className={classes.textList}>
-            {orgsAlreadyAvailable.map(org => {
-              return (
-                <li key={org}>
-                  {org}
-                </li>
-              );
-            })}
-          </ol>
+          <main className={classes.textListWrap}>
+            <ol className={classes.textList}>
+              {orgsAlreadyAvailable.map(org => {
+                return (
+                  <li key={org}>
+                    {org}
+                  </li>
+                );
+              })}
+            </ol>
 
-          <Decision
-            className={classes.decision}
-            size='medium'
-            color='blue'
-            primaryText='Skip to Dashboard'
-            secondaryText='Set up a different Org'
-            onPrimaryClick={this.handleSkip.bind(this)}
-            onSecondaryClick={() => {
-              window.location = '/onboard/orgs';
-            }}
-          />
-        </main>
+            <Decision
+              className={classes.decision}
+              size='medium'
+              color='blue'
+              primaryText='Skip to Dashboard'
+              secondaryText='Set up a different Org'
+              onPrimaryClick={this.handleSkip.bind(this)}
+              onSecondaryClick={() => {
+                window.location = '/onboard/orgs';
+              }}
+            />
+          </main>
+        </div>
 
         {styles}
       </Layout>

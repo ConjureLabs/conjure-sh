@@ -48,6 +48,7 @@ export default class OnboardRepos extends Component {
 
   render() {
     const { url } = this.props;
+    const { query } = url;
 
     // repos are listed by org top-level key
     const orgs = Object.keys(query.repos);
@@ -72,38 +73,40 @@ export default class OnboardRepos extends Component {
 
     return (
       <Layout url={url} limitedHeader={true}>
-        <header>
-          <sup>🎟</sup>
-          <span>Almost there!</span>
-        </header>
+        <div className={classes.content}>
+          <header>
+            <sup>🎟</sup>
+            <span>Almost there!</span>
+          </header>
 
-        <article>
-          <sup>4</sup>
-          <span>What repos should Conjure watch?</span>
-        </article>
+          <article>
+            <sup>4</sup>
+            <span>What repos should Conjure watch?</span>
+          </article>
 
-        <main>
-          <div className={classes.listOuterWrap}>
-            <span className={classes.listWrap}>
-              <AnchorMultiList
-                list={repos}
-                className={classes.anchorList}
-                onSelect={this.isRepoSelected.bind(this)}
-                ref={ref => this.anchorList = ref}
-              />
+          <main>
+            <div className={classes.listOuterWrap}>
+              <span className={classes.listWrap}>
+                <AnchorMultiList
+                  list={repos}
+                  className={classes.anchorList}
+                  onSelect={this.isRepoSelected.bind(this)}
+                  ref={ref => this.anchorList = ref}
+                />
 
-              <Button
-                size='medium'
-                color='blue'
-                onClick={this.submit.bind(this)}
-                className={classes.button}
-                disabled={!this.state.repoSelected}
-              >
-                Continue
-              </Button>
-            </span>
-          </div>
-        </main>
+                <Button
+                  size='medium'
+                  color='blue'
+                  onClick={this.submit.bind(this)}
+                  className={classes.button}
+                  disabled={!this.state.repoSelected}
+                >
+                  Continue
+                </Button>
+              </span>
+            </div>
+          </main>
+        </div>
 
         {styles}
       </Layout>

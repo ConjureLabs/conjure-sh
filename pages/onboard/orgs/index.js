@@ -34,29 +34,31 @@ export default class OnboardOrgs extends Component {
 
     return (
       <Layout url={url} limitedHeader={true}>
-        <header>
-          <sup>👋</sup>
-          <span>Welcome to Conjure! Let's get started.</span>
-        </header>
+        <div className={classes.content}>
+          <header>
+            <sup>👋</sup>
+            <span>Welcome to Conjure! Let's get started.</span>
+          </header>
 
-        <article>
-          <sup>1</sup>
-          <span>Select the GitHub organization or account You'd like to use with Conjure</span>
-        </article>
+          <article>
+            <sup>1</sup>
+            <span>Select the GitHub organization or account You'd like to use with Conjure</span>
+          </article>
 
-        <main>
-          <AnchorList
-            list={query.orgs.map(org => {
-              return {
-                label: org.login,
-                value: org.id,
-                key: org.id
-              };
-            })}
-            onSelect={this.makeSelection}
-            className={classes.anchorList}
-          />
-        </main>
+          <main>
+            <AnchorList
+              list={query.orgs.map(org => {
+                return {
+                  label: org.login,
+                  value: org.id,
+                  key: org.id
+                };
+              })}
+              onSelect={this.makeSelection}
+              className={classes.anchorList}
+            />
+          </main>
+        </div>
 
         {styles}
       </Layout>

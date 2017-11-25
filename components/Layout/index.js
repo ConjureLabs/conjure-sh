@@ -52,8 +52,6 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
         <footer className={classes.footer}>
           <span>Copyright &copy; 2017 Conjure Labs, Inc.</span>
           <del>|</del>
-          <Link href='/about'><a>About</a></Link>
-          <del>|</del>
           <Link href='/privacy'><a>Privacy</a></Link>
           <del>|</del>
           <Link href='/terms'><a>Terms</a></Link>
