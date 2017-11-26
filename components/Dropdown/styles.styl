@@ -34,19 +34,20 @@
   disableSelect()
 
 .options
+  border-top: 4px solid $lightGray
   display: block
   left: -1px
-  max-height: calc(19.8rem + 6px) // 5.5 options, with their (5 + 1) borders
+  max-height: calc(19.8rem + 9px) // 5.5 options, with their borders
   overflow-y: scroll
   position: absolute
   top: 100%
   width: calc(100% + 2px)
     
 .option
-  background: $conjureColorMain
-  border: 1px solid $black
-  border-bottom: none
-  color: $white
+  background: $white
+  border: 1px solid $lightGray
+  border-top: none
+  color: $black
   display: block
   font-size: 1.4rem
   height: 3.6rem
@@ -54,13 +55,9 @@
   overflow: hidden
   padding: 0 1.4rem
   white-space: nowrap
-  
-  &:last-of-type
-    border-bottom: 1px solid $black
 
   &:hover
-    background: $conjureColorMainVeryDifferent
-    color: $black
+    background: $conjureColorSecondaryLight
 
 .selection
   display: flex
