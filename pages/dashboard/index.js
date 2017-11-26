@@ -8,6 +8,7 @@ import classnames from 'classnames';
 
 import Layout from '../../components/Layout';
 import Button from '../../components/Button';
+import Dropdown from '../../components/Dropdown';
 import Timeline from './components/Timeline';
 
 let activelyPullingDelta = false;
@@ -176,21 +177,13 @@ class Dashboard extends Component {
             <label htmlFor='org-select'>Organization:</label>
           )}
 
-          <select
-            id='org-select'
+          <Dropdown
             ref={ref => this.orgDropdown = ref}
-            onChange={this.onDropdownChange.bind(this)}
-          >
-            {orgs.map(org => (
-              <option
-                value={org.login}
-                key={org.id}
-                disabled={org.length <= 1}
-              >
-                {org.login}
-              </option>
-            ))}
-          </select>
+            options={orgs.map(org => ({
+              label: org.login,
+              value: org.login
+            }))}
+          />
         </span>
 
         <Timeline />

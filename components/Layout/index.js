@@ -20,8 +20,6 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
     timelineDelta: null
   };
 
-  console.log(initialStore);
-
   return (
     <div className={classes.root}>
       <Head>
