@@ -41,9 +41,16 @@ export default class Dropdown extends Component {
     });
   }
 
+  select(option) {
+    this.setState({
+      open: false,
+      selectedOption: option
+    });
+  }
+
   render() {
     const { placeholder, options, className } = this.props;
-    const { open } = this.state;
+    const { open, selectedOption } = this.state;
 
     return (
       <ClickOutside
@@ -54,15 +61,33 @@ export default class Dropdown extends Component {
           className={classnames(classes.dropdown, className)}
           onClick={this.toggleOpen.bind(this)}
         >
-          <span className={classes.placeholder}>{placeholder} ▼</span>
+          <span className={classnames({
+            [classes.mainLabel]: true,
+            [classes.selection]: !!selectedOption,
+            [classes.placeholder]: !selectedOption
+          })}>
+            <span className={classes.text}>
+              {selectedOption ? selectedOption.label : placeholder}
+            </span>
+            &nbsp;
+            <span className={classes.arrow}>▼</span>
+          </span>
 
           {!open ? null : (
             <div className={classes.options}>
-            {options.map(option => (
-              <span className={classnames(classes.option, option.className)}>
-                {option.label}
-              </span>
-            ))}
+              {options
+                .filter(option => {
+                  return !selectedOption ? true : option.value !== selectedOption.value;
+                })
+                .map(option => (
+                  <span
+                    className={classnames(classes.option, option.className)}
+                    onClick={this.select.bind(this, option)}
+                  >
+                    {option.label}
+                  </span>
+                ))
+              }
             </div>
           )}
 

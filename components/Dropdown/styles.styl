@@ -12,6 +12,7 @@
   font-size: 1.4rem
   padding: 1rem 1.4rem
   position: relative
+  width: 12rem
   disableSelect()
 
 .options
@@ -43,6 +44,19 @@
     background: $conjureColorMainVeryDifferent
     color: $black
 
-.placeholder
-  color: $lightGray
-  font-style: italic
+.mainLabel
+  display: flex
+  width: 100%
+
+  &.placeholder
+    color: $lightGray
+    font-style: italic
+    
+  &.selection
+    font-weight: 400
+
+  .text
+    flex-grow: 1
+  
+  .arrow
+    color: $lightGray
