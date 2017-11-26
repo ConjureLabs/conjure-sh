@@ -31,7 +31,7 @@ export default class Dropdown extends Component {
 
   toggleOpen() {
     this.setState({
-      open: !this.state.open
+      open: this.isDisabled ? false : !this.state.open
     });
   }
 
@@ -48,9 +48,19 @@ export default class Dropdown extends Component {
     });
   }
 
+  get isDisabled() {
+    const { selectedOption } = this.state;
+    const { options, disabled } = this.props;
+    return disabled === true || (
+      selectedOption &&
+      options.length === 1
+    );
+  }
+
   render() {
     const { label, options, className } = this.props;
     const { open, selectedOption } = this.state;
+    const disabled = this.isDisabled;
 
     return (
       <ClickOutside
@@ -61,7 +71,9 @@ export default class Dropdown extends Component {
         onClickOutside={this.close.bind(this)}
       >
         <div
-          className={classnames(classes.dropdown, className)}
+          className={classnames(classes.dropdown, className, {
+            [classes.disabled]: disabled
+          })}
           onClick={this.toggleOpen.bind(this)}
         >
           {!label ? null : (<label>{label}</label>)}
@@ -141,6 +153,8 @@ export default class Dropdown extends Component {
     value: PropTypes.oneOf([
       PropTypes.string,
       PropTypes.number
-    ])
+    ]),
+
+    disabled: PropTypes.bool
   }
 }
