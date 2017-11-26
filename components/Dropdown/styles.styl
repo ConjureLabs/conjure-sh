@@ -1,38 +1,48 @@
 @require '../../shared/framework.styl'
 
 .root
-  border: 1px solid #5d5d5d
-  cursor: pointer
   display: inline-block
+
+.dropdown
+  background: $white
+  border: 1px solid $conjureColorMainSlightlyDifferent
+  cursor: pointer
+  display: block
   font-weight: 100
   font-size: 1.4rem
   padding: 1rem 1.4rem
   position: relative
   disableSelect()
 
-  .options
-    display: block
-    left: -1px
-    position: absolute
-    top: 100%
-    width: calc(100% + 2px)
+.options
+  display: block
+  left: -1px
+  max-height: calc(19.8rem + 6px) // 5.5 options, with their (5 + 1) borders
+  overflow-y: scroll
+  position: absolute
+  top: 100%
+  width: calc(100% + 2px)
     
-    .option
-      $borderColor = $conjureColorMain
+.option
+  background: $conjureColorMain
+  border: 1px solid $black
+  border-bottom: none
+  color: $white
+  display: block
+  font-size: 1.4rem
+  height: 3.6rem
+  line-height: 3.6rem
+  overflow: hidden
+  padding: 0 1.4rem
+  white-space: nowrap
+  
+  &:last-of-type
+    border-bottom: 1px solid $black
 
-      background: #eee
-      border: 1px solid $borderColor
-      border-bottom: none
-      border-top-color: lighten($borderColor, 36%)
-      display: block
-      height: 100%
-      line-height: 4.6rem
-      overflow: hidden
-      padding: 0 1.4rem
-      white-space: nowrap
-      
-      &:last-of-type
-        border-bottom: 1px solid $borderColor
+  &:hover
+    background: $conjureColorMainVeryDifferent
+    color: $black
 
-      &:hover
-        background: $conjureColorSecondaryLight
+.placeholder
+  color: $lightGray
+  font-style: italic
