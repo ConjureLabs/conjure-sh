@@ -173,12 +173,9 @@ class Dashboard extends Component {
         )}
 
         <span className={classes.repoSelection}>
-          {orgs.length <= 1 ? null : (
-            <label htmlFor='org-select'>Organization:</label>
-          )}
-
           <Dropdown
             ref={ref => this.orgDropdown = ref}
+            label='Organization'
             options={orgs.map(org => ({
               label: org.login,
               value: org.login

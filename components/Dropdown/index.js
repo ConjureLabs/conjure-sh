@@ -49,25 +49,26 @@ export default class Dropdown extends Component {
   }
 
   render() {
-    const { placeholder, options, className } = this.props;
+    const { label, options, className } = this.props;
     const { open, selectedOption } = this.state;
 
     return (
       <ClickOutside
-        className={classes.root}
+        className={classnames({
+          [classes.root]: true,
+          [classes.initialPlaceholder]: !selectedOption && !open
+        })}
         onClickOutside={this.close.bind(this)}
       >
         <div
           className={classnames(classes.dropdown, className)}
           onClick={this.toggleOpen.bind(this)}
         >
-          <span className={classnames({
-            [classes.mainLabel]: true,
-            [classes.selection]: !!selectedOption,
-            [classes.placeholder]: !selectedOption
-          })}>
+          {!label ? null : (<label>{label}</label>)}
+
+          <span className={classes.selection}>
             <span className={classes.text}>
-              {selectedOption ? selectedOption.label : placeholder}
+              {selectedOption ? selectedOption.label : null}
             </span>
             &nbsp;
             <span className={classes.arrow}>▼</span>
@@ -100,7 +101,7 @@ export default class Dropdown extends Component {
   }
 
   static propTypes = {
-    placeholder: PropTypes.string.isRequired,
+    label: PropTypes.string,
 
     options: props => {
       const { options } = props;
@@ -141,9 +142,5 @@ export default class Dropdown extends Component {
       PropTypes.string,
       PropTypes.number
     ])
-  }
-
-  static defaultProps = {
-    placeholder: 'Select a value'
   }
 }

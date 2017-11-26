@@ -3,16 +3,34 @@
 .root
   display: inline-block
 
+  label
+    color: $gray
+    font-size: 1.2rem
+    font-style: normal
+    left: 0
+    pointer-events: none
+    position: absolute
+    top: -2rem
+    transition: color 0.2s, font-size 0.2s, top 0.4s, left 0.4s
+
+  &.initialPlaceholder
+    label
+      color: $black
+      font-size: 1.6rem
+      font-style: italic
+      left: 1.4rem
+      top: 0.9rem
+
 .dropdown
   background: $white
-  border: 1px solid $conjureColorMainSlightlyDifferent
+  border: 1px solid $lightGray
   cursor: pointer
   display: block
   font-weight: 100
   font-size: 1.4rem
   padding: 1rem 1.4rem
   position: relative
-  width: 12rem
+  width: 14rem
   disableSelect()
 
 .options
@@ -44,16 +62,10 @@
     background: $conjureColorMainVeryDifferent
     color: $black
 
-.mainLabel
+.selection
   display: flex
+  font-weight: 400
   width: 100%
-
-  &.placeholder
-    color: $lightGray
-    font-style: italic
-    
-  &.selection
-    font-weight: 400
 
   .text
     flex-grow: 1
