@@ -103,11 +103,9 @@ export default class Dropdown extends Component {
               }
             </div>
           )}
-
-
-          {styles}
         </div>
 
+        {styles}
       </ClickOutside>
     );
   }
