@@ -1772,9 +1772,9 @@ concat-stream@^1.6.0:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-"conjure-api@git+ssh://git@github.com:ConjureLabs/conjure-api.git":
+conjure-api@ConjureLabs/conjure-api:
   version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-api.git#1b354ba6aadcf0bf20ce0980f95e370a80a1fdf8"
+  resolved "git+ssh://git@github.com/ConjureLabs/conjure-api.git#ea65c3a74bf79f2df476caa026240a72d8ddbb0b"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
@@ -1789,8 +1789,24 @@ concat-stream@^1.6.0:
     passport-github "^1.1.0"
     pg "^6.2.3"
 
+conjure-core@ConjureLabs/conjure-core:
+  version "0.0.0"
+  resolved "git+ssh://git@github.com/ConjureLabs/conjure-core.git#90c08af125863609008f24ec0783d4114e7d3965"
+  dependencies:
+    amqp "^0.2.6"
+    app-root-path "^2.0.1"
+    cors "^2.8.3"
+    express "^4.15.4"
+    node-yaml "^3.1.1"
+    octonode "^0.7.13"
+    pg "^7.3.0"
+    request "^2.81.0"
+    request-promise-native "1.0.5"
+    stripe "^4.19.0"
+
 "conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git":
   version "0.0.0"
+  uid "90c08af125863609008f24ec0783d4114e7d3965"
   resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#90c08af125863609008f24ec0783d4114e7d3965"
   dependencies:
     amqp "^0.2.6"
