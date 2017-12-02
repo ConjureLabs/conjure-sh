@@ -193,7 +193,7 @@ class Dashboard extends Component {
           value: '*',
           className: classes.allOption
         }].concat(
-          repos.map(repo => ({
+          reposAvail.map(repo => ({
             label: repo.name,
             value: repo.name
           }))
@@ -226,7 +226,7 @@ class Dashboard extends Component {
             ref={ref => this.orgDropdown = ref}
             label='Organization'
             options={orgsListed}
-            value={orgsListed[0].value}
+            value={orgSelected}
             onSelect={() => {
               const orgNewlySelected = this.orgDropdown.value;
               window.location = `/?org=${orgNewlySelected}&repo=*`;
@@ -237,7 +237,7 @@ class Dashboard extends Component {
             ref={ref => this.repoDropdown = ref}
             label='Repo'
             options={reposListed}
-            value={reposListed[0].value}
+            value={repoSelected}
             onSelect={() => {
               const repoNewlySelected = this.repoDropdown.value;
               window.location = `/?org=${orgSelected}&repo=${repoNewlySelected}`;
