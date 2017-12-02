@@ -1,18 +1,3 @@
-const setOrg = (store, { org }) => {
-  return Object.assign({}, store, {
-    timeline: null, // clearing timeline, which will cause loader and xhr
-    org,
-    repo: '*'
-  });
-};
-
-const setRepo = (store, { repo }) => {
-  return Object.assign({}, store, {
-    timeline: null, // clearing timeline, which will cause loader and xhr
-    repo
-  });
-};
-
 const clearTimeline = store => {
   return Object.assign({}, store, {
     timeline: null
@@ -51,7 +36,6 @@ const clearTimelineDelta = store => {
 };
 
 export default {
-  setOrg,
   clearTimeline,
   pushTimeline,
   unshiftTimeline,

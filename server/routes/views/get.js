@@ -1,5 +1,6 @@
 const Route = require('conjure-core/classes/Route');
 const nextApp = require('../../next');
+const log = require('conjure-core/modules/log')('root path');
 
 const route = new Route();
 
@@ -41,13 +42,14 @@ route.push(async (req, res) => {
   Must be logged in, kick user to conjure dashboard
  */
 route.push(async (req, res) => {
-  const { org, repo } = req.query;
+  const orgSelected = req.query.org;
+  const repoSelected = req.query.repo;
 
-  if (!org && !repo) {
+  if (!orgSelected && !repoSelected) {
     return res.redirect('/?org=*&repo=*');
   }
 
-  if (!org || !repo) {
+  if (!orgSelected || !repoSelected) {
     return;
   }
 
@@ -70,17 +72,20 @@ route.push(async (req, res) => {
   const orgs = (await orgsResult).orgs;
 
   // making sure the query args are valid
-  if (org !== '*' && !orgs.find(org => org.name === org)) {
+  if (orgSelected !== '*' && !orgs.find(org => org.login === orgSelected)) {
+    log.error('Org, in query param, not available');
     return;
   }
   // can not view specific repos if viewing all orgs
-  if (org === '*' && repo !== '*') {
+  if (orgSelected === '*' && repoSelected !== '*') {
+    log.error('User attempting to view specific repo within wildcard orgs');
     return;
   }
   // if viewing a specific repo, validate it is within the specific org
-  if (repo !== '*') {
-    const found = repos.find(repo => repo.name === repo);
-    if (found.org !== org) {
+  if (repoSelected !== '*') {
+    const found = repos.find(repo => repo.name === repoSelected);
+    if (found.org !== orgSelected) {
+      log.error('Repo, in query param, not available');
       return;
     }
   }
@@ -92,7 +97,9 @@ route.push(async (req, res) => {
       photo: (await accountGitHubResult).account.photo // todo: not rely on github...
     },
     orgs,
-    repos
+    repos,
+    orgSelected,
+    repoSelected
   };
 
   return nextApp.render(req, res, '/dashboard', queryValues);

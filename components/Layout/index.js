@@ -9,13 +9,11 @@ import nativeStyles from './styles.native.js';
 import styles, { classes } from './styles.js';
 
 export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true }) => {
-  const { account, cards, org, repo } = url.query;
+  const { account, cards } = url.query;
 
   const initialStore = {
     account,
     cards,
-    org,
-    repo,
     pagingHref: null,
     timeline: null,
     timelineDelta: null

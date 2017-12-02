@@ -146,8 +146,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { url, orgs, repos, pagingHref, timelineDelta, dispatch } = this.props;
-    const { query } = url;
+    const { url, orgs, repos, pagingHref, timelineDelta, orgSelected, repoSelected } = this.props;
 
     let orgsListed;
     if (orgs.length === 1) {
@@ -171,7 +170,7 @@ class Dashboard extends Component {
     }
 
     let reposListed;
-    if (query.org === '*') {
+    if (orgSelected === '*') {
       // if viewing 'all' orgs, then disallow repo selection
       reposListed = [{
         label: '* All Repos',
@@ -179,7 +178,7 @@ class Dashboard extends Component {
       }];
     } else {
       // filter down all repos to selected org's repos
-      const reposAvail = repos.filter(repo => repo.org === query.org);
+      const reposAvail = repos.filter(repo => repo.org === orgSelected);
 
       if (reposAvail.length === 1) {
         // if only 1 repo available, force it to be defaulted (and no 'all option available')
@@ -229,9 +228,8 @@ class Dashboard extends Component {
             options={orgsListed}
             value={orgsListed[0].value}
             onSelect={() => {
-              const orgSelected = this.orgDropdown.value;
-              console.log(`/?org=${orgSelected}&repo=*`);
-              window.location = `/?org=${orgSelected}&repo=*`;
+              const orgNewlySelected = this.orgDropdown.value;
+              window.location = `/?org=${orgNewlySelected}&repo=*`;
             }}
           />
 
@@ -241,9 +239,8 @@ class Dashboard extends Component {
             options={reposListed}
             value={reposListed[0].value}
             onSelect={() => {
-              const orgSelected = this.orgDropdown.value;
-              const repoSelected = this.repoDropdown.value;
-              window.location = `/?org=${orgSelected}&repo=${repoSelected}`;
+              const repoNewlySelected = this.repoDropdown.value;
+              window.location = `/?org=${orgSelected}&repo=${repoNewlySelected}`;
             }}
           />
         </span>
@@ -285,6 +282,8 @@ export default props => (
       {...props}
       orgs={props.url.query.orgs}
       repos={props.url.query.repos}
+      orgSelected={props.url.query.orgSelected}
+      repoSelected={props.url.query.repoSelected}
     />
   </Layout>
 );
