@@ -57,21 +57,42 @@ route.push(async (req, res) => {
   const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call;
   const orgsResult = apiGetOrgs(req);
 
-  const apiGetRepos = require(`conjure-api/server/routes/api/${org === '*' ? '' : `org/${org}/`}repos/get.js`).call;
+  const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call;
   const reposResult = apiGetRepos(req);
 
-  const repos = (await reposResult).reposByOrg;
+  const { reposByOrg } = (await reposResult);
+  const repos = Object.keys(reposByOrg).reduce((allRepos, currentOrg) => {
+    return allRepos.concat(
+      reposByOrg[currentOrg].map(repo => slimRepoRecord(repo))
+    );
+  }, []);
+
+  const orgs = (await orgsResult).orgs;
+
+  // making sure the query args are valid
+  if (org !== '*' && !orgs.find(org => org.name === org)) {
+    return;
+  }
+  // can not view specific repos if viewing all orgs
+  if (org === '*' && repo !== '*') {
+    return;
+  }
+  // if viewing a specific repo, validate it is within the specific org
+  if (repo !== '*') {
+    const found = repos.find(repo => repo.name === repo);
+    if (found.org !== org) {
+      return;
+    }
+  }
+
+  // at this point org & repo values should be valid
 
   const queryValues = {
     account: {
       photo: (await accountGitHubResult).account.photo // todo: not rely on github...
     },
-    orgs: (await orgsResult).orgs,
-    repos: Object.keys(repos).reduce((allRepos, currentOrg) => {
-      return allRepos.concat(
-        repos[currentOrg].map(repo => slimRepoRecord(repo))
-      );
-    }, [])
+    orgs,
+    repos
   };
 
   return nextApp.render(req, res, '/dashboard', queryValues);

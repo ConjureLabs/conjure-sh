@@ -27,8 +27,9 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const { dispatch } = this.props;
-    dispatch.clearTimeline();
-    this.onDropdownChange();
+    dispatch.clearTimeline(null, () => {
+      this.pullTimeline();
+    });
   }
 
   componentWillUnmount() {
@@ -144,18 +145,62 @@ class Dashboard extends Component {
     });
   }
 
-  onDropdownChange() {
-    const { dispatch } = this.props;
-    dispatch.setOrg({
-      org: this.orgDropdown.value
-    });
-    this.pullTimeline();
-  }
-
   render() {
-    const { url, orgs, repos, pagingHref, timelineDelta } = this.props;
+    const { url, orgs, repos, pagingHref, timelineDelta, dispatch } = this.props;
+    const { query } = url;
 
-    console.log(repos);
+    let orgsListed;
+    if (orgs.length === 1) {
+      // if only 1 org available, force it to be defaulted (and no 'all option available')
+      orgListed = [{
+        label: orgs[0].login,
+        value: orgs[0].login
+      }];
+    } else {
+      // > 1 org available, give 'all orgs' option
+      orgsListed = [{
+        label: '* All Orgs',
+        value: '*',
+        className: classes.allOption
+      }].concat(
+        orgs.map(org => ({
+          label: org.login,
+          value: org.login
+        }))
+      );
+    }
+
+    let reposListed;
+    if (query.org === '*') {
+      // if viewing 'all' orgs, then disallow repo selection
+      reposListed = [{
+        label: '* All Repos',
+        value: '*'
+      }];
+    } else {
+      // filter down all repos to selected org's repos
+      const reposAvail = repos.filter(repo => repo.org === query.org);
+
+      if (reposAvail.length === 1) {
+        // if only 1 repo available, force it to be defaulted (and no 'all option available')
+        reposListed = [{
+          label: reposAvail[0].name,
+          value: reposAvail[0].name
+        }];
+      } else {
+        // > 1 repo available, give 'all repos' option
+        reposListed = [{
+          label: '* All Repos',
+          value: '*',
+          className: classes.allOption
+        }].concat(
+          repos.map(repo => ({
+            label: repo.name,
+            value: repo.name
+          }))
+        );
+      }
+    }
 
     return (
       <div>
@@ -168,7 +213,9 @@ class Dashboard extends Component {
               color='gray'
               hallow={true}
               className={classes.button}
-              onClick={this.pullTimelineDelta.bind(this)}
+              onClick={() => {
+                this.pullTimelineDelta();
+              }}
             >
               View {timelineDelta} new activit{timelineDelta === 1 ? 'y' : 'ies'}
             </Button>
@@ -179,19 +226,25 @@ class Dashboard extends Component {
           <Dropdown
             ref={ref => this.orgDropdown = ref}
             label='Organization'
-            options={orgs.map(org => ({
-              label: org.login,
-              value: org.login
-            }))}
+            options={orgsListed}
+            value={orgsListed[0].value}
+            onSelect={() => {
+              const orgSelected = this.orgDropdown.value;
+              console.log(`/?org=${orgSelected}&repo=*`);
+              window.location = `/?org=${orgSelected}&repo=*`;
+            }}
           />
 
           <Dropdown
             ref={ref => this.repoDropdown = ref}
             label='Repo'
-            options={repos.map(repo => ({
-              label: repo.fullName,
-              value: repo.id
-            }))}
+            options={reposListed}
+            value={reposListed[0].value}
+            onSelect={() => {
+              const orgSelected = this.orgDropdown.value;
+              const repoSelected = this.repoDropdown.value;
+              window.location = `/?org=${orgSelected}&repo=${repoSelected}`;
+            }}
           />
         </span>
 

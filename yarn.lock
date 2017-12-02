@@ -1806,7 +1806,6 @@ conjure-core@ConjureLabs/conjure-core:
 
 "conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git":
   version "0.0.0"
-  uid "90c08af125863609008f24ec0783d4114e7d3965"
   resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#90c08af125863609008f24ec0783d4114e7d3965"
   dependencies:
     amqp "^0.2.6"

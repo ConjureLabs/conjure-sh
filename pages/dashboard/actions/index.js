@@ -1,7 +1,15 @@
 const setOrg = (store, { org }) => {
   return Object.assign({}, store, {
     timeline: null, // clearing timeline, which will cause loader and xhr
-    org
+    org,
+    repo: '*'
+  });
+};
+
+const setRepo = (store, { repo }) => {
+  return Object.assign({}, store, {
+    timeline: null, // clearing timeline, which will cause loader and xhr
+    repo
   });
 };
 

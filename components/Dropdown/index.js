@@ -45,10 +45,10 @@ export default class Dropdown extends Component {
     this.setState({
       open: false,
       selectedOption: option
+    }, () => {
+      const { onSelect } = this.props;
+      onSelect(option);
     });
-
-    const { onSelect } = this.props;
-    onSelect(option);
   }
 
   get isDisabled() {
@@ -85,7 +85,7 @@ export default class Dropdown extends Component {
             <span className={classes.text}>
               {selectedOption ? selectedOption.label : null}
             </span>
-            &nbsp;
+            {' '}
             <span className={classes.arrow}>▼</span>
           </span>
 
@@ -95,10 +95,11 @@ export default class Dropdown extends Component {
                 .filter(option => {
                   return !selectedOption ? true : option.value !== selectedOption.value;
                 })
-                .map(option => (
+                .map((option, i) => (
                   <span
                     className={classnames(classes.option, option.className)}
                     onClick={this.select.bind(this, option)}
+                    key={i}
                   >
                     {option.label}
                   </span>
@@ -155,7 +156,7 @@ export default class Dropdown extends Component {
       }
     },
 
-    value: PropTypes.oneOf([
+    value: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number
     ]),
