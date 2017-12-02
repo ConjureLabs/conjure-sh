@@ -46,6 +46,9 @@ export default class Dropdown extends Component {
       open: false,
       selectedOption: option
     });
+
+    const { onSelect } = this.props;
+    onSelect(option);
   }
 
   get isDisabled() {
@@ -110,6 +113,10 @@ export default class Dropdown extends Component {
     );
   }
 
+  static defaultProps = {
+    onSelect: () => {}
+  };
+
   static propTypes = {
     label: PropTypes.string,
 
@@ -153,6 +160,8 @@ export default class Dropdown extends Component {
       PropTypes.number
     ]),
 
-    disabled: PropTypes.bool
-  }
+    disabled: PropTypes.bool,
+
+    onSelect: PropTypes.func
+  };
 }

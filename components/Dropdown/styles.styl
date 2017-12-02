@@ -40,6 +40,7 @@
 
 .options
   border-top: 4px solid $lightGray
+  border-bottom: 1px solid $lightGray
   display: block
   left: -1px
   max-height: calc(19.8rem + 9px) // 5.5 options, with their borders
@@ -47,7 +48,7 @@
   position: absolute
   top: 100%
   width: calc(100% + 2px)
-    
+
 .option
   background: $white
   border: 1px solid $lightGray
@@ -63,6 +64,9 @@
 
   &:hover
     background: $conjureColorSecondaryLight
+    
+  &:last-of-type
+    border-bottom: none
 
 .selection
   display: flex

@@ -3,6 +3,7 @@ import styles, { classes } from '../styles.js';
 import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
+import Layout from '../../../components/Layout';
 import Header from '../../../components/Header';
 import AnchorList from '../../../components/AnchorList';
 
@@ -30,7 +31,8 @@ export default class OnboardOrgs extends Component {
   }
 
   render() {
-    const { query } = this.props.url;
+    const { url } = this.props;
+    const { query } = url;
 
     return (
       <Layout url={url} limitedHeader={true}>

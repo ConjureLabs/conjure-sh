@@ -19,6 +19,7 @@ class Dashboard extends Component {
 
     // set at render
     this.orgDropdown = null;
+    this.repoDropdown = null;
 
     // for setTimeout reference tracking
     this.timeouts = {};
@@ -152,7 +153,9 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { url, orgs, pagingHref, timelineDelta } = this.props;
+    const { url, orgs, repos, pagingHref, timelineDelta } = this.props;
+
+    console.log(repos);
 
     return (
       <div>
@@ -179,6 +182,15 @@ class Dashboard extends Component {
             options={orgs.map(org => ({
               label: org.login,
               value: org.login
+            }))}
+          />
+
+          <Dropdown
+            ref={ref => this.repoDropdown = ref}
+            label='Repo'
+            options={repos.map(repo => ({
+              label: repo.fullName,
+              value: repo.id
             }))}
           />
         </span>
@@ -219,6 +231,7 @@ export default props => (
     <ConnectedDashbord
       {...props}
       orgs={props.url.query.orgs}
+      repos={props.url.query.repos}
     />
   </Layout>
 );

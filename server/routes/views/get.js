@@ -41,18 +41,50 @@ route.push(async (req, res) => {
   Must be logged in, kick user to conjure dashboard
  */
 route.push(async (req, res) => {
+  const { org, repo } = req.query;
+
+  if (!org && !repo) {
+    return res.redirect('/?org=*&repo=*');
+  }
+
+  if (!org || !repo) {
+    return;
+  }
+
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
   const accountGitHubResult = apiGetAccountGitHub(req);
 
   const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call;
   const orgsResult = apiGetOrgs(req);
 
-  return nextApp.render(req, res, '/dashboard', {
+  const apiGetRepos = require(`conjure-api/server/routes/api/${org === '*' ? '' : `org/${org}/`}repos/get.js`).call;
+  const reposResult = apiGetRepos(req);
+
+  const repos = (await reposResult).reposByOrg;
+
+  const queryValues = {
     account: {
       photo: (await accountGitHubResult).account.photo // todo: not rely on github...
     },
-    orgs: (await orgsResult).orgs
-  });
+    orgs: (await orgsResult).orgs,
+    repos: Object.keys(repos).reduce((allRepos, currentOrg) => {
+      return allRepos.concat(
+        repos[currentOrg].map(repo => slimRepoRecord(repo))
+      );
+    }, [])
+  };
+
+  return nextApp.render(req, res, '/dashboard', queryValues);
 });
+
+// reducing the information sent to client
+function slimRepoRecord(record) {
+  return {
+    id: record.id,
+    fullName: record.fullName,
+    name: record.name,
+    org: record.org
+  };
+}
 
 module.exports = route;
