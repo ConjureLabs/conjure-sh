@@ -248,7 +248,7 @@ class Dashboard extends Component {
             label='Organization'
             options={orgsListed}
             value={orgSelected}
-            className={classes.orgSelect}
+            className={classnames(classes.dropdown, classes.orgSelect)}
             onSelect={() => {
               const orgNewlySelected = this.orgDropdown.value;
               window.location = `/?org=${orgNewlySelected}&repo=*`;
@@ -260,6 +260,7 @@ class Dashboard extends Component {
             label='Repo'
             options={reposListed}
             value={repoSelected}
+            className={classes.dropdown}
             onSelect={() => {
               const repoNewlySelected = this.repoDropdown.value;
               window.location = `/?org=${orgSelected}&repo=${repoNewlySelected}`;
