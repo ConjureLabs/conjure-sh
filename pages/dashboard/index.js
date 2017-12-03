@@ -279,7 +279,7 @@ class Dashboard extends Component {
             {!additionalRepos ? null : (
               <a
                 className={classes.addNew}
-                href='/watch/repos'
+                href={`/watch/repos?org=${orgSelected}`}
               >
                 + Add More
               </a>
