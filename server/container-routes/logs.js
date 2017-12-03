@@ -1,15 +1,25 @@
 // todo: have owner restrictions, to lower billing, able to disallow anon tail logs
 // todo: determine if public views should have logs exposed
 
+const config = require('conjure-core/modules/config');
+const nextApp = require('../next');
+const log = require('conjure-core/modules/log')('container logs');
+
 module.exports = (req, res, containerRecord, next) => {
   const request = require('request');
   request({
     method: 'GET',
-    url: `http://conjure.dev:2999/api/org/ConjureLabs/container/${containerRecord.url_uid}/logs`,
+    url: `${config.app.api.url}/api/org/ConjureLabs/container/${containerRecord.url_uid}/logs`,
     json: true
-  }, (err, _, body) => {
+  }, (err, logsRes, body) => {
     if (err) {
       return next(err);
+    }
+
+    if (logsRes.statusCode >= 400) {
+      const nextDefaultGetHandler = nextApp.getRequestHandler();
+      log.error(`API call for container logs, for container ${containerRecord.url_uid}, gave status code ${logRes.statusCode}`);
+      return nextDefaultGetHandler(req, res);
     }
 
     console.log(body);
@@ -21,7 +31,6 @@ module.exports = (req, res, containerRecord, next) => {
       return next(new UnexpectedError('No session key given for logs tailing'));
     }
 
-    const nextApp = require('../next');
     nextApp.render(req, res, '/container/logs', {
       sessionKey: body.sessionKey,
       host: body.host,
