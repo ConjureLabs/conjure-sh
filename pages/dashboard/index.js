@@ -146,7 +146,11 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { url, orgs, repos, pagingHref, timelineDelta, orgSelected, repoSelected } = this.props;
+    const { url, orgs, repos, pagingHref, timelineDelta } = this.props;
+    let { orgSelected, repoSelected } = this.props;
+
+    orgSelected = orgSelected === '*' && orgs.length === 1 ? orgs[0] : orgSelected;
+    repoSelected = repoSelected === '*' && repos.length === 1 ? repos[0].name : repoSelected;
 
     let orgsListed;
     if (orgs.length === 1) {
