@@ -227,6 +227,7 @@ class Dashboard extends Component {
             label='Organization'
             options={orgsListed}
             value={orgSelected}
+            className={classes.orgSelect}
             onSelect={() => {
               const orgNewlySelected = this.orgDropdown.value;
               window.location = `/?org=${orgNewlySelected}&repo=*`;
