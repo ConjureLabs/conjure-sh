@@ -258,7 +258,7 @@ class Dashboard extends Component {
             {!additionalOrgs ? null : (
               <a
                 className={classes.addNew}
-                href='/watch/orgs'
+                href='/watch/org'
               >
                 + Add More
               </a>
