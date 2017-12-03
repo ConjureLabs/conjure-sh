@@ -163,11 +163,12 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { url, orgs, repos, pagingHref, timelineDelta } = this.props;
-    let { orgSelected, repoSelected } = this.props;
-
-    orgSelected = orgSelected === '*' && orgs.length === 1 ? orgs[0] : orgSelected;
-    repoSelected = repoSelected === '*' && repos.length === 1 ? repos[0].name : repoSelected;
+    const {
+      url, orgs, repos,
+      pagingHref, timelineDelta,
+      additionalOrgs, additionalRepos,
+      orgSelected, repoSelected
+    } = this.props;
 
     let orgsListed;
     if (orgs.length === 1) {
@@ -254,7 +255,7 @@ class Dashboard extends Component {
               window.location = `/?org=${orgNewlySelected}&repo=*`;
             }}
           >
-            <span className={classes.addNew}>+ Add New</span>
+            {!additionalOrgs ? null : (<span className={classes.addNew}>+ Add New</span>)}
           </Dropdown>
 
           <Dropdown
@@ -268,7 +269,7 @@ class Dashboard extends Component {
               window.location = `/?org=${orgSelected}&repo=${repoNewlySelected}`;
             }}
            >
-            <span className={classes.addNew}>+ Add New</span>
+            {!additionalRepos ? null : (<span className={classes.addNew}>+ Add New</span>)}
           </Dropdown>
         </span>
 
@@ -303,14 +304,25 @@ const selector = store => ({
 
 const ConnectedDashbord = connect(selector, actions)(Dashboard);
 
-export default props => (
-  <Layout url={props.url}>
-    <ConnectedDashbord
-      {...props}
-      orgs={props.url.query.orgs}
-      repos={props.url.query.repos}
-      orgSelected={props.url.query.orgSelected}
-      repoSelected={props.url.query.repoSelected}
-    />
-  </Layout>
-);
+export default props => {
+  const { url, ...extraProps } = props;
+  const { orgs, repos, additional } = url.query;
+  let { orgSelected, repoSelected } = url.query;
+
+  orgSelected = orgSelected === '*' && orgs.length === 1 ? orgs[0] : orgSelected;
+  repoSelected = repoSelected === '*' && repos.length === 1 ? repos[0].name : repoSelected;
+
+  return (
+    <Layout url={url}>
+      <ConnectedDashbord
+        {...extraProps}
+        orgs={orgs}
+        repos={repos}
+        orgSelected={orgSelected}
+        repoSelected={repoSelected}
+        additionalOrgs={additional.orgs}
+        additionalRepos={additional.reposByOrg[orgSelected] === true}
+      />
+    </Layout>
+  );
+}

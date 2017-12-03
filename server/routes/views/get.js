@@ -89,10 +89,9 @@ route.push(async (req, res) => {
     orgs,
     repos,
     orgSelected,
-    repoSelected
+    repoSelected,
+    additional
   };
-
-  console.log(additional);
 
   return nextApp.render(req, res, '/dashboard', queryValues);
 });
