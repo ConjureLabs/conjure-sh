@@ -142,7 +142,7 @@ class Dashboard extends Component {
         return;
       }
 
-      if (data.count === 0) {
+      if (+data.count === 0) {
         return this.queueDeltaCheck(deltaUrl);
       }
 
@@ -155,7 +155,7 @@ class Dashboard extends Component {
       const { dispatch } = this.props;
 
       dispatch.setTimelineDelta({
-        delta: data.count
+        delta: +data.count
       });
 
       this.queueDeltaCheck(deltaUrl);
