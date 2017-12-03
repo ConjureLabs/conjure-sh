@@ -158,7 +158,7 @@ class Dashboard extends Component {
     } else {
       // > 1 org available, give 'all orgs' option
       orgsListed = [{
-        label: '* All Orgs',
+        label: 'All Orgs',
         value: '*',
         className: classes.allOption
       }].concat(
@@ -173,7 +173,7 @@ class Dashboard extends Component {
     if (orgSelected === '*') {
       // if viewing 'all' orgs, then disallow repo selection
       reposListed = [{
-        label: '* All Repos',
+        label: 'All Repos',
         value: '*'
       }];
     } else {
@@ -189,7 +189,7 @@ class Dashboard extends Component {
       } else {
         // > 1 repo available, give 'all repos' option
         reposListed = [{
-          label: '* All Repos',
+          label: 'All Repos',
           value: '*',
           className: classes.allOption
         }].concat(
