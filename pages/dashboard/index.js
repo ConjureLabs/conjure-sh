@@ -255,7 +255,14 @@ class Dashboard extends Component {
               window.location = `/?org=${orgNewlySelected}&repo=*`;
             }}
           >
-            {!additionalOrgs ? null : (<span className={classes.addNew}>+ Add New</span>)}
+            {!additionalOrgs ? null : (
+              <a
+                className={classes.addNew}
+                href='/watch/orgs'
+              >
+                + Add More
+              </a>
+            )}
           </Dropdown>
 
           <Dropdown
@@ -269,7 +276,14 @@ class Dashboard extends Component {
               window.location = `/?org=${orgSelected}&repo=${repoNewlySelected}`;
             }}
            >
-            {!additionalRepos ? null : (<span className={classes.addNew}>+ Add New</span>)}
+            {!additionalRepos ? null : (
+              <a
+                className={classes.addNew}
+                href='/watch/repos'
+              >
+                + Add More
+              </a>
+            )}
           </Dropdown>
         </span>
 
