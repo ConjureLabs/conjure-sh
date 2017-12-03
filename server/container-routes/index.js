@@ -27,14 +27,6 @@ module.exports = (req, res, next) => {
     case 'logs':
       return checkPermissions(req, res, containerId, handler, next);
 
-
-      // const viewHandler = require('./view.js');
-      // return viewHandler(req, res, containerId, next);
-
-    
-      // const logsHandler = require('./logs.js');
-      // return logsHandler(req, res, containerId, next);
-
     default:
       return nextApp.render(req, res, '/_error');
   }

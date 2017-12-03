@@ -36,8 +36,16 @@ class Dashboard extends Component {
     clearTimeout(this.timeouts.deltaCheck);
   }
 
-  pullTimeline(apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0 }) {
-    const { dispatch } = this.props;
+  pullTimeline(apiUrl, apiArgOverrides = {}) {
+    const { dispatch, orgSelected, repoSelected } = this.props;
+
+    apiUrl = apiUrl || `${config.app.api.url}/api/containers/timeline`;
+
+    const apiArgs = Object.assign({
+      org: orgSelected,
+      repo: repoSelected,
+      page: 0
+    }, apiArgOverrides);
 
     get(apiUrl, apiArgs, (err, data) => {
       if (err) {
@@ -80,12 +88,21 @@ class Dashboard extends Component {
       });
     };
 
-    // todo: the 32 should be configured
-    const pullNext = (apiUrl = `${config.app.api.url}/api/org/${this.orgDropdown.value}/containers/timeline`, apiArgs = { page: 0 }) => {
+    const pullNext = (apiUrl, apiArgOverrides = {}) => {
+      const { dispatch, orgSelected, repoSelected } = this.props;
+
+      apiUrl = apiUrl || `${config.app.api.url}/api/containers/timeline`;
+
       // apiUrl should not be null, but will assume done if it is, anyway
       if (apiUrl === null || deltaFetched.length >= timelineDelta) {
         return finish();
       }
+
+      const apiArgs = Object.assign({
+        org: orgSelected,
+        repo: repoSelected,
+        page: 0
+      }, apiArgOverrides);
 
       get(apiUrl, apiArgs, (err, data) => {
         if (err) {
