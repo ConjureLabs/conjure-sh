@@ -92,6 +92,8 @@ route.push(async (req, res) => {
     repoSelected
   };
 
+  console.log(additional);
+
   return nextApp.render(req, res, '/dashboard', queryValues);
 });
 
