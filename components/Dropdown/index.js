@@ -61,7 +61,7 @@ export default class Dropdown extends Component {
   }
 
   render() {
-    const { label, options, className } = this.props;
+    const { label, options, className, children } = this.props;
     const { open, selectedOption } = this.state;
     const disabled = this.isDisabled;
 
@@ -107,6 +107,8 @@ export default class Dropdown extends Component {
               }
             </div>
           )}
+
+          {children}
         </div>
 
         {styles}

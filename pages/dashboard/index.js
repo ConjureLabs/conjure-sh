@@ -253,7 +253,9 @@ class Dashboard extends Component {
               const orgNewlySelected = this.orgDropdown.value;
               window.location = `/?org=${orgNewlySelected}&repo=*`;
             }}
-          />
+          >
+            <span className={classes.addNew}>+ Add New</span>
+          </Dropdown>
 
           <Dropdown
             ref={ref => this.repoDropdown = ref}
@@ -265,7 +267,9 @@ class Dashboard extends Component {
               const repoNewlySelected = this.repoDropdown.value;
               window.location = `/?org=${orgSelected}&repo=${repoNewlySelected}`;
             }}
-          />
+           >
+            <span className={classes.addNew}>+ Add New</span>
+          </Dropdown>
         </span>
 
         <Timeline />
