@@ -326,8 +326,15 @@ export default props => {
   orgSelected = orgSelected === '*' && orgs.length === 1 ? orgs[0] : orgSelected;
   repoSelected = repoSelected === '*' && repos.length === 1 ? repos[0].name : repoSelected;
 
+  const title = repoSelected !== '*' ? repoSelected :
+    orgSelected !== '*' ? orgSelected :
+    'Conjure';
+
   return (
-    <Layout url={url}>
+    <Layout
+      url={url}
+      title={title}
+    >
       <ConnectedDashbord
         {...extraProps}
         orgs={orgs}

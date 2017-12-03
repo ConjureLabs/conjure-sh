@@ -38,7 +38,11 @@ export default class WatchOrg extends Component {
     const listedOrgs = orgs.filter(org => !watchedOrgs.includes(org.login));
 
     return (
-      <Layout url={url} limitedHeader={true}>
+      <Layout
+        url={url}
+        limitedHeader={true}
+        title='Add an Org'
+      >
         <div className={classes.content}>
           <header>
             <sup>🚀</sup>
