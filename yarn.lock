@@ -141,16 +141,7 @@ ajv@^5.0.0, ajv@^5.2.0, ajv@^5.2.3:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.3.0"
 
-ajv@^5.1.0:
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.0.tgz#eb2840746e9dc48bd5e063a36e3fd400c5eab5a9"
-  dependencies:
-    co "^4.6.0"
-    fast-deep-equal "^1.0.0"
-    fast-json-stable-stringify "^2.0.0"
-    json-schema-traverse "^0.3.0"
-
-ajv@^5.1.5:
+ajv@^5.1.0, ajv@^5.1.5:
   version "5.5.1"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-5.5.1.tgz#b38bb8876d9e86bee994956a04e721e88b248eb2"
   dependencies:
@@ -1813,7 +1804,7 @@ config-chain@~1.1.8:
 
 conjure-api@ConjureLabs/conjure-api:
   version "0.0.0"
-  resolved "git+ssh://git@github.com/ConjureLabs/conjure-api.git#ea65c3a74bf79f2df476caa026240a72d8ddbb0b"
+  resolved "git+ssh://git@github.com/ConjureLabs/conjure-api.git#a84425ed48fbd1a735e4213ced1c07f9333b794c"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
@@ -1845,6 +1836,7 @@ conjure-core@ConjureLabs/conjure-core:
 
 "conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git":
   version "0.0.0"
+  uid "90c08af125863609008f24ec0783d4114e7d3965"
   resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#90c08af125863609008f24ec0783d4114e7d3965"
   dependencies:
     amqp "^0.2.6"

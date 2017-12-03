@@ -151,9 +151,9 @@ class Dashboard extends Component {
     let orgsListed;
     if (orgs.length === 1) {
       // if only 1 org available, force it to be defaulted (and no 'all option available')
-      orgListed = [{
-        label: orgs[0].login,
-        value: orgs[0].login
+      orgsListed = [{
+        label: orgs[0],
+        value: orgs[0]
       }];
     } else {
       // > 1 org available, give 'all orgs' option
@@ -162,9 +162,9 @@ class Dashboard extends Component {
         value: '*',
         className: classes.allOption
       }].concat(
-        orgs.map(org => ({
-          label: org.login,
-          value: org.login
+        orgs.map(name => ({
+          label: name,
+          value: name
         }))
       );
     }

@@ -53,26 +53,13 @@ route.push(async (req, res) => {
     return;
   }
 
-  const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
-  const accountGitHubResult = apiGetAccountGitHub(req);
-
-  const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call;
-  const orgsResult = apiGetOrgs(req);
-
-  const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call;
-  const reposResult = apiGetRepos(req);
-
-  const { reposByOrg } = (await reposResult);
-  const repos = Object.keys(reposByOrg).reduce((allRepos, currentOrg) => {
-    return allRepos.concat(
-      reposByOrg[currentOrg].map(repo => slimRepoRecord(repo))
-    );
-  }, []);
-
-  const orgs = (await orgsResult).orgs;
+  const apiWatchedSummary = require('conjure-api/server/routes/api/watched/summary/get.js').call;
+  const watchedSummary = await apiWatchedSummary(req);
+  const { watched, additional } = watchedSummary;
+  const { orgs, repos } = watched;
 
   // making sure the query args are valid
-  if (orgSelected !== '*' && !orgs.find(org => org.login === orgSelected)) {
+  if (orgSelected !== '*' && !orgs.includes(orgSelected)) {
     log.error('Org, in query param, not available');
     return;
   }
@@ -84,7 +71,7 @@ route.push(async (req, res) => {
   // if viewing a specific repo, validate it is within the specific org
   if (repoSelected !== '*') {
     const found = repos.find(repo => repo.name === repoSelected);
-    if (found.org !== orgSelected) {
+    if (!found || found.org !== orgSelected) {
       log.error('Repo, in query param, not available');
       return;
     }
@@ -92,9 +79,12 @@ route.push(async (req, res) => {
 
   // at this point org & repo values should be valid
 
+  const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
+  const accountGitHubResult = await apiGetAccountGitHub(req);
+
   const queryValues = {
     account: {
-      photo: (await accountGitHubResult).account.photo // todo: not rely on github...
+      photo: accountGitHubResult.account.photo // todo: not rely on github...
     },
     orgs,
     repos,
