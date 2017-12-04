@@ -17,7 +17,7 @@ route.push(async (req, res) => {
 
   // get github account record
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
-  const accountGitHubResult = apiGetAccountGitHub(req);
+  const accountGitHubResult = await apiGetAccountGitHub(req);
 
   // get repos currently watching
   const apiWatchedSummary = require('conjure-api/server/routes/api/watched/summary/get.js').call;
@@ -25,18 +25,24 @@ route.push(async (req, res) => {
   const { watched } = watchedSummary;
 
   // get all repos
-  const apiGetRepos = require('conjure-api/server/routes/api/org/$orgSelected/repos/get.js').call;
-  const reposResult = await apiGetRepos(req, {}, {
-    orgSelected
-  });
+  let reposResult;
+  if (orgSelected === accountGitHubResult.account.username) {
+    const apiGetRepos = require('conjure-api/server/routes/api/account/repos/get.js').call;
+    reposResult = await apiGetRepos(req);
+  } else {
+    const apiGetRepos = require('conjure-api/server/routes/api/org/$orgName/repos/get.js').call;
+    reposResult = await apiGetRepos(req, {}, {
+      orgName: orgSelected
+    });
+  }
 
   if (!reposResult || !Array.isArray(reposResult[orgSelected]) || !reposResult[orgSelected].length) {
     return;
   }
 
-  return nextApp.render(req, res, '/watch/org', {
+  return nextApp.render(req, res, '/watch/repos', {
     account: {
-      photo: (await accountGitHubResult).account.photo
+      photo: accountGitHubResult.account.photo
     },
     repos: reposResult[orgSelected],
     watchedRepos: watched.repos

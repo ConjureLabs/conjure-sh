@@ -4,6 +4,7 @@ import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
 import Layout from '../../../components/Layout';
+import Button from '../../../components/Button';
 import Header from '../../../components/Header';
 import AnchorList from '../../../components/AnchorList';
 
@@ -27,8 +28,7 @@ export default class WatchRepos extends Component {
     });
   }
 
-  makeSelection(item) {
-    // {label: "ConjureLabs", value: 1783213}
+  submit() {
     if (submitting) {
       return;
     }
@@ -52,7 +52,7 @@ export default class WatchRepos extends Component {
     const { query } = url;
     const { repos, watchedRepos } = query;
 
-    const listedRepos = repos.filter(org => !watchedRepos.includes(repo.name));
+    const listedRepos = repos.filter(repo => !watchedRepos.includes(repo.name));
 
     return (
       <Layout
