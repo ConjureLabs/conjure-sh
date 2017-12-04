@@ -1804,7 +1804,7 @@ config-chain@~1.1.8:
 
 conjure-api@ConjureLabs/conjure-api:
   version "0.0.0"
-  resolved "git+ssh://git@github.com/ConjureLabs/conjure-api.git#38e07e0687219d02fd6cc53519f445ab5d106d0a"
+  resolved "git+ssh://git@github.com/ConjureLabs/conjure-api.git#d775d06cccf8c144b0c53f355a6d7f817467964c"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
