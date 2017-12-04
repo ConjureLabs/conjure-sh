@@ -45,7 +45,7 @@ route.push(async (req, res) => {
       photo: accountGitHubResult.account.photo
     },
     repos: reposResult[orgSelected],
-    watchedRepos: watched.repos
+    watchedRepos: watched.repos.map(repo => repo.name)
   });
 });
 
