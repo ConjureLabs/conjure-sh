@@ -6,7 +6,7 @@ import config from '../../../shared/config.js';
 import Layout from '../../../components/Layout';
 import Button from '../../../components/Button';
 import Header from '../../../components/Header';
-import AnchorList from '../../../components/AnchorList';
+import AnchorMultiList from '../../../components/AnchorList/MultiSelect';
 
 let submitting = false;
 
@@ -69,7 +69,7 @@ export default class WatchRepos extends Component {
           <main>
             <div className={classes.listOuterWrap}>
               <span className={classes.listWrap}>
-                <AnchorList
+                <AnchorMultiList
                   list={listedRepos.map(repo => {
                     return {
                       label: repo.name,
@@ -79,6 +79,7 @@ export default class WatchRepos extends Component {
                   })}
                   onSelect={this.isRepoSelected.bind(this)}
                   className={classes.anchorList}
+                  ref={ref => this.anchorList = ref}
                 />
 
                 <Button
