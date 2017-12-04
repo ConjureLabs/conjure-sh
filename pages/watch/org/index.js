@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import styles, { classes } from './styles.js';
-import { post } from '../../../shared/xhr';
 import config from '../../../shared/config.js';
 
 import Layout from '../../../components/Layout';
@@ -18,16 +17,7 @@ export default class WatchOrg extends Component {
 
     submitting = true;
 
-    post(`${config.app.api.url}/api/org/${item.value}/watch`, {}, err => {
-      if (err) {
-        console.error(err);
-        alert(err.message);
-        submitting = false;
-        return;
-      }
-
-      window.location = `/watch/repos?org=${item.value}`;
-    });
+    window.location = `/watch/repos?org=${item.value}`;
   }
 
   render() {
@@ -54,7 +44,7 @@ export default class WatchOrg extends Component {
               list={listedOrgs.map(org => {
                 return {
                   label: org.login,
-                  value: org.id,
+                  value: org.login,
                   key: org.id
                 };
               })}

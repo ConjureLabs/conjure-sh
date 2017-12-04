@@ -78,6 +78,26 @@ server.use((req, res, next) => {
   next();
 });
 
+const robotsRouter = express.Router();
+robotsRouter.get('/robots.txt', (req, res) => {
+  res.set('Content-Type', 'text/plain');
+
+  if (req.headers.host === config.app.web.host) {
+    return res.send(
+`User-agent: *
+Disallow: /?org=
+`
+    );
+  }
+  
+  res.send(
+`User-agent: *
+Disallow: /
+`
+  );
+});
+server.use(robotsRouter);
+
 // container routes (to view web or logs)
 server.use(require('./container-routes'));
 
