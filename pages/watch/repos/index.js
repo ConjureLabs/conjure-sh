@@ -43,7 +43,7 @@ export default class WatchRepos extends Component {
         return;
       }
 
-      window.location = `/watch/repos?org=${item.value}`;
+      window.location = '/';
     });
   }
 
@@ -73,7 +73,7 @@ export default class WatchRepos extends Component {
                   list={listedRepos.map(repo => {
                     return {
                       label: repo.name,
-                      value: repo.name,
+                      value: repo.id,
                       key: repo.id
                     };
                   })}
