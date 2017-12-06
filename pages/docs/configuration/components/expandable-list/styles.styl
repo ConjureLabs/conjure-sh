@@ -1,0 +1,15 @@
+@require '../../../../../shared/framework.styl'
+
+.root
+  display: flex
+  flex-direction: column
+
+  .list
+    max-height: 20rem
+    overflow-y: scroll
+    
+    li
+      list-style: inside
+    
+  &.expanded .list
+    visibleScrollbar()
