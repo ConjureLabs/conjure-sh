@@ -39,6 +39,8 @@ export default ({ url }) => {
   port: 3002`}</pre>
       </div>
 
+      <hr />
+
       <a href='#languages'>
         <h3 id='languages'>Languages Supported</h3>
       </a>

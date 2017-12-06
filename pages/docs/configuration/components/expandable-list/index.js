@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import classnames from 'classnames';
 
+import Button from '../../../../../components/Button';
+
 import styles, { classes } from './styles';
 
 export default class ExpandableList extends Component {
@@ -35,18 +37,19 @@ export default class ExpandableList extends Component {
           }
         </ol>
 
-        <a
-          href=''
-          onClick={e => {
-            e.preventDefault();
+        <Button
+          size='small'
+          color='gray'
+          hallow={true}
+          className={classes.toggle}
+          onClick={() => {
             this.setState({
               expanded: !expanded
             });
           }}
-          className={classes.toggle}
         >
           {expanded ? 'View Less' : 'View More'}
-        </a>
+        </Button>
 
         {styles}
       </span>
