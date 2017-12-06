@@ -27,7 +27,8 @@ export default class OnboardOverlap extends Component {
   }
 
   render() {
-    const { query } = this.props.url;
+    const { url } = this.props;
+    const { query } = url;
     const { account, orgsAlreadyAvailable } = query;
 
     const initialState = {

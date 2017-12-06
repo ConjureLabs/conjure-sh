@@ -1,10 +1,9 @@
 const Route = require('conjure-core/classes/Route');
-const nextApp = require('../../../next');
 
 const route = new Route();
 
 route.push(async (req, res) => {
-  return nextApp.render(req, res, '/docs');
+  return res.redirect('/docs/configuration');
 });
 
 module.exports = route;
