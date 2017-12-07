@@ -51,7 +51,7 @@ export default class ExpandableList extends Component {
               });
             }}
           >
-            {expanded ? 'View Less' : 'View More'}
+            {expanded ? 'View Less' : 'View All'}
           </Button>
         )}
 
