@@ -101,6 +101,7 @@ class Timeline extends Component {
               <header>
                 <ol>
                   <li className={classes.status}>{dayHeaderText}</li>
+                  <li className={classes.logs}></li>
                   <li className={classes.repo}>Repo</li>
                   <li className={classes.branch}>Branch</li>
                   <li className={classes.duration}>Duration</li>
@@ -114,6 +115,8 @@ class Timeline extends Component {
               <sup />
               <del />
             </li>
+
+            <li className={classes.logs}></li>
 
             <li className={classes.repo}>
               <sup className={classes.svgIcon} />
