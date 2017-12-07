@@ -706,6 +706,21 @@ export default ({ url }) => {
         ]}
       />
 
+      <a href='#languages-java'>
+        <h3 id='languages-java'>Java</h3>
+      </a>
+
+      <ExpandableList
+        className={classes.list}
+        items={[
+          { suppress: false, content: 'oracle-8' },
+          { suppress: false, content: 'oracle-7' },
+          { suppress: false, content: 'oracle-6' },
+          { suppress: false, content: 'openjdk7' },
+          { suppress: false, content: 'openjdk6' },
+        ]}
+      />
+
       {styles}
     </Layout>
   );
