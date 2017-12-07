@@ -2,7 +2,6 @@ import { Component } from 'react';
 import styles, { classes } from './styles.js';
 import { connect } from 'federal';
 import EmptyState from '../../../../components/EmptyState';
-import AnchorHoverList from '../../../../components/AnchorHoverList';
 import classnames from 'classnames';
 import moment from 'moment';
 
@@ -197,6 +196,7 @@ class Timeline extends Component {
                           moment(new Date(headerDay * dayMs)).format('ll')
                       }
                     </li>
+                    <li className={classes.logs} />
                     <li className={classes.repo}>Repo</li>
                     <li className={classes.branch}>Branch</li>
                     <li className={classes.duration}>Duration</li>
@@ -207,23 +207,26 @@ class Timeline extends Component {
 
             // if container is running, link to it
             const statusNode = item.status === 'Running' ? (
-              <AnchorHoverList
+              <a
                 key={`running-instance-${item.id}`}
-                className={classes.runningInstanceAnchors}
-                anchors={[
-                  {
-                    href: item.view,
-                    target: '_blank',
-                    label: 'Running'
-                  },
-                  {
-                    href: item.logs,
-                    target: '_blank',
-                    label: 'Follow Logs'
-                  }
-                ]}
-              />
+                target='_blank'
+                href={item.view}
+              >
+                View
+              </a>
             ) : item.status;
+
+            // if container is running, link to logs
+            const logsNode = item.status === 'Running' ? (
+              <a
+                key={`running-logs-${item.id}`}
+                target='_blank'
+                href={item.logs}
+                className={classes.viewLogs}
+              >
+                Logs
+              </a>
+            ) : (' ');
 
             return (
               <article key={item.id}>
@@ -233,6 +236,10 @@ class Timeline extends Component {
                   <li className={classnames(classes.status, classes[item.statusKey])}>
                     <sup />
                     {statusNode}
+                  </li>
+
+                  <li className={classes.logs}>
+                    {logsNode}
                   </li>
 
                   <li className={classnames({
