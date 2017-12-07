@@ -106,7 +106,7 @@ port: 3002`}</pre>
         </article>
       </div>
 
-      <p>You can specify any specific language in your <span className={classes.code}>.conjure/config.yml</span>.</p>
+      <p>You can specify any specific language in your <span className={classes.code}>config.yml</span>.</p>
 
       <div className={classes.codeBlock}>
         <pre>{`languages:
@@ -115,6 +115,18 @@ port: 3002`}</pre>
       </div>
 
       <hr/>
+
+      <a href='#env-vars'>
+        <h3 id='env-vars'>Environment Variables</h3>
+      </a>
+
+      <p>You can add any environment variables (api keys, etc) by adding <span className={classes.code}>environment</span> attributes to the <span className={classes.code}>config.yml</span>.</p>
+
+      <div className={classes.codeBlock}>
+        <pre>{`environment:
+  THIRD_PARTY_KEY: dAwyY3Qxt7YNYczA2WSOTtUt
+  NODE_ENV: test`}</pre>
+      </div>
 
       {styles}
     </Layout>
