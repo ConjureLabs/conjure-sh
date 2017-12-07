@@ -224,7 +224,7 @@ class Dashboard extends Component {
     }
 
     return (
-      <div>
+      <div className={classes.root}>
         {isNaN(timelineDelta) || timelineDelta <= 0 ? null : (
           <div
             className={classes.viewNew}
