@@ -128,6 +128,32 @@ port: 3002`}</pre>
   NODE_ENV: test`}</pre>
       </div>
 
+      <hr/>
+
+      <a href='#port'>
+        <h3 id='port'>Application Port</h3>
+      </a>
+
+      <p>You must specify what port the application is running on, so that Conjure can forward requests.</p>
+
+      <div className={classes.codeBlock}>
+        <pre>{`port: 3002`}</pre>
+      </div>
+
+      <a href='#custom-configuration'>
+        <h3 id='custom-configuration'>Custom Configuration</h3>
+      </a>
+
+      <p>Need to configure your environment manually? You can run any commands you need to, before your branch is pulled down, via the <span className={classes.code}>pre</span> steps.</p>
+      <p>Conjure runs containers in a lightweight Debian OS. You can use <span className={classes.code}>apt-get</span> to fetch any needed packages.</p>
+
+      <div className={classes.codeBlock}>
+        <pre>{`pre:
+  - apt-get install python-gdal
+  - touch ~/.conjure-profile`}</pre>
+      </div>
+
+
       {styles}
     </Layout>
   );
