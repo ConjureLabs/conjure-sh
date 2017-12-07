@@ -320,10 +320,15 @@ const ConnectedDashbord = connect(selector, actions)(Dashboard);
 
 export default props => {
   const { url, ...extraProps } = props;
-  const { orgs, repos, additional } = url.query;
-  let { orgSelected, repoSelected } = url.query;
+  const { orgs, additional } = url.query;
+  let { repos, orgSelected, repoSelected } = url.query;
 
   orgSelected = orgSelected === '*' && orgs.length === 1 ? orgs[0] : orgSelected;
+  
+  if (orgSelected !== '*') {
+    repos = repos.filter(repo => repo.org === orgSelected);
+  }
+
   repoSelected = repoSelected === '*' && repos.length === 1 ? repos[0].name : repoSelected;
 
   const title = repoSelected !== '*' ? repoSelected :

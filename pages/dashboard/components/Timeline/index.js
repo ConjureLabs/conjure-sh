@@ -161,6 +161,8 @@ class Timeline extends Component {
             bodyText='Containers will spin up automatically whenever you create a Pull Request in GitHub'
           />
 
+          <span className={classes.subtext}>Make sure you have added the <a href='/docs/configuration'>Conjure YML config file</a> to your project</span>
+
           {styles}
         </div>
       );
