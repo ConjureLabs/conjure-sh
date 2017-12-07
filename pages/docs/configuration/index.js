@@ -53,45 +53,59 @@ export default ({ url }) => {
 
       <p>The following languages, and versions, are supported out-of-the-box:</p>
 
-      <a href='#languages-node'>
-        <h4 id='languages-node'>Node</h4>
-      </a>
-      <ExpandableList
-        className={classes.list}
-        items={nodeVersions}
-      />
+      <div className={classes.columns}>
+        <article className={classes.column}>
+          <a href='#languages-node'>
+            <h4 id='languages-node'>Node</h4>
+          </a>
+          <ExpandableList
+            className={classes.list}
+            items={nodeVersions}
+          />
+        </article>
 
-      <a href='#languages-ruby'>
-        <h4 id='languages-ruby'>Ruby</h4>
-      </a>
-      <ExpandableList
-        className={classes.list}
-        items={rubyVersions}
-      />
+        <article className={classes.column}>
+          <a href='#languages-ruby'>
+            <h4 id='languages-ruby'>Ruby</h4>
+          </a>
+          <ExpandableList
+            className={classes.list}
+            items={rubyVersions}
+          />
+        </article>
 
-      <a href='#languages-python'>
-        <h4 id='languages-python'>Python</h4>
-      </a>
-      <ExpandableList
-        className={classes.list}
-        items={pythonVersions}
-      />
+        <article className={classes.column}>
+          <a href='#languages-python'>
+            <h4 id='languages-python'>Python</h4>
+          </a>
+          <ExpandableList
+            className={classes.list}
+            items={pythonVersions}
+          />
+        </article>
+      </div>
 
-      <a href='#languages-php'>
-        <h4 id='languages-php'>PHP</h4>
-      </a>
-      <ExpandableList
-        className={classes.list}
-        items={phpVersions}
-      />
+      <div className={classes.columns}>
+        <article className={classes.column}>
+          <a href='#languages-php'>
+            <h4 id='languages-php'>PHP</h4>
+          </a>
+          <ExpandableList
+            className={classes.list}
+            items={phpVersions}
+          />
+        </article>
 
-      <a href='#languages-java'>
-        <h4 id='languages-java'>Java</h4>
-      </a>
-      <ExpandableList
-        className={classes.list}
-        items={javaVersions}
-      />
+        <article className={classes.column}>
+          <a href='#languages-java'>
+            <h4 id='languages-java'>Java</h4>
+          </a>
+          <ExpandableList
+            className={classes.list}
+            items={javaVersions}
+          />
+        </article>
+      </div>
 
       {styles}
     </Layout>
