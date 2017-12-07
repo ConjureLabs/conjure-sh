@@ -140,6 +140,8 @@ port: 3002`}</pre>
         <pre>{`port: 3002`}</pre>
       </div>
 
+      <hr/>
+
       <a href='#custom-configuration'>
         <h3 id='custom-configuration'>Custom Configuration</h3>
       </a>
@@ -153,6 +155,20 @@ port: 3002`}</pre>
   - touch ~/.conjure-profile`}</pre>
       </div>
 
+      <hr/>
+
+      <a href='#run-override'>
+        <h3 id='run-override'>Manually Setting the Run Command</h3>
+      </a>
+
+      <p>Conjure will automatically try to use the appropriate start command, for you project, based on the laguage. For instance, for Node projects, it will attempt <span className={classes.code}>npm start</span>.</p>
+      <p>If you need to, you can override the command used by Conjure when starting up the app.</p>
+
+      <div className={classes.codeBlock}>
+        <pre>{`run:
+  override:
+    - DEBUG=* yarn run dev`}</pre>
+      </div>
 
       {styles}
     </Layout>
