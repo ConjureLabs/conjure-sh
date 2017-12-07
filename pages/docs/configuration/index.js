@@ -31,18 +31,17 @@ export default ({ url }) => {
       <p>A simple example for a Node-based project's <span className={classes.code}>config.yml</span>:</p>
 
       <div className={classes.codeBlock}>
-        <pre>{`machine:
-  languages:
-    node:
-      version: 8.6.0
+        <pre>{`languages:
+  node:
+    version: 8.6.0
 
-  pre:
-    - npm install
-    - npm run build
+pre:
+  - npm install
+  - npm run build
 
-  start: "node server.js"
+start: "node server.js"
 
-  port: 3002`}</pre>
+port: 3002`}</pre>
       </div>
 
       <hr />
@@ -106,6 +105,16 @@ export default ({ url }) => {
           />
         </article>
       </div>
+
+      <p>You can specify any specific language in your <span className={classes.code}>.conjure/config.yml</span>.</p>
+
+      <div className={classes.codeBlock}>
+        <pre>{`languages:
+  python:
+    version: 3.7.0a1`}</pre>
+      </div>
+
+      <hr/>
 
       {styles}
     </Layout>
