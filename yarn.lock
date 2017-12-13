@@ -2932,9 +2932,9 @@ fbjs@^0.8.16:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.9"
 
-federal@0.0.1-alpha.7:
-  version "0.0.1-alpha.7"
-  resolved "https://registry.yarnpkg.com/federal/-/federal-0.0.1-alpha.7.tgz#c4ddb19bd94b23797e97ba2d2e6e51eb4dcebf14"
+federal@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/federal/-/federal-0.0.1.tgz#ea1fc4ef413fce226dc2343e6b9c4f2683d35c42"
   dependencies:
     prop-types "15.6.0"
     react "16.2.0"
