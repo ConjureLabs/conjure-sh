@@ -1,18 +1,10 @@
 <p align="center">
-  <strong>c o n j u r e</strong>
-  <kbd>⎔</kbd>
-  <strong>w e b</strong>
+  <kbd>w e b</kbd>
 </p>
 
 ### Conjure Web
 
 Easily test branches, without altering your local.
-
-#### Branding
-
-Using [U+2394 ⎔](https://unicode-table.com/en/#2394) as the service icon.
-
-Can be used as a window into the experience.
 
 #### Env Vars
 
