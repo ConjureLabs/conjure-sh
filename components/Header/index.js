@@ -10,9 +10,7 @@ const Header = ({ account, children, wrapped = true, limited = false }) => (
       [classes.wrap]: wrapped
     })}>
       <a href='/'>
-        <h1 className={classes.title}>
-          <sup>⎔</sup> Conjure
-        </h1>
+        <h1 className={classes.title}>Conjure</h1>
       </a>
 
       <sub className={classes.filler} />
