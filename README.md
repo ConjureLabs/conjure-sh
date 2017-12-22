@@ -23,9 +23,9 @@ yarn install
 
 ###### Dnsmasq
 
-dnsmasq needs some extra config. It allows you to use any `.dev` domain (`conjure.dev`, `abc.view.conjure.dev`, etc), which is needed for viewing running containers.
+dnsmasq needs some extra config. It allows you to use any `.local` domain (`conjure.local`, `abc.view.conjure.local`, etc), which is needed for viewing running containers.
 
-See [this guide](https://passingcuriosity.com/2013/dnsmasq-dev-osx/) for instructions.
+See [this guide](https://passingcuriosity.com/2013/dnsmasq-dev-osx/) for instructions (but replace `dev` with `local`, since Chrome now hijacks the `.dev` domain).
 
 ##### Database Setup
 
