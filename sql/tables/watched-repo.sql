@@ -12,7 +12,6 @@ CREATE TABLE watched_repo (
   name VARCHAR(516),
   private BOOLEAN NOT NULL,
   disabled BOOLEAN NOT NULL,
-  ecr_repo_created BOOLEAN DEFAULT False,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE,
   UNIQUE (service, service_repo_id)
