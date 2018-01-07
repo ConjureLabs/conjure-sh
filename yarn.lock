@@ -1802,14 +1802,14 @@ config-chain@~1.1.8:
     ini "^1.3.4"
     proto-list "~1.2.1"
 
-conjure-api@ConjureLabs/conjure-api:
+"conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+ssh://git@github.com/ConjureLabs/conjure-api.git#f5efad470685177c0d05882478d44773b5093bca"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#a45830fd03976de6bd27890b12f32c6cfe8a8d45"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
     compression "1.6.2"
-    conjure-core "git+ssh://git@github.com:ConjureLabs/conjure-core.git"
+    conjure-core "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git"
     cookie-parser "1.4.3"
     cookie-session "2.0.0-alpha.2"
     debug "2.6.0"
@@ -1819,10 +1819,9 @@ conjure-api@ConjureLabs/conjure-api:
     passport-github "^1.1.0"
     pg "^6.2.3"
 
-conjure-core@ConjureLabs/conjure-core:
+"conjure-core@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git":
   version "0.0.0"
-  uid a3d8a7c0705fecf927a2b3bec6acf95335178689
-  resolved "git+ssh://git@github.com/ConjureLabs/conjure-core.git#a3d8a7c0705fecf927a2b3bec6acf95335178689"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#c1bddffccd50248024954002bd8bf515c48cf280"
   dependencies:
     amqp "^0.2.6"
     app-root-path "^2.0.1"
@@ -1831,21 +1830,7 @@ conjure-core@ConjureLabs/conjure-core:
     node-yaml "^3.1.1"
     octonode "^0.7.13"
     pg "^7.3.0"
-    request "^2.81.0"
-    request-promise-native "1.0.5"
-    stripe "^4.19.0"
-
-"conjure-core@git+ssh://git@github.com:ConjureLabs/conjure-core.git":
-  version "0.0.0"
-  resolved "git+ssh://git@github.com:ConjureLabs/conjure-core.git#a3d8a7c0705fecf927a2b3bec6acf95335178689"
-  dependencies:
-    amqp "^0.2.6"
-    app-root-path "^2.0.1"
-    cors "^2.8.3"
-    express "^4.15.4"
-    node-yaml "^3.1.1"
-    octonode "^0.7.13"
-    pg "^7.3.0"
+    postmark "1.5.0"
     request "^2.81.0"
     request-promise-native "1.0.5"
     stripe "^4.19.0"
@@ -4428,6 +4413,10 @@ merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
 
+merge@1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
+
 methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"
@@ -5612,6 +5601,12 @@ postgres-interval@^1.1.0:
   resolved "https://registry.yarnpkg.com/postgres-interval/-/postgres-interval-1.1.1.tgz#acdb0f897b4b1c6e496d9d4e0a853e1c428f06f0"
   dependencies:
     xtend "^4.0.0"
+
+postmark@1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/postmark/-/postmark-1.5.0.tgz#6812a35195d14e59922181aba5920f3ceec156b6"
+  dependencies:
+    merge "1.2.0"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
