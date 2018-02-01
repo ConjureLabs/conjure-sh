@@ -2243,7 +2243,7 @@ dateformat@^1.0.11, dateformat@^1.0.12:
 
 db@ConjureLabs/db:
   version "1.0.0"
-  resolved "git+ssh://git@github.com/ConjureLabs/db.git#67a0851fa8bdd02ad2d1be68a102e9eb2e55b94a"
+  resolved "git+ssh://git@github.com/ConjureLabs/db.git#55369aa494bf11ff1898e853fdb339f15a376492"
 
 debug@*, debug@3.1.0, debug@^3.0.1, debug@^3.1.0:
   version "3.1.0"
