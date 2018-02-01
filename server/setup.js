@@ -34,7 +34,7 @@ function crawlRoutesDir(ignoreCurrentDir, dirpath, uriPathTokens) {
   const routes = [];
   const files = [];
 
-  const sortInsensitive = require('conjure-core/modules/utils/Array/sort-insensitive');
+  const sortInsensitive = require('utils/Array/sort-insensitive');
   sortInsensitive(list);
 
   // first looking for subdirectories, getting their recursive routes, then pushing those into the main array

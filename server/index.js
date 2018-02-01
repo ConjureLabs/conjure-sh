@@ -1,4 +1,4 @@
-require('conjure-core/modules/utils/process/handle-exceptions');
+require('utils/process/handle-exceptions');
 
 // first running any synchronous setup
 const setup = require('./setup');

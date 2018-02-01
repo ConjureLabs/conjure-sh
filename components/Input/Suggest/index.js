@@ -1,6 +1,6 @@
 import Input from '../index.js';
 import styles, { classes } from './styles.js';
-import sortInsensitive from 'conjure-core/modules/utils/Array/sort-insensitive';
+import sortInsensitive from 'utils/Array/sort-insensitive';
 import classnames from 'classnames';
 
 export default class Suggest extends Input {
