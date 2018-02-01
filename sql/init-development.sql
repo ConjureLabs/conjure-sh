@@ -22,3 +22,4 @@ CREATE DATABASE conjure WITH OWNER conjure_admin;
 \i ../sql/tables/account-repo.sql;
 \i ../sql/tables/monthly-billing-plan.sql;
 \i ../sql/tables/account-monthly-billing-plan.sql;
+\i ../sql/tables/ecr-repo.sql
