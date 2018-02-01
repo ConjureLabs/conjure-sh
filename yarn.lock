@@ -1830,7 +1830,7 @@ config-chain@~1.1.8:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#e1442db02506e2441aa930c46b1722f62cfbde5a"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#84ac23eb873d38407b0eeb244cb8887babf219b9"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
@@ -1838,6 +1838,7 @@ config-chain@~1.1.8:
     conjure-core "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git"
     cookie-parser "1.4.3"
     cookie-session "2.0.0-alpha.2"
+    db ConjureLabs/db
     debug "2.6.0"
     err ConjureLabs/err
     express "4.15.2"
@@ -2239,6 +2240,10 @@ dateformat@^1.0.11, dateformat@^1.0.12:
   dependencies:
     get-stdin "^4.0.1"
     meow "^3.3.0"
+
+db@ConjureLabs/db:
+  version "1.0.0"
+  resolved "git+ssh://git@github.com/ConjureLabs/db.git#67a0851fa8bdd02ad2d1be68a102e9eb2e55b94a"
 
 debug@*, debug@3.1.0, debug@^3.0.1, debug@^3.1.0:
   version "3.1.0"
