@@ -36,8 +36,8 @@ route.push(async (req, res) => {
   // and that the user has access to at least one repo within that org
   const batchAll = require('utils/Promise/batch-all');
   const watchedRepoResults = await batchAll(4, orgs, org => {
-    const database = require('conjure-core/modules/database');
-    return database.query('SELECT COUNT(*) num FROM watched_repo WHERE org = $1', [org.login]);
+    const { query } = require('db');
+    return query('SELECT COUNT(*) num FROM watched_repo WHERE org = $1', [org.login]);
   });
 
   const repoChecks = orgs.reduce((mapping, org, i) => {

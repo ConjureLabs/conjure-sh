@@ -1830,7 +1830,7 @@ config-chain@~1.1.8:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#84ac23eb873d38407b0eeb244cb8887babf219b9"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#ad86a16f15f0e4fb56855d507dbfb063c71b0a29"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
