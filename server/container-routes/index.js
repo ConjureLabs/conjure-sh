@@ -40,7 +40,7 @@ async function checkPermissions(req, res, uid, handler, next) {
     return require(`./${handler}.js`)(req, res, containerRecord, next);
   };
 
-  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
+  const DatabaseTable = require('db/table');
 
   // pull up the container record being accessed
   let containers;

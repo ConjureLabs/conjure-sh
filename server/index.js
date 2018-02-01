@@ -52,7 +52,7 @@ server.use(cookieParser());
 
 // passport serialization
 passport.serializeUser((user, done) => {
-  const DatabaseRow = require('conjure-core/classes/DatabaseRow');
+  const DatabaseRow = require('db/row');
   done(null, new DatabaseRow('account', user));
 });
 passport.deserializeUser((user, done) => {

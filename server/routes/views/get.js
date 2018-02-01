@@ -19,7 +19,7 @@ route.push(async (req, res) => {
  */
 route.push(async (req, res) => {
   // assuming req.isAuthenticated() === true, based on previous .get('/')
-  const DatabaseTable = require('conjure-core/classes/DatabaseTable');
+  const DatabaseTable = require('db/table');
   const account = new DatabaseTable('account');
   const accountRows = await account.select({
     id: req.user.id
