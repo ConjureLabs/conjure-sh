@@ -33,6 +33,7 @@
     "country-list": "^1.1.0",
     "css-loader": "^0.28.0",
     "debug": "2.6.0",
+    "err": "ConjureLabs/err",
     "expose-loader": "^0.7.3",
     "express": "4.14.0",
     "extract-text-webpack-plugin": "^2.1.0",
