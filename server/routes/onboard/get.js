@@ -1,5 +1,5 @@
 const Route = require('route');
-const nextApp = require('../../../next');
+const nextApp = require('../../next');
 
 const route = new Route({
   requireAuthentication: true,

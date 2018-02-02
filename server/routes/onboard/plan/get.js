@@ -1,5 +1,5 @@
 const Route = require('route');
-const nextApp = require('../../../../next');
+const nextApp = require('../../../next');
 
 const route = new Route({
   requireAuthentication: true,
@@ -26,7 +26,6 @@ route.push(async (req, res) => {
     return res.redirect(302, '/');
   }
 
-  // verify cookie from orgs onboard set
   if (
     !req.cookies ||
     !req.cookies['conjure-onboard-orgs'] ||
@@ -36,20 +35,20 @@ route.push(async (req, res) => {
     return res.redirect(302, '/onboard/orgs');
   }
 
-  // checking if a plan exists, for this user
+  // checking if a plan already exists, for this user
   const AccountMonthlyBillingPlan = new DatabaseTable('account_monthly_billing_plan');
   const planRows = await AccountMonthlyBillingPlan.select({
     account: req.user.id
   });
 
-  if (planRows.length === 0) {
-    return res.redirect(302, '/onboard/plan');
+  if (planRows.length > 0) {
+    return res.redirect(302, '/onboard/billing');
   }
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
   const gitHubAccount = (await apiGetAccountGitHub(req)).account;
 
-  return nextApp.render(req, res, '/onboard/billing', {
+  return nextApp.render(req, res, '/onboard/plan', {
     account: {
       photo: gitHubAccount.photo
     }

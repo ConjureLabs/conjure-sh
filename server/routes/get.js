@@ -1,5 +1,5 @@
 const Route = require('route');
-const nextApp = require('../../next');
+const nextApp = require('../next');
 const log = require('conjure-core/modules/log')('root path');
 
 const route = new Route();
