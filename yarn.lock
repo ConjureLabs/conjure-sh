@@ -1805,7 +1805,7 @@ config-chain@~1.1.8:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#0f438f9380bd8e096018b990ca9554a235b86664"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#0eb34c5b74c13d050a4a584458d4a17fca106c06"
   dependencies:
     async "^2.3.0"
     body-parser "1.15.2"
@@ -6429,7 +6429,7 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
 
 route@ConjureLabs/route:
   version "1.0.0"
-  resolved "https://codeload.github.com/ConjureLabs/route/tar.gz/2b5540906d13e9dacde152792cc84dc3385c9bc3"
+  resolved "https://codeload.github.com/ConjureLabs/route/tar.gz/d96f3790d6c45530f64e282b2811d38e87e98054"
   dependencies:
     cors "^2.8.4"
     err "github:ConjureLabs/err"
