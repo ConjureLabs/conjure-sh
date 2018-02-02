@@ -102,7 +102,7 @@ server.use(robotsRouter);
 server.use(require('./container-routes'));
 
 // initialize routes
-server.use(setup.routes.views);
+server.use(setup.routes);
 
 // any non-caught GET route then goes on to the nextjs handler
 const catchAllRouter = express.Router();
