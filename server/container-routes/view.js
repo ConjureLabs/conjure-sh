@@ -1,12 +1,17 @@
-module.exports = (req, res, containerRecord) => {
+module.exports = (req, res, containerRecord, next) => {
   const ReqProxy = require('conjure-core/classes/Req/Proxy');
 
   // was successful, so proxy the request to the docker instance
   const proxy = new ReqProxy({
-    domain: process.env.NODE_ENV === 'development' ? 'localhost' : containerRecord.public_ip, // todo: may want to config this
+    domain: containerRecord.public_ip,
     path: req.url,
     port: containerRecord.host_port
   });
 
-  proxy.forward(req, res);
+  try {
+    proxy.forward(req, res);
+  } catch(err) {
+    console.error(err);
+    next();
+  }
 };
