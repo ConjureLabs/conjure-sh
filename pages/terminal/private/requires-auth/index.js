@@ -58,7 +58,7 @@ export default class RequiresAuth extends Component {
         </div>
 
         {styles}
-      <Layout>
+      </Layout>
     );
   }
 }

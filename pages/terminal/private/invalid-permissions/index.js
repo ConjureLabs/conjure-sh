@@ -17,5 +17,5 @@ export default ({ url }) => (
     />
 
     {styles}
-  <Layout>
+  </Layout>
 );
