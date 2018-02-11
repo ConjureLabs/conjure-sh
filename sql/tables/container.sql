@@ -1,4 +1,4 @@
-CREATE TYPE container_ecs_state AS ENUM('spinnin up', 'spinning down', 'running', 'stopped');
+CREATE TYPE container_ecs_state AS ENUM('spinnin up', 'spinning down', 'running', 'stopped', 'updating');
 
 CREATE TABLE container (
   id SERIAL PRIMARY KEY,
@@ -11,11 +11,11 @@ CREATE TABLE container (
   task_arn VARCHAR(100),
   task_definition_arn VARCHAR(100),
   container_id VARCHAR(64),
-  url_uid VARCHAR(24) NOT NULL,
+  url_uid VARCHAR(24),
   is_active BOOLEAN NOT NULL,
   ecs_state container_ecs_state NOT NULL,
   active_start TIMESTAMP WITH TIME ZONE,
-  active_stop TIMESTAMP WITH TIME ZONE,
+  active_end TIMESTAMP WITH TIME ZONE,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
