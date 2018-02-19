@@ -1,4 +1,4 @@
-CREATE TYPE container_ecs_state AS ENUM('spinnin up', 'spinning down', 'running', 'stopped', 'updating');
+CREATE TYPE container_ecs_state AS ENUM('spinning up', 'spinning down', 'running', 'stopped', 'updating');
 
 CREATE TABLE container (
   id SERIAL PRIMARY KEY,

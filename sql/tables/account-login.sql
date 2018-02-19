@@ -6,4 +6,4 @@ CREATE TABLE account_login (
   service account_login_service NOT NULL,
   added TIMESTAMP WITH TIME ZONE NOT NULL
 );
-COMMENT ON TABLE account_login IS 'conjure user records';
+COMMENT ON TABLE account_login IS 'conjure user login audit';
