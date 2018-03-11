@@ -1,4 +1,4 @@
-import { stringify } from 'querystring';
+import { stringify } from 'querystring'
 
 // todo: need to update get and post to return an error if http statusCode !== 200
 
@@ -11,18 +11,18 @@ export function get(url, data, callback) {
     .then(response => {
       if (!response.ok) {
         return response.json().then(json => {
-          throw new Error(json.message || response.statusText);
-        });
+          throw new Error(json.message || response.statusText)
+        })
       }
 
-      return response.json();
+      return response.json()
     })
     .then(json => {
-      callback(null, json);
+      callback(null, json)
     })
     .catch(err => {
-      callback(err);
-    });
+      callback(err)
+    })
 }
 
 export function post(url, data, callback) {
@@ -39,18 +39,18 @@ export function post(url, data, callback) {
     .then(response => {
       if (!response.ok) {
         return response.json().then(json => {
-          throw new Error(json.message || response.statusText);
-        });
+          throw new Error(json.message || response.statusText)
+        })
       }
 
-      return response.json();
+      return response.json()
     })
     .then(json => {
-      callback(null, json);
+      callback(null, json)
     })
     .catch(err => {
-      callback(err);
-    });
+      callback(err)
+    })
 }
 
 export function del(url, data, callback) {
@@ -62,16 +62,16 @@ export function del(url, data, callback) {
     .then(response => {
       if (!response.ok) {
         return response.json().then(json => {
-          throw new Error(json.message || response.statusText);
-        });
+          throw new Error(json.message || response.statusText)
+        })
       }
 
-      return response.json();
+      return response.json()
     })
     .then(json => {
-      callback(null, json);
+      callback(null, json)
     })
     .catch(err => {
-      callback(err);
-    });
+      callback(err)
+    })
 }

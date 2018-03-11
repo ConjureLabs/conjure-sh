@@ -1,7 +1,7 @@
-import styles, { classes } from './styles.js';
+import styles, { classes } from './styles.js'
 
-import Layout from '../../../../components/Layout';
-import EmptyState from '../../../../components/EmptyState';
+import Layout from '../../../../components/Layout'
+import EmptyState from '../../../../components/EmptyState'
 
 export default ({ url }) => (
   <Layout
@@ -18,4 +18,4 @@ export default ({ url }) => (
 
     {styles}
   </Layout>
-);
+)

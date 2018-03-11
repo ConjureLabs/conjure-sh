@@ -111,4 +111,4 @@ export default [
   { suppress: true, content: '1.8.2-preview1' },
   { suppress: true, content: '1.8.0' },
   { suppress: true, content: '1.6.7' }
-];
+]

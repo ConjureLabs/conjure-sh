@@ -176,4 +176,4 @@ export default [{
   // outlying area
   label: 'Virgin Islands, U.S.',
   value: 'VI'
-}];
+}]

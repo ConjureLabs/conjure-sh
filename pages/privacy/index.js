@@ -1,6 +1,6 @@
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout'
 
-import styles, { classes } from './styles.js';
+import styles from './styles.js'
 
 export default ({ url }) => (
   <Layout
@@ -35,7 +35,7 @@ export default ({ url }) => (
     <p>Conjure collects, aggregates, and stores metrics and usage data for its customers in order to provide the Service and support associated with the Service. Conjure in turn will not disclose individual metric or usage data other than in an aggregated form or for the purposes described in this Privacy Policy.</p>
   
     <h3>Protection of Certain Personally Identifying Information</h3>
-    <p>Conjure discloses potentially personally identifying and personally identifying information only to those of its employees, contractors, and affiliated organizations that (1) need to know that information in order to process it on Conjure's behalf or to provide services available in connection with the Service and (2) have agreed not to disclose it to others. Some of those employees, contractors and affiliated organizations may be located outside of your home country; by using Conjure's Website and/or Service then you consent to the transfer of information to such individuals and organizations in order to support our provision to you of the Website and Service. These supporting partners may be authorized to, for example, process payments on our behalf or provide customer support. Transfers to subsequent third parties are covered by the provisions in this Policy regarding notice and choice and the service agreements with our customers. However, in each case, these partners are authorized to use your PII only as necessary to provide the services we request.</p>
+    <p>Conjure discloses potentially personally identifying and personally identifying information only to those of its employees, contractors, and affiliated organizations that (1) need to know that information in order to process it on Conjure's behalf or to provide services available in connection with the Service and (2) have agreed not to disclose it to others. Some of those employees, contractors and affiliated organizations may be located outside of your home country by using Conjure's Website and/or Service then you consent to the transfer of information to such individuals and organizations in order to support our provision to you of the Website and Service. These supporting partners may be authorized to, for example, process payments on our behalf or provide customer support. Transfers to subsequent third parties are covered by the provisions in this Policy regarding notice and choice and the service agreements with our customers. However, in each case, these partners are authorized to use your PII only as necessary to provide the services we request.</p>
     <p>Other than to its employees, contractors, and affiliated organizations, as described above, Conjure discloses potentially personally identifying and personally identifying information only when required to do so by law, such as to comply with a subpoena, bankruptcy proceedings, or similar legal process, or when Conjure believes in good faith that disclosure is reasonably necessary to protect the property or rights of Conjure, third parties, or the public at large. If Conjure is involved in a merger, acquisition, or sale of all or a portion of its assets, either you will be notified via email and/or a prominent notice through the Service of any change in ownership or uses of your personally identifying information, as well as any choices you may have regarding your PII or we will require any such buyer to agree to treat your PII in accordance with this Privacy Policy.</p>
     <p>If you are a registered user of the Service and have supplied your email address, Conjure may occasionally send you an email to tell you about new features, solicit your feedback, inform you about other products and services by Conjure Labs, Inc., or just keep you up to date with what's going on with Conjure and our products. If you send us a request (for example via a support email or via one of our feedback mechanisms), we reserve the right to publish it in order to help us clarify or respond to your request or to help us support other users. Conjure takes all measures reasonably necessary to protect against the unauthorized access, use, alteration, or destruction of potentially personally identifying and personally identifying information.</p>
   
@@ -59,4 +59,4 @@ export default ({ url }) => (
 
     {styles}
   </Layout>
-);
+)

@@ -1,15 +1,15 @@
-import Head from 'next/head';
-import Federal, { connect } from '@conjurelabs/federal';
-import classnames from 'classnames';
+import Head from 'next/head'
+import Federal from '@conjurelabs/federal'
+import classnames from 'classnames'
 
-import Header from '../Header';
-import config from '../../shared/config';
-import nativeStyles from './styles.native.js';
+import Header from '../Header'
+import config from '../../shared/config'
+import nativeStyles from './styles.native.js'
 
-import styles, { classes } from './styles.js';
+import styles, { classes } from './styles.js'
 
 export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true }) => {
-  const { account, cards } = url.query;
+  const { account, cards } = url.query
 
   const initialStore = {
     account,
@@ -17,13 +17,13 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
     pagingHref: null,
     timeline: null,
     timelineDelta: null
-  };
+  }
 
   return (
     <div className={classes.root}>
       <Head>
         { process.env.NODE_ENV === 'production' ? <script async src='https://www.googletagmanager.com/gtag/js?id=UA-108457027-1' /> : null }
-        { process.env.NODE_ENV === 'production' ? <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-108457027-1');` }} />  : null }
+        { process.env.NODE_ENV === 'production' ? <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || [] function gtag(){dataLayer.push(arguments)} gtag('js', new Date()) gtag('config', 'UA-108457027-1')` }} />  : null }
         <title>{title}</title>
         <meta name='description' content='Containers for your Pull Requests, giving you a link to view changes directly in GitHub' />
         <meta name='og:description' content={config.app.web.url} />
@@ -53,7 +53,7 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
 
           {withFooter !== true ? null : (
             <footer className={classes.footer}>
-              <span>Copyright &copy; 2017 Conjure Labs, Inc.</span>
+              <span>Copyright &copy 2017 Conjure Labs, Inc.</span>
               <del>|</del>
               <a href='/docs'>Docs</a>
               <del>|</del>
@@ -67,5 +67,5 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
 
       {styles}
     </div>
-  );
-};
+  )
+}

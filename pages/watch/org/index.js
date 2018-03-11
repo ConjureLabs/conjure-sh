@@ -1,31 +1,30 @@
-import { Component } from 'react';
-import styles, { classes } from './styles.js';
-import config from '../../../shared/config.js';
+import { Component } from 'react'
+import styles, { classes } from './styles.js'
 
-import Layout from '../../../components/Layout';
-import Header from '../../../components/Header';
-import AnchorList from '../../../components/AnchorList';
+import Layout from '../../../components/Layout'
+import Header from '../../../components/Header'
+import AnchorList from '../../../components/AnchorList'
 
-let submitting = false;
+let submitting = false
 
 export default class WatchOrg extends Component {
   makeSelection(item) {
     // {label: "ConjureLabs", value: 1783213}
     if (submitting) {
-      return;
+      return
     }
 
-    submitting = true;
+    submitting = true
 
-    window.location = `/watch/repos?org=${item.value}`;
+    window.location = `/watch/repos?org=${item.value}`
   }
 
   render() {
-    const { url } = this.props;
-    const { query } = url;
-    const { orgs, watchedOrgs } = query;
+    const { url } = this.props
+    const { query } = url
+    const { orgs, watchedOrgs } = query
 
-    const listedOrgs = orgs.filter(org => !watchedOrgs.includes(org.login));
+    const listedOrgs = orgs.filter(org => !watchedOrgs.includes(org.login))
 
     return (
       <Layout
@@ -46,7 +45,7 @@ export default class WatchOrg extends Component {
                   label: org.login,
                   value: org.login,
                   key: org.id
-                };
+                }
               })}
               onSelect={this.makeSelection}
               className={classes.anchorList}
@@ -56,6 +55,6 @@ export default class WatchOrg extends Component {
 
         {styles}
       </Layout>
-    );
+    )
   }
 }

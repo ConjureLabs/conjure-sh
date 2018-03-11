@@ -1,29 +1,29 @@
-import { Component } from 'react';
-import { connect } from '@conjurelabs/federal';
-import classnames from 'classnames';
-import styles, { classes } from './card-ui-styles.js';
-import { del } from '../../../shared/xhr';
-import config from '../../../shared/config.js';
+import { Component } from 'react'
+import { connect } from '@conjurelabs/federal'
+import classnames from 'classnames'
+import styles, { classes } from './card-ui-styles.js'
+import { del } from '../../../shared/xhr'
+import config from '../../../shared/config.js'
 
-import CreditCardSummary from '../../../components/CreditCardSummary';
+import CreditCardSummary from '../../../components/CreditCardSummary'
 
 class CardUi extends Component {
-  constructor(props, context) {
-    super(props);
+  constructor(props) {
+    super(props)
 
     this.state = {
       deleting: false,
       promptConfirm: false
-    };
+    }
   }
 
   getActions() {
     if (this.state.deleting === true) {
-      return null;
+      return null
     }
 
-    const actions = [];
-    const { card } = this.props;
+    const actions = []
+    const { card } = this.props
 
     if (this.state.promptConfirm === false) {
       actions.push((
@@ -32,15 +32,15 @@ class CardUi extends Component {
           href=''
           className={classes.delete}
           onClick={e => {
-            e.preventDefault();
+            e.preventDefault()
             this.setState({
               promptConfirm: true
-            });
+            })
           }}
         >
           Delete Card
         </a>
-      ));
+      ))
     } else {
       actions.push((
         <a
@@ -48,18 +48,18 @@ class CardUi extends Component {
           href=''
           className={classes.confirm}
           onClick={e => {
-            e.preventDefault();
+            e.preventDefault()
             this.setState({
               deleting: true,
               promptConfirm: false
             }, () => {
-              this.deleteCard();
-            });
+              this.deleteCard()
+            })
           }}
         >
           Confirm
         </a>
-      ));
+      ))
 
       actions.push((
         <a
@@ -67,45 +67,45 @@ class CardUi extends Component {
           href=''
           className={classes.cancel}
           onClick={e => {
-            e.preventDefault();
+            e.preventDefault()
             this.setState({
               promptConfirm: false
-            });
+            })
           }}
         >
           Cancel
         </a>
-      ));
+      ))
     }
 
     return (
       <span className={classes.actions}>
         {actions}
       </span>
-    );
+    )
   }
 
   deleteCard() {
-    const { card, dispatch } = this.props;
+    const { card, dispatch } = this.props
 
     del(`${config.app.api.url}/api/account/billing/card/${card.id}`, null, err => {
       if (err) {
-        console.error(err);
-        alert(err.message);
+        console.error(err)
+        alert(err.message)
         this.setState({
           deleting: false
-        });
-        return;
+        })
+        return
       }
 
       dispatch.removeCard({
         card
-      });
-    });
+      })
+    })
   }
 
   render() {
-    const { card, className } = this.props;
+    const { card, className } = this.props
 
     return (
       <div className={classnames(classes.root, className)}>
@@ -117,12 +117,12 @@ class CardUi extends Component {
 
         {styles}
       </div>
-    );
+    )
   }
 }
 
 const selector = store => ({
   cards: store.cards
-});
+})
 
-export default connect(selector)(CardUi);
+export default connect(selector)(CardUi)

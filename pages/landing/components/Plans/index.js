@@ -1,6 +1,6 @@
-import classnames from 'classnames';
+import classnames from 'classnames'
 
-import styles, { classes } from './styles.js';
+import styles, { classes } from './styles.js'
 
 export default ({ className }) => (
   <ol className={classnames(classes.root, className)}>
@@ -90,4 +90,4 @@ export default ({ className }) => (
 
     {styles}
   </ol>
-);
+)

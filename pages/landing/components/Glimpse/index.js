@@ -1,44 +1,44 @@
-import { Component } from 'react';
-import styles, { classes } from './styles.js';
-import classnames from 'classnames';
+import { Component } from 'react'
+import styles, { classes } from './styles.js'
+import classnames from 'classnames'
 
 export default class Glimpse extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.conjureContent = null; // component ref, set via render
+    this.conjureContent = null // component ref, set via render
 
     this.state = {
       inViewport: false // once true, will not be set back
-    };
+    }
 
     if (typeof window !== 'undefined' && window.addEventListener) {
-      const boundHandler = this.checkIfInViewport.bind(this);
+      const boundHandler = this.checkIfInViewport.bind(this)
 
-      window.addEventListener('scroll', boundHandler);
-      window.addEventListener('resize', boundHandler);
+      window.addEventListener('scroll', boundHandler)
+      window.addEventListener('resize', boundHandler)
 
       this.removeBoundHandler = () => {
-        window.removeEventListener('scroll', boundHandler);
-        window.removeEventListener('resize', boundHandler);
-      };
+        window.removeEventListener('scroll', boundHandler)
+        window.removeEventListener('resize', boundHandler)
+      }
     } else {
       // if can't add listeners, then just force state
       try {
         this.setState({
           inViewport: true
-        });
+        })
       } catch (err) {}
     }
   }
 
   checkIfInViewport() {
     if (!this.conjureContent || this.state.inViewport) {
-      return;
+      return
     }
 
-    const rect = this.conjureContent.getBoundingClientRect();
-    const html = document.documentElement;
+    const rect = this.conjureContent.getBoundingClientRect()
+    const html = document.documentElement
 
     if (
       !(
@@ -48,7 +48,7 @@ export default class Glimpse extends Component {
         rect.right <= (window.innerWidth || html.clientWidth)
       )
     ) {
-      return;
+      return
     }
 
     try {
@@ -56,22 +56,22 @@ export default class Glimpse extends Component {
         inViewport: true
       }, () => {
         if (this.removeBoundHandler) {
-          this.removeBoundHandler();
+          this.removeBoundHandler()
         }
-      });
+      })
     } catch (err) {}
   }
 
   render() {
-    const { inViewport } = this.state;
-    const { className } = this.props;
+    const { inViewport } = this.state
+    const { className } = this.props
 
     return (
       <div
         className={classnames(classes.root, className)}
         ref={ref => {
-          this.conjureContent = ref;
-          this.checkIfInViewport();
+          this.conjureContent = ref
+          this.checkIfInViewport()
         }}
       >
         <div className={classes.toolbar}>
@@ -171,6 +171,6 @@ export default class Glimpse extends Component {
 
         {styles}
       </div>
-    );
+    )
   }
 }

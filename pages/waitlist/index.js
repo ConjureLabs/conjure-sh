@@ -1,6 +1,6 @@
-import styles, { classes } from './styles.js';
+import styles, { classes } from './styles.js'
 
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout'
 
 const Waitlist = ({ url }) => (
   <Layout
@@ -16,4 +16,4 @@ const Waitlist = ({ url }) => (
 
     {styles}
   </Layout>
-);
+)

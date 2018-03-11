@@ -1,20 +1,20 @@
-import { Component } from 'react';
-import styles, { classes } from './styles.js';
-import classnames from 'classnames';
+import { Component } from 'react'
+import styles, { classes } from './styles.js'
+import classnames from 'classnames'
 
 export default class AnchorList extends Component {
   onClick(item) {
-    this.props.onSelect(item);
+    this.props.onSelect(item)
   }
 
   // should be overidden
   itemAdditionalClasses(/* item */) {
-    return null;
+    return null
   }
 
   // should be overidden
   additionalContent() {
-    return null;
+    return null
   }
 
   generateListItems(items) {
@@ -28,20 +28,20 @@ export default class AnchorList extends Component {
             href=''
             className={classes.link}
             onClick={e => {
-              e.preventDefault();
-              this.onClick(item);
+              e.preventDefault()
+              this.onClick(item)
             }}
             key={item.label}
           >
             {item.label}
           </a>
         </li>
-      );
-    });
+      )
+    })
   }
 
   render() {
-    const { list, className } = this.props;
+    const { list, className } = this.props
 
     return (
       <ol className={classnames(classes.root, className)}>
@@ -53,6 +53,6 @@ export default class AnchorList extends Component {
 
         {this.additionalContent()}
       </ol>
-    );
+    )
   }
 }

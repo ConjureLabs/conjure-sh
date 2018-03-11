@@ -1,182 +1,182 @@
-import { Component } from 'react';
-import { get } from '../../shared/xhr';
-import actions from './actions';
-import styles, { classes } from './styles.js';
-import { connect } from '@conjurelabs/federal';
-import config from '../../shared/config.js';
-import classnames from 'classnames';
+import { Component } from 'react'
+import { get } from '../../shared/xhr'
+import actions from './actions'
+import styles, { classes } from './styles.js'
+import { connect } from '@conjurelabs/federal'
+import config from '../../shared/config.js'
+import classnames from 'classnames'
 
-import Layout from '../../components/Layout';
-import Button from '../../components/Button';
-import Dropdown from '../../components/Dropdown';
-import Timeline from './components/Timeline';
+import Layout from '../../components/Layout'
+import Button from '../../components/Button'
+import Dropdown from '../../components/Dropdown'
+import Timeline from './components/Timeline'
 
-let activelyPullingDelta = false;
+let activelyPullingDelta = false
 
 class Dashboard extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     // set at render
-    this.orgDropdown = null;
-    this.repoDropdown = null;
+    this.orgDropdown = null
+    this.repoDropdown = null
 
     // for setTimeout reference tracking
-    this.timeouts = {};
+    this.timeouts = {}
   }
 
   componentDidMount() {
-    const { dispatch } = this.props;
+    const { dispatch } = this.props
     dispatch.clearTimeline(null, () => {
-      this.pullTimeline();
-    });
+      this.pullTimeline()
+    })
   }
 
   componentWillUnmount() {
-    clearTimeout(this.timeouts.deltaCheck);
+    clearTimeout(this.timeouts.deltaCheck)
   }
 
   pullTimeline(apiUrl, apiArgOverrides = {}) {
-    const { dispatch, orgSelected, repoSelected } = this.props;
+    const { dispatch, orgSelected, repoSelected } = this.props
 
-    apiUrl = apiUrl || `${config.app.api.url}/api/containers/timeline`;
+    apiUrl = apiUrl || `${config.app.api.url}/api/containers/timeline`
 
     const apiArgs = Object.assign({
       org: orgSelected,
       repo: repoSelected,
       page: 0
-    }, apiArgOverrides);
+    }, apiArgOverrides)
 
     get(apiUrl, apiArgs, (err, data) => {
       if (err) {
-        console.error(err);
-        alert(err.message);
-        return;
+        console.error(err)
+        alert(err.message)
+        return
       }
 
       dispatch.pushTimeline({
         addition: data.timeline,
         pagingHref: data.paging.next
-      });
+      })
 
-      this.queueDeltaCheck(data.delta);
-    });
+      this.queueDeltaCheck(data.delta)
+    })
   }
 
   pullTimelineDelta() {
     if (activelyPullingDelta === true) {
-      return;
+      return
     }
 
-    activelyPullingDelta = true;
+    activelyPullingDelta = true
 
-    const { dispatch, timeline, timelineDelta } = this.props;
-    const deltaFetched = [];
+    const { dispatch, timeline, timelineDelta } = this.props
+    const deltaFetched = []
 
     const finish = () => {
       dispatch.clearTimelineDelta({}, () => {
-        activelyPullingDelta = false;
+        activelyPullingDelta = false
 
         // should be not possible
         if (deltaFetched.length === 0) {
-          return;
+          return
         }
 
         dispatch.unshiftTimeline({
           addition: deltaFetched
-        });
-      });
-    };
+        })
+      })
+    }
 
     const pullNext = (apiUrl, apiArgOverrides = {}) => {
-      const { dispatch, orgSelected, repoSelected } = this.props;
+      const { orgSelected, repoSelected } = this.props
 
-      apiUrl = apiUrl || `${config.app.api.url}/api/containers/timeline`;
+      apiUrl = apiUrl || `${config.app.api.url}/api/containers/timeline`
 
       // apiUrl should not be null, but will assume done if it is, anyway
       if (apiUrl === null || deltaFetched.length >= timelineDelta) {
-        return finish();
+        return finish()
       }
 
       const apiArgs = Object.assign({
         org: orgSelected,
         repo: repoSelected,
         page: 0
-      }, apiArgOverrides);
+      }, apiArgOverrides)
 
       get(apiUrl, apiArgs, (err, data) => {
         if (err) {
-          console.error(err);
-          alert(err.message);
-          activelyPullingDelta = false;
-          return;
+          console.error(err)
+          alert(err.message)
+          activelyPullingDelta = false
+          return
         }
 
         for (let i = 0; i < data.timeline.length; i++) {
           // assuming at least one timeline state record, since pullNext should not be able to be called otherwise
           if (data.timeline[i].id === timeline[0].id) {
-            return finish();
+            return finish()
           }
-          deltaFetched.push(data.timeline[i]);
+          deltaFetched.push(data.timeline[i])
         }
 
         // must have more rows to pull, so kicking off another request
-        pullNext(data.paging.next);
-      });
-    };
+        pullNext(data.paging.next)
+      })
+    }
 
-    pullNext();
+    pullNext()
   }
 
   queueDeltaCheck(deltaUrl) {
     this.timeouts.deltaCheck = setTimeout(() => {
-      this.checkDelta.bind(this)(deltaUrl);
-    }, 30 * 1000);
+      this.checkDelta.bind(this)(deltaUrl)
+    }, 30 * 1000)
   }
 
   checkDelta(deltaUrl) {
     get(deltaUrl, null, (err, data) => {
       if (err) {
-        console.error(err);
-        alert(err.message);
-        return;
+        console.error(err)
+        alert(err.message)
+        return
       }
 
       if (+data.count === 0) {
-        return this.queueDeltaCheck(deltaUrl);
+        return this.queueDeltaCheck(deltaUrl)
       }
 
-      const { timeline } = this.props;
+      const { timeline } = this.props
 
       if (!timeline.length) {
-        return this.pullTimeline();
+        return this.pullTimeline()
       }
 
-      const { dispatch } = this.props;
+      const { dispatch } = this.props
 
       dispatch.setTimelineDelta({
         delta: +data.count
-      });
+      })
 
-      this.queueDeltaCheck(deltaUrl);
-    });
+      this.queueDeltaCheck(deltaUrl)
+    })
   }
 
   render() {
     const {
-      url, orgs, repos,
+      orgs, repos,
       pagingHref, timelineDelta,
       additionalOrgs, additionalRepos,
       orgSelected, repoSelected
-    } = this.props;
+    } = this.props
 
-    let orgsListed;
+    let orgsListed
     if (orgs.length === 1) {
       // if only 1 org available, force it to be defaulted (and no 'all option available')
       orgsListed = [{
         label: orgs[0],
         value: orgs[0]
-      }];
+      }]
     } else {
       // > 1 org available, give 'all orgs' option
       orgsListed = [{
@@ -188,26 +188,26 @@ class Dashboard extends Component {
           label: name,
           value: name
         }))
-      );
+      )
     }
 
-    let reposListed;
+    let reposListed
     if (orgSelected === '*') {
       // if viewing 'all' orgs, then disallow repo selection
       reposListed = [{
         label: 'All Repos',
         value: '*'
-      }];
+      }]
     } else {
       // filter down all repos to selected org's repos
-      const reposAvail = repos.filter(repo => repo.org === orgSelected);
+      const reposAvail = repos.filter(repo => repo.org === orgSelected)
 
       if (reposAvail.length === 1) {
         // if only 1 repo available, force it to be defaulted (and no 'all option available')
         reposListed = [{
           label: reposAvail[0].name,
           value: reposAvail[0].name
-        }];
+        }]
       } else {
         // > 1 repo available, give 'all repos' option
         reposListed = [{
@@ -219,7 +219,7 @@ class Dashboard extends Component {
             label: repo.name,
             value: repo.name
           }))
-        );
+        )
       }
     }
 
@@ -235,7 +235,7 @@ class Dashboard extends Component {
               hallow={true}
               className={classes.button}
               onClick={() => {
-                this.pullTimelineDelta();
+                this.pullTimelineDelta()
               }}
             >
               View {timelineDelta} new activit{timelineDelta === 1 ? 'y' : 'ies'}
@@ -251,8 +251,8 @@ class Dashboard extends Component {
             value={orgSelected}
             className={classnames(classes.dropdown, classes.orgSelect)}
             onSelect={() => {
-              const orgNewlySelected = this.orgDropdown.value;
-              window.location = `/?org=${orgNewlySelected}&repo=*`;
+              const orgNewlySelected = this.orgDropdown.value
+              window.location = `/?org=${orgNewlySelected}&repo=*`
             }}
           >
             {!additionalOrgs ? null : (
@@ -272,8 +272,8 @@ class Dashboard extends Component {
             value={repoSelected}
             className={classes.dropdown}
             onSelect={() => {
-              const repoNewlySelected = this.repoDropdown.value;
-              window.location = `/?org=${orgSelected}&repo=${repoNewlySelected}`;
+              const repoNewlySelected = this.repoDropdown.value
+              window.location = `/?org=${orgSelected}&repo=${repoNewlySelected}`
             }}
            >
             {!additionalRepos ? null : (
@@ -296,7 +296,7 @@ class Dashboard extends Component {
               color='blue'
               hallow={true}
               onClick={() => {
-                this.pullTimeline(pagingHref, null);
+                this.pullTimeline(pagingHref, null)
               }}
             >
               View More
@@ -306,7 +306,7 @@ class Dashboard extends Component {
 
         {styles}
       </div>
-    );
+    )
   }
 }
 
@@ -314,26 +314,26 @@ const selector = store => ({
   timeline: store.timeline,
   pagingHref: store.pagingHref,
   timelineDelta: store.timelineDelta
-});
+})
 
-const ConnectedDashbord = connect(selector, actions)(Dashboard);
+const ConnectedDashbord = connect(selector, actions)(Dashboard)
 
 export default props => {
-  const { url, ...extraProps } = props;
-  const { orgs, additional } = url.query;
-  let { repos, orgSelected, repoSelected } = url.query;
+  const { url, ...extraProps } = props
+  const { orgs, additional } = url.query
+  let { repos, orgSelected, repoSelected } = url.query
 
-  orgSelected = orgSelected === '*' && orgs.length === 1 ? orgs[0] : orgSelected;
+  orgSelected = orgSelected === '*' && orgs.length === 1 ? orgs[0] : orgSelected
   
   if (orgSelected !== '*') {
-    repos = repos.filter(repo => repo.org === orgSelected);
+    repos = repos.filter(repo => repo.org === orgSelected)
   }
 
-  repoSelected = repoSelected === '*' && repos.length === 1 ? repos[0].name : repoSelected;
+  repoSelected = repoSelected === '*' && repos.length === 1 ? repos[0].name : repoSelected
 
   const title = repoSelected !== '*' ? repoSelected :
     orgSelected !== '*' ? orgSelected :
-    'Conjure';
+    'Conjure'
 
   return (
     <Layout
@@ -350,5 +350,5 @@ export default props => {
         additionalRepos={additional.reposByOrg[orgSelected] === true}
       />
     </Layout>
-  );
+  )
 }

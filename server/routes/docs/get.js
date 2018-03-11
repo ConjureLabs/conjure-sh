@@ -1,9 +1,9 @@
-const Route = require('@conjurelabs/route');
+const Route = require('@conjurelabs/route')
 
-const route = new Route();
+const route = new Route()
 
 route.push(async (req, res) => {
-  return res.redirect('/docs/configuration');
-});
+  return res.redirect('/docs/configuration')
+})
 
-module.exports = route;
+module.exports = route

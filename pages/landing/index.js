@@ -1,27 +1,27 @@
-import { Component } from 'react';
-import styles, { classes } from './styles.js';
-import classnames from 'classnames';
+import { Component } from 'react'
+import styles, { classes } from './styles.js'
+import classnames from 'classnames'
 
-import Layout from '../../components/Layout';
-import Button from '../../components/Button';
-import config from '../../shared/config.js';
+import Layout from '../../components/Layout'
+import Button from '../../components/Button'
+import config from '../../shared/config.js'
 
-import Glimpse from './components/Glimpse';
-import Plans from './components/Plans';
+import Glimpse from './components/Glimpse'
+import Plans from './components/Plans'
 
 export default class Landing extends Component {
   constructor(props) {
-    super(props);
-    this.form = null; // placehoder for form el ref
+    super(props)
+    this.form = null // placehoder for form el ref
   }
 
   submitForm(e) {
-    e.preventDefault();
-    this.form.submit();
+    e.preventDefault()
+    this.form.submit()
   }
 
   render() {
-    const { url } = this.props;
+    const { url } = this.props
 
     return (
       <Layout
@@ -153,6 +153,6 @@ export default class Landing extends Component {
 
         {styles}
       </Layout>
-    );
+    )
   }
 }

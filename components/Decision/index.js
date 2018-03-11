@@ -1,33 +1,33 @@
-import { Component } from 'react';
-import styles, { classes } from './styles.js';
-import classnames from 'classnames';
+import { Component } from 'react'
+import styles, { classes } from './styles.js'
+import classnames from 'classnames'
 
-import Button from '../Button';
+import Button from '../Button'
 
 export default class Decision extends Component {
   handleClick(type) {
-    const { onPrimaryClick, onSecondaryClick, disabled } = this.props;
+    const { onPrimaryClick, onSecondaryClick, disabled } = this.props
 
     if (disabled) {
-      return;
+      return
     }
 
     const handler = type === 'primary' ? onPrimaryClick :
       type === 'secondary' ? onSecondaryClick :
-      null;
+      null
 
     if (handler) {
-      handler(new Event('Button Clicked'));
+      handler(new Event('Button Clicked'))
     }
   }
 
   render() {
-    const { className, primaryText, secondaryText, hallow, disabled, size, color } = this.props;
+    const { className, primaryText, secondaryText, hallow, disabled, size, color } = this.props
 
     const rootClasses = classnames(
       classes.root,
       className
-    );
+    )
 
     return (
       <span className={rootClasses}>
@@ -55,6 +55,6 @@ export default class Decision extends Component {
 
         {styles}
       </span>
-    );
+    )
   }
 }

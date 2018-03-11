@@ -1,101 +1,101 @@
-import { Component } from 'react';
-import styles, { classes } from './styles.js';
-import classnames from 'classnames';
-import { post } from '../../../../shared/xhr';
-import config from '../../../../shared/config.js';
+import { Component } from 'react'
+import styles, { classes } from './styles.js'
+import classnames from 'classnames'
+import { post } from '../../../../shared/xhr'
+import config from '../../../../shared/config.js'
 
-import Layout from '../../../../components/Layout';
-import TextInput from '../../../../components/Input/Text';
-import CreditCardInput from '../../../../components/Input/CreditCard';
-import CountrySuggestInput from '../../../../components/Input/Suggest/Country';
-import UsStateSuggest from '../../../../components/Input/Suggest/UsState';
-import MonthInput from '../../../../components/Input/Month';
-import YearInput from '../../../../components/Input/Year';
-import NumberInput from '../../../../components/Input/Number';
-import Button from '../../../../components/Button';
+import Layout from '../../../../components/Layout'
+import TextInput from '../../../../components/Input/Text'
+import CreditCardInput from '../../../../components/Input/CreditCard'
+import CountrySuggestInput from '../../../../components/Input/Suggest/Country'
+import UsStateSuggest from '../../../../components/Input/Suggest/UsState'
+import MonthInput from '../../../../components/Input/Month'
+import YearInput from '../../../../components/Input/Year'
+import NumberInput from '../../../../components/Input/Number'
+import Button from '../../../../components/Button'
 
-let submitting = false;
+let submitting = false
 
 // todo: this has A LOT of overlap w/ the onboard billing flow - how to keep it DRY?
 
 export default class AccountBillingEntry extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     // tracking refs to form inputs, so we can build a submission payload
     this.inputs = {
       card: {}, // filled in via ref attrs
       address: {} // filled in via ref attrs
-    };
+    }
 
     this.state = {
       formFilledIn: false
-    };
+    }
   }
 
   isFormFilledIn() {
-    const cardKeys = Object.keys(this.inputs.card);
+    const cardKeys = Object.keys(this.inputs.card)
     for (let i = 0; i < cardKeys.length; i++) {
       if (!this.inputs.card[ cardKeys[i] ].value) {
         this.setState({
           formFilledIn: false
-        });
-        return;
+        })
+        return
       }
     }
 
-    const addressKeys = Object.keys(this.inputs.address);
+    const addressKeys = Object.keys(this.inputs.address)
     for (let i = 0; i < addressKeys.length; i++) {
       // addr2 is not required
       if (addressKeys[i] === 'addr2') {
-        continue;
+        continue
       }
 
       if (!this.inputs.address[ addressKeys[i] ].value) {
         this.setState({
           formFilledIn: false
-        });
-        return;
+        })
+        return
       }
     }
 
     this.setState({
       formFilledIn: true
-    });
+    })
   }
 
   submit() {
     if (submitting) {
-      return;
+      return
     }
 
-    submitting = true;
+    submitting = true
 
-    const values = {};
-    const inputCategories = Object.keys(this.inputs);
+    const values = {}
+    const inputCategories = Object.keys(this.inputs)
     for (let i = 0; i < inputCategories.length; i++) {
-      let category = inputCategories[i];
+      let category = inputCategories[i]
 
       values[category] = Object.keys(this.inputs[category]).reduce((mapping, inputKey) => {
-        mapping[inputKey] = this.inputs[category][inputKey].value;
-        return mapping;
-      }, {});
+        mapping[inputKey] = this.inputs[category][inputKey].value
+        return mapping
+      }, {})
     }
 
     post(`${config.app.api.url}/api/account/billing/card`, values, err => {
       if (err) {
-        console.error(err);
-        alert(err.message);
-        submitting = false;
-        return;
+        console.error(err)
+        alert(err.message)
+        submitting = false
+        return
       }
 
-      window.location = '/account/billing';
-    });
+      window.location = '/account/billing'
+    })
   }
 
   render() {
-    const { url } = this.props;
+    const { url } = this.props
 
     return (
       <Layout
@@ -223,6 +223,6 @@ export default class AccountBillingEntry extends Component {
 
         {styles}
       </Layout>
-    );
+    )
   }
 }

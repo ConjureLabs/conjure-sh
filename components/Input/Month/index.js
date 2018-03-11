@@ -1,4 +1,4 @@
-import SuggestInput from '../Suggest';
+import SuggestInput from '../Suggest'
 
 const options = [{
   label: '01 - January',
@@ -36,13 +36,13 @@ const options = [{
 }, {
   label: '12 - December',
   value: '12'
-}];
+}]
 
 export default class MonthSuggest extends SuggestInput {
   constructor(props) {
-    super(props);
+    super(props)
 
-    this.options = options;
-    this.defaultSuggestions = options.slice(0, this.suggestionsLimit);
+    this.options = options
+    this.defaultSuggestions = options.slice(0, this.suggestionsLimit)
   }
 }

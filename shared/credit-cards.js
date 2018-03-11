@@ -80,32 +80,32 @@ const cards = {
       [5019]
     ]
   }
-};
+}
 
 // building dictionary of [card prefix] => [card type name]
-const cardPrefixDict = {};
+const cardPrefixDict = {}
 Object.keys(cards).forEach(cardKey => {
   for (let i = 0; i < cards[cardKey].prefixes.length; i++) {
-    const current = cards[cardKey].prefixes[i];
+    const current = cards[cardKey].prefixes[i]
 
     if (current.length === 1) {
-      cardPrefixDict[ current[0].toString() ] = cardKey;
-      continue;
+      cardPrefixDict[ current[0].toString() ] = cardKey
+      continue
     }
 
     for (let prefix = current[0]; prefix < current[1]; prefix++) {
-      cardPrefixDict[ prefix.toString() ] = cardKey;
+      cardPrefixDict[ prefix.toString() ] = cardKey
     }
   }
-});
+})
 
 // for perf, it's good to know the longest prefix string length
 const maxCardPrefixLength = Object.keys(cardPrefixDict).sort((a, b) => {
-  return b.length - a.length;
-})[0].length;
+  return b.length - a.length
+})[0].length
 
 export {
   cards,
   cardPrefixDict,
   maxCardPrefixLength
-};
+}

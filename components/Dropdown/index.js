@@ -1,44 +1,44 @@
-import { Component } from 'react';
-import PropTypes from 'prop-types';
-import classnames from 'classnames';
-import ClickOutside from 'react-click-outside';
+import { Component } from 'react'
+import PropTypes from 'prop-types'
+import classnames from 'classnames'
+import ClickOutside from 'react-click-outside'
 
-import styles, { classes } from './styles';
+import styles, { classes } from './styles'
 
 export default class Dropdown extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
-    const { value, options } = props;
+    const { value, options } = props
 
-    const selectedOption = typeof value === undefined ? null : options.find(opt => opt.value === value);
+    const selectedOption = typeof value === undefined ? null : options.find(opt => opt.value === value)
 
     this.state = {
       open: false,
       selectedOption: selectedOption
-    };
+    }
   }
 
   get value() {
-    const { selectedOption } = this.state;
+    const { selectedOption } = this.state
 
     if (!selectedOption) {
-      return null;
+      return null
     }
 
-    return selectedOption.value;
+    return selectedOption.value
   }
 
   toggleOpen() {
     this.setState({
       open: this.isDisabled ? false : !this.state.open
-    });
+    })
   }
 
   close() {
     this.setState({
       open: false
-    });
+    })
   }
 
   select(option) {
@@ -46,24 +46,24 @@ export default class Dropdown extends Component {
       open: false,
       selectedOption: option
     }, () => {
-      const { onSelect } = this.props;
-      onSelect(option);
-    });
+      const { onSelect } = this.props
+      onSelect(option)
+    })
   }
 
   get isDisabled() {
-    const { selectedOption } = this.state;
-    const { options, disabled } = this.props;
+    const { selectedOption } = this.state
+    const { options, disabled } = this.props
     return disabled === true || (
       selectedOption &&
       options.length === 1
-    );
+    )
   }
 
   render() {
-    const { label, options, className, children } = this.props;
-    const { open, selectedOption } = this.state;
-    const disabled = this.isDisabled;
+    const { label, options, className, children } = this.props
+    const { open, selectedOption } = this.state
+    const disabled = this.isDisabled
 
     return (
       <ClickOutside
@@ -93,7 +93,7 @@ export default class Dropdown extends Component {
             <div className={classes.options}>
               {options
                 .filter(option => {
-                  return !selectedOption ? true : option.value !== selectedOption.value;
+                  return !selectedOption ? true : option.value !== selectedOption.value
                 })
                 .map((option, i) => (
                   <span
@@ -113,25 +113,25 @@ export default class Dropdown extends Component {
 
         {styles}
       </ClickOutside>
-    );
+    )
   }
 
   static defaultProps = {
     onSelect: () => {}
-  };
+  }
 
   static propTypes = {
     label: PropTypes.string,
 
     options: props => {
-      const { options } = props;
+      const { options } = props
 
       if (!Array.isArray(options)) {
-        return new Error('Dropdown options must be an array');
+        return new Error('Dropdown options must be an array')
       }
 
       if (!options.length) {
-        return new Error('Dropdown must have at least one option');
+        return new Error('Dropdown must have at least one option')
       }
 
       const validOptions = options.every(opt => {
@@ -139,22 +139,22 @@ export default class Dropdown extends Component {
           (
             typeof opt.value === 'string' ||
             typeof opt.value === 'number'
-          );
-      });
+          )
+      })
 
       if (!validOptions) {
-        return new Error('Dropdown options are missing necessary attributes');
+        return new Error('Dropdown options are missing necessary attributes')
       }
 
       const uniqueValues = options.reduce((values, opt) => {
         if (!values.includes(opt.value)) {
-          values.push(opt.value);
+          values.push(opt.value)
         }
-        return values;
-      }, []);
+        return values
+      }, [])
 
       if (uniqueValues.length !== options.length) {
-        return new Error('Dropdown options must have unique values');
+        return new Error('Dropdown options must have unique values')
       }
     },
 
@@ -166,5 +166,5 @@ export default class Dropdown extends Component {
     disabled: PropTypes.bool,
 
     onSelect: PropTypes.func
-  };
+  }
 }

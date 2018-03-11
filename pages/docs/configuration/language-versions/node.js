@@ -116,4 +116,4 @@ export default [
   { suppress: true, content: '4.1.1' },
   { suppress: true, content: '4.1.0' },
   { suppress: true, content: '4.0.0' }
-];
+]

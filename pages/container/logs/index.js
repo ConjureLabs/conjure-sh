@@ -1,56 +1,54 @@
-import { Component } from 'react';
-import io from 'socket.io-client';
-import styles, { classes } from './styles.js';
+import { Component } from 'react'
+import io from 'socket.io-client'
+import styles, { classes } from './styles.js'
 
-import Layout from '../../../components/Layout';
-
-import config from '../../../shared/config.js';
+import Layout from '../../../components/Layout'
 
 export default class ContainerLogs extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       logsContent: ''
-    };
+    }
 
-    this.socket = null;
+    this.socket = null
   }
 
   componentDidMount() {
-    const { host, containerUid, sessionKey } = this.props.url.query;
+    const { host, containerUid, sessionKey } = this.props.url.query
 
-    console.log({ host, containerUid, sessionKey });
+    console.log({ host, containerUid, sessionKey })
 
-    console.log(`${host}/container/logs`);
-    const socket = io(`${host}/container/logs`);
+    console.log(`${host}/container/logs`)
+    const socket = io(`${host}/container/logs`)
 
     socket.emit('auth', {
       containerUid,
       sessionKey
-    });
+    })
 
     socket.on('out', content => {
       this.setState({
         logsContent: this.state.logsContent + content
-      });
-    });
+      })
+    })
 
     socket.on('err', content => {
       this.setState({
         logsContent: this.state.logsContent + content
-      });
-    });
+      })
+    })
 
-    this.socket = socket;
+    this.socket = socket
   }
 
   componentWillUnmount() {
-    this.socket.close();
+    this.socket.close()
   }
 
   render() {
-    const { url } = this.props;
+    const { url } = this.props
 
     return (
       <Layout
@@ -62,16 +60,16 @@ export default class ContainerLogs extends Component {
         </div>
         {styles}
       </Layout>
-    );
+    )
   }
 }
 
-import AnsiConverter from 'ansi-to-html';
+import AnsiConverter from 'ansi-to-html'
 const converter = new AnsiConverter({
   fg: '#000',
   bg: '#FFF'
-});
+})
 
 function styledContent(content) {
-  return converter.toHtml(content);
+  return converter.toHtml(content)
 }

@@ -1,24 +1,24 @@
-import classnames from 'classnames';
+import classnames from 'classnames'
 
-import styles, { classes } from './styles.js';
-import { cards } from '../../shared/credit-cards.js';
+import styles, { classes } from './styles.js'
+import { cards } from '../../shared/credit-cards.js'
 
 export default ({ name, expiration, last4, brand, className }) => {
-  const cardUsed = cards[brand] ? cards[brand] : cards.Visa;
-  const brandFormatTokens = cardUsed.format.length;
+  const cardUsed = cards[brand] ? cards[brand] : cards.Visa
+  const brandFormatTokens = cardUsed.format.length
   const mungedNumberTokens = cardUsed.format.map((length, i) => {
     if (i < brandFormatTokens - 1) {
-      return '*'.repeat(length);
+      return '*'.repeat(length)
     }
 
-    const prefix = '*'.repeat(Math.max(length - 4, 0));
-    return `${prefix}${last4}`;
-  });
-  const brandLogoClassname = !cards[brand] ? null : brand.toLowerCase().replace(/\s+/, '-');
+    const prefix = '*'.repeat(Math.max(length - 4, 0))
+    return `${prefix}${last4}`
+  })
+  const brandLogoClassname = !cards[brand] ? null : brand.toLowerCase().replace(/\s+/, '-')
 
   const logoComponent = brandLogoClassname ? (
     <ins className={classnames(classes.logo, classes[brandLogoClassname])} />
-  ) : null;
+  ) : null
 
   return (
     <article className={classnames(classes.root, className)}>
@@ -33,7 +33,7 @@ export default ({ name, expiration, last4, brand, className }) => {
             >
               {token}
             </span>
-          );
+          )
         })}
       </div>
 
@@ -58,5 +58,5 @@ export default ({ name, expiration, last4, brand, className }) => {
 
       {styles}
     </article>
-  );
-};
+  )
+}

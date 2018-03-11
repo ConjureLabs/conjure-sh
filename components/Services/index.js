@@ -1,9 +1,9 @@
-import { Component } from 'react';
-import { connect } from '@conjurelabs/federal';
-import Button from '../Button';
-import classnames from 'classnames';
-import AnchorList from '../AnchorList';
-import styles, { classes } from './styles.js';
+import { Component } from 'react'
+import { connect } from '@conjurelabs/federal'
+import Button from '../Button'
+import classnames from 'classnames'
+import AnchorList from '../AnchorList'
+import styles, { classes } from './styles.js'
 
 class Services extends Component {
   getIntegrationBlock(service, details) {
@@ -19,7 +19,7 @@ class Services extends Component {
       <span className={classnames(classes.details, classes.connected)}>
         Connected as {details.username}
       </span>
-    );
+    )
 
     return (
       <div className={classes.service}>
@@ -29,33 +29,33 @@ class Services extends Component {
 
         {detailsJsx}
       </div>
-    );
+    )
   }
 
   render() {
-    const { integrations, className } = this.props;
+    const { integrations, className } = this.props
 
-    console.log(this.props);
+    console.log(this.props)
 
     return (
       <main className={classnames(classes.root, className)}>
         <span className={classes.wrap}>
           {Object.keys(integrations).map(key => {
-            const integration = integrations[key];
-            return this.getIntegrationBlock(key, integration);
+            const integration = integrations[key]
+            return this.getIntegrationBlock(key, integration)
           })}
         </span>
 
         {styles}
       </main>
-    );
+    )
   }
 }
 
 const selector = store => {
   return {
     integrations: store.integrations
-  };
-};
+  }
+}
 
-export default connect(selector)(Services);
+export default connect(selector)(Services)

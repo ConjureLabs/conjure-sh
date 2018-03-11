@@ -1,73 +1,73 @@
-import { Component } from 'react';
-import styles, { classes } from '../styles.js';
-import { post } from '../../../shared/xhr';
-import config from '../../../shared/config.js';
+import { Component } from 'react'
+import styles, { classes } from '../styles.js'
+import { post } from '../../../shared/xhr'
+import config from '../../../shared/config.js'
 
-import Layout from '../../../components/Layout';
-import Button from '../../../components/Button';
-import AnchorMultiList from '../../../components/AnchorList/MultiSelect';
+import Layout from '../../../components/Layout'
+import Button from '../../../components/Button'
+import AnchorMultiList from '../../../components/AnchorList/MultiSelect'
 
-let submitting = false;
+let submitting = false
 
 export default class OnboardRepos extends Component {
   constructor() {
-    super();
+    super()
 
-    this.anchorList = null; // set by ref
+    this.anchorList = null // set by ref
 
     this.state = {
       repoSelected: false
-    };
+    }
   }
 
   isRepoSelected() {
-    const listSelected = this.anchorList.selected;
+    const listSelected = this.anchorList.selected
     this.setState({
       repoSelected: listSelected.length > 0
-    });
+    })
   }
 
   submit() {
     if (submitting) {
-      return;
+      return
     }
 
-    submitting = true;
+    submitting = true
 
     post(`${config.app.api.url}/api/onboard/repos/selection`, this.anchorList.selected.map(selection => selection.value), err => {
       if (err) {
-        console.error(err);
-        alert(err.message);
-        submitting = false;
-        return;
+        console.error(err)
+        alert(err.message)
+        submitting = false
+        return
       }
 
-      window.location = '/';
-    });
+      window.location = '/'
+    })
   }
 
   render() {
-    const { url } = this.props;
-    const { query } = url;
+    const { url } = this.props
+    const { query } = url
 
     // repos are listed by org top-level key
-    const orgs = Object.keys(query.repos);
-    const repos = [];
+    const orgs = Object.keys(query.repos)
+    const repos = []
     for (let i = 0; i < orgs.length; i++) {
-      const org = orgs[i];
+      const org = orgs[i]
 
       if (org !== query.org.label) {
-        continue;
+        continue
       }
 
       for (let j = 0; j < query.repos[org].length; j++) {
-        const repo = query.repos[org][j];
+        const repo = query.repos[org][j]
 
         repos.push({
           label: repo.name,
           value: repo.id,
           key: repo.id
-        });
+        })
       }
     }
 
@@ -110,6 +110,6 @@ export default class OnboardRepos extends Component {
 
         {styles}
       </Layout>
-    );
+    )
   }
 }

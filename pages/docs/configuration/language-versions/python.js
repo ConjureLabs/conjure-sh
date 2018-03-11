@@ -140,4 +140,4 @@ export default [
   { suppress: true, content: '2.2.0' },
   { suppress: true, content: '2.1.3' },
   { suppress: true, content: '2.0.1' }
-];
+]

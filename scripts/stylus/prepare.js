@@ -3,102 +3,102 @@
 node ./scripts/stylus/prepare.js
  */
 
-const fs = require('fs');
-const path = require('path');
-const stylus = require('stylus');
-const crypto = require('crypto');
+const fs = require('fs')
+const path = require('path')
+const stylus = require('stylus')
+const crypto = require('crypto')
 
-const projectDir = path.resolve(__dirname, '..', '..');
-const dirsToCrawl = ['components', 'pages'];
-const trackDir = path.resolve(__dirname, '.track');
-const trackJson = path.resolve(trackDir, 'track.json');
+const projectDir = path.resolve(__dirname, '..', '..')
+const dirsToCrawl = ['components', 'pages']
+const trackDir = path.resolve(__dirname, '.track')
+const trackJson = path.resolve(trackDir, 'track.json')
 
-let classNameCount = 0;
+let classNameCount = 0
 
 try {
-  fs.accessSync(trackDir);
+  fs.accessSync(trackDir)
 } catch(err) {
-  fs.mkdir(trackDir);
-  fs.writeFileSync(trackJson, '{}', 'utf8');
+  fs.mkdir(trackDir)
+  fs.writeFileSync(trackJson, '{}', 'utf8')
 }
 
 for (let i = 0; i < dirsToCrawl.length; i++) {
-  crawlDir(path.resolve(projectDir, dirsToCrawl[i]));
+  crawlDir(path.resolve(projectDir, dirsToCrawl[i]))
 }
 
 function crawlDir(dir) {
-  const list = fs.readdirSync(dir);
+  const list = fs.readdirSync(dir)
   
   for (let i = 0; i < list.length; i++) {
-    let pathResolved = path.resolve(dir, list[i]);
-    let fileStat = fs.statSync(pathResolved);
+    let pathResolved = path.resolve(dir, list[i])
+    let fileStat = fs.statSync(pathResolved)
 
     if (fileStat.isDirectory()) {
-      crawlDir(pathResolved);
-      continue;
+      crawlDir(pathResolved)
+      continue
     }
 
     if (fileStat.isFile() && list[i].length > 5 && list[i].substr(-5) === '.styl') {
-      prepareStylus(pathResolved);
+      prepareStylus(pathResolved)
     }
   }
 }
 
 function prepareStylus(filePath) {
   // first check if it has already been generated
-  let hashes = JSON.parse(fs.readFileSync(trackJson, 'utf8'));
-  const content = fs.readFileSync(filePath, 'utf8');
-  const currentHash = crypto.createHash('sha256').update(content).digest('hex');
+  let hashes = JSON.parse(fs.readFileSync(trackJson, 'utf8'))
+  const content = fs.readFileSync(filePath, 'utf8')
+  const currentHash = crypto.createHash('sha256').update(content).digest('hex')
 
   if (hashes[filePath] && hashes[filePath] === currentHash) {
-    return;
+    return
   }
 
   stylus(content)
     .set('filename', filePath)
     .render((err, css) => {
       if (err) {
-        throw err;
+        throw err
       }
 
-      const classLookup = {};
-      const pathParsed = path.parse(filePath);
+      const classLookup = {}
+      const pathParsed = path.parse(filePath)
       const pathTokens = pathParsed.dir
         .substr(projectDir.length + 1)
-        .split('/');
+        .split('/')
 
       // if a file is not the typical styles.styl (say, component.styles.styl), then we need to track that to avoid name collision
       if (pathParsed.base !== 'styles.styl') {
-        pathTokens.push(pathParsed.name.replace(/\.+/g, '-'));
+        pathTokens.push(pathParsed.name.replace(/\.+/g, '-'))
       }
 
       // see https://stackoverflow.com/questions/448981/which-characters-are-valid-in-css-class-names-selectors
       css = css.replace(/\.(-?[_a-zA-Z]+[_a-zA-Z0-9-]*)(?=\s|\{|\.|:|,|\)|$])/g, function classnameReplacements(_, className) {
         if (!classLookup[className]) {
-          classNameCount++;
+          classNameCount++
 
           if (process.env.NODE_ENV === 'production') {
-            classLookup[className] = `c-${classNameCount}`;
+            classLookup[className] = `c-${classNameCount}`
           } else {
-            classLookup[className] = `${pathTokens.join('_')}__${className}`;
+            classLookup[className] = `${pathTokens.join('_')}__${className}`
           }
         }
 
-        return `.${classLookup[className]}`;
-      });
-      css = css.replace(/[\n\r]\s*/g, ' ').trim();
+        return `.${classLookup[className]}`
+      })
+      css = css.replace(/[\n\r]\s*/g, ' ').trim()
 
-      const isNative = filePath.substr(-12) === '.native.styl'; // native <style> tag, not jsx
-      const jsxDefault = `const css = \`${css}\`;\n\export default (<style ${isNative ? '' : 'jsx '}dangerouslySetInnerHTML={{ __html: css }} />);`;
-      const jsxLookup = `const classes = ${JSON.stringify(classLookup)};\nexport { classes };`;
-      const jsxContent = `/* eslint-disable */\n// jscs:disable\n\nimport React from 'react';\n\n${jsxDefault}\n\n${jsxLookup}\n`;
-      const jsxFilePath = filePath.replace(/\.styl$/, '.js');
+      const isNative = filePath.substr(-12) === '.native.styl' // native <style> tag, not jsx
+      const jsxDefault = `const css = \`${css}\`\n\export default (<style ${isNative ? '' : 'jsx '}dangerouslySetInnerHTML={{ __html: css }} />)`
+      const jsxLookup = `const classes = ${JSON.stringify(classLookup)}\nexport { classes }`
+      const jsxContent = `/* eslint-disable */\n// jscs:disable\n\nimport React from 'react'\n\n${jsxDefault}\n\n${jsxLookup}\n`
+      const jsxFilePath = filePath.replace(/\.styl$/, '.js')
 
-      fs.writeFileSync(jsxFilePath, jsxContent, 'utf8');
-      console.log(`Generated ${jsxFilePath}`);
+      fs.writeFileSync(jsxFilePath, jsxContent, 'utf8')
+      console.log(`Generated ${jsxFilePath}`)
 
-      hashes = JSON.parse(fs.readFileSync(trackJson, 'utf8')); // re-read it just to make sure it's up to date
-      hashes[filePath] = currentHash;
-      fs.writeFileSync(trackJson, JSON.stringify(hashes), 'utf8');
-    });
+      hashes = JSON.parse(fs.readFileSync(trackJson, 'utf8')) // re-read it just to make sure it's up to date
+      hashes[filePath] = currentHash
+      fs.writeFileSync(trackJson, JSON.stringify(hashes), 'utf8')
+    })
 }

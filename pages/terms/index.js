@@ -1,8 +1,8 @@
-import classnames from 'classnames';
+import classnames from 'classnames'
 
-import Layout from '../../components/Layout';
+import Layout from '../../components/Layout'
 
-import styles, { classes } from './styles.js';
+import styles, { classes } from './styles.js'
 
 export default ({ url }) => (
   <Layout
@@ -38,7 +38,7 @@ export default ({ url }) => (
     <div className={classes.section}>
       <p>
         <span className={classes.part}>3.</span>
-        <span className={classes.label}>License and Restrictions; Licensee and User Obligations with Regard to Use of the Service.</span>
+        <span className={classes.label}>License and Restrictions Licensee and User Obligations with Regard to Use of the Service.</span>
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(a)</span>
@@ -65,7 +65,7 @@ export default ({ url }) => (
     <div className={classes.section}>
       <p>
         <span className={classes.part}>4.</span>
-        <span className={classes.label}>Provision of the Service; Support.</span>
+        <span className={classes.label}>Provision of the Service Support.</span>
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(a)</span>
@@ -77,7 +77,7 @@ export default ({ url }) => (
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(c)</span>
-        <span>Licensee understands that the operation of the Service, including Licensee Content, may be unencrypted and involve (i) transmissions over various networks; (ii) changes to conform and adapt to technical requirements of connecting networks or devices and (iii) transmission to Company's third party vendors and hosting partners solely to provide the necessary hardware, software, networking, storage, and related technology required to operate and maintain the Service. Accordingly, Licensee acknowledges that Licensee bears sole responsibility for adequate backup of Licensee Content. Company will have no liability to Licensee for any unauthorized access or use of any of Licensee Content, or any corruption, deletion, destruction or loss of any of Licensee Content.</span>
+        <span>Licensee understands that the operation of the Service, including Licensee Content, may be unencrypted and involve (i) transmissions over various networks (ii) changes to conform and adapt to technical requirements of connecting networks or devices and (iii) transmission to Company's third party vendors and hosting partners solely to provide the necessary hardware, software, networking, storage, and related technology required to operate and maintain the Service. Accordingly, Licensee acknowledges that Licensee bears sole responsibility for adequate backup of Licensee Content. Company will have no liability to Licensee for any unauthorized access or use of any of Licensee Content, or any corruption, deletion, destruction or loss of any of Licensee Content.</span>
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(d)</span>
@@ -96,11 +96,11 @@ export default ({ url }) => (
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(a)</span>
-        <span>Licensee shall pay Company the fees set forth in an Order in accordance with the terms set forth therein; provided that Company may change any applicable fees upon thirty (30) days' notice at any time and such new fees shall become effective for any subsequent renewal Term. All payments shall be made in U.S. dollars. Any payments more than thirty (30) days overdue will bear a late payment fee of one and one-half percent (1.5%) per month, or, if lower, the maximum rate allowed by law. In addition, Licensee will pay all taxes, shipping, duties, withholdings and the like, as well as all pre-approved out of pocket expenses incurred by Company in connection with any consulting and/or support services, promptly upon invoice. If Licensee is paying any fees by credit card, Licensee shall provide Company complete and accurate information regarding the applicable credit card. Licensee represents and warrants that all such information is correct and that Licensee is authorized to use such credit card. Licensee will promptly update its account information with any changes (for example, a change in billing address or credit card expiration date) that may occur. Licensee hereby authorizes Company to bill such credit card in advance on a periodic basis in accordance with the terms of these TOS and an Order, and Licensee further agrees to pay any charges so incurred. Licensee will maintain, and Company will be entitled to audit, any records relevant to Licensee's use of the Service hereunder. Company may audit such records on reasonable notice at Company's cost (or if the audits reveal material non-compliance with these TOS, at Licensee’s cost).</span>
+        <span>Licensee shall pay Company the fees set forth in an Order in accordance with the terms set forth therein provided that Company may change any applicable fees upon thirty (30) days' notice at any time and such new fees shall become effective for any subsequent renewal Term. All payments shall be made in U.S. dollars. Any payments more than thirty (30) days overdue will bear a late payment fee of one and one-half percent (1.5%) per month, or, if lower, the maximum rate allowed by law. In addition, Licensee will pay all taxes, shipping, duties, withholdings and the like, as well as all pre-approved out of pocket expenses incurred by Company in connection with any consulting and/or support services, promptly upon invoice. If Licensee is paying any fees by credit card, Licensee shall provide Company complete and accurate information regarding the applicable credit card. Licensee represents and warrants that all such information is correct and that Licensee is authorized to use such credit card. Licensee will promptly update its account information with any changes (for example, a change in billing address or credit card expiration date) that may occur. Licensee hereby authorizes Company to bill such credit card in advance on a periodic basis in accordance with the terms of these TOS and an Order, and Licensee further agrees to pay any charges so incurred. Licensee will maintain, and Company will be entitled to audit, any records relevant to Licensee's use of the Service hereunder. Company may audit such records on reasonable notice at Company's cost (or if the audits reveal material non-compliance with these TOS, at Licensee’s cost).</span>
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(b)</span>
-        <span>For any upgrade in a subscription level for a month-to-month service plan, Company shall automatically charge Licensee the new subscription fee, effective as of the date the service upgrade is requested and for each subsequent one-month recurring cycle pursuant to the billing method applicable to Licensee. If Company is providing Licensee the Service pursuant to a yearly service plan, Company will immediately charge Licensee any increase in subscription level plan cost pursuant to the billing method applicable to Licensee, prorated for the remaining Term of Licensee's yearly billing cycle; provided, however, any decrease in a subscription level plan cost shall only take effect upon the renewal date of the then current yearly service plan. Licensee's downgrading its subscription level may cause the loss of features or capacity of Licensee's Account. Company does not accept any liability for such loss.</span>
+        <span>For any upgrade in a subscription level for a month-to-month service plan, Company shall automatically charge Licensee the new subscription fee, effective as of the date the service upgrade is requested and for each subsequent one-month recurring cycle pursuant to the billing method applicable to Licensee. If Company is providing Licensee the Service pursuant to a yearly service plan, Company will immediately charge Licensee any increase in subscription level plan cost pursuant to the billing method applicable to Licensee, prorated for the remaining Term of Licensee's yearly billing cycle provided, however, any decrease in a subscription level plan cost shall only take effect upon the renewal date of the then current yearly service plan. Licensee's downgrading its subscription level may cause the loss of features or capacity of Licensee's Account. Company does not accept any liability for such loss.</span>
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(c)</span>
@@ -115,7 +115,7 @@ export default ({ url }) => (
     <div className={classes.section}>
       <p>
         <span className={classes.part}>6.</span>
-        <span className={classes.label}>Term; Expiration and Termination.</span>
+        <span className={classes.label}>Term Expiration and Termination.</span>
         <span>These TOS shall continue in effect for the term and any renewal term as specified in an Order (collectively, the <span className={classes.term}>"Term"</span>). If either party materially breaches these TOS, the other party shall have the right to terminate the applicable Order and in the case where no Order exists, these TOS (and, in each case, all licenses granted herein) upon thirty (30) days (ten (10) days in the case of non-payment and immediately in the case of a breach of <span className={classes.reference}>Sections 3(b)</span>) written notice of any such breach, unless such breach is cured during such notice period. In the case of a free trial or Company otherwise providing the Service at no cost to a Licensee, Company shall have, upon Licensee or any Users failing to use the Service for more than six (6) consecutive months, the right, in its sole discretion, to terminate all User Accounts of Licensee and terminate Licensee's and all Licensee's Users' access to and use of the Service without notice. Upon expiration or termination of an Order or these TOS, Licensee shall immediately be unable access and use the Service, all Licensee Content may be deleted from the Service at Company's sole discretion (such information can not be recovered once Licensee's Account or any User Account is terminated) and Licensee shall return or destroy all copies of all Content and all portions thereof in Licensee's possession and so certify to Company, if such certification is requested by Company. <span className={classes.reference}>Sections 3(b)</span> and <span className={classes.reference}>5 through 13</span> of these TOS, shall survive termination or expiration of these TOS. Termination is not an exclusive remedy and all other remedies shall be available whether or not termination occurs.</span>
       </p>
     </div>
@@ -124,7 +124,7 @@ export default ({ url }) => (
       <p>
         <span className={classes.part}>7.</span>
         <span className={classes.label}>Indemnification.</span>
-        <span>Licensee and each User shall defend, indemnify and hold harmless Company from all damages, settlements, attorneys' fees and expenses related to any third-party claim, suite or demand (i) arising from Licensee or any User's use of the Service or Content in breach of these TOS or in violation of applicable law, or (ii) alleging that the Licensee Content infringes or misappropriates such third party's intellectual property rights or violates applicable law; provided Licensee is promptly notified of any and all threats, suits, claims and proceedings related thereto and given reasonable assistance by Company (at Licensee's cost). Company reserves the right to assume the exclusive defense and control of any matter that is subject to indemnification under this <span className={classes.reference}>Section 7</span>. In such case, Licensee and Users agree to cooperate with any reasonable requests in assisting Company's defense of such matter.</span>
+        <span>Licensee and each User shall defend, indemnify and hold harmless Company from all damages, settlements, attorneys' fees and expenses related to any third-party claim, suite or demand (i) arising from Licensee or any User's use of the Service or Content in breach of these TOS or in violation of applicable law, or (ii) alleging that the Licensee Content infringes or misappropriates such third party's intellectual property rights or violates applicable law provided Licensee is promptly notified of any and all threats, suits, claims and proceedings related thereto and given reasonable assistance by Company (at Licensee's cost). Company reserves the right to assume the exclusive defense and control of any matter that is subject to indemnification under this <span className={classes.reference}>Section 7</span>. In such case, Licensee and Users agree to cooperate with any reasonable requests in assisting Company's defense of such matter.</span>
       </p>
     </div>
 
@@ -147,7 +147,7 @@ export default ({ url }) => (
     <div className={classes.section}>
       <p>
         <span className={classes.part}>10.</span>
-        <span className={classes.label}>Proprietary Rights; Limited License to Company; Feedback.</span>
+        <span className={classes.label}>Proprietary Rights Limited License to Company Feedback.</span>
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(a)</span>
@@ -177,7 +177,7 @@ export default ({ url }) => (
     <div className={classes.section}>
       <p>
         <span className={classes.part}>12.</span>
-        <span className={classes.label}>Protection of Confidential Licensee Content; Security.</span>
+        <span className={classes.label}>Protection of Confidential Licensee Content Security.</span>
         <span>Company shall maintain administrative, physical, and technical safeguards for protection of the security, confidentiality and integrity of Licensee Content that is Licensee's Confidential Information (<span className={classes.term}>"Confidential Licensee Content"</span>). Those safeguards shall include, but will not be limited to, measures for preventing access, use, modification or disclosure of Confidential Licensee Content by Company's personnel except (a) to provide the Service and prevent or address service or technical problems, (b) as compelled by law in accordance with <span className={classes.reference}>Section 11 (Confidentiality)</span> above, or (c) as Licensee expressly permits in writing.</span>
       </p>
     </div>
@@ -191,7 +191,7 @@ export default ({ url }) => (
       <p className={classes.subSection}>
         <span className={classes.part}>(a)</span>
         <span className={classes.label}>Reporting Instances of Copyright Infringement.</span>
-        <span>Company will promptly process and investigate notices of alleged infringement and will take appropriate actions under the DMCA and other applicable intellectual property laws with respect to any alleged or actual infringement. A notification of claimed copyright infringement should be emailed to Company's Copyright Agent at info@conjure.sh (subject line: "DMCA Takedown Request"). To be effective, the notification must be in writing and contain the following information: (i) an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright or other intellectual property interest; (ii) a description of the copyrighted work or other intellectual property that you claim has been infringed; (iii) a description of where the material that you claim is infringing is located on the Site, with enough detail that we may find it on the Site; (iv) your address, telephone number, and email address; (v) a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright or intellectual property owner, its agent, or the law; (vi) a statement by you, made under penalty of perjury, that the above information in your Notice is accurate and that you are the copyright or intellectual property owner or authorized to act on the copyright or intellectual property owner's behalf. You may also contact us by mail at:</span>
+        <span>Company will promptly process and investigate notices of alleged infringement and will take appropriate actions under the DMCA and other applicable intellectual property laws with respect to any alleged or actual infringement. A notification of claimed copyright infringement should be emailed to Company's Copyright Agent at info@conjure.sh (subject line: "DMCA Takedown Request"). To be effective, the notification must be in writing and contain the following information: (i) an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright or other intellectual property interest (ii) a description of the copyrighted work or other intellectual property that you claim has been infringed (iii) a description of where the material that you claim is infringing is located on the Site, with enough detail that we may find it on the Site (iv) your address, telephone number, and email address (v) a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright or intellectual property owner, its agent, or the law (vi) a statement by you, made under penalty of perjury, that the above information in your Notice is accurate and that you are the copyright or intellectual property owner or authorized to act on the copyright or intellectual property owner's behalf. You may also contact us by mail at:</span>
         <span className={classes.list}>
           <span>Attention: Conjure Copyright Agent</span>
           <span>Conjure</span>
@@ -203,7 +203,7 @@ export default ({ url }) => (
       <p className={classes.subSection}>
         <span className={classes.part}>(b)</span>
         <span className={classes.label}>Submitting a DMCA Counter-Notification.</span>
-        <span>If you believe that the relevant Content that was removed (or to which access was disabled) is not infringing, or that you have the authorization from the copyright owner, the copyright owner's agent, or pursuant to the law, to post and use such Content, you may send a written counter-notice containing the following information to the Copyright Agent: (i) your physical or electronic signature; (ii) identification of the content that has been removed or to which access has been disabled and the location at which the content appeared before it was removed or disabled; (iii) a statement that you have a good faith belief that the content was removed or disabled as a result of mistake or a misidentification of the content; and (iv) your name, address, telephone number, and e-mail address, a statement that you consent to the jurisdiction of the federal court located within the Northern District of California and a statement that you will accept service of process from the person who provided notification of the alleged infringement. If a counter-notice is received by the Copyright Agent, Company will send a copy of the counter-notice to the original complaining party informing that person that it may replace the removed content or cease disabling it in 10 business days. Unless the copyright owner files an action seeking a court order against the content provider, member or user, the removed content may be replaced, or access to it restored, in 10 to 14 business days or more after receipt of the counter-notice, at Company's sole discretion.</span>
+        <span>If you believe that the relevant Content that was removed (or to which access was disabled) is not infringing, or that you have the authorization from the copyright owner, the copyright owner's agent, or pursuant to the law, to post and use such Content, you may send a written counter-notice containing the following information to the Copyright Agent: (i) your physical or electronic signature (ii) identification of the content that has been removed or to which access has been disabled and the location at which the content appeared before it was removed or disabled (iii) a statement that you have a good faith belief that the content was removed or disabled as a result of mistake or a misidentification of the content and (iv) your name, address, telephone number, and e-mail address, a statement that you consent to the jurisdiction of the federal court located within the Northern District of California and a statement that you will accept service of process from the person who provided notification of the alleged infringement. If a counter-notice is received by the Copyright Agent, Company will send a copy of the counter-notice to the original complaining party informing that person that it may replace the removed content or cease disabling it in 10 business days. Unless the copyright owner files an action seeking a court order against the content provider, member or user, the removed content may be replaced, or access to it restored, in 10 to 14 business days or more after receipt of the counter-notice, at Company's sole discretion.</span>
       </p>
       <p className={classes.subSection}>
         <span className={classes.part}>(c)</span>
@@ -214,4 +214,4 @@ export default ({ url }) => (
 
     {styles}
   </Layout>
-);
+)

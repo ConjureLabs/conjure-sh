@@ -1,15 +1,15 @@
-import { Component } from 'react';
-import actions from './actions';
-import styles, { classes } from './styles.js';
-import Federal, { connect } from '@conjurelabs/federal';
+import { Component } from 'react'
+import actions from './actions'
+import styles, { classes } from './styles.js'
+import Federal, { connect } from '@conjurelabs/federal'
 
-import Layout from '../../../components/Layout';
-import Button from '../../../components/Button';
-import CardUI from './card-ui.js';
+import Layout from '../../../components/Layout'
+import Button from '../../../components/Button'
+import CardUI from './card-ui.js'
 
 class Billing extends Component {
   render() {
-    const cards = this.props.cards || [];
+    const cards = this.props.cards || []
 
     return (
       <div>
@@ -20,7 +20,7 @@ class Billing extends Component {
               hallow={false}
               size='small'
               onClick={() => {
-                window.location = '/account/billing/entry';
+                window.location = '/account/billing/entry'
               }}
             >
               Add New Card
@@ -36,22 +36,22 @@ class Billing extends Component {
                 card={card}
                 className={classes.card}
               />
-            );
+            )
           })}
 
           {styles}
         </div>
       </div>
-    );
+    )
   }
 }
 
 const selector = store => ({
   account: store.account,
   cards: store.cards
-});
+})
 
-const ConnectedBilling = connect(selector, actions)(Billing);
+const ConnectedBilling = connect(selector, actions)(Billing)
 
 export default props => (
   <Layout
@@ -61,4 +61,4 @@ export default props => (
   >
     <ConnectedBilling {...props} />
   </Layout>
-);
+)

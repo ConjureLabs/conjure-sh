@@ -1,6 +1,6 @@
-import { Component } from 'react';
-import styles, { classes } from './styles.js';
-import classnames from 'classnames';
+import { Component } from 'react'
+import styles, { classes } from './styles.js'
+import classnames from 'classnames'
 
 export default ({ emoji, headerText, bodyText, className }) => (
   <div className={classnames(classes.root, className)}>
@@ -15,4 +15,4 @@ export default ({ emoji, headerText, bodyText, className }) => (
 
     {styles}
   </div>
-);
+)

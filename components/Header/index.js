@@ -1,7 +1,7 @@
-import classnames from 'classnames';
-import { connect } from '@conjurelabs/federal';
+import classnames from 'classnames'
+import { connect } from '@conjurelabs/federal'
 
-import styles, { classes } from './styles.js';
+import styles, { classes } from './styles.js'
 
 const Header = ({ account, children, wrapped = true, limited = false }) => (
   <header className={classes.root}>
@@ -43,12 +43,12 @@ const Header = ({ account, children, wrapped = true, limited = false }) => (
 
     {styles}
   </header>
-);
+)
 
 const selector = store => {
   return {
     account: store.account
-  };
-};
+  }
+}
 
-export default connect(selector)(Header);
+export default connect(selector)(Header)

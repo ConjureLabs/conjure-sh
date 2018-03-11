@@ -1,43 +1,43 @@
-const Route = require('@conjurelabs/route');
-const nextApp = require('../../../next');
+const Route = require('@conjurelabs/route')
+const nextApp = require('../../../next')
 
 const route = new Route({
   requireAuthentication: true,
   skippedHandler: async (req, res) => {
-    return nextApp.render(req, res, '/_error');
+    return nextApp.render(req, res, '/_error')
   }
-});
+})
 
 route.push(async (req, res) => {
-  const orgSelected = req.query.org;
+  const orgSelected = req.query.org
 
   if (!orgSelected) {
-    return;
+    return
   }
 
   // get github account record
-  const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call;
-  const accountGitHubResult = await apiGetAccountGitHub(req);
+  const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
+  const accountGitHubResult = await apiGetAccountGitHub(req)
 
   // get repos currently watching
-  const apiWatchedSummary = require('conjure-api/server/routes/api/watched/summary/get.js').call;
-  const watchedSummary = await apiWatchedSummary(req);
-  const { watched } = watchedSummary;
+  const apiWatchedSummary = require('conjure-api/server/routes/api/watched/summary/get.js').call
+  const watchedSummary = await apiWatchedSummary(req)
+  const { watched } = watchedSummary
 
   // get all repos
-  let reposResult;
+  let reposResult
   if (orgSelected === accountGitHubResult.account.username) {
-    const apiGetRepos = require('conjure-api/server/routes/api/account/repos/get.js').call;
-    reposResult = await apiGetRepos(req);
+    const apiGetRepos = require('conjure-api/server/routes/api/account/repos/get.js').call
+    reposResult = await apiGetRepos(req)
   } else {
-    const apiGetRepos = require('conjure-api/server/routes/api/org/$orgName/repos/get.js').call;
+    const apiGetRepos = require('conjure-api/server/routes/api/org/$orgName/repos/get.js').call
     reposResult = await apiGetRepos(req, {}, {
       orgName: orgSelected
-    });
+    })
   }
 
   if (!reposResult || !Array.isArray(reposResult[orgSelected]) || !reposResult[orgSelected].length) {
-    return;
+    return
   }
 
   return nextApp.render(req, res, '/watch/repos', {
@@ -46,7 +46,7 @@ route.push(async (req, res) => {
     },
     repos: reposResult[orgSelected],
     watchedRepos: watched.repos.map(repo => repo.name)
-  });
-});
+  })
+})
 
-module.exports = route;
+module.exports = route

@@ -3,7 +3,7 @@
 source ./.profile && node ./scripts/config/generate-client-config.js
  */
 
-const config = require('conjure-core/modules/config');
+const config = require('conjure-core/modules/config')
 
 const clientConfig = {
   app: {
@@ -20,14 +20,14 @@ const clientConfig = {
       protocol: config.app.worker.protocol
     }
   }
-};
+}
 
-const path = require('path');
-const fs = require('fs');
+const path = require('path')
+const fs = require('fs')
 
-const sharedDir = path.resolve(__dirname, '..', '..', 'shared');
+const sharedDir = path.resolve(__dirname, '..', '..', 'shared')
 
-const configContent = `/* eslint-disable */\n// jscs:disable\n\nexport default ${JSON.stringify(clientConfig)};\n`;
+const configContent = `/* eslint-disable */\n// jscs:disable\n\nexport default ${JSON.stringify(clientConfig)}\n`
 
-fs.writeFileSync(path.resolve(sharedDir, 'config.js'), configContent, 'utf8');
-console.log('Generated client config');
+fs.writeFileSync(path.resolve(sharedDir, 'config.js'), configContent, 'utf8')
+console.log('Generated client config')

@@ -1,25 +1,25 @@
-import { Component } from 'react';
-import styles, { classes } from './styles.js';
-import config from '../../../../shared/config.js';
+import { Component } from 'react'
+import styles, { classes } from './styles.js'
+import config from '../../../../shared/config.js'
 
-import Layout from '../../../../components/Layout';
-import EmptyState from '../../../../components/EmptyState';
-import Button from '../../../../components/Button';
+import Layout from '../../../../components/Layout'
+import EmptyState from '../../../../components/EmptyState'
+import Button from '../../../../components/Button'
 
 export default class RequiresAuth extends Component {
   constructor(props) {
-    super(props);
-    this.form = null; // placeholder for form el ref
+    super(props)
+    this.form = null // placeholder for form el ref
   }
 
   submitForm(e) {
-    e.preventDefault();
-    document.getElementById('redirection').value = window.location;
-    this.form.submit();
+    e.preventDefault()
+    document.getElementById('redirection').value = window.location
+    this.form.submit()
   }
 
   render() {
-    const { url } = this.props;
+    const { url } = this.props
 
     return (
       <Layout
@@ -59,6 +59,6 @@ export default class RequiresAuth extends Component {
 
         {styles}
       </Layout>
-    );
+    )
   }
 }

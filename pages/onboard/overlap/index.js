@@ -1,39 +1,35 @@
-import { Component } from 'react';
-import styles, { classes } from '../styles.js';
-import { post } from '../../../shared/xhr';
-import config from '../../../shared/config.js';
+import { Component } from 'react'
+import styles, { classes } from '../styles.js'
+import { post } from '../../../shared/xhr'
+import config from '../../../shared/config.js'
 
-import Layout from '../../../components/Layout';
-import AnchorList from '../../../components/AnchorList';
-import Decision from '../../../components/Decision';
+import Layout from '../../../components/Layout'
+import AnchorList from '../../../components/AnchorList'
+import Decision from '../../../components/Decision'
 
 // eslint thinks this var is not used, even though it is
-let submitting = false; // eslint-disable-line no-unused-vars
+let submitting = false // eslint-disable-line no-unused-vars
 
 export default class OnboardOverlap extends Component {
   handleSkip() {
-    submitting = true;
+    submitting = true
 
     post(`${config.app.api.url}/api/onboard/skip`, {}, err => {
       if (err) {
-        console.error(err);
-        alert(err.message);
-        submitting = false;
-        return;
+        console.error(err)
+        alert(err.message)
+        submitting = false
+        return
       }
 
-      window.location = '/';
-    });
+      window.location = '/'
+    })
   }
 
   render() {
-    const { url } = this.props;
-    const { query } = url;
-    const { account, orgsAlreadyAvailable } = query;
-
-    const initialState = {
-      account: account
-    };
+    const { url } = this.props
+    const { query } = url
+    const { orgsAlreadyAvailable } = query
 
     return (
       <Layout url={url} limitedHeader={true}>
@@ -59,7 +55,7 @@ export default class OnboardOverlap extends Component {
                   <li key={org}>
                     {org}
                   </li>
-                );
+                )
               })}
             </ol>
 
@@ -71,7 +67,7 @@ export default class OnboardOverlap extends Component {
               secondaryText='Set up a different Org'
               onPrimaryClick={this.handleSkip.bind(this)}
               onSecondaryClick={() => {
-                window.location = '/onboard/orgs';
+                window.location = '/onboard/orgs'
               }}
             />
           </main>
@@ -79,6 +75,6 @@ export default class OnboardOverlap extends Component {
 
         {styles}
       </Layout>
-    );
+    )
   }
 }

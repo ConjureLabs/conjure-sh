@@ -1,24 +1,24 @@
-import { Component } from 'react';
-import classnames from 'classnames';
+import { Component } from 'react'
+import classnames from 'classnames'
 
-import Button from '../../../../../components/Button';
+import Button from '../../../../../components/Button'
 
-import styles, { classes } from './styles';
+import styles, { classes } from './styles'
 
 export default class ExpandableList extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       expanded: false
-    };
+    }
   }
 
   render() {
-    const { items, className } = this.props;
-    const { expanded } = this.state;
+    const { items, className } = this.props
+    const { expanded } = this.state
 
-    const hasSuppressedItems = items.find(item => item.suppress === true) !== undefined;
+    const hasSuppressedItems = items.find(item => item.suppress === true) !== undefined
 
     return (
       <span className={classnames(classes.root, {
@@ -48,7 +48,7 @@ export default class ExpandableList extends Component {
             onClick={() => {
               this.setState({
                 expanded: !expanded
-              });
+              })
             }}
           >
             {expanded ? 'View Less' : 'View All'}
@@ -57,6 +57,6 @@ export default class ExpandableList extends Component {
 
         {styles}
       </span>
-    );
+    )
   }
 }

@@ -1,14 +1,14 @@
-import Layout from '../../../components/Layout';
+import Layout from '../../../components/Layout'
 
-import styles, { classes } from './styles.js';
+import styles, { classes } from './styles.js'
 
-import nodeVersions from './language-versions/node';
-import rubyVersions from './language-versions/ruby';
-import pythonVersions from './language-versions/python';
-import phpVersions from './language-versions/php';
-import javaVersions from './language-versions/java';
+import nodeVersions from './language-versions/node'
+import rubyVersions from './language-versions/ruby'
+import pythonVersions from './language-versions/python'
+import phpVersions from './language-versions/php'
+import javaVersions from './language-versions/java'
 
-import ExpandableList from './components/expandable-list';
+import ExpandableList from './components/expandable-list'
 
 export default ({ url }) => {
   return (
@@ -172,5 +172,5 @@ port: 3002`}</pre>
 
       {styles}
     </Layout>
-  );
-};
+  )
+}

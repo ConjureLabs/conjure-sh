@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import styles, { classes } from './styles.js';
-import classnames from 'classnames';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import classnames from 'classnames'
+
+import styles, { classes } from './styles.js'
 
 export default class Button extends Component {
   handleOnClick() {
-    const { onClick, disabled } = this.props;
+    const { onClick, disabled } = this.props
 
     if (disabled) {
-      return;
+      return
     }
 
     if (onClick) {
-      onClick(new Event('Button Clicked'));
+      onClick(new Event('Button Clicked'))
     }
   }
 
   render() {
-    const { className, children, color, size, hallow, disabled } = this.props;
+    const { className, children, color, size, hallow, disabled } = this.props
 
     const rootClasses = classnames(
       classes.root,
@@ -26,7 +27,7 @@ export default class Button extends Component {
       hallow === true ? classes.hallow : null,
       className,
       disabled ? classes.disabled : null
-    );
+    )
 
     return (
       <span
@@ -39,7 +40,7 @@ export default class Button extends Component {
 
         {styles}
       </span>
-    );
+    )
   }
 
   static propTypes = {

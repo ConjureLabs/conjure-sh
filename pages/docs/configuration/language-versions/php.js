@@ -248,4 +248,4 @@ export default [
   { suppress: true, content: '4.0.2' },
   { suppress: true, content: '4.0.1' },
   { suppress: true, content: '4.0.0' }
-];
+]

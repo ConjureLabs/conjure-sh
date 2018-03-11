@@ -1,38 +1,37 @@
-import { Component } from 'react';
-import styles, { classes } from './styles.js';
-import classnames from 'classnames';
-import { post } from '../../../shared/xhr';
-import config from '../../../shared/config.js';
+import { Component } from 'react'
+import styles, { classes } from './styles.js'
+import { post } from '../../../shared/xhr'
+import config from '../../../shared/config.js'
 
-import Layout from '../../../components/Layout';
-import Button from '../../../components/Button';
+import Layout from '../../../components/Layout'
+import Button from '../../../components/Button'
 
-let submitting = false;
+let submitting = false
 
 export default class OnboardPlan extends Component {
   submit(parallelContainerLimit) {
     if (submitting) {
-      return;
+      return
     }
 
-    submitting = true;
+    submitting = true
 
     post(`${config.app.api.url}/api/onboard/plan/selection`, {
       containerLimit: parallelContainerLimit
     }, err => {
       if (err) {
-        console.error(err);
-        alert(err.message);
-        submitting = false;
-        return;
+        console.error(err)
+        alert(err.message)
+        submitting = false
+        return
       }
 
-      window.location = '/onboard/billing';
-    });
+      window.location = '/onboard/billing'
+    })
   }
 
   render() {
-    const { url } = this.props;
+    const { url } = this.props
 
     return (
       <Layout url={url} limitedHeader={true}>
@@ -74,7 +73,7 @@ export default class OnboardPlan extends Component {
                   color='blue'
                   hallow={true}
                   onClick={() => {
-                    this.submit(1);
+                    this.submit(1)
                   }}
                   className={classes.button}
                 >
@@ -107,7 +106,7 @@ export default class OnboardPlan extends Component {
                   color='blue'
                   hallow={false}
                   onClick={() => {
-                    this.submit(4);
+                    this.submit(4)
                   }}
                   className={classes.button}
                 >
@@ -140,7 +139,7 @@ export default class OnboardPlan extends Component {
                   color='blue'
                   hallow={true}
                   onClick={() => {
-                    this.submit(10);
+                    this.submit(10)
                   }}
                   className={classes.button}
                 >
@@ -173,7 +172,7 @@ export default class OnboardPlan extends Component {
                   color='blue'
                   hallow={true}
                   onClick={() => {
-                    this.submit(20);
+                    this.submit(20)
                   }}
                   className={classes.button}
                 >
@@ -186,6 +185,6 @@ export default class OnboardPlan extends Component {
 
         {styles}
       </Layout>
-    );
+    )
   }
 }
