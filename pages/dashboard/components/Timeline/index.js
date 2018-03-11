@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import styles, { classes } from './styles.js';
-import { connect } from 'federal';
+import { connect } from '@conjurelabs/federal';
 import EmptyState from '../../../../components/EmptyState';
 import classnames from 'classnames';
 import moment from 'moment';

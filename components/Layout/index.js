@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Federal, { connect } from 'federal';
+import Federal, { connect } from '@conjurelabs/federal';
 import classnames from 'classnames';
 
 import Header from '../Header';

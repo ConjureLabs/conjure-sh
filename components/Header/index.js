@@ -1,5 +1,5 @@
 import classnames from 'classnames';
-import { connect } from 'federal';
+import { connect } from '@conjurelabs/federal';
 
 import styles, { classes } from './styles.js';
 

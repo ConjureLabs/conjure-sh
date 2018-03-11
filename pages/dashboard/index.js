@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { get } from '../../shared/xhr';
 import actions from './actions';
 import styles, { classes } from './styles.js';
-import { connect } from 'federal';
+import { connect } from '@conjurelabs/federal';
 import config from '../../shared/config.js';
 import classnames from 'classnames';
 

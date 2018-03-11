@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { connect } from 'federal';
+import { connect } from '@conjurelabs/federal';
 import Button from '../Button';
 import classnames from 'classnames';
 import AnchorList from '../AnchorList';

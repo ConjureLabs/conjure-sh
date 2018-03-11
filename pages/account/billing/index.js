@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import actions from './actions';
 import styles, { classes } from './styles.js';
-import Federal, { connect } from 'federal';
+import Federal, { connect } from '@conjurelabs/federal';
 
 import Layout from '../../../components/Layout';
 import Button from '../../../components/Button';
