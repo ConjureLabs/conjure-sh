@@ -14,6 +14,9 @@
     "node": ">=8.7.0"
   },
   "dependencies": {
+    "@conjurelabs/db": "0.0.2",
+    "@conjurelabs/err": "0.0.2",
+    "@conjurelabs/route": "0.0.1",
     "ansi-to-html": "^0.6.3",
     "async": "^2.3.0",
     "babel-core": "^6.24.1",
@@ -32,9 +35,7 @@
     "cookie-session": "^2.0.0-beta.2",
     "country-list": "^1.1.0",
     "css-loader": "^0.28.0",
-    "db": "ConjureLabs/db",
     "debug": "2.6.0",
-    "err": "ConjureLabs/err",
     "expose-loader": "^0.7.3",
     "express": "4.14.0",
     "extract-text-webpack-plugin": "^2.1.0",
@@ -52,14 +53,12 @@
     "react-click-outside": "tj/react-click-outside",
     "react-dom": "16.2.0",
     "request": "^2.81.0",
-    "route": "ConjureLabs/route",
     "socket.io-client": "^2.0.3",
     "style-loader": "^0.16.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.1",
     "uglify-loader": "^2.0.0",
     "uid": "0.0.2",
-    "utils": "ConjureLabs/utils",
     "webpack": "^2.4.1"
   },
   "devDependencies": {

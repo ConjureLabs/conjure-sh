@@ -2,6 +2,28 @@
 # yarn lockfile v1
 
 
+"@conjurelabs/db@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/db/-/db-0.0.2.tgz#5da64224e5e8c76b3fbcfd08b028340c1b840b45"
+  dependencies:
+    "@conjurelabs/err" "0.0.2"
+
+"@conjurelabs/err@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/err/-/err-0.0.2.tgz#432f40ccecf74fc5c4cab4eeb0886c0bfdf40c67"
+
+"@conjurelabs/route@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.0.1.tgz#e4e9026feaad72f1f61482a37f53a0f578fd6bc9"
+  dependencies:
+    "@conjurelabs/err" "0.0.2"
+    "@conjurelabs/utils" "0.0.1"
+    cors "^2.8.4"
+
+"@conjurelabs/utils@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/utils/-/utils-0.0.1.tgz#d72f3c61baa3e4e3334254a235dbfd760ed9c7ec"
+
 "@semantic-release/commit-analyzer@^3.0.1":
   version "3.0.7"
   resolved "https://registry.yarnpkg.com/@semantic-release/commit-analyzer/-/commit-analyzer-3.0.7.tgz#dc955444a6d3d2ae9b8e21f90c2c80c4e9142b2f"

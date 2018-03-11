@@ -1,4 +1,4 @@
-require('utils/process/handle-exceptions');
+require('@conjurelabs/utils/process/handle-exceptions');
 
 // first running any synchronous setup
 const setup = require('./setup');
@@ -52,7 +52,7 @@ server.use(cookieParser());
 
 // passport serialization
 passport.serializeUser((user, done) => {
-  const DatabaseRow = require('db/row');
+  const DatabaseRow = require('@conjurelabs/db/row');
   done(null, new DatabaseRow('account', user));
 });
 passport.deserializeUser((user, done) => {

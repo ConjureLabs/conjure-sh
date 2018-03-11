@@ -18,7 +18,7 @@ module.exports = async (req, res, containerRecord, next) => {
   // logsReq --> {"sessionKey":"d?neg%eDh2@u14P|4~~YRV@x~2j6h:P&S6n,4E%l9gc16?-TAoJK,-KG&@akqMR@"}
 
   if (!logsReq || !logsReq.sessionKey) {
-    const { UnexpectedError } = require('err');
+    const { UnexpectedError } = require('@conjurelabs/err');
     return next(new UnexpectedError('No session key given for logs tailing'));
   }
 

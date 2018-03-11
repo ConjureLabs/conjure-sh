@@ -1,4 +1,4 @@
-const Route = require('route');
+const Route = require('@conjurelabs/route');
 const nextApp = require('../next');
 const log = require('conjure-core/modules/log')('root path');
 
@@ -19,7 +19,7 @@ route.push(async (req, res) => {
  */
 route.push(async (req, res) => {
   // assuming req.isAuthenticated() === true, based on previous .get('/')
-  const DatabaseTable = require('db/table');
+  const DatabaseTable = require('@conjurelabs/db/table');
   const account = new DatabaseTable('account');
   const accountRows = await account.select({
     id: req.user.id
