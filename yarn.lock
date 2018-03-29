@@ -24,9 +24,9 @@
     "@conjurelabs/utils" "0.0.1"
     cors "^2.8.4"
 
-"@conjurelabs/route@0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.1.1.tgz#9194bee4859fbcb23b410a9da1d452e2a4c5c074"
+"@conjurelabs/route@0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.1.3.tgz#79841a62d843c5effa1d1cef716cb762fbcd6413"
   dependencies:
     "@conjurelabs/err" "0.0.2"
     "@conjurelabs/utils" "0.0.1"
