@@ -3,9 +3,9 @@ module.exports = (req, res, containerRecord, next) => {
 
   // was successful, so proxy the request to the docker instance
   const proxy = new ReqProxy({
-    domain: containerRecord.public_ip,
+    domain: containerRecord.publicIp,
     path: req.url,
-    port: containerRecord.host_port
+    port: containerRecord.hostPort
   })
 
   try {

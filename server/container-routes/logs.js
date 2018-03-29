@@ -11,7 +11,7 @@ module.exports = async (req, res, containerRecord, next) => {
 
   const apiContainerLogs = require('conjure-api/server/routes/api/container/$containerUid/logs/get.js').call
   const logsReq = await apiContainerLogs(req, {}, {
-    containerUid: containerRecord.url_uid
+    containerUid: containerRecord.urlUid
   })
 
   // logsReq --> {"sessionKey":"d?neg%eDh2@u14P|4~~YRV@x~2j6h:P&S6n,4E%l9gc16?-TAoJK,-KG&@akqMR@"}
@@ -24,6 +24,6 @@ module.exports = async (req, res, containerRecord, next) => {
   nextApp.render(req, res, '/container/logs', {
     sessionKey: logsReq.sessionKey,
     host: process.env.NODE_ENV === 'development' ? `//localhost:${config.app.worker.port}` : `${config.app.worker.protocol}//${logsReq.host}`,
-    containerUid: containerRecord.url_uid
+    containerUid: containerRecord.urlUid
   })
 }

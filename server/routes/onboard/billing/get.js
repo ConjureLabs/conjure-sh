@@ -37,7 +37,7 @@ route.push(async (req, res) => {
   }
 
   // checking if a plan exists, for this user
-  const AccountMonthlyBillingPlan = new DatabaseTable('account_monthly_billing_plan')
+  const AccountMonthlyBillingPlan = new DatabaseTable('accountMonthlyBillingPlan')
   const planRows = await AccountMonthlyBillingPlan.select({
     account: req.user.id
   })

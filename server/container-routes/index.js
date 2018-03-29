@@ -46,7 +46,7 @@ async function checkPermissions(req, res, uid, handler, next) {
   let containers
   try {
     containers = await DatabaseTable.select('container', {
-      url_uid: uid
+      urlUid: uid
     })
   } catch(err) {
     return next(err)
@@ -68,7 +68,7 @@ async function checkPermissions(req, res, uid, handler, next) {
   // check permissions
   let watchedRepoRecords
   try {
-    watchedRepoRecords = await DatabaseTable.select('watched_repo', {
+    watchedRepoRecords = await DatabaseTable.select('watchedRepo', {
       id: containerRecord.repo
     })
   } catch(err) {
@@ -121,7 +121,7 @@ async function checkPermissions(req, res, uid, handler, next) {
   // filtering down to the container's repo record
   let repo
   for (let i = 0; i < orgRepos.length; i++) {
-    if (orgRepos[i].id === parseInt(watchedRepo.service_repo_id, 10)) {
+    if (orgRepos[i].id === parseInt(watchedRepo.serviceRepoId, 10)) {
       repo = orgRepos[i]
       break
     }

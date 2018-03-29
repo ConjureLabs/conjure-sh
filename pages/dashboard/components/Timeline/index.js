@@ -249,7 +249,7 @@ class Timeline extends Component {
 
                   <li className={classnames({
                     [classes.repo]: true,
-                    [classes.privateRepo]: item.repo_private === true
+                    [classes.privateRepo]: item.repoPrivate === true
                   })}>
                     <sup className={classes.svgIcon} />
                     <a
