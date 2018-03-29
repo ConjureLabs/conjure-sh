@@ -16,14 +16,6 @@
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@conjurelabs/federal/-/federal-0.0.3.tgz#f13227a5a8add911274e77049ba76b9e7f1e99c7"
 
-"@conjurelabs/route@0.0.1":
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.0.1.tgz#e4e9026feaad72f1f61482a37f53a0f578fd6bc9"
-  dependencies:
-    "@conjurelabs/err" "0.0.2"
-    "@conjurelabs/utils" "0.0.1"
-    cors "^2.8.4"
-
 "@conjurelabs/route@0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.1.4.tgz#2ece3cdd3d289c8997dd5cd07e3268b43715e750"
@@ -1827,11 +1819,11 @@ config-chain@~1.1.8:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#f65c57d0024121b8305df797c9a52385ead7316a"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#242c643d4798cff17e0c7c5688b6976bdb735d16"
   dependencies:
     "@conjurelabs/db" "0.0.2"
     "@conjurelabs/err" "0.0.2"
-    "@conjurelabs/route" "0.0.1"
+    "@conjurelabs/route" "0.1.4"
     "@conjurelabs/utils" "0.0.1"
     async "^2.3.0"
     body-parser "1.15.2"
@@ -6698,9 +6690,13 @@ stackframe@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/stackframe/-/stackframe-1.0.4.tgz#357b24a992f9427cba6b545d96a14ed2cbca187b"
 
-"statuses@>= 1.2.1 < 2", "statuses@>= 1.3.1 < 2":
+"statuses@>= 1.2.1 < 2":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.4.0.tgz#bb73d446da2796106efcc1b601a253d6c46bd087"
+
+"statuses@>= 1.3.1 < 2":
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
 
 statuses@~1.3.0, statuses@~1.3.1:
   version "1.3.1"
