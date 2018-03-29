@@ -60,7 +60,7 @@ route.push(async (req, res) => {
   }
 
   // continue to partial onboarding
-  return nextApp.render(req, res, '/onboard/overlap', {
+  nextApp.render(req, res, '/onboard/overlap', {
     account: {
       photo: (await accountGitHubResult).account.photo
     },

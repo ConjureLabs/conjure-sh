@@ -20,7 +20,7 @@ route.push(async (req, res) => {
   const apiWatchedOrgs = require('conjure-api/server/routes/api/watched/orgs/get.js').call
   const watchedOrgs = apiWatchedOrgs(req)
 
-  return nextApp.render(req, res, '/watch/org', {
+  nextApp.render(req, res, '/watch/org', {
     account: {
       photo: (await accountGitHubResult).account.photo
     },

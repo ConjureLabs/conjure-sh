@@ -63,7 +63,7 @@ route.push(async (req, res) => {
   const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call
   const reposResult = apiGetRepos(req)
 
-  return nextApp.render(req, res, '/onboard/repos', {
+  nextApp.render(req, res, '/onboard/repos', {
     account: {
       photo: (await accountGitHubResult).account.photo
     },

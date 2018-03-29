@@ -8,11 +8,11 @@ const route = new Route({
   }
 })
 
-route.push(async (req, res) => {
+route.push(async (req, res, next) => {
   const orgSelected = req.query.org
 
   if (!orgSelected) {
-    return
+    return next()
   }
 
   // get github account record
@@ -37,10 +37,10 @@ route.push(async (req, res) => {
   }
 
   if (!reposResult || !Array.isArray(reposResult[orgSelected]) || !reposResult[orgSelected].length) {
-    return
+    return next()
   }
 
-  return nextApp.render(req, res, '/watch/repos', {
+  nextApp.render(req, res, '/watch/repos', {
     account: {
       photo: accountGitHubResult.account.photo
     },

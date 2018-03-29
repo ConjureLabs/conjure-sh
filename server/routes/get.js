@@ -7,17 +7,18 @@ const route = new Route()
 /*
   Logged-out landing page
  */
-route.push(async (req, res) => {
+route.push(async (req, res, next) => {
   if (!req.isAuthenticated()) {
     return nextApp.render(req, res, '/landing', req.query)
   }
+  next()
 })
 
 /*
   May be logged into an account that no longer exists in our system
   This will kick them out, back to the generic / landing
  */
-route.push(async (req, res) => {
+route.push(async (req, res, next) => {
   // assuming req.isAuthenticated() === true, based on previous .get('/')
   const DatabaseTable = require('@conjurelabs/db/table')
   const account = new DatabaseTable('account')
@@ -35,13 +36,13 @@ route.push(async (req, res) => {
     return res.redirect(302, '/onboard')
   }
 
-  // next...
+  next()
 })
 
 /*
   Must be logged in, kick user to conjure dashboard
  */
-route.push(async (req, res) => {
+route.push(async (req, res, next) => {
   const orgSelected = req.query.org
   const repoSelected = req.query.repo
 
@@ -50,7 +51,7 @@ route.push(async (req, res) => {
   }
 
   if (!orgSelected || !repoSelected) {
-    return
+    return next()
   }
 
   const apiWatchedSummary = require('conjure-api/server/routes/api/watched/summary/get.js').call
@@ -61,19 +62,19 @@ route.push(async (req, res) => {
   // making sure the query args are valid
   if (orgSelected !== '*' && !orgs.includes(orgSelected)) {
     log.error('Org, in query param, not available')
-    return
+    return next()
   }
   // can not view specific repos if viewing all orgs
   if (orgSelected === '*' && repoSelected !== '*') {
     log.error('User attempting to view specific repo within wildcard orgs')
-    return
+    return next()
   }
   // if viewing a specific repo, validate it is within the specific org
   if (repoSelected !== '*') {
     const found = repos.find(repo => repo.name === repoSelected)
     if (!found || found.org !== orgSelected) {
       log.error('Repo, in query param, not available')
-      return
+      return next()
     }
   }
 
@@ -93,7 +94,7 @@ route.push(async (req, res) => {
     additional
   }
 
-  return nextApp.render(req, res, '/dashboard', queryValues)
+  nextApp.render(req, res, '/dashboard', queryValues)
 })
 
 module.exports = route
