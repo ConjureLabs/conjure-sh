@@ -35,10 +35,10 @@ route.push(async (req, res) => {
     return res.redirect(302, '/onboard/orgs')
   }
 
-  // checking if a plan already exists, for this user
-  const AccountMonthlyBillingPlan = new DatabaseTable('accountMonthlyBillingPlan')
-  const planRows = await AccountMonthlyBillingPlan.select({
-    account: req.user.id
+  // checking if a plan exists, for this org
+  const GithubOrgMonthlyBillingPlan = new DatabaseTable('githubOrgMonthlyBillingPlan')
+  const planRows = await GithubOrgMonthlyBillingPlan.select({
+    org: req.cookies['conjure-onboard-orgs']
   })
 
   if (planRows.length > 0) {
