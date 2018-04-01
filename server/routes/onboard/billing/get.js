@@ -39,9 +39,8 @@ route.push(async (req, res) => {
   // checking if a plan exists, for this org
   const GithubOrgMonthlyBillingPlan = new DatabaseTable('githubOrgMonthlyBillingPlan')
   const planRows = await GithubOrgMonthlyBillingPlan.select({
-    org: req.cookies['conjure-onboard-orgs']
+    org: req.cookies['conjure-onboard-orgs'].label
   })
-
   if (planRows.length === 0) {
     return res.redirect(302, '/onboard/plan')
   }
