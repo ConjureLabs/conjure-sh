@@ -35,10 +35,12 @@ route.push(async (req, res) => {
     return res.redirect(302, '/onboard/orgs')
   }
 
+  const orgName = req.cookies['conjure-onboard-orgs'].label
+
   // checking if a plan exists, for this org
   const GithubOrgMonthlyBillingPlan = new DatabaseTable('githubOrgMonthlyBillingPlan')
   const planRows = await GithubOrgMonthlyBillingPlan.select({
-    org: req.cookies['conjure-onboard-orgs'].label
+    org: orgName
   })
 
   if (planRows.length === 0) {
@@ -61,14 +63,14 @@ route.push(async (req, res) => {
 
   // get repos
   const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call
-  const reposResult = apiGetRepos(req)
+  const reposResult = (await apiGetRepos(req)).reposByOrg
 
   nextApp.render(req, res, '/onboard/repos', {
     account: {
       photo: (await accountGitHubResult).account.photo
     },
-    repos: (await reposResult).reposByOrg,
-    org: req.cookies['conjure-onboard-orgs'].label
+    repos: reposResult,
+    org: req.cookies['conjure-onboard-orgs'] // object of label & value
   })
 })
 
