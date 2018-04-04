@@ -18,7 +18,7 @@ fi
 node $APP_DIR/scripts/stylus/prepare.js;
 node $APP_DIR/scripts/config/generate-client-config.js;
 
-if [ "$KEEP_DB" = "" ]; then
+if [ ! "$FRESH_DB" = "" ]; then
   source $BASH_DIR/postgres/init-local.sh;
 fi
 
