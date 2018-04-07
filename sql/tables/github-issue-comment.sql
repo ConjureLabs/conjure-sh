@@ -5,6 +5,7 @@ CREATE TABLE github_issue_comment (
   comment_id INT NOT NULL,
   url VARCHAR(2000) NOT NULL,
   is_active BOOLEAN NOT NULL,
+  s3_key VARCHAR(2000) NOT NULL,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE,
   UNIQUE(watched_repo, issue_id, comment_id)
