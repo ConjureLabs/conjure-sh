@@ -3,7 +3,7 @@ const Queue = require('conjure-core/classes/Queue')
 const AWS = require('aws-sdk')
 const config = require('conjure-core/modules/config')
 const { ContentError, UnexpectedError } = require('@conjurelabs/err')
-const nextApp = require('../../../../next')
+const nextApp = require('../../../../../next')
 
 AWS.config.update({
   accessKeyId: config.aws.accessKey,
@@ -19,12 +19,7 @@ const route = new Route({
   Repos listing
  */
 route.push(async (req, res) => {
-  const { orgName, repoName, branch } = req.params
-  const commentId = req.query.id
-
-  if (!commentId || Number.isNaN(commentId)) {
-    throw new ContentError('Expected id query param')
-  }
+  const { orgName, repoName, issueId } = req.params
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
   const gitHubAccount = (await apiGetAccountGitHub(req)).account
@@ -88,12 +83,17 @@ route.push(async (req, res) => {
   }
 
   // getting comment row record (so we can pull the payload)
-  const DatabaseTable = require('@conjurelabs/db/table')
-  const commentRows = await DatabaseTable.select('githubIssueComment', {
-    commentId
-  })
-  if (!commentRows.length || commentRows[0].watchedRepo !== repo.id) {
-    throw new UnexpectedError('Comment row record does not pair up to repo record')
+  const { query } = require('@conjurelabs/db')
+  const commentRowsResult = await query(`
+    SELECT * FROM github_issue_comment
+    WHERE watched_repo = $1 AND
+    issue_id = $2 AND
+    is_active = TRUE
+    ORDER BY added, updated DESC
+  `, [repo.id, issueId])
+  const commentRows = commentRowsResult.rows
+  if (!commentRows.length) {
+    throw new UnexpectedError('Comment row record missing')
   }
 
   // pulling payload file
