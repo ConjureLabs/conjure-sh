@@ -101,16 +101,10 @@ route.push(async (req, res) => {
 
   // begin spinning up the container
   queue = new Queue('container.create')
-  try {
-    await queue.push({
-      content: payload
-    })
-    log.info('Job pushed to queue (container.create)')
-  } catch(err) {
-    if (err) {
-      log.error(err)
-    }
-  }
+  await queue.push({
+    content: payload
+  })
+  log.info('Job pushed to queue (container.create)')
 
   // todo: add a cookie to res, so user can see a success message after redirect
   res.redirect(302, '/') // kick to dashboard

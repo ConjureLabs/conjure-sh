@@ -7,7 +7,7 @@ const route = new Route()
 /*
   Logged-out landing page
  */
-route.push(async (req, res, next) => {
+route.push((req, res, next) => {
   if (!req.isAuthenticated()) {
     return nextApp.render(req, res, '/landing', req.query)
   }

@@ -14,7 +14,7 @@
     "node": ">=8.7.0"
   },
   "dependencies": {
-    "@conjurelabs/db": "0.0.2",
+    "@conjurelabs/db": "0.1.0",
     "@conjurelabs/err": "0.0.2",
     "@conjurelabs/federal": "0.0.3",
     "@conjurelabs/route": "0.1.4",
