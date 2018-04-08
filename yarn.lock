@@ -1941,7 +1941,7 @@ config-chain@~1.1.8:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#5b6a26c766355384c7cc73bcdc62c42d56c77ed2"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#d36d20893dacbd35595ccfb8e0e3b0dbf565648e"
   dependencies:
     "@conjurelabs/db" "0.1.0"
     "@conjurelabs/err" "0.0.2"
@@ -1963,7 +1963,7 @@ config-chain@~1.1.8:
 
 "conjure-core@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#d69018b9efa8f06320e57297dfc245080bfd5916"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#3ffcab47489e483c19d31e0a9ad549d3db4d901f"
   dependencies:
     "@conjurelabs/db" "0.1.0"
     "@conjurelabs/err" "0.0.2"
