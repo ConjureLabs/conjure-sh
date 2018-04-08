@@ -125,7 +125,7 @@ function getS3Object(key) {
         return reject(err)
       }
 
-      resolve(data.Body)
+      resolve(JSON.parse(data.Body))
     })
   })
 }
