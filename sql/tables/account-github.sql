@@ -7,7 +7,7 @@ CREATE TABLE account_github (
   email VARCHAR(255),
   photo VARCHAR(255),
   access_token VARCHAR(255),
-  token_assumed_valid BOOLEAN NOT NULL,
+  access_token_assumed_valid BOOLEAN NOT NULL,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
