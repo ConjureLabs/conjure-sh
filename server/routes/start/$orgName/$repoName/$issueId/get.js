@@ -117,12 +117,12 @@ route.push(async (req, res) => {
   }
 
   // pulling payload file
-  const payload = await getS3Object(commentRows[0].s3Key)
+  const s3Obj = await getS3Object(commentRows[0].s3Key)
 
   // begin spinning up the container
   queue = new Queue('container.create')
   await queue.push({
-    content: payload
+    content: s3Obj.payload
   })
   log.info('Job pushed to queue (container.create)')
 
