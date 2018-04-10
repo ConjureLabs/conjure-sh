@@ -20,7 +20,7 @@ route.push((req, res, next) => {
  */
 route.push(async (req, res, next) => {
   // assuming req.isAuthenticated() === true, based on previous .get('/')
-  const DatabaseTable = require('@conjurelabs/db/table')
+  const { DatabaseTable } = require('@conjurelabs/db')
   const account = new DatabaseTable('account')
   const accountRows = await account.select({
     id: req.user.id

@@ -8,6 +8,12 @@
   dependencies:
     "@conjurelabs/err" "0.0.2"
 
+"@conjurelabs/db@1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/db/-/db-1.0.2.tgz#233609eb9f28fada2ea34330700de8578040569f"
+  dependencies:
+    "@conjurelabs/err" "0.0.2"
+
 "@conjurelabs/err@0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@conjurelabs/err/-/err-0.0.2.tgz#432f40ccecf74fc5c4cab4eeb0886c0bfdf40c67"
@@ -1602,8 +1608,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000824"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000824.tgz#bba3ff425296e04caa37fe426259206a7056551b"
+  version "1.0.30000826"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000826.tgz#c41002dd235d0758f70b90445038ffc4b1e473aa"
 
 caniuse-lite@^1.0.30000792:
   version "1.0.30000824"
@@ -1941,7 +1947,7 @@ config-chain@~1.1.8:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#b9e9215007b560c5ad3a41d888f58ea8aaa05259"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#58678ff5e74d09b912efc791521488717050f040"
   dependencies:
     "@conjurelabs/db" "0.1.0"
     "@conjurelabs/err" "0.0.2"
@@ -1963,7 +1969,7 @@ config-chain@~1.1.8:
 
 "conjure-core@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#40489abfa4873ac1d08f39400341238bcfa762b4"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#f94a72b3968b1e135b64bbd1a982eb6a563dc2b2"
   dependencies:
     aws-sdk "2.222.1"
     bee-queue "1.2.2"
@@ -2128,8 +2134,8 @@ core-js@^1.0.0:
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
 core-js@^2.4.0, core-js@^2.5.0:
-  version "2.5.4"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.4.tgz#f2c8bf181f2a80b92f360121429ce63a2f0aeae0"
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.5.5.tgz#b14dde936c640c0579a6b50cabcc132dd6127e3b"
 
 core-util-is@1.0.2, core-util-is@^1.0.1, core-util-is@~1.0.0:
   version "1.0.2"

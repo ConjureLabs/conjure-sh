@@ -10,7 +10,8 @@ const route = new Route({
 
 route.push(async (req, res) => {
   // check if account is valid, and should be seeing onboard flow
-  const DatabaseTable = require('@conjurelabs/db/table')
+  const { DatabaseTable, query } = require('@conjurelabs/db')
+
   const account = new DatabaseTable('account')
   const accountRows = await account.select({
     id: req.user.id
@@ -36,7 +37,6 @@ route.push(async (req, res) => {
   // and that the user has access to at least one repo within that org
   const batchAll = require('@conjurelabs/utils/Promise/batch-all')
   const watchedRepoResults = await batchAll(4, orgs, org => {
-    const { query } = require('@conjurelabs/db')
     return query('SELECT COUNT(*) num FROM watched_repo WHERE org = $1', [org.login])
   })
 
