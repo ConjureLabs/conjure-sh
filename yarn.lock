@@ -2,12 +2,6 @@
 # yarn lockfile v1
 
 
-"@conjurelabs/db@0.1.0":
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/@conjurelabs/db/-/db-0.1.0.tgz#8fe14e24f7ef334faa04a39d337eeda9974b4c56"
-  dependencies:
-    "@conjurelabs/err" "0.0.2"
-
 "@conjurelabs/db@1.0.2":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@conjurelabs/db/-/db-1.0.2.tgz#233609eb9f28fada2ea34330700de8578040569f"
@@ -1608,12 +1602,12 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000826"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000826.tgz#c41002dd235d0758f70b90445038ffc4b1e473aa"
+  version "1.0.30000827"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000827.tgz#bd2839dd196093b44c28c17f93513140c9d92588"
 
 caniuse-lite@^1.0.30000792:
-  version "1.0.30000824"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000824.tgz#de3bc1ba0bff4937302f8cb2a8632a8cc1c07f9a"
+  version "1.0.30000827"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000827.tgz#2dad2354e4810c3c9bb1cfc57f655c270c25fa52"
 
 case-sensitive-paths-webpack-plugin@2.1.1:
   version "2.1.1"
@@ -1947,9 +1941,9 @@ config-chain@~1.1.8:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#58678ff5e74d09b912efc791521488717050f040"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#78f16f9fbdfb90e2fc7f3dd13d0d7be21c727b28"
   dependencies:
-    "@conjurelabs/db" "0.1.0"
+    "@conjurelabs/db" "1.0.2"
     "@conjurelabs/err" "0.0.2"
     "@conjurelabs/route" "0.1.4"
     "@conjurelabs/utils" "0.1.0"
@@ -1969,7 +1963,7 @@ config-chain@~1.1.8:
 
 "conjure-core@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#f94a72b3968b1e135b64bbd1a982eb6a563dc2b2"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#955825f9da107c7f8234eeb7fd198f9a051e299d"
   dependencies:
     aws-sdk "2.222.1"
     bee-queue "1.2.2"

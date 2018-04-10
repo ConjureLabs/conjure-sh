@@ -3,6 +3,7 @@ const Queue = require('conjure-core/classes/Queue')
 const AWS = require('aws-sdk')
 const config = require('conjure-core/modules/config')
 const { ContentError, UnexpectedError } = require('@conjurelabs/err')
+const log = require('conjure-core/modules/log')('container start hook')
 const nextApp = require('../../../../../next')
 
 AWS.config.update({
@@ -82,15 +83,34 @@ route.push(async (req, res) => {
     return
   }
 
+  const { query, DatabaseTable } = require('@conjurelabs/db')
+
+  // getting our repo record, based on github repo id
+  const repoRows = await DatabaseTable.select('watchedRepo', {
+    service_repo_id: repo.id,
+    disabled: false
+  })
+
+  if (!repoRows.length) {
+    log.info(`User does not have repo ${repoName}, within org ${orgName}`)
+    orgsResult = apiGetOrgs(req)
+    nextApp.render(req, res, '/terminal/private/invalid-permissions', {
+      account: {
+        photo: gitHubAccount.photo // todo: not rely on github...
+      },
+      orgs: (await orgsResult).orgs
+    })
+    return
+  }
+
   // getting comment row record (so we can pull the payload)
-  const { query } = require('@conjurelabs/db')
   const commentRowsResult = await query(`
     SELECT * FROM github_issue_comment
     WHERE watched_repo = $1 AND
     issue_id = $2 AND
     is_active = TRUE
     ORDER BY added, updated DESC
-  `, [repo.id, issueId])
+  `, [repoRows[0].id, issueId])
   const commentRows = commentRowsResult.rows
   if (!commentRows.length) {
     throw new UnexpectedError('Comment row record missing')
@@ -119,7 +139,7 @@ function getS3Object(key) {
     })
 
     s3.getObject({
-      Key: commentRows[0].s3Key
+      Key: key
     }, (err, data) => {
       if (err) {
         return reject(err)
