@@ -53,7 +53,7 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
 
           {withFooter !== true ? null : (
             <footer className={classes.footer}>
-              <span>Copyright &copy; 2017 Conjure Labs, Inc.</span>
+              <span>Copyright &copy; 2017 - {new Date().getFullYear()} Conjure Labs, Inc.</span>
               <del>|</del>
               <a href='/docs'>Docs</a>
               <del>|</del>
