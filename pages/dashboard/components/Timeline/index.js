@@ -222,7 +222,8 @@ class Timeline extends Component {
             ) : item.status
 
             // if container is running, link to logs
-            const logsNode = item.status === 'Running' ? (
+            // todo: remove `false` when logs are ready
+            const logsNode = false && item.status === 'Running' ? (
               <a
                 key={`running-logs-${item.id}`}
                 target='_blank'
