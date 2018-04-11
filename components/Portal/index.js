@@ -20,7 +20,7 @@ export default class Portal extends Component {
     const { mounted } = this.state
 
     if (!mounted) {
-      return null
+      return (</>);
     }
 
     const { children } = this.props
