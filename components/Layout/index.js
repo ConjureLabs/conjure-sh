@@ -3,6 +3,7 @@ import Federal from '@conjurelabs/federal'
 import classnames from 'classnames'
 
 import Header from '../Header'
+import SystemMessages from '../SystemMessages'
 import config from '../../shared/config'
 import nativeStyles from './styles.native.js'
 
@@ -64,6 +65,8 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
           )}
         </div>
       </Federal>
+
+      <SystemMessages />
 
       {styles}
     </div>
