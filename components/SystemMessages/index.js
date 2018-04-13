@@ -15,7 +15,7 @@ class Message extends Component {
     }
   }
 
-  componentDidMountx() {
+  componentDidMount() {
     setTimeout(() => {
       this.setState({
         ttlExpired: true
