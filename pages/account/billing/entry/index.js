@@ -233,4 +233,4 @@ class AccountBillingEntry extends Component {
   }
 }
 
-export default connect(() => {}), sysMessageActions)(AccountBillingEntry)
+export default connect((() => {}), sysMessageActions)(AccountBillingEntry)

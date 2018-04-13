@@ -74,4 +74,4 @@ class OnboardOrgs extends Component {
   }
 }
 
-export default connect(() => {}), sysMessageActions)(OnboardOrgs)
+export default connect((() => {}), sysMessageActions)(OnboardOrgs)

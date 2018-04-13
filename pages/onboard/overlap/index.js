@@ -86,4 +86,4 @@ class OnboardOverlap extends Component {
   }
 }
 
-export default connect(() => {}), sysMessageActions)(OnboardOverlap)
+export default connect((() => {}), sysMessageActions)(OnboardOverlap)

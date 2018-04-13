@@ -108,4 +108,4 @@ class WatchRepos extends Component {
   }
 }
 
-export default connect(() => {}), sysMessageActions)(WatchRepos)
+export default connect((() => {}), sysMessageActions)(WatchRepos)

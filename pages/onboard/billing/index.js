@@ -242,4 +242,4 @@ class OnboardBilling extends Component {
   }
 }
 
-export default connect(() => {}), sysMessageActions)(OnboardBilling)
+export default connect((() => {}), sysMessageActions)(OnboardBilling)

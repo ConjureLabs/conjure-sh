@@ -195,4 +195,4 @@ class OnboardPlan extends Component {
   }
 }
 
-export default connect(() => {}), sysMessageActions)(OnboardPlan)
+export default connect((() => {}), sysMessageActions)(OnboardPlan)

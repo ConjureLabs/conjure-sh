@@ -120,4 +120,4 @@ class OnboardRepos extends Component {
   }
 }
 
-export default connect(() => {}), sysMessageActions)(OnboardRepos)
+export default connect((() => {}), sysMessageActions)(OnboardRepos)
