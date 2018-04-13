@@ -15,6 +15,13 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
   const initialStore = {
     account,
     cards,
+    messages: [{
+      type: 'error',
+      message: 'This is an error'
+    }, {
+      type: 'success',
+      message: 'This is a success'
+    }],
     pagingHref: null,
     timeline: null,
     timelineDelta: null
@@ -64,9 +71,9 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
             </footer>
           )}
         </div>
-      </Federal>
 
-      <SystemMessages />
+        <SystemMessages />
+      </Federal>
 
       {styles}
     </div>
