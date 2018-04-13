@@ -326,8 +326,7 @@ const ConnectedDashbord = connect(selector, {
   ...sysMessageActions
 })(Dashboard)
 
-export default props => {
-  const { url, ...extraProps } = props
+export default ({ url, ...extraProps }) => {
   const { orgs, additional } = url.query
   let { repos, orgSelected, repoSelected } = url.query
 

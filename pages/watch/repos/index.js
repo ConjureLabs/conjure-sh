@@ -61,11 +61,7 @@ class WatchRepos extends Component {
     const listedRepos = repos.filter(repo => !watchedRepos.includes(repo.name))
 
     return (
-      <Layout
-        url={url}
-        limitedHeader={true}
-        title='Add Repos'
-      >
+      <div>
         <div className={classes.content}>
           <header>
             <sup>🎟</sup>
@@ -103,9 +99,21 @@ class WatchRepos extends Component {
         </div>
 
         {styles}
-      </Layout>
+      </div>
     )
   }
 }
 
-export default connect((() => {}), sysMessageActions)(WatchRepos)
+const connectedWatchRepos = connect(state => {}, sysMessageActions)(WatchRepos)
+
+export default ({ url, ...extraProps }) => {
+  return (
+    <Layout
+      url={url}
+      limitedHeader={true}
+      title='Add Repos'
+    >
+      <connectedWatchRepos {...extraProps} />
+    </Layout>
+  )
+}

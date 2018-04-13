@@ -41,7 +41,7 @@ class OnboardOrgs extends Component {
     const { query } = url
 
     return (
-      <Layout url={url} limitedHeader={true}>
+      <div>
         <div className={classes.content}>
           <header>
             <sup>👋</sup>
@@ -69,9 +69,20 @@ class OnboardOrgs extends Component {
         </div>
 
         {styles}
-      </Layout>
+      </div>
     )
   }
 }
 
-export default connect((() => {}), sysMessageActions)(OnboardOrgs)
+const connectedOnboardOrgs = connect(state => {}, sysMessageActions)(OnboardOrgs)
+
+export default ({ url, ...extraProps }) => {
+  return (
+    <Layout
+      url={url}
+      limitedHeader={true}
+    >
+      <connectedOnboardOrgs {...extraProps} />
+    </Layout>
+  )
+}

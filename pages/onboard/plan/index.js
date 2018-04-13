@@ -40,7 +40,7 @@ class OnboardPlan extends Component {
     const { url } = this.props
 
     return (
-      <Layout url={url} limitedHeader={true}>
+      <div>
         <div className={classes.content}>
           <header>
             <sup>📦</sup>
@@ -190,9 +190,20 @@ class OnboardPlan extends Component {
         </div>
 
         {styles}
-      </Layout>
+      </div>
     )
   }
 }
 
-export default connect((() => {}), sysMessageActions)(OnboardPlan)
+const connectedOnboardPlan = connect(state => {}, sysMessageActions)(OnboardPlan)
+
+export default ({ url, ...extraProps }) => {
+  return (
+    <Layout
+      url={url}
+      limitedHeader={true}
+    >
+      <connectedOnboardPlan {...extraProps} />
+    </Layout>
+  )
+}

@@ -39,7 +39,7 @@ class OnboardOverlap extends Component {
     const { orgsAlreadyAvailable } = query
 
     return (
-      <Layout url={url} limitedHeader={true}>
+      <div>
         <div className={classes.content}>
           <header>
             <sup>👋</sup>
@@ -81,9 +81,20 @@ class OnboardOverlap extends Component {
         </div>
 
         {styles}
-      </Layout>
+      </div>
     )
   }
 }
 
-export default connect((() => {}), sysMessageActions)(OnboardOverlap)
+const connectedOnboardOverlap = connect(state => {}, sysMessageActions)(OnboardOverlap)
+
+export default ({ url, ...extraProps }) => {
+  return (
+    <Layout
+      url={url}
+      limitedHeader={true}
+    >
+      <connectedOnboardOverlap {...extraProps} />
+    </Layout>
+  )
+}

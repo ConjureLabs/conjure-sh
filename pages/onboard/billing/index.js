@@ -102,7 +102,7 @@ class OnboardBilling extends Component {
     const { url } = this.props
 
     return (
-      <Layout url={url} limitedHeader={true}>
+      <div>
         <div className={classes.content}>
           <header>
             <sup>💳</sup>
@@ -237,9 +237,20 @@ class OnboardBilling extends Component {
         </div>
 
         {styles}
-      </Layout>
+      </div>
     )
   }
 }
 
-export default connect((() => {}), sysMessageActions)(OnboardBilling)
+const connectedOnboardBilling = connect(state => {}, sysMessageActions)(OnboardBilling)
+
+export default ({ url, ...extraProps }) => {
+  return (
+    <Layout
+      url={url}
+      limitedHeader={true}
+    >
+      <connectedOnboardBilling {...extraProps} />
+    </Layout>
+  )
+}

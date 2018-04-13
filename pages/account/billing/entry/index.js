@@ -104,10 +104,7 @@ class AccountBillingEntry extends Component {
     const { url } = this.props
 
     return (
-      <Layout
-        url={url}
-        title='New Credit Card'
-      >
+      <div>
         <div className={classes.sectionsParent}>
           <section>
             <span className={classes.sectionLabel}>Card</span>
@@ -228,9 +225,20 @@ class AccountBillingEntry extends Component {
         </Button>
 
         {styles}
-      </Layout>
+      </div>
     )
   }
 }
 
-export default connect((() => {}), sysMessageActions)(AccountBillingEntry)
+const connectedAccountBillingEntry = connect(state => {}, sysMessageActions)(AccountBillingEntry)
+
+export default ({ url, ...extraProps }) => {
+  return (
+    <Layout
+      url={url}
+      title='New Credit Card'
+    >
+      <connectedAccountBillingEntry {...extraProps} />
+    </Layout>
+  )
+}
