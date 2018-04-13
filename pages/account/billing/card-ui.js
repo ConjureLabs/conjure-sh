@@ -4,6 +4,8 @@ import classnames from 'classnames'
 import styles, { classes } from './card-ui-styles.js'
 import { del } from '../../../shared/xhr'
 import config from '../../../shared/config.js'
+import actions from './actions'
+import sysMessageActions from '../../../components/SystemMessages/actions'
 
 import CreditCardSummary from '../../../components/CreditCardSummary'
 
@@ -90,8 +92,10 @@ class CardUi extends Component {
 
     del(`${config.app.api.url}/api/account/billing/card/${card.id}`, null, err => {
       if (err) {
-        console.error(err)
-        alert(err.message)
+        dispatch.addSystemMessage({
+          type: 'error',
+          message: err.message
+        })
         this.setState({
           deleting: false
         })
@@ -125,4 +129,7 @@ const selector = store => ({
   cards: store.cards
 })
 
-export default connect(selector)(CardUi)
+export default connect(selector, {
+  ...actions,
+  ...sysMessageActions
+})(CardUi)

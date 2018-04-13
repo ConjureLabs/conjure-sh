@@ -1,7 +1,10 @@
 import { Component } from 'react'
 import styles, { classes } from '../styles.js'
+import { connect } from '@conjurelabs/federal'
+
 import { post } from '../../../shared/xhr'
 import config from '../../../shared/config.js'
+import sysMessageActions from '../../../components/SystemMessages/actions'
 
 import Layout from '../../../components/Layout'
 import Header from '../../../components/Header'
@@ -9,19 +12,22 @@ import AnchorList from '../../../components/AnchorList'
 
 let submitting = false
 
-export default class OnboardOrgs extends Component {
+class OnboardOrgs extends Component {
   makeSelection(item) {
     // {label: "ConjureLabs", value: 1783213}
     if (submitting) {
       return
     }
-
     submitting = true
+
+    const { dispatch } = this.props
 
     post(`${config.app.api.url}/api/onboard/orgs/selection`, item, err => {
       if (err) {
-        console.error(err)
-        alert(err.message)
+        dispatch.addSystemMessage({
+          type: 'error',
+          message: err.message
+        })
         submitting = false
         return
       }
@@ -67,3 +73,5 @@ export default class OnboardOrgs extends Component {
     )
   }
 }
+
+export default connect(() => {}), sysMessageActions)(OnboardOrgs)

@@ -1,27 +1,33 @@
 import { Component } from 'react'
 import styles, { classes } from './styles.js'
+import { connect } from '@conjurelabs/federal'
+
 import { post } from '../../../shared/xhr'
 import config from '../../../shared/config.js'
+import sysMessageActions from '../../../components/SystemMessages/actions'
 
 import Layout from '../../../components/Layout'
 import Button from '../../../components/Button'
 
 let submitting = false
 
-export default class OnboardPlan extends Component {
+class OnboardPlan extends Component {
   submit(monthlyBillingPlan) {
     if (submitting) {
       return
     }
-
     submitting = true
+
+    const { dispatch } = this.props
 
     post(`${config.app.api.url}/api/onboard/plan/selection`, {
       monthlyBillingPlan
     }, err => {
       if (err) {
-        console.error(err)
-        alert(err.message)
+        dispatch.addSystemMessage({
+          type: 'error',
+          message: err.message
+        })
         submitting = false
         return
       }
@@ -188,3 +194,5 @@ export default class OnboardPlan extends Component {
     )
   }
 }
+
+export default connect(() => {}), sysMessageActions)(OnboardPlan)

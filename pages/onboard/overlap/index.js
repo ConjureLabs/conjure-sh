@@ -1,7 +1,10 @@
 import { Component } from 'react'
 import styles, { classes } from '../styles.js'
+import { connect } from '@conjurelabs/federal'
+
 import { post } from '../../../shared/xhr'
 import config from '../../../shared/config.js'
+import sysMessageActions from '../../../components/SystemMessages/actions'
 
 import Layout from '../../../components/Layout'
 import AnchorList from '../../../components/AnchorList'
@@ -10,14 +13,18 @@ import Decision from '../../../components/Decision'
 // eslint thinks this var is not used, even though it is
 let submitting = false // eslint-disable-line no-unused-vars
 
-export default class OnboardOverlap extends Component {
+class OnboardOverlap extends Component {
   handleSkip() {
     submitting = true
 
+    const { dispatch } = this.props
+
     post(`${config.app.api.url}/api/onboard/skip`, {}, err => {
       if (err) {
-        console.error(err)
-        alert(err.message)
+        dispatch.addSystemMessage({
+          type: 'error',
+          message: err.message
+        })
         submitting = false
         return
       }
@@ -78,3 +85,5 @@ export default class OnboardOverlap extends Component {
     )
   }
 }
+
+export default connect(() => {}), sysMessageActions)(OnboardOverlap)

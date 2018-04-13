@@ -1,7 +1,10 @@
 import { Component } from 'react'
 import styles, { classes } from '../styles.js'
+import { connect } from '@conjurelabs/federal'
+
 import { post } from '../../../shared/xhr'
 import config from '../../../shared/config.js'
+import sysMessageActions from '../../../components/SystemMessages/actions'
 
 import Layout from '../../../components/Layout'
 import Button from '../../../components/Button'
@@ -9,7 +12,7 @@ import AnchorMultiList from '../../../components/AnchorList/MultiSelect'
 
 let submitting = false
 
-export default class OnboardRepos extends Component {
+class OnboardRepos extends Component {
   constructor() {
     super()
 
@@ -31,13 +34,16 @@ export default class OnboardRepos extends Component {
     if (submitting) {
       return
     }
-
     submitting = true
+
+    const { dispatch } = this.props
 
     post(`${config.app.api.url}/api/onboard/repos/selection`, this.anchorList.selected.map(selection => selection.value), err => {
       if (err) {
-        console.error(err)
-        alert(err.message)
+        dispatch.addSystemMessage({
+          type: 'error',
+          message: err.message
+        })
         submitting = false
         return
       }
@@ -113,3 +119,5 @@ export default class OnboardRepos extends Component {
     )
   }
 }
+
+export default connect(() => {}), sysMessageActions)(OnboardRepos)

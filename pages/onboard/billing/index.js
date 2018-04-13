@@ -1,8 +1,11 @@
 import { Component } from 'react'
 import styles, { classes } from './styles.js'
 import classnames from 'classnames'
+import { connect } from '@conjurelabs/federal'
+
 import { post } from '../../../shared/xhr'
 import config from '../../../shared/config.js'
+import sysMessageActions from '../../../components/SystemMessages/actions'
 
 import Layout from '../../../components/Layout'
 import TextInput from '../../../components/Input/Text'
@@ -16,7 +19,7 @@ import Button from '../../../components/Button'
 
 let submitting = false
 
-export default class OnboardBilling extends Component {
+class OnboardBilling extends Component {
   constructor(props) {
     super(props)
 
@@ -66,8 +69,9 @@ export default class OnboardBilling extends Component {
     if (submitting) {
       return
     }
-
     submitting = true
+
+    const { dispatch } = this.props
 
     const values = {}
     const inputCategories = Object.keys(this.inputs)
@@ -82,8 +86,10 @@ export default class OnboardBilling extends Component {
 
     post(`${config.app.api.url}/api/onboard/billing`, values, err => {
       if (err) {
-        console.error(err)
-        alert(err.message)
+        dispatch.addSystemMessage({
+          type: 'error',
+          message: err.message
+        })
         submitting = false
         return
       }
@@ -235,3 +241,5 @@ export default class OnboardBilling extends Component {
     )
   }
 }
+
+export default connect(() => {}), sysMessageActions)(OnboardBilling)
