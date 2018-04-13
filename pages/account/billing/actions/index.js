@@ -2,9 +2,10 @@ const addCard = (store, { card }) => {
   const newCards = store.cards.slice()
   newCards.push(card)
 
-  return Object.assign({}, store, {
+  return {
+    ...store,
     cards: newCards
-  })
+  }
 }
 
 const removeCard = (store, { card }) => {
@@ -23,9 +24,10 @@ const removeCard = (store, { card }) => {
   const newCards = store.cards.slice()
   newCards.splice(index, 1)
 
-  return Object.assign({}, store, {
+  return {
+    ...store,
     cards: newCards
-  })
+  }
 }
 
 export default {

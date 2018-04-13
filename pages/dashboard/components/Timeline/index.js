@@ -81,12 +81,13 @@ class Timeline extends Component {
         }
       }
 
-      return Object.assign({}, item, {
+      return {
+        ...item,
         statusKey,
         duration,
         repoUrl: `https://github.com/${org}/${item.repo}/`,
         branchUrl: `https://github.com/${org}/${item.repo}/tree/${item.branch}`
-      })
+      }
     })
   }
 

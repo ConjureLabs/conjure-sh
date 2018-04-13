@@ -42,11 +42,12 @@ class Dashboard extends Component {
 
     apiUrl = apiUrl || `${config.app.api.url}/api/containers/timeline`
 
-    const apiArgs = Object.assign({
+    const apiArgs = {
       org: orgSelected,
       repo: repoSelected,
-      page: 0
-    }, apiArgOverrides)
+      page: 0,
+      ...apiArgOverrides
+    }
 
     get(apiUrl, apiArgs, (err, data) => {
       if (err) {
@@ -100,11 +101,12 @@ class Dashboard extends Component {
         return finish()
       }
 
-      const apiArgs = Object.assign({
+      const apiArgs = {
         org: orgSelected,
         repo: repoSelected,
-        page: 0
-      }, apiArgOverrides)
+        page: 0,
+        ...apiArgOverrides
+      }
 
       get(apiUrl, apiArgs, (err, data) => {
         if (err) {
