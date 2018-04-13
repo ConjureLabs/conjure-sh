@@ -195,7 +195,7 @@ class OnboardPlan extends Component {
   }
 }
 
-const connectedOnboardPlan = connect(state => {}, sysMessageActions)(OnboardPlan)
+const ConnectedOnboardPlan = connect(state => {}, sysMessageActions)(OnboardPlan)
 
 export default ({ url, ...extraProps }) => {
   return (
@@ -203,7 +203,7 @@ export default ({ url, ...extraProps }) => {
       url={url}
       limitedHeader={true}
     >
-      <connectedOnboardPlan {...extraProps} />
+      <ConnectedOnboardPlan {...extraProps} />
     </Layout>
   )
 }

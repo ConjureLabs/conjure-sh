@@ -230,7 +230,7 @@ class AccountBillingEntry extends Component {
   }
 }
 
-const connectedAccountBillingEntry = connect(state => {}, sysMessageActions)(AccountBillingEntry)
+const ConnectedAccountBillingEntry = connect(state => {}, sysMessageActions)(AccountBillingEntry)
 
 export default ({ url, ...extraProps }) => {
   return (
@@ -238,7 +238,7 @@ export default ({ url, ...extraProps }) => {
       url={url}
       title='New Credit Card'
     >
-      <connectedAccountBillingEntry {...extraProps} />
+      <ConnectedAccountBillingEntry {...extraProps} />
     </Layout>
   )
 }

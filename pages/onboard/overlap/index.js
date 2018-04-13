@@ -86,7 +86,7 @@ class OnboardOverlap extends Component {
   }
 }
 
-const connectedOnboardOverlap = connect(state => {}, sysMessageActions)(OnboardOverlap)
+const ConnectedOnboardOverlap = connect(state => {}, sysMessageActions)(OnboardOverlap)
 
 export default ({ url, ...extraProps }) => {
   return (
@@ -94,7 +94,7 @@ export default ({ url, ...extraProps }) => {
       url={url}
       limitedHeader={true}
     >
-      <connectedOnboardOverlap {...extraProps} />
+      <ConnectedOnboardOverlap {...extraProps} />
     </Layout>
   )
 }

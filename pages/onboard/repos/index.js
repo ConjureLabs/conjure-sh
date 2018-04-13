@@ -120,7 +120,7 @@ class OnboardRepos extends Component {
   }
 }
 
-const connectedOnboardRepos = connect(state => {}, sysMessageActions)(OnboardRepos)
+const ConnectedOnboardRepos = connect(state => {}, sysMessageActions)(OnboardRepos)
 
 export default ({ url, ...extraProps }) => {
   return (
@@ -128,7 +128,7 @@ export default ({ url, ...extraProps }) => {
       url={url}
       limitedHeader={true}
     >
-      <connectedOnboardRepos {...extraProps} />
+      <ConnectedOnboardRepos {...extraProps} />
     </Layout>
   )
 }

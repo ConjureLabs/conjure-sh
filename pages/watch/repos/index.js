@@ -104,7 +104,7 @@ class WatchRepos extends Component {
   }
 }
 
-const connectedWatchRepos = connect(state => {}, sysMessageActions)(WatchRepos)
+const ConnectedWatchRepos = connect(state => {}, sysMessageActions)(WatchRepos)
 
 export default ({ url, ...extraProps }) => {
   return (
@@ -113,7 +113,7 @@ export default ({ url, ...extraProps }) => {
       limitedHeader={true}
       title='Add Repos'
     >
-      <connectedWatchRepos {...extraProps} />
+      <ConnectedWatchRepos {...extraProps} />
     </Layout>
   )
 }
