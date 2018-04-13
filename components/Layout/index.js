@@ -10,18 +10,12 @@ import nativeStyles from './styles.native.js'
 import styles, { classes } from './styles.js'
 
 export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true }) => {
-  const { account, cards } = url.query
+  const { account, cards, messages } = url.query
 
   const initialStore = {
     account,
     cards,
-    messages: [{
-      type: 'error',
-      message: 'This is an error'
-    }, {
-      type: 'success',
-      message: 'This is a success'
-    }],
+    messages: messages || [],
     pagingHref: null,
     timeline: null,
     timelineDelta: null

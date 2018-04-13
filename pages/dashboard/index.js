@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import { get } from '../../shared/xhr'
 import actions from './actions'
+import sysMessageActions from '../../components/SystemMessages/actions'
 import styles, { classes } from './styles.js'
 import { connect } from '@conjurelabs/federal'
 import config from '../../shared/config.js'
@@ -49,9 +50,10 @@ class Dashboard extends Component {
 
     get(apiUrl, apiArgs, (err, data) => {
       if (err) {
-        console.error(err)
-        alert(err.message)
-        return
+        return dispatch.addSystemMessage({
+          type: 'error',
+          message: err.message
+        })
       }
 
       dispatch.pushTimeline({
@@ -89,7 +91,7 @@ class Dashboard extends Component {
     }
 
     const pullNext = (apiUrl, apiArgOverrides = {}) => {
-      const { orgSelected, repoSelected } = this.props
+      const { orgSelected, repoSelected, dispatch } = this.props
 
       apiUrl = apiUrl || `${config.app.api.url}/api/containers/timeline`
 
@@ -106,8 +108,10 @@ class Dashboard extends Component {
 
       get(apiUrl, apiArgs, (err, data) => {
         if (err) {
-          console.error(err)
-          alert(err.message)
+          dispatch.addSystemMessage({
+            type: 'error',
+            message: err.message
+          })
           activelyPullingDelta = false
           return
         }
@@ -135,11 +139,14 @@ class Dashboard extends Component {
   }
 
   checkDelta(deltaUrl) {
+    const { dispatch } = this.props
+
     get(deltaUrl, null, (err, data) => {
       if (err) {
-        console.error(err)
-        alert(err.message)
-        return
+        return dispatch.addSystemMessage({
+          type: 'error',
+          message: err.message
+        })
       }
 
       if (+data.count === 0) {
@@ -151,8 +158,6 @@ class Dashboard extends Component {
       if (!timeline.length) {
         return this.pullTimeline()
       }
-
-      const { dispatch } = this.props
 
       dispatch.setTimelineDelta({
         delta: +data.count
@@ -316,7 +321,10 @@ const selector = store => ({
   timelineDelta: store.timelineDelta
 })
 
-const ConnectedDashbord = connect(selector, actions)(Dashboard)
+const ConnectedDashbord = connect(selector, {
+  ...actions,
+  ...sysMessageActions
+})(Dashboard)
 
 export default props => {
   const { url, ...extraProps } = props
