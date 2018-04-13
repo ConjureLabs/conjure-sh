@@ -12,6 +12,10 @@
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@conjurelabs/err/-/err-0.0.2.tgz#432f40ccecf74fc5c4cab4eeb0886c0bfdf40c67"
 
+"@conjurelabs/err@0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/err/-/err-0.1.0.tgz#6003b69eef4e8599c3858263fea53044ffd75c22"
+
 "@conjurelabs/federal@0.0.3":
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@conjurelabs/federal/-/federal-0.0.3.tgz#f13227a5a8add911274e77049ba76b9e7f1e99c7"
