@@ -53,21 +53,20 @@ class OnboardRepos extends Component {
   }
 
   render() {
-    const { url } = this.props
-    const { query } = url
+    const { reposByOrg, org } = this.props
 
     // repos are listed by org top-level key
-    const orgs = Object.keys(query.repos)
+    const orgs = Object.keys(reposByOrg)
     const repos = []
     for (let i = 0; i < orgs.length; i++) {
-      const org = orgs[i]
+      const currentOrgKey = orgs[i]
 
-      if (org !== query.org.label) {
+      if (currentOrgKey !== org.label) {
         continue
       }
 
-      for (let j = 0; j < query.repos[org].length; j++) {
-        const repo = query.repos[org][j]
+      for (let j = 0; j < reposByOrg[currentOrgKey].length; j++) {
+        const repo = reposByOrg[currentOrgKey][j]
 
         repos.push({
           label: repo.name,
@@ -128,7 +127,7 @@ export default ({ url, ...extraProps }) => {
       url={url}
       limitedHeader={true}
     >
-      <ConnectedOnboardRepos {...extraProps} />
+      <ConnectedOnboardRepos {...extraProps} reposByOrg={url.query.repos} org={url.query.org} />
     </Layout>
   )
 }
