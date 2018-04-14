@@ -119,6 +119,24 @@ route.push(async (req, res) => {
   // pulling payload file
   const s3Obj = await getS3Object(commentRows[0].s3Key)
 
+  const GitHubWebhookPayload = require('conjure-core/classes/Repo/GitHub/Webhook/Payload')
+  const payload = new GitHubWebhookPayload(s3Obj.payload)
+
+  // continue to partial onboarding
+  nextApp.render(req, res, '/container/start', {
+    account: {
+      photo: gitHubAccount.photo
+    },
+    orgName,
+    repoName,
+    issueId,
+    title: payload.title
+  })
+  return
+
+
+
+
   // begin spinning up the container
   queue = new Queue('container.create')
   await queue.push({

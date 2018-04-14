@@ -61,7 +61,7 @@ class OnboardOrgs extends Component {
                   key: org.id
                 }
               })}
-              onSelect={this.makeSelection}
+              onSelect={this.makeSelection.bind(this)}
               className={classes.anchorList}
             />
           </main>
@@ -81,7 +81,10 @@ export default ({ url, ...extraProps }) => {
       url={url}
       limitedHeader={true}
     >
-      <ConnectedOnboardOrgs {...extraProps} orgs={url.query.orgs} />
+      <ConnectedOnboardOrgs
+        {...extraProps}
+        orgs={url.query.orgs}
+      />
     </Layout>
   )
 }

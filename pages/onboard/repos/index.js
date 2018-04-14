@@ -127,7 +127,11 @@ export default ({ url, ...extraProps }) => {
       url={url}
       limitedHeader={true}
     >
-      <ConnectedOnboardRepos {...extraProps} reposByOrg={url.query.repos} org={url.query.org} />
+      <ConnectedOnboardRepos
+        {...extraProps}
+        reposByOrg={url.query.repos}
+        org={url.query.org}
+      />
     </Layout>
   )
 }

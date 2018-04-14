@@ -58,6 +58,7 @@ export default class ContainerLogs extends Component {
         <div className={classes.content}>
           <pre dangerouslySetInnerHTML={{ __html: styledContent(this.state.logsContent) }} />
         </div>
+
         {styles}
       </Layout>
     )
