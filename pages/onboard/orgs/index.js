@@ -54,7 +54,7 @@ class OnboardOrgs extends Component {
 
           <main>
             <AnchorList
-              list={query.orgs.map(org => {
+              list={orgs.map(org => {
                 return {
                   label: org.login,
                   value: org.id,
