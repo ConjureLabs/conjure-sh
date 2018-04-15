@@ -1,9 +1,11 @@
 import { Component } from 'react'
 import styles, { classes } from './styles.js'
 import { connect } from '@conjurelabs/federal'
-import EmptyState from '../../../../components/EmptyState'
 import classnames from 'classnames'
 import moment from 'moment'
+
+import EmptyState from '../../../../components/EmptyState'
+import TitleCased from '../../../../components/TitleCased'
 
 const exprAllSpaces = /\s/g
 
@@ -40,22 +42,24 @@ class Timeline extends Component {
 
     // generate some extra fields
     return timeline.map(item => {
-      const statusKey = item.status.replace(exprAllSpaces, '').toLowerCase()
-
       let ms
       let duration
 
       findDuration: {
-        switch (item.status) {
-          case 'Spinning Up':
+        switch (item.state) {
+          case 'pending':
+          case 'spinning up':
             duration = '-'
             break findDuration
 
-          case 'Running':
+          case 'running':
+          case 'updating':
+          case 'spinning down':
             ms = new Date() - new Date(item.start)
             break
 
-          case 'Spun Down':
+          case 'stopped':
+          case 'pruned':
             ms = new Date(item.stop) - new Date(item.start)
             break
         }
@@ -83,7 +87,6 @@ class Timeline extends Component {
 
       return {
         ...item,
-        statusKey,
         duration,
         repoUrl: `https://github.com/${org}/${item.repo}/`,
         branchUrl: `https://github.com/${org}/${item.repo}/tree/${item.branch}`
@@ -212,7 +215,7 @@ class Timeline extends Component {
             }
 
             // if container is running, link to it
-            const statusNode = item.status === 'Running' ? (
+            const statusNode = item.state === 'updating' || item.state === 'running' ? (
               <a
                 key={`running-instance-${item.id}`}
                 target='_blank'
@@ -220,11 +223,15 @@ class Timeline extends Component {
               >
                 View
               </a>
-            ) : item.status
+            ) : (
+              <TitleCased>
+                {item.state === 'pruned' ? 'stopped' : item.state}
+              </TitleCased>
+            )
 
             // if container is running, link to logs
             // todo: remove `false` when logs are ready
-            const logsNode = false && item.status === 'Running' ? (
+            const logsNode = false && (tem.state === 'updating' || item.state === 'running') ? (
               <a
                 key={`running-logs-${item.id}`}
                 target='_blank'
@@ -235,12 +242,14 @@ class Timeline extends Component {
               </a>
             ) : (' ')
 
+            const stateClassKey = item.state.replace(/\s+/g, '_')
+
             return (
               <article key={item.id}>
                 {dateHeader}
 
                 <ol>
-                  <li className={classnames(classes.status, classes[item.statusKey])}>
+                  <li className={classnames(classes.status, classes[stateClassKey])}>
                     <sup />
                     {statusNode}
                   </li>

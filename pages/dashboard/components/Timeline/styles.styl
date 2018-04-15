@@ -29,7 +29,7 @@ ol
       width: 10rem
 
       sup
-        background: #25d2da
+        background: #d2d2d2
         border-radius: 1rem
         display: inline-block
         height: 1rem
@@ -37,10 +37,15 @@ ol
         margin-right: 0.8rem
         vertical-align: middle
         width: 1rem
+      &.spinning_up sup
+        background: #25d4da
       &.running sup
+      &.updating sup
         background: #25da43
-      &.spundown sup
-        background: #d2d2d2
+      &.spinning_down sup
+      &.stopped sup
+      &.pruned sup
+        background: #454646
     
     sup.svgIcon
       background: url(/static/images/icons/missing.svg) no-repeat center center
