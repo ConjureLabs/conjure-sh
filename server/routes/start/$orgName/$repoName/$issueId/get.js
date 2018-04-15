@@ -125,7 +125,7 @@ route.push(async (req, res) => {
   const Container = require('conjure-core/classes/Container')
   const container = new Container(payload)
 
-  const existingContainer = container.getPendingOrActiveRecord()
+  const existingContainer = await container.getPendingOrActiveRecord()
 
   console.log(existingContainer)
 
@@ -140,10 +140,6 @@ route.push(async (req, res) => {
     title: payload.title,
     containerState: existingContainer ? existingContainer.ecsState : 'pending'
   })
-  return
-
-
-
 
   // begin spinning up the container
   queue = new Queue('container.create')
