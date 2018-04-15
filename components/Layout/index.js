@@ -10,7 +10,8 @@ import nativeStyles from './styles.native.js'
 import styles, { classes } from './styles.js'
 
 export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true }) => {
-  const { account, cards, messages } = url.query
+  const urlQuery = url && typeof url.query === 'object' ? url.query : {}
+  const { account, cards, messages } = urlQuery
 
   const initialStore = {
     account,

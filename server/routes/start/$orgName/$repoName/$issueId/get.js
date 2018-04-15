@@ -13,13 +13,18 @@ AWS.config.update({
 })
 
 const route = new Route({
-  requireAuthentication: true
+  requireAuthentication: false
 })
 
 /*
   Repos listing
  */
 route.push(async (req, res) => {
+  // if user is not logged in, then block access until they do so
+  if (!req.isAuthenticated()) {
+    return nextApp.render(req, res, '/terminal/private/requires-auth')
+  }
+
   const { orgName, repoName, issueId } = req.params
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
