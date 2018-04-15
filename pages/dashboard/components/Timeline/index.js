@@ -231,16 +231,17 @@ class Timeline extends Component {
 
             // if container is running, link to logs
             // todo: remove `false` when logs are ready
-            const logsNode = false && (item.state === 'updating' || item.state === 'running') ? (
-              <a
-                key={`running-logs-${item.id}`}
-                target='_blank'
-                href={item.logs}
-                className={classes.viewLogs}
-              >
-                Logs
-              </a>
-            ) : (' ')
+            // const logsNode = item.state === 'updating' || item.state === 'running' ? (
+            //   <a
+            //     key={`running-logs-${item.id}`}
+            //     target='_blank'
+            //     href={item.logs}
+            //     className={classes.viewLogs}
+            //   >
+            //     Logs
+            //   </a>
+            // ) : (' ')
+            const logsNode = (' ')
 
             const stateClassKey = item.state.replace(exprAllSpaces, '_')
 
