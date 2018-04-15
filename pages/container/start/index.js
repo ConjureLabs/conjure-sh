@@ -21,12 +21,14 @@ export default class ContainerStart extends Component {
           <main className={classes.list}>
             <article className={classes.pending}>
               {
-                containerState !== 'spinning up' ? null : (
+                containerState === 'spinning up' || containerState === 'updating' ? (
                   <Loader
                     size='small'
                     className={classes.loader}
                   />
-                )
+                ) : containerState === 'running' ? (
+                  <span className={classes.emoji}>✅</span>
+                ) : null
               }
               <TitleCased className={classes.text}>{containerState}</TitleCased>
             </article>
