@@ -1,4 +1,4 @@
-CREATE TYPE container_ecs_state AS ENUM('spinning up', 'spinning down', 'running', 'stopped', 'updating');
+CREATE TYPE container_ecs_state AS ENUM('pending', 'spinning up', 'updating', 'running', 'spinning down', 'stopped', 'pruned');
 
 CREATE TABLE container (
   id SERIAL PRIMARY KEY,
@@ -16,6 +16,7 @@ CREATE TABLE container (
   ecs_state container_ecs_state NOT NULL,
   active_start TIMESTAMP WITH TIME ZONE,
   active_end TIMESTAMP WITH TIME ZONE,
+  pruned TIMESTAMP WITH TIME ZONE,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
