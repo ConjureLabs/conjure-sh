@@ -142,7 +142,7 @@ route.push(async (req, res) => {
   })
 
   // begin spinning up the container
-  queue = new Queue('container.create')
+  const queue = new Queue('container.create')
   await queue.push({
     content: s3Obj.payload
   })

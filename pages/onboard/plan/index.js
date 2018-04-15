@@ -193,7 +193,7 @@ class OnboardPlan extends Component {
   }
 }
 
-const ConnectedOnboardPlan = connect(state => {}, sysMessageActions)(OnboardPlan)
+const ConnectedOnboardPlan = connect(() => {}, sysMessageActions)(OnboardPlan)
 
 export default ({ url, ...extraProps }) => {
   return (

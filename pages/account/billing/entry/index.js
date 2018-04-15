@@ -101,8 +101,6 @@ class AccountBillingEntry extends Component {
   }
 
   render() {
-    const { url } = this.props
-
     return (
       <div>
         <div className={classes.sectionsParent}>
@@ -230,7 +228,7 @@ class AccountBillingEntry extends Component {
   }
 }
 
-const ConnectedAccountBillingEntry = connect(state => {}, sysMessageActions)(AccountBillingEntry)
+const ConnectedAccountBillingEntry = connect(() => {}, sysMessageActions)(AccountBillingEntry)
 
 export default ({ url, ...extraProps }) => {
   return (

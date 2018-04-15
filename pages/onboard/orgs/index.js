@@ -73,7 +73,7 @@ class OnboardOrgs extends Component {
   }
 }
 
-const ConnectedOnboardOrgs = connect(state => {}, sysMessageActions)(OnboardOrgs)
+const ConnectedOnboardOrgs = connect(() => {}, sysMessageActions)(OnboardOrgs)
 
 export default ({ url, ...extraProps }) => {
   return (

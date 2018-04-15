@@ -240,7 +240,7 @@ class OnboardBilling extends Component {
   }
 }
 
-const ConnectedOnboardBilling = connect(state => {}, sysMessageActions)(OnboardBilling)
+const ConnectedOnboardBilling = connect(() => {}, sysMessageActions)(OnboardBilling)
 
 export default ({ url, ...extraProps }) => {
   return (

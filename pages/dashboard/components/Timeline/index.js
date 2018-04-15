@@ -7,12 +7,12 @@ import moment from 'moment'
 import EmptyState from '../../../../components/EmptyState'
 import TitleCased from '../../../../components/TitleCased'
 
-const exprAllSpaces = /\s/g
-
 // in seconds
 const minute = 60
 const hour = 60 * minute
 const day = 24 * hour
+
+const exprAllSpaces = /\s+/g
 
 class Timeline extends Component {
   constructor(props) {
@@ -231,7 +231,7 @@ class Timeline extends Component {
 
             // if container is running, link to logs
             // todo: remove `false` when logs are ready
-            const logsNode = false && (tem.state === 'updating' || item.state === 'running') ? (
+            const logsNode = false && (item.state === 'updating' || item.state === 'running') ? (
               <a
                 key={`running-logs-${item.id}`}
                 target='_blank'
@@ -242,7 +242,7 @@ class Timeline extends Component {
               </a>
             ) : (' ')
 
-            const stateClassKey = item.state.replace(/\s+/g, '_')
+            const stateClassKey = item.state.replace(exprAllSpaces, '_')
 
             return (
               <article key={item.id}>
