@@ -122,6 +122,11 @@ route.push(async (req, res) => {
   const GitHubWebhookPayload = require('conjure-core/classes/Repo/GitHub/Webhook/Payload')
   const payload = new GitHubWebhookPayload(s3Obj.payload)
 
+  const Container = require('conjure-core/classes/Container')
+  const container = new Container(payload)
+
+  const existingContainer = container.getPendingOrActiveContainer()
+
   // continue to partial onboarding
   nextApp.render(req, res, '/container/start', {
     account: {
@@ -130,7 +135,8 @@ route.push(async (req, res) => {
     orgName,
     repoName,
     issueId,
-    title: payload.title
+    title: payload.title,
+    containerState: existingContainer ? existingContainer.ecsState : 'pending'
   })
   return
 
