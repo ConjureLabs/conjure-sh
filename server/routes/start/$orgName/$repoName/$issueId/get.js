@@ -147,9 +147,6 @@ route.push(async (req, res) => {
     content: s3Obj.payload
   })
   log.info('Job pushed to queue (container.create)')
-
-  // todo: add a cookie to res, so user can see a success message after redirect
-  res.redirect(302, '/') // kick to dashboard
 })
 
 function getS3Object(key) {
