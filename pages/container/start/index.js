@@ -28,7 +28,7 @@ export default class ContainerStart extends Component {
           </main>
 
           <div className={classes.canRedirect}>
-            <a href='/'>Click here</a> to view all containers' activity
+            <a href='/'>Click here</a> to view every containers' activity
           </div>
         </div>
 
