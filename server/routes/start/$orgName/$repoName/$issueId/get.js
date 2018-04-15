@@ -125,7 +125,9 @@ route.push(async (req, res) => {
   const Container = require('conjure-core/classes/Container')
   const container = new Container(payload)
 
-  const existingContainer = container.getPendingOrActiveContainer()
+  const existingContainer = container.getPendingOrActiveRecord()
+
+  console.log(existingContainer)
 
   // continue to partial onboarding
   nextApp.render(req, res, '/container/start', {

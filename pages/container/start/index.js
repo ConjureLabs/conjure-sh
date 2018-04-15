@@ -4,12 +4,13 @@ import classnames from 'classnames'
 
 import Layout from '../../../components/Layout'
 import Loader from '../../../components/Loader'
+import TitleCased from '../../../components/TitleCased'
 
 export default class ContainerStart extends Component {
   render() {
     const { url } = this.props
     const { query } = url
-    const { orgName, repoName, title } = query
+    const { orgName, repoName, title, containerState } = query
 
     return (
       <Layout
@@ -19,11 +20,15 @@ export default class ContainerStart extends Component {
         <div className={classes.content}>
           <main className={classes.list}>
             <article className={classes.pending}>
-              <Loader
-                size='small'
-                className={classes.loader}
-              />
-              <span className={classes.text}>Starting</span>
+              {
+                containerState !== 'spinning up' ? null : (
+                  <Loader
+                    size='small'
+                    className={classes.loader}
+                  />
+                )
+              }
+              <TitleCased className={classes.text}>{containerState}</TitleCased>
             </article>
           </main>
 
