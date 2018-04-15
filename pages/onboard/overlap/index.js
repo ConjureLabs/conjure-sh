@@ -34,9 +34,7 @@ class OnboardOverlap extends Component {
   }
 
   render() {
-    const { url } = this.props
-    const { query } = url
-    const { orgsAlreadyAvailable } = query
+    const { orgsAlreadyAvailable } = this.props
 
     return (
       <div>
@@ -94,7 +92,10 @@ export default ({ url, ...extraProps }) => {
       url={url}
       limitedHeader={true}
     >
-      <ConnectedOnboardOverlap {...extraProps} />
+      <ConnectedOnboardOverlap
+        {...extraProps}
+        orgsAlreadyAvailable={url.query.orgsAlreadyAvailable}
+      />
     </Layout>
   )
 }

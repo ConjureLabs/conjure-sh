@@ -54,9 +54,7 @@ class WatchRepos extends Component {
   }
 
   render() {
-    const { url } = this.props
-    const { query } = url
-    const { repos, watchedRepos } = query
+    const { repos, watchedRepos } = this.props
 
     const listedRepos = repos.filter(repo => !watchedRepos.includes(repo.name))
 
@@ -113,7 +111,11 @@ export default ({ url, ...extraProps }) => {
       limitedHeader={true}
       title='Add Repos'
     >
-      <ConnectedWatchRepos {...extraProps} />
+      <ConnectedWatchRepos
+        {...extraProps}
+        repos={url.query.repos}
+        watchedRepos={url.query.watchedRepos}
+      />
     </Layout>
   )
 }

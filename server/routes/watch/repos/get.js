@@ -30,6 +30,7 @@ route.push(async (req, res, next) => {
     const apiGetRepos = require('conjure-api/server/routes/api/account/repos/get.js').call
     reposResult = await apiGetRepos(req)
   } else {
+    console.log(orgSelected)
     const apiGetRepos = require('conjure-api/server/routes/api/org/$orgName/repos/get.js').call
     reposResult = await apiGetRepos(req, {}, {
       orgName: orgSelected

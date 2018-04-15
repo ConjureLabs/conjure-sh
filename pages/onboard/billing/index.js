@@ -99,8 +99,6 @@ class OnboardBilling extends Component {
   }
 
   render() {
-    const { url } = this.props
-
     return (
       <div>
         <div className={classes.content}>
