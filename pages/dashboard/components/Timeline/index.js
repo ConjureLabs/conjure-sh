@@ -34,7 +34,7 @@ class Timeline extends Component {
   }
 
   prepareTimeline() {
-    const { timeline, org } = this.props
+    const { timeline } = this.props
 
     if (timeline === null) {
       return null
@@ -88,8 +88,8 @@ class Timeline extends Component {
       return {
         ...item,
         duration,
-        repoUrl: `https://github.com/${org}/${item.repo}/`,
-        branchUrl: `https://github.com/${org}/${item.repo}/tree/${item.branch}`
+        repoUrl: `https://github.com/${item.org}/${item.repo}/`,
+        branchUrl: `https://github.com/${item.org}/${item.repo}/tree/${item.branch}`
       }
     })
   }
@@ -298,8 +298,7 @@ class Timeline extends Component {
 }
 
 const selector = store => ({
-  timeline: store.timeline,
-  org: store.org
+  timeline: store.timeline
 })
 
 export default connect(selector)(Timeline)
