@@ -57,7 +57,7 @@ export default class Landing extends Component {
 
           <div className={classes.ctaContainer}>
             <div className={classes.firstImpression}>
-              Continuous Staging Deployment for every Pull Request
+              Ephemeral Staging Deployments
               <p>Easily sync your GitHub projects with Conjure and start viewing in minutes!</p>
             </div>
 
