@@ -205,6 +205,9 @@
         font-weight: 600
 
 @media only screen and (max-width: 900px) 
+  .plans
+    margin-top: 42rem
+
   .ctaContainer
     &.standAlone
       padding: 10rem 0
@@ -218,7 +221,6 @@
   
   .sell
     height: 36rem
-    margin-top: 42rem
 
     > div
       padding: 4rem
@@ -254,7 +256,14 @@
         .label
           font-size: 1.4rem
 
-@media only screen and (max-width: 800px) 
+@media only screen and (max-width: 800px)
+  .plans
+    margin-top: 8rem
+    margin-bottom: 12rem
+
+    > div
+      width: auto
+
   .glimpse
     display: none
   
@@ -313,11 +322,10 @@
 @media only screen and (max-width: 600px)
   .header
     height: 54rem
-
-  .ctaContainer
-    .firstImpression
-      margin: 10rem auto 6rem
-      max-width: 40rem
-
-      span
-        display: none
+    
+  .plans
+    margin-bottom: 6rem
+    margin-top: 6rem
+    
+    > div
+      width: auto
