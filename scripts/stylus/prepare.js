@@ -7,16 +7,24 @@ const fs = require('fs')
 const path = require('path')
 const stylus = require('stylus')
 const crypto = require('crypto')
-const rm = require('rimraf')
-const { promisify } = require('util')
 
-const rmSync = promisify(rm)
 const projectDir = path.resolve(__dirname, '..', '..')
 const dirsToCrawl = ['components', 'pages']
 const trackDir = path.resolve(__dirname, '.track')
 const trackJson = path.resolve(trackDir, 'track.json')
 
 let classNameCount = 0
+
+try {
+  fs.accessSync(trackDir)
+} catch(err) {
+  fs.mkdir(trackDir)
+  fs.writeFileSync(trackJson, '{}', 'utf8')
+}
+
+for (let i = 0; i < dirsToCrawl.length; i++) {
+  crawlDir(path.resolve(projectDir, dirsToCrawl[i]))
+}
 
 function crawlDir(dir) {
   const list = fs.readdirSync(dir)
@@ -69,8 +77,8 @@ function prepareStylus(filePath) {
         if (!classLookup[className]) {
           classNameCount++
 
-          if (process.argv.includes('--min')) {
-            classLookup[className] = `c${classNameCount}`
+          if (process.env.NODE_ENV === 'production') {
+            classLookup[className] = `c-${classNameCount}`
           } else {
             classLookup[className] = `${pathTokens.join('_')}__${className}`
           }
@@ -94,20 +102,3 @@ function prepareStylus(filePath) {
       fs.writeFileSync(trackJson, JSON.stringify(hashes), 'utf8')
     })
 }
-
-(async function start() {
-  if (process.argv.includes('--fresh')) {
-    await rmSync(trackDir)
-  }
-
-  try {
-    fs.accessSync(trackDir)
-  } catch(err) {
-    fs.mkdirSync(trackDir)
-    fs.writeFileSync(trackJson, '{}', 'utf8')
-  }
-
-  for (let i = 0; i < dirsToCrawl.length; i++) {
-    crawlDir(path.resolve(projectDir, dirsToCrawl[i]))
-  }
-})()

@@ -30,19 +30,19 @@ server.set('port', port)
 server.use(morgan('combined'))
 
 // server passport cookie config
-// server.use(cookieSession({
-//   name: 'conjure',
-//   secret: config.session.secret,
+server.use(cookieSession({
+  name: 'conjure',
+  secret: config.session.secret,
 
-//   // cookie options
-//   domain: process.env.NODE_ENV === 'production' ? '.conjure.sh' : `.${config.app.api.domain}`,
-//   httpOnly: true,
-//   maxAge: config.session.duration,
-//   overwrite: true,
-//   sameSite: 'lax',
-//   secure: config.app.api.protocol === 'https',
-//   signed: true
-// }))
+  // cookie options
+  domain: process.env.NODE_ENV === 'production' ? '.conjure.sh' : `.${config.app.api.domain}`,
+  httpOnly: true,
+  maxAge: config.session.duration,
+  overwrite: true,
+  sameSite: 'lax',
+  secure: config.app.api.protocol === 'https',
+  signed: true
+}))
 
 // server passport config
 server.use(passport.initialize())
@@ -81,16 +81,25 @@ const robotsRouter = express.Router()
 robotsRouter.get('/robots.txt', (req, res) => {
   res.set('Content-Type', 'text/plain')
 
-  return res.send(
+  if (req.headers.host === config.app.web.host) {
+    return res.send(
 `User-agent: *
-Allow: /
-Allow: /privacy
-Allow: /terms
+Disallow: /?org=
+`
+    )
+  }
+  
+  res.send(
+`User-agent: *
+Disallow: /
 `
   )
 })
 
 server.use(robotsRouter)
+
+// container routes (to view web or logs)
+server.use(require('./container-routes'))
 
 // initialize routes
 server.use(setup.routes)

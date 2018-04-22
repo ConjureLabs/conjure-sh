@@ -1,10 +1,7 @@
 // using this file to cache the next app in one export
 const next = require('next')
 const app = next({
-  dev: process.env.NODE_ENV !== 'production',
-  conf: {
-    useFileSystemPublicRoutes: false
-  }
+  dev: process.env.NODE_ENV !== 'production'
 })
 
 module.exports = app
