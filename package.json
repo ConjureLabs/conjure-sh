@@ -10,7 +10,8 @@
     "docker-cleanup": "bash ./bash/yarn/docker-cleanup.sh",
     "lint": "bash ./bash/yarn/lint.sh",
     "start": "bash ./bash/yarn/run-prod.sh",
-    "install:fresh": "(rm -rf ./node_modules || true) && (rm ./yarn.lock || true) && yarn install"
+    "install:fresh": "(rm -rf ./node_modules || true) && (rm ./yarn.lock || true) && yarn install",
+    "hob:build": "hob build"
   },
   "engines": {
     "node": ">=8.7.0"
@@ -43,11 +44,12 @@
     "expose-loader": "^0.7.3",
     "express": "4.14.0",
     "extract-text-webpack-plugin": "^2.1.0",
+    "hob": "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/hob.git",
     "jade": "1.11.0",
     "jsx-loader": "^0.13.2",
     "moment": "^2.18.1",
     "morgan": "1.7.0",
-    "next": "4.1.4",
+    "next": "5.1.0",
     "octonode": "0.7.11",
     "passport": "^0.3.2",
     "pg": "^7.4.0",
