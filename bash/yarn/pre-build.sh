@@ -7,7 +7,5 @@ set -e
 
 source $APP_DIR/.profile;
 
-node $APP_DIR/scripts/stylus/prepare.js;
+node $APP_DIR/scripts/stylus/prepare.js --fresh --min;
 node $APP_DIR/scripts/config/generate-client-config.js;
-
-next build;
