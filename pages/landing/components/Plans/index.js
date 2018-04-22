@@ -7,11 +7,6 @@ export default ({ className }) => (
     <li>
       <ins />
 
-      <div className={classes.cost}>
-        <h3>$50</h3>
-        <p>per month</p>
-      </div>
-
       <div className={classes.label}>
         <h4>Boostrap</h4>
         <p>For small projects</p>
@@ -27,11 +22,6 @@ export default ({ className }) => (
 
     <li>
       <ins />
-
-      <div className={classes.cost}>
-        <h3>$200</h3>
-        <p>per month</p>
-      </div>
 
       <div className={classes.label}>
         <h4>Startup</h4>
@@ -49,11 +39,6 @@ export default ({ className }) => (
     <li>
       <ins />
 
-      <div className={classes.cost}>
-        <h3>$500</h3>
-        <p>per month</p>
-      </div>
-
       <div className={classes.label}>
         <h4>Business</h4>
         <p>For growing companies</p>
@@ -69,11 +54,6 @@ export default ({ className }) => (
 
     <li>
       <ins />
-
-      <div className={classes.cost}>
-        <h3>$900</h3>
-        <p>per month</p>
-      </div>
 
       <div className={classes.label}>
         <h4>Premium</h4>
