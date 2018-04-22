@@ -10,11 +10,11 @@ log.info('beginning setup')
 log.timeStart('finished setup')
 
 // configure db connection
-require('@conjurelabs/db').init(config.database.pg, {
-  transformCamelCase: true
-}, (sql, args) => {
-  log.dev.info(sql, process.env.NODE_ENV === 'production' && args ? '---REDACTED---' : args)
-})
+// require('@conjurelabs/db').init(config.database.pg, {
+//   transformCamelCase: true
+// }, (sql, args) => {
+//   log.dev.info(sql, process.env.NODE_ENV === 'production' && args ? '---REDACTED---' : args)
+// })
 
 const Route = require('@conjurelabs/route')
 

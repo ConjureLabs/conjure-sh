@@ -60,8 +60,6 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
               <del>|</del>
               <a href='https://angel.co/conjure-labs-1' target='_blank'>About</a>
               <del>|</del>
-              <a href='/docs'>Docs</a>
-              <del>|</del>
               <a href='/privacy'>Privacy</a>
               <del>|</del>
               <a href='/terms'>Terms</a>
