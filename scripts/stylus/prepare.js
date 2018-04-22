@@ -70,7 +70,7 @@ function prepareStylus(filePath) {
           classNameCount++
 
           if (process.argv.includes('--min')) {
-            classLookup[className] = `c-${classNameCount}`
+            classLookup[className] = `c${classNameCount}`
           } else {
             classLookup[className] = `${pathTokens.join('_')}__${className}`
           }

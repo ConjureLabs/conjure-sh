@@ -5,5 +5,5 @@ BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 
 set -e
 
-node $APP_DIR/scripts/stylus/prepare.js;
+node $APP_DIR/scripts/stylus/prepare.js --fresh --min;
 node $APP_DIR/scripts/config/generate-client-config.js;
