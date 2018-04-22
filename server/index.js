@@ -26,7 +26,6 @@ if (process.env.NODE_ENV !== 'production') {
 process.env.TZ = 'America/Los_Angeles'
 
 // basic server config
-server.use(compression())
 server.set('port', port)
 server.use(morgan('combined'))
 
@@ -112,6 +111,10 @@ catchAllRouter.get('*', (req, res) => {
   nextDefaultGetHandler(req, res)
 })
 server.use(catchAllRouter)
+
+// compression right before startup to avoid headers resent issue
+// see https://github.com/zeit/next.js/issues/3890#issuecomment-383167281
+server.use(compression())
 
 // startup next app
 nextApp
