@@ -69,7 +69,7 @@ function prepareStylus(filePath) {
         if (!classLookup[className]) {
           classNameCount++
 
-          if (process.env.NODE_ENV === 'production') {
+          if (process.argv.includes('--min')) {
             classLookup[className] = `c-${classNameCount}`
           } else {
             classLookup[className] = `${pathTokens.join('_')}__${className}`
