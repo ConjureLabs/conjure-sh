@@ -11,7 +11,8 @@
     "lint": "bash ./bash/yarn/lint.sh",
     "start": "bash ./bash/yarn/run-prod.sh",
     "install:fresh": "(rm -rf ./node_modules || true) && (rm ./yarn.lock || true) && yarn install",
-    "hob:build": "hob build"
+    "hob:build": "hob build",
+    "hob:compile": "hob compile"
   },
   "engines": {
     "node": ">=8.7.0"
