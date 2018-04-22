@@ -58,7 +58,7 @@ export default class Landing extends Component {
           <div className={classes.ctaContainer}>
             <div className={classes.firstImpression}>
               Ephemeral Staging Deployments
-              <p>Connect your GitHub projects with Conjure and start viewing in minutes!</p>
+              <p>Connect your GitHub projects and start viewing in minutes</p>
             </div>
 
             <div>
@@ -80,7 +80,7 @@ export default class Landing extends Component {
         <div className={classes.plans}>
           <div>
             <header>
-                <h3>A Plan for Every Team</h3>
+              <h3>A Plan for Every Team</h3>
             </header>
 
             <Plans />
