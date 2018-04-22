@@ -4,7 +4,6 @@ import classnames from 'classnames'
 
 import Layout from '../../components/Layout'
 import Button from '../../components/Button'
-import config from '../../shared/config.js'
 
 import Glimpse from './components/Glimpse'
 import Plans from './components/Plans'
@@ -50,7 +49,7 @@ export default class Landing extends Component {
         <div className={classes.plans}>
           <div>
             <header>
-                <h3>A Plan for Every Team</h3>
+              <h3>A Plan for Every Team</h3>
             </header>
 
             <Plans />
