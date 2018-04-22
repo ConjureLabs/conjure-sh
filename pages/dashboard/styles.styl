@@ -1,0 +1,48 @@
+@require '../../shared/framework.styl'
+
+.root
+  position: relative
+
+.wrap
+  display: block
+  max-width: 80rem
+  margin: 6rem auto 0
+  
+.paging
+  text-align: center
+  margin-bottom: 6rem
+  
+.repoSelection
+  flex-grow: 1
+
+  .orgSelect
+    margin-right: 0.8rem
+
+  .dropdown
+    width: 20rem
+    
+    .addNew
+      color: $conjureColorTertiary
+      cursor: pointer
+      display: block
+      font-size: 1rem
+      font-weight: 300
+      position: absolute
+      right: 0
+      top: -2rem
+
+.viewNew
+  display: flex
+  flex-direction: row
+  justify-content: center
+  position: absolute
+  right: 0
+  top: 0.4rem
+  
+  .button
+    box-shadow: none !important
+    text-transform: lowercase
+    width: 20rem
+
+.allOption
+  font-style: italic

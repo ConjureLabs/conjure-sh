@@ -3,9 +3,7 @@
 BASE="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )";
 . $BASE/../functions.cfg;
 
-set -e
-
-source $APP_DIR/.profile;
+source $BASH_DIR/apply-profile.sh;
 
 node $APP_DIR/scripts/stylus/prepare.js;
 node $APP_DIR/scripts/config/generate-client-config.js;
