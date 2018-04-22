@@ -4,11 +4,12 @@
   "private": true,
   "main": "./server",
   "scripts": {
+    "prebuild": "bash ./bash/yarn/pre-build.sh",
     "build": "next build",
     "dev": "bash ./bash/yarn/run-dev.sh",
     "docker-cleanup": "bash ./bash/yarn/docker-cleanup.sh",
     "lint": "bash ./bash/yarn/lint.sh",
-    "start": "next start",
+    "start": "bash ./bash/yarn/run-prod.sh",
     "install:fresh": "(rm -rf ./node_modules || true) && (rm ./yarn.lock || true) && yarn install"
   },
   "engines": {
