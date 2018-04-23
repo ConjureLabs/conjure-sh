@@ -3394,7 +3394,7 @@ hmac-drbg@^1.0.0:
 
 "hob@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/hob.git":
   version "0.0.1"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/hob.git#0c9262fad153cfd8f5dd0b27abb7c22bada4d4df"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/hob.git#8504a0e8e1be07d2d6f6776e020ec75179dbf667"
   dependencies:
     cross-spawn "6.0.5"
     minimist "1.2.0"
