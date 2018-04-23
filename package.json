@@ -12,7 +12,8 @@
     "start": "bash ./bash/yarn/run-prod.sh",
     "install:fresh": "(rm -rf ./node_modules || true) && (rm ./yarn.lock || true) && yarn install",
     "hob:build": "hob build",
-    "hob:compile": "hob compile"
+    "hob:compile": "hob compile",
+    "hob:lint": "hob lint"
   },
   "engines": {
     "node": ">=8.7.0"
@@ -26,6 +27,7 @@
     "async": "^2.3.0",
     "aws-sdk": "2.222.1",
     "babel-core": "^6.24.1",
+    "babel-eslint": "8.0.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.23.0",
@@ -42,11 +44,13 @@
     "country-list": "^1.1.0",
     "css-loader": "^0.28.0",
     "debug": "2.6.0",
+    "eslint": "4.10.0",
     "expose-loader": "^0.7.3",
     "express": "4.14.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "hob": "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/hob.git",
     "jade": "1.11.0",
+    "jscs": "3.0.7",
     "jsx-loader": "^0.13.2",
     "moment": "^2.18.1",
     "morgan": "1.7.0",
@@ -69,10 +73,7 @@
     "webpack": "^2.4.1"
   },
   "devDependencies": {
-    "babel-eslint": "8.0.1",
     "babel-plugin-transform-decorators": "6.24.1",
-    "babel-plugin-transform-react-jsx": "6.24.1",
-    "eslint": "4.10.0",
-    "jscs": "3.0.7"
+    "babel-plugin-transform-react-jsx": "6.24.1"
   }
 }
