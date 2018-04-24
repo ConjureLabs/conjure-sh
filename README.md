@@ -54,11 +54,18 @@ NODE_ENV=development yarn start
 ##### yarn Commands
 
 ```bash
-# starts the (dev) app
+# starts the dev app
 yarn run dev
 
 # run lints
 yarn run lint
+
+# re-compiles client assets
+yarn run compile
+
+# starts the dev app,
+# and resets the db first
+yarn run dev:fresh-db
 ```
 
 ###### Additional Options
