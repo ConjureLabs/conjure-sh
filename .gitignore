@@ -6,6 +6,7 @@ node_modules
 public/build
 .profile
 .next
+.hob
 components/**/styles*.js
 pages/**/styles*.js
 shared/config.js
