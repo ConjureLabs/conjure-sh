@@ -10,4 +10,4 @@ public/build
 components/**/styles*.js
 pages/**/styles*.js
 package-lock.json
-client-config.js
+client.config.js
