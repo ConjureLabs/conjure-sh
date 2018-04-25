@@ -20,6 +20,16 @@
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/@conjurelabs/federal/-/federal-0.0.3.tgz#f13227a5a8add911274e77049ba76b9e7f1e99c7"
 
+"@conjurelabs/hob@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/hob/-/hob-0.0.2.tgz#f65b5ea0719507c317677f0f19d5320243a20860"
+  dependencies:
+    cross-spawn "6.0.5"
+    minimist "1.2.0"
+    rimraf "2.6.2"
+    shell-source "1.1.0"
+    stylus "0.54.5"
+
 "@conjurelabs/route@0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.1.4.tgz#2ece3cdd3d289c8997dd5cd07e3268b43715e750"
@@ -3391,16 +3401,6 @@ hmac-drbg@^1.0.0:
     hash.js "^1.0.3"
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.1"
-
-"hob@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/hob.git":
-  version "0.0.1"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/hob.git#52b95fec0404fbed373205b154fa5e4df4dbcd01"
-  dependencies:
-    cross-spawn "6.0.5"
-    minimist "1.2.0"
-    rimraf "2.6.2"
-    shell-source "1.1.0"
-    stylus "0.54.5"
 
 hoek@4.x.x:
   version "4.2.1"

@@ -3,6 +3,8 @@ module.exports = {
 
   clientConfigKeys: [
     'app.api.url',
-    'app.web.url'
+    'app.web.url',
+    'app.worker.port',
+    'app.worker.protocol'
   ]
 }

@@ -9,5 +9,5 @@ public/build
 .hob/.*
 components/**/styles*.js
 pages/**/styles*.js
-shared/config.js
 package-lock.json
+client-config.js
