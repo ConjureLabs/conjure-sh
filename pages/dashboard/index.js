@@ -4,7 +4,7 @@ import actions from './actions'
 import sysMessageActions from '../../components/SystemMessages/actions'
 import styles, { classes } from './styles.js'
 import { connect } from '@conjurelabs/federal'
-import config from '../../shared/config.js'
+import config from '../../client.config.js'
 import classnames from 'classnames'
 
 import Layout from '../../components/Layout'

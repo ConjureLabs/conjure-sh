@@ -1,6 +1,6 @@
 import { Component } from 'react'
 import styles, { classes } from './styles.js'
-import config from '../../../../shared/config.js'
+import config from '../../../../client.config.js'
 
 import Layout from '../../../../components/Layout'
 import EmptyState from '../../../../components/EmptyState'

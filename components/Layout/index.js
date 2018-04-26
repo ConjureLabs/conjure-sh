@@ -4,7 +4,7 @@ import classnames from 'classnames'
 
 import Header from '../Header'
 import SystemMessages from '../SystemMessages'
-import config from '../../shared/config'
+import config from '../../client.config.js'
 import nativeStyles from './styles.native.js'
 
 import styles, { classes } from './styles.js'

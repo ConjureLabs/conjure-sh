@@ -4,7 +4,7 @@ import classnames from 'classnames'
 import { connect } from '@conjurelabs/federal'
 
 import { post } from '../../../../shared/xhr'
-import config from '../../../../shared/config.js'
+import config from '../../../../client.config.js'
 import sysMessageActions from '../../../../components/SystemMessages/actions'
 
 import Layout from '../../../../components/Layout'
