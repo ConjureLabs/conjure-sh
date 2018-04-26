@@ -31,7 +31,7 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
         <meta name='description' content='Containers for your Pull Requests, giving you a link to view changes directly in GitHub' />
         <meta name='og:description' content={config.app.web.url} />
         <meta charSet='utf-8' />
-        <meta name='viewport' content='initial-scale=1.0, width=device-width' />
+        <meta name='viewport' content='width=device-width' />
         <meta name='theme-color' content='#ffffff' />
         <link rel='apple-touch-icon' sizes='180x180' href='/static/images/favicon/apple-touch-icon.png' />
         <link rel='icon' type='image/png' sizes='32x32' href='/static/images/favicon/favicon-32x32.png' />
