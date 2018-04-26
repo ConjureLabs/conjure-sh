@@ -4,7 +4,7 @@ import classnames from 'classnames'
 
 import Layout from '../../components/Layout'
 import Button from '../../components/Button'
-import config from '../../shared/config.js'
+import config from '../../client.config.js'
 
 import Glimpse from './components/Glimpse'
 import Plans from './components/Plans'
