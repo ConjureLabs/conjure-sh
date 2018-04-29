@@ -8,7 +8,9 @@ Easily test branches, without altering your local.
 
 #### Env Vars
 
-Any sensitive keys should be set in `./.profile`, which is applied before running the Docker instance.
+Any sensitive keys should be set in `.hob/.env`, which is applied before running the Docker instance.
+
+Local dev should pull `../conjure-core/.hob/.env`
 
 #### Local Development
 
