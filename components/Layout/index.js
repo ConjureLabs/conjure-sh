@@ -56,7 +56,7 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
 
           {withFooter !== true ? null : (
             <footer className={classes.footer}>
-              <span>Copyright &copy; 2017 - {new Date().getFullYear()} Conjure Labs, Inc.</span>
+              <span>Copyright &copy; {new Date().getFullYear()} Conjure Labs, Inc.</span>
               <del>|</del>
               <a href='https://angel.co/conjure-labs-1' target='_blank'>About</a>
               <del>|</del>

@@ -11,15 +11,15 @@ CREATE DATABASE conjure WITH OWNER conjure_admin;
 \c conjure;
 
 -- table definitions
-\i ../sql/tables/account.sql;
-\i ../sql/tables/account-card.sql;
-\i ../sql/tables/account-email.sql;
-\i ../sql/tables/account-github.sql;
-\i ../sql/tables/account-login.sql;
-\i ../sql/tables/watched-repo.sql;
-\i ../sql/tables/container.sql;
-\i ../sql/tables/github-issue-comment.sql;
-\i ../sql/tables/account-repo.sql;
-\i ../sql/tables/monthly-billing-plan.sql;
-\i ../sql/tables/github-org-monthly-billing-plan.sql;
-\i ../sql/tables/ecr-repo.sql
+\i ./tables/account.sql;
+\i ./tables/account-card.sql;
+\i ./tables/account-email.sql;
+\i ./tables/account-github.sql;
+\i ./tables/account-login.sql;
+\i ./tables/watched-repo.sql;
+\i ./tables/container.sql;
+\i ./tables/github-issue-comment.sql;
+\i ./tables/account-repo.sql;
+\i ./tables/monthly-billing-plan.sql;
+\i ./tables/github-org-monthly-billing-plan.sql;
+\i ./tables/ecr-repo.sql

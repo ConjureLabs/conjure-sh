@@ -1,6 +1,7 @@
 module.exports = {
+  fullConfig: require('conjure-core/modules/config'),
+
   clientConfig: {
-    fullConfig: require('conjure-core/modules/config'),
     keys: [
       'app.api.url',
       'app.web.url',
