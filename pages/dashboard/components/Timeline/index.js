@@ -60,6 +60,7 @@ class Timeline extends Component {
 
           case 'stopped':
           case 'pruned':
+          case 'failed':
             ms = new Date(item.stop) - new Date(item.start)
             break
         }
