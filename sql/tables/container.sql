@@ -13,6 +13,7 @@ CREATE TABLE container (
   container_id VARCHAR(64),
   url_uid VARCHAR(24),
   is_active BOOLEAN NOT NULL,
+  creation_failed BOOLEAN NOT NULL,
   ecs_state container_ecs_state NOT NULL,
   active_start TIMESTAMP WITH TIME ZONE,
   active_end TIMESTAMP WITH TIME ZONE,
