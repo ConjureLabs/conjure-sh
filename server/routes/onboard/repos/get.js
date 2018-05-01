@@ -37,16 +37,6 @@ route.push(async (req, res) => {
 
   const orgName = req.cookies['conjure-onboard-orgs'].label
 
-  // checking if a plan exists, for this org
-  const GithubOrgMonthlyBillingPlan = new DatabaseTable('githubOrgMonthlyBillingPlan')
-  const planRows = await GithubOrgMonthlyBillingPlan.select({
-    org: orgName
-  })
-
-  if (planRows.length === 0) {
-    return res.redirect(302, '/onboard/billing')
-  }
-
   // customer credit card should exist
   const AccountCard = new DatabaseTable('accountCard')
   const cardRows = await AccountCard.select({

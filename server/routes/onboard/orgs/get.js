@@ -32,7 +32,7 @@ route.push(async (req, res) => {
     req.cookies['conjure-onboard-orgs'].label &&
     req.cookies['conjure-onboard-orgs'].value
   ) {
-    return res.redirect(302, '/onboard/plan')
+    return res.redirect(302, '/onboard/billing')
   }
 
   // get github account record
