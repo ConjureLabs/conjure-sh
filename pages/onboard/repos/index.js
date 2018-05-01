@@ -85,7 +85,7 @@ class OnboardRepos extends Component {
           </header>
 
           <article>
-            <sup>4</sup>
+            <sup>3</sup>
             <span>What repos should Conjure watch?</span>
           </article>
 

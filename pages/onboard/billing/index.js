@@ -108,7 +108,7 @@ class OnboardBilling extends Component {
           </header>
 
           <article>
-            <sup>3</sup>
+            <sup>2</sup>
             <span>Billing</span>
           </article>
 
