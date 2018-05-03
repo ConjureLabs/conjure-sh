@@ -19,9 +19,9 @@ import Button from '../../../../components/Button'
 
 let submitting = false
 
-// todo: this has A LOT of overlap w/ the onboard billing flow - how to keep it DRY?
+// todo: this has A LOT of overlap w/ the onboard payment flow - how to keep it DRY?
 
-class AccountBillingEntry extends Component {
+class AccountPaymentEntry extends Component {
   constructor(props) {
     super(props)
 
@@ -86,7 +86,7 @@ class AccountBillingEntry extends Component {
       }, {})
     }
 
-    post(`${config.app.api.url}/api/account/billing/card`, values, err => {
+    post(`${config.app.api.url}/api/account/payment/card`, values, err => {
       if (err) {
         dispatch.addSystemMessage({
           type: 'error',
@@ -96,7 +96,7 @@ class AccountBillingEntry extends Component {
         return
       }
 
-      window.location = '/account/billing'
+      window.location = '/account/payment'
     })
   }
 
@@ -228,7 +228,7 @@ class AccountBillingEntry extends Component {
   }
 }
 
-const ConnectedAccountBillingEntry = connect(() => {}, sysMessageActions)(AccountBillingEntry)
+const ConnectedAccountPaymentEntry = connect(() => {}, sysMessageActions)(AccountPaymentEntry)
 
 export default ({ url, ...extraProps }) => {
   return (
@@ -236,7 +236,7 @@ export default ({ url, ...extraProps }) => {
       url={url}
       title='New Credit Card'
     >
-      <ConnectedAccountBillingEntry {...extraProps} />
+      <ConnectedAccountPaymentEntry {...extraProps} />
     </Layout>
   )
 }

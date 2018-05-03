@@ -32,7 +32,7 @@ class OnboardOrgs extends Component {
         return
       }
 
-      window.location = '/onboard/billing'
+      window.location = '/onboard/payment'
     })
   }
 
