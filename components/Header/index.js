@@ -29,7 +29,12 @@ const Header = ({ account, children, wrapped = true, limited = false }) => (
           <ol className={classes.links}>
             {limited === true ? null : (
               <li className={classes.item}>
-                <a href='/account/billing' className={classes.link}>Billing</a>
+                <a
+                  href='/account/payment'
+                  className={classes.link}
+                >
+                  Payment
+                </a>
               </li>
             )}
 

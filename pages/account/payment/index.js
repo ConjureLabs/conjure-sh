@@ -5,9 +5,9 @@ import Federal, { connect } from '@conjurelabs/federal'
 
 import Layout from '../../../components/Layout'
 import Button from '../../../components/Button'
-import CardUI from './card-ui.js'
+import CardUI from './card-ui'
 
-class Billing extends Component {
+class Payment extends Component {
   render() {
     const cards = this.props.cards || []
 
@@ -20,7 +20,7 @@ class Billing extends Component {
               hallow={false}
               size='small'
               onClick={() => {
-                window.location = '/account/billing/entry'
+                window.location = '/account/payment/entry'
               }}
             >
               Add New Card
@@ -51,14 +51,14 @@ const selector = store => ({
   cards: store.cards
 })
 
-const ConnectedBilling = connect(selector, actions)(Billing)
+const ConnectedPayment = connect(selector, actions)(Payment)
 
 export default props => (
   <Layout
     url={props.url}
-    title='Account Billing'
+    title='Account Payment'
     withWrapper={false}
   >
-    <ConnectedBilling {...props} />
+    <ConnectedPayment {...props} />
   </Layout>
 )

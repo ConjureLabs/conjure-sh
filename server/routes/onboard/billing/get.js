@@ -39,7 +39,7 @@ route.push(async (req, res) => {
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
   const gitHubAccount = (await apiGetAccountGitHub(req)).account
 
-  nextApp.render(req, res, '/onboard/billing', {
+  nextApp.render(req, res, '/onboard/payment', {
     account: {
       photo: gitHubAccount.photo
     }

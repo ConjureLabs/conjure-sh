@@ -90,7 +90,7 @@ class CardUi extends Component {
   deleteCard() {
     const { card, dispatch } = this.props
 
-    del(`${config.app.api.url}/api/account/billing/card/${card.id}`, null, err => {
+    del(`${config.app.api.url}/api/account/payment/card/${card.id}`, null, err => {
       if (err) {
         dispatch.addSystemMessage({
           type: 'error',

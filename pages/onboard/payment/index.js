@@ -19,7 +19,7 @@ import Button from '../../../components/Button'
 
 let submitting = false
 
-class OnboardBilling extends Component {
+class OnboardPayment extends Component {
   constructor(props) {
     super(props)
 
@@ -84,7 +84,7 @@ class OnboardBilling extends Component {
       }, {})
     }
 
-    post(`${config.app.api.url}/api/onboard/billing`, values, err => {
+    post(`${config.app.api.url}/api/onboard/payment`, values, err => {
       if (err) {
         dispatch.addSystemMessage({
           type: 'error',
@@ -109,7 +109,7 @@ class OnboardBilling extends Component {
 
           <article>
             <sup>2</sup>
-            <span>Billing</span>
+            <span>Payment</span>
           </article>
 
           <main>
@@ -240,7 +240,7 @@ class OnboardBilling extends Component {
   }
 }
 
-const ConnectedOnboardBilling = connect(() => {}, sysMessageActions)(OnboardBilling)
+const ConnectedOnboardPayment = connect(() => {}, sysMessageActions)(OnboardPayment)
 
 export default ({ url, ...extraProps }) => {
   return (
@@ -248,7 +248,7 @@ export default ({ url, ...extraProps }) => {
       url={url}
       limitedHeader={true}
     >
-      <ConnectedOnboardBilling {...extraProps} />
+      <ConnectedOnboardPayment {...extraProps} />
     </Layout>
   )
 }

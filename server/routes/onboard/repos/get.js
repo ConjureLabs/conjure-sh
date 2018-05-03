@@ -44,7 +44,7 @@ route.push(async (req, res) => {
   })
 
   if (cardRows.length === 0) {
-    return res.redirect(302, '/onboard/billing')
+    return res.redirect(302, '/onboard/payment')
   }
 
   // get github account record
