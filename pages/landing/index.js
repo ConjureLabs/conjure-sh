@@ -4,6 +4,7 @@ import classnames from 'classnames'
 
 import Layout from '../../components/Layout'
 import LandingHeader from './components/LandingHeader'
+import FeaturesCallout from './components/FeaturesCallout'
 
 export default class Landing extends Component {
   constructor(props) {
@@ -24,9 +25,11 @@ export default class Landing extends Component {
         url={url}
         withHeader={false}
         withWrapper={false}
+        contentPadded={false}
         className={classes.root}
       >
         <LandingHeader/>
+        <FeaturesCallout/>
 
         {styles}
       </Layout>

@@ -9,7 +9,7 @@ import nativeStyles from './styles.native.js'
 
 import styles, { classes } from './styles.js'
 
-export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true }) => {
+export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true, contentPadded = true }) => {
   const urlQuery = url && typeof url.query === 'object' ? url.query : {}
   const { account, cards, messages } = urlQuery
 
@@ -46,7 +46,10 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
         <div className={classnames(classes.page, className)}>
           {withHeader !== true ? null : (<Header limited={limitedHeader} wrapped={wrappedHeader} />)}
 
-          <div className={classes.content}>
+          <div className={classnames({
+            [classes.content]: true,
+            [classes.padded]: !!contentPadded
+          })}>
             {withWrapper !== true ? children : (
               <main className={classes.wrap}>
                 {children}

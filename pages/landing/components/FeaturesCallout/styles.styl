@@ -1,0 +1,49 @@
+@require '../../../../shared/framework.styl'
+
+.root
+  display: flex
+  flex-direction: row
+  justify-content: center
+  padding-top: 10rem
+  
+  .inner
+    display: inlin-flex
+    flex-direction: column
+    justify-content: flex-start
+  
+  section
+    display: flex
+    flex-direction: row
+    margin-bottom: 10rem
+    
+    ins
+      background: transparent url(/static/images/icons/landing/moveFast.svg) no-repeat 0 0
+      background-size: contain
+      height: 3.2rem
+      margin: 0.6rem 3.2rem 0 0
+      width: 3.2rem
+    &.pricing ins
+      background-image: url(/static/images/icons/landing/pricing.svg)
+    &.privateRepos ins
+      background-image: url(/static/images/icons/landing/privateRepos.svg)
+    &.githubIntegration ins
+      background-image: url(/static/images/icons/landing/githubIntegration.svg)
+
+    .content
+      h3
+        color: #484A5F
+        display: inline-block
+        font-size: 3.6rem
+        font-weight: 300
+        margin-bottom: 1.6rem
+        
+        sub
+          background: #F9A369
+          background: linear-gradient(to right, #F9A369, #FFE9AD)
+          border-radius: 0.3rem
+          display: block
+          height: 0.8rem
+          margin-top: 0.4rem
+
+      p
+        font-size: 1.4rem
