@@ -1,0 +1,74 @@
+@require '../../../../shared/framework.styl'
+
+.trueForm
+  display: none
+
+.root
+  background: $conjureColorMain
+  display: flex
+  flex-direction: column
+  height: 45rem
+  justify-content: space-between
+  width: 100%
+
+nav
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  padding: 3.2rem 3.2rem 0
+
+  h1
+    background: transparent url(/static/images/logos/conjure/full-color-reversed.svg) no-repeat 0 0
+    background-size: contain
+    clear: none
+    float: left
+    height: 1.6rem
+    width: 8.6rem
+    hideText()
+    disableSelect()
+
+  a
+    align-self: center
+    color: $white
+    font-size: 1.2rem
+    padding-bottom: 0.4rem
+    
+    &:hover
+    &:active
+      color: $white
+      border-bottom: 1px solid $white
+
+.ctaContainer
+  align-items: center
+  display: flex
+  flex-direction: column
+  padding-bottom: 6rem
+  text-align: center
+
+  .whatIsConjure
+    color: #DEE0FF
+    display: block
+    font-size: 4.8rem
+    font-weight: 200
+    margin-bottom: 6rem
+    
+    h2
+      margin-bottom: 4.6rem
+    
+    p
+      font-size: 2rem
+
+  .buttons
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    width: 65.5rem
+
+  .cta
+    box-shadow: 0 0.32rem 1.6rem 0.16rem rgba(#000, 0.68)
+    
+    &:hover
+      box-shadow: 0 0.32rem 2.2rem 0.2rem rgba(#000, 0.9)
+
+    .label
+      vertical-align: middle
