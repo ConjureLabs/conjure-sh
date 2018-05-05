@@ -7,7 +7,6 @@ import Button from '../../components/Button'
 import config from '../../client.config.js'
 
 import Glimpse from './components/Glimpse'
-import Plans from './components/Plans'
 
 export default class Landing extends Component {
   constructor(props) {
@@ -69,23 +68,32 @@ export default class Landing extends Component {
                 onClick={this.submitForm.bind(this)}
               >
                 <span className={classes.label}>Sign Up</span>
-              </Button>
-              <sub className={classes.info}>2 containers free, for 2 weeks</sub>
+              </Button>{/*
+              <sub className={classes.info}>2 containers free, for 2 weeks</sub>*/}
             </div>
           </div>
 
           <Glimpse className={classes.glimpse} />
         </header>
 
-        <div className={classes.plans}>
+        <div className={classes.plan}>
           <div>
             <header>
-              <h3>A Plan for Every Team</h3>
+              <h3>Pay for what you use</h3>
             </header>
 
-            <Plans />
-
-            <sub>2 containers free, for 2 weeks</sub>
+            <ul>
+              <li>
+                <sup>$0.50</sup>
+                {' '}
+                <span>per build</span>
+              </li>
+              <li>
+                <sup>$0.025</sup>
+                {' '}
+                <span>per minute running</span>
+              </li>
+            </ul>
           </div>
         </div>
 
