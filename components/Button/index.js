@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classnames from 'classnames'
+import Router from 'next/router'
 
 import styles, { classes } from './styles.js'
 
 export default class Button extends Component {
   handleOnClick() {
-    const { onClick, disabled } = this.props
+    const { onClick, disabled, href } = this.props
 
     if (disabled) {
       return
@@ -15,10 +16,14 @@ export default class Button extends Component {
     if (onClick) {
       onClick(new Event('Button Clicked'))
     }
+
+    if (href) {
+      Router.push(href)
+    }
   }
 
   render() {
-    const { className, children, color, size, hallow, disabled } = this.props
+    const { className, children, color, size, hallow, disabled, href } = this.props
 
     const rootClasses = classnames(
       classes.root,
@@ -62,6 +67,8 @@ export default class Button extends Component {
       'large',
       'medium',
       'small'
-    ]).isRequired
+    ]).isRequired,
+
+    href: PropTypes.string
   }
 }

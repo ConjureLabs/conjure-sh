@@ -1,327 +1,75 @@
 @require '../../shared/framework.styl'
 
+.trueForm
+  display: none
+
 .header
   background: $conjureColorMain
-  display: block
-  height: 64rem
+  display: flex
+  flex-direction: column
+  height: 45rem
+  justify-content: space-between
   width: 100%
 
-.navigation
-  display: block
-  padding: 1.6rem 2rem
+.header
+  nav
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    padding: 3.2rem 3.2rem 0
 
-  .serviceName
-    background: transparent url(/static/images/logos/conjure/full-color-reversed.svg) no-repeat 0 0
-    background-size: contain
-    clear: none
-    float: left
-    height: 1.6rem
-    margin-top: 0.4rem
-    width: 8.6rem
-    hideText()
-    disableSelect()
-
-  .linkslist
-    clear: none
-    float: right
-    
-    .item
+    h1
+      background: transparent url(/static/images/logos/conjure/full-color-reversed.svg) no-repeat 0 0
+      background-size: contain
       clear: none
       float: left
-      margin-left: 3rem
+      height: 1.6rem
+      width: 8.6rem
+      hideText()
+      disableSelect()
+  
+    a
+      align-self: center
+      color: $white
+      font-size: 1.2rem
+      padding-bottom: 0.4rem
       
-    .link
-      color: $conjureColorMainSlightlyDifferent
-      font-size: 1rem
-      line-height: 3.2rem
-
-@keyframes mark
-  0%
-    color: $conjureColorMainVeryDifferent
-  25%
-    color: $conjureColorMainVeryDifferent
-  50%
-    color: $conjureColorMainVeryDifferent
-  75%
-    color: $conjureColorMainVeryDifferent
-  100%
-    color: mix($conjureColorMain, $conjureColorMainVeryDifferent, 20%)
+      &:hover
+      &:active
+        color: $white
+        border-bottom: 1px solid $white
 
 .ctaContainer
-  display: block
+  align-items: center
+  display: flex
+  flex-direction: column
+  padding-bottom: 6rem
   text-align: center
-  
-  &.standAlone
-    padding: 16rem 0
 
-  .firstImpression
-    color: $conjureColorMainVeryDifferent
+  .whatIsConjure
+    color: #DEE0FF
     display: block
     font-size: 4.8rem
-    font-weight: 300
-    margin: 14rem 0 12rem
+    font-weight: 200
+    margin-bottom: 6rem
+    
+    h2
+      margin-bottom: 4.6rem
     
     p
-      color: $conjureColorMainSlightlyDifferent
       font-size: 2rem
-      line-height: 2.4rem
-      margin: 4rem auto 0
-      width: 64rem
+
+  .buttons
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    width: 65.5rem
 
   .cta
     box-shadow: 0 0.32rem 1.6rem 0.16rem rgba(#000, 0.68)
-    display: block
-    margin: 0 auto
     
     &:hover
       box-shadow: 0 0.32rem 2.2rem 0.2rem rgba(#000, 0.9)
-    
-    .githubMark
+
     .label
       vertical-align: middle
-    
-    .githubMark
-      background: transparent url(/static/images/logos/GitHub-Mark-32px.png) no-repeat center center
-      background-size: cover
-      display: inline-block
-      height: 3.2rem
-      margin-right: 1.6rem
-      margin-top: -0.2rem
-      width: 3.2rem
-      
-  &.standAlone
-    .cta
-      box-shadow: 0 0.32rem 1.6rem 0.16rem rgba(#000, 0.42)
-      
-      &:hover
-        box-shadow: 0 0.32rem 2.2rem 0.2rem rgba(#000, 0.6)
-
-  .info
-    color: $conjureColorMainSlightlyDifferent
-    display: block
-    font-size: 1.8rem
-    margin-top: 1.6rem
-
-.trueForm
-  display: none
-  
-.plan
-  display: block
-  height: 46rem
-  margin-top: 64rem
-  width: 100%
-  
-  > div
-    margin: 0 auto
-
-  header
-    display: block
-    text-align: center
-    
-    h3
-      display: block
-      font-size: 3.6rem
-      font-weight: 400
-      margin-bottom: 4.2rem
-
-  ul
-    display: block
-    margin: 0 auto
-    
-    li
-      display: inline-block
-      margin: 0 0.4rem
-      
-      sup
-        font-weight: bold
-  
-.sell
-  background: #fbfbfb
-  border: 1px solid darken(#fbfbfb, 3%)
-  border-width: 1px 0
-  display: block
-  height: 46rem
-  margin-top: 16rem
-  width: 100%
-  
-  > div
-    display: block
-    margin: 0 auto
-    padding: 6rem
-    width: 80rem
-    
-    > article
-      clear: none
-      display: block
-      float: left
-      margin-right: 14rem
-      width: 32rem
-
-      &:last-of-type
-        margin-right: 0
-  
-  header
-    display: block
-    text-align: left
-    
-    h3
-      display: block
-      font-size: 2.6rem
-    
-    span
-      display: block
-      font-size: 1.4rem
-      height: 9rem
-      line-height: 2rem
-      margin: 2.4rem 0
-
-  ol
-    display: block
-    margin-top: 4rem
-
-    li
-      display: block
-      margin-bottom: 3.2rem
-      
-      &:last-of-type
-        margin-bottom: 0
-      
-      .gotIt
-        background: #ad92ff
-        border: 1px solid #ad92ff
-        border-radius: 50%
-        color: $white
-        display: inline-block
-        font-size: 2rem
-        font-weight: 600
-        height: 3rem
-        line-height: 3rem
-        margin-right: 1.4rem
-        text-align: center
-        width: 3rem
-
-      .label
-        color: rgba($black, 0.86)
-        display: inline-block
-        font-size: 2rem
-        font-weight: 600
-
-@media only screen and (max-width: 900px) 
-  .plan
-    margin-top: 42rem
-
-  .ctaContainer
-    &.standAlone
-      padding: 10rem 0
-
-    .firstImpression
-      font-size: 3rem
-  
-  .glimpse
-    margin: 4rem auto
-    transform: scale(0.8)
-  
-  .sell
-    height: 36rem
-
-    > div
-      padding: 4rem
-      width: 64rem
-      
-      > article
-        margin-right: 12rem
-        width: 26rem
-    
-    header
-      h3
-        font-size: 2rem
-      
-      span
-        font-size: 1.2rem
-        height: 7.6rem
-        line-height: 1.6rem
-        margin: 2rem 0
-        
-    ol
-      margin-top: 2.8rem
-
-      li
-        margin-bottom: 2.4rem
-        
-        .gotIt
-          font-size: 1.4rem
-          height: 2rem
-          line-height: 2rem
-          margin-right: 1.2rem
-          width: 2rem
-
-        .label
-          font-size: 1.4rem
-
-@media only screen and (max-width: 800px)
-  .plan
-    margin-top: 8rem
-    margin-bottom: 12rem
-
-  .glimpse
-    display: none
-  
-  .sell
-    height: auto
-    margin-top: 0
-    
-    > div
-      width: auto
-
-      > article
-        float: none
-        margin: 0 auto 8rem !important
-        text-align: center
-        
-        &:last-of-type
-          margin-bottom: 0 !important
-    
-    ol
-      background: #fff
-      border-radius: 3px
-      box-shadow: 0 0.3rem 0.8rem rgba(#000, 0.2)
-      display: inline-block
-      margin-left: auto
-      margin-right: auto
-      margin-top: 2rem
-      padding: 2rem
-      text-align: left
-
-      li
-        display: block
-        margin-bottom: 1.2rem
-        
-        .gotIt
-          font-size: 1rem
-          height: 1.4rem
-          line-height: 1.4rem
-          margin-right: 0.8rem
-          width: 1.4rem
-    
-    header
-      text-align: center
-
-      span
-        height: auto
-        margin-left: auto
-        margin-right: auto
-        width: 20rem
-
-@media only screen and (max-width: 700px)
-  .ctaContainer
-    .firstImpression
-      p
-        width: 36rem
-
-@media only screen and (max-width: 600px)
-  .header
-    height: 54rem
-    
-  .plan
-    margin-bottom: 6rem
-    margin-top: 6rem

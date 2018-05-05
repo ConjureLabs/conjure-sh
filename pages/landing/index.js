@@ -6,15 +6,13 @@ import Layout from '../../components/Layout'
 import Button from '../../components/Button'
 import config from '../../client.config.js'
 
-import Glimpse from './components/Glimpse'
-
 export default class Landing extends Component {
   constructor(props) {
     super(props)
     this.form = null // placehoder for form el ref
   }
 
-  submitForm(e) {
+  submitForm = e => {
     e.preventDefault()
     this.form.submit()
   }
@@ -37,127 +35,44 @@ export default class Landing extends Component {
         />
 
         <header className={classes.header}>
-          <nav className={classes.navigation}>
-            <h1 className={classes.serviceName}>Conjure</h1>
-
-            <ol className={classes.linkslist}>
-              <li className={classes.item}>
-                <Button
-                  size='small'
-                  color='white'
-                  onClick={this.submitForm.bind(this)}
-                  hallow={true}
-                >
-                  Sign In
-                </Button>
-              </li>
-            </ol>
+          <nav>
+            <h1>Conjure</h1>
+            <a
+              href=''
+              onClick={this.submitForm}
+            >
+              Sign In
+            </a>
           </nav>
 
           <div className={classes.ctaContainer}>
-            <div className={classes.firstImpression}>
-              Ephemeral Staging Deployments
+            <div className={classes.whatIsConjure}>
+              <h2>Ephemeral Staging Deployments</h2>
               <p>Connect your GitHub projects and start viewing in minutes</p>
             </div>
 
-            <div>
+            <div className={classes.buttons}>
               <Button
                 size='large'
                 className={classes.cta}
                 color='white'
-                onClick={this.submitForm.bind(this)}
+                hallow={false}
+                onClick={this.submitForm}
               >
                 <span className={classes.label}>Sign Up</span>
-              </Button>{/*
-              <sub className={classes.info}>2 containers free, for 2 weeks</sub>*/}
+              </Button>
+
+              <Button
+                size='large'
+                color='white'
+                hallow={true}
+                href='/docs'
+              >
+                <span className={classes.label}>Explore the Docs</span>
+              </Button>
             </div>
           </div>
-
-          <Glimpse className={classes.glimpse} />
         </header>
-
-        <div className={classes.plan}>
-          <div>
-            <header>
-              <h3>Pay for what you use</h3>
-            </header>
-
-            <ul>
-              <li>
-                <sup>$0.50</sup>
-                {' '}
-                <span>per build</span>
-              </li>
-              <li>
-                <sup>$0.025</sup>
-                {' '}
-                <span>per minute running</span>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className={classes.sell} id='#how-it-works'>
-          <div>
-            <article>
-              <header>
-                <h3>For Developers</h3>
-                <span>Conjure streamlines the peer review process, letting engineers focus on what they do best, avoiding context switch.</span>
-              </header>
-
-              <ol>
-                <li>
-                  <span className={classes.gotIt}>✓</span>
-                  <span className={classes.label}>View changes easily</span>
-                </li>
-                <li>
-                  <span className={classes.gotIt}>✓</span>
-                  <span className={classes.label}>Tail logs</span>
-                </li>
-                <li>
-                  <span className={classes.gotIt}>✓</span>
-                  <span className={classes.label}>GitHub integration</span>
-                </li>
-              </ol>
-            </article>
-
-            <article>
-              <header>
-                <h3>For Product</h3>
-                <span>Conjure gives visibility into what changes your team is working on. See changes before they ship, and give feedback to engineers and design.</span>
-              </header>
-
-              <ol>
-                <li>
-                  <span className={classes.gotIt}>✓</span>
-                  <span className={classes.label}>View changes easily</span>
-                </li>
-                <li>
-                  <span className={classes.gotIt}>✓</span>
-                  <span className={classes.label}>Know what's in progress</span>
-                </li>
-                <li>
-                  <span className={classes.gotIt}>✓</span>
-                  <span className={classes.label}>Give developers feedback</span>
-                </li>
-              </ol>
-            </article>
-          </div>
-        </div>
-
-        <div className={classnames(classes.ctaContainer, classes.standAlone)}>
-          <div>
-            <Button
-              size='large'
-              className={classes.cta}
-              color='black'
-              onClick={this.submitForm.bind(this)}
-            >
-              <span className={classes.label}>Get Started</span>
-            </Button>
-            <sub className={classes.info}>With GitHub</sub>
-          </div>
-        </div>
 
         {styles}
       </Layout>
