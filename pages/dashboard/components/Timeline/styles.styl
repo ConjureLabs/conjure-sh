@@ -5,7 +5,7 @@
   max-width: 80rem
   margin: 6rem auto 0
   
-article
+.row
   header
     font-size: 1.4rem
     font-weight: 500
@@ -15,7 +15,7 @@ article
   &:first-of-type header
     margin-top: 0
 
-ol
+.list
   display: flex
   flex-direction: row
   justify-content: flex-start
@@ -26,7 +26,10 @@ ol
     line-height: 1.6rem
 
     &.status
-      width: 10rem
+      width: 11rem
+    
+      span
+        white-space: nowrap
 
       sup
         background: #d2d2d2

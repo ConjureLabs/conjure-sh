@@ -100,11 +100,14 @@ class Timeline extends Component {
 
     const fillerContent = filler.map((dayHeaderText, i) => {
       return (
-        <article key={`filler-${i}`}>
+        <article
+          className={classes.row}
+          key={`filler-${i}`}
+        >
           {
             dayHeaderText === null ? null : (
               <header>
-                <ol>
+                <ol className={classes.list}>
                   <li className={classes.status}>{dayHeaderText}</li>
                   <li className={classes.logs}></li>
                   <li className={classes.repo}>Repo</li>
@@ -115,7 +118,7 @@ class Timeline extends Component {
             )
           }
 
-          <ol>
+          <ol className={classes.list}>
             <li className={classnames(classes.status, classes.spundown)}>
               <sup />
               <del />
@@ -198,7 +201,7 @@ class Timeline extends Component {
               headerDay = itemStartDay
               dateHeader = (
                 <header key={`day-${headerDay}`}>
-                  <ol>
+                  <ol className={classes.list}>
                     <li className={classes.status}>
                       {
                         headerDay === today ? 'Today' :
@@ -247,10 +250,13 @@ class Timeline extends Component {
             const stateClassKey = item.state.replace(exprAllSpaces, '_')
 
             return (
-              <article key={item.id}>
+              <article
+                className={classes.row}
+                key={item.id}
+              >
                 {dateHeader}
 
-                <ol>
+                <ol className={classes.list}>
                   <li className={classnames(classes.status, classes[stateClassKey])}>
                     <sup />
                     {statusNode}
