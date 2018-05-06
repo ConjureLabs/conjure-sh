@@ -22,8 +22,8 @@ export default () => (
             <span>Pay for what you use</span>
             <sub/>
           </h3>
-          <p>$0.50 / build</p>
-          <p>$0.025 / hr</p>
+          <p>$0.50 <span>/ build</span></p>
+          <p>$0.15 <span>/ hr running</span></p>
         </div>
       </section>
 
