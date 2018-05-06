@@ -171,6 +171,7 @@ export default class Input extends Component {
 
     return (
       <span className={classnames(extraClasses, {
+        [classes.root]: true,
         [classes.initialPlaceholder]: !isFocused && initialPlaceholder
       }, carriedClassName)}>
         {labelShown ? (
