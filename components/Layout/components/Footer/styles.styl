@@ -1,0 +1,73 @@
+@require '../../../../shared/framework.styl'
+
+.root
+  background: #F4F4F4
+  background: linear-gradient(to bottom, #F4F4F4, #fff)
+  display: flex
+  flex-direction: row
+  justify-content: space-between
+  padding: 3.2rem 3rem
+  
+  a
+  a:focus
+  a:hover
+    color: #484A5F
+  
+  .base
+    display: flex
+    flex-direction: row
+
+    h6
+      background: transparent url(/static/images/logos/conjure/full-color.svg) no-repeat 0 0
+      background-size: contain
+      height: 2.4rem
+      margin-bottom: 1.2rem
+      width: 12.7rem
+      disableSelect()
+      hideText()
+    
+    a
+      font-size: 1.2rem
+      margin-top: 0.6rem
+      text-transform: uppercase
+      
+    .links
+      display: flex
+      flex-direction: row
+      margin-left: 3.6rem
+      
+      section
+        display: flex
+        flex-direction: column
+        margin-right: 3.2rem
+
+  .moreInfo
+    display: flex
+    flex-direction: column
+    font-size: 1.2rem
+    justify-content: space-between
+
+    .presence
+      color: #484A5F
+      display: flex
+      flex-direction: row
+      font-size: 1.4rem
+      justify-content: flex-end
+      margin-bottom: 3.2rem
+      
+      del
+        font-weight: 100
+        margin: 0 2.4rem
+        opacity: 0.24
+      
+      .iconGithub
+      .iconTwitter
+        background: transparent url(/static/images/icons/footer/github.svg) no-repeat 0 0
+        background-size: contain
+        height: 1.2rem
+        width: 1.2rem
+        disableSelect()
+        hideText()
+      .iconTwitter
+        background-image: url(/static/images/icons/footer/twitter.svg)
+      

@@ -2,12 +2,13 @@ import Head from 'next/head'
 import Federal from '@conjurelabs/federal'
 import classnames from 'classnames'
 
-import Header from '../Header'
+import Header from './components/Header'
+import Footer from './components/Footer'
 import SystemMessages from '../SystemMessages'
 import config from '../../client.config.js'
-import nativeStyles from './styles.native.js'
 
 import styles, { classes } from './styles.js'
+import nativeStyles from './styles.native.js'
 
 export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true, contentPadded = true }) => {
   const urlQuery = url && typeof url.query === 'object' ? url.query : {}
@@ -58,17 +59,7 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
           </div>
 
           {withFooter !== true ? null : (
-            <footer className={classes.footer}>
-              <span>Copyright &copy; {new Date().getFullYear()} Conjure Labs, Inc.</span>
-              <del>|</del>
-              <a href='https://angel.co/conjure-labs-1' target='_blank'>About</a>
-              <del>|</del>
-              <a href='/docs'>Docs</a>
-              <del>|</del>
-              <a href='/privacy'>Privacy</a>
-              <del>|</del>
-              <a href='/terms'>Terms</a>
-            </footer>
+            <Footer />
           )}
         </div>
 
