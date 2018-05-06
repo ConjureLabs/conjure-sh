@@ -30,6 +30,7 @@
       font-size: 1.2rem
       margin-top: 0.6rem
       text-transform: uppercase
+      white-space: nowrap
       
     .links
       display: flex
@@ -70,4 +71,21 @@
         hideText()
       .iconTwitter
         background-image: url(/static/images/icons/footer/twitter.svg)
+
+@media only screen and (max-width: 700px)
+  .root .moreInfo .presence
+    display: none
+
+@media only screen and (max-width: 600px)
+  .root
+    flex-direction: column
+  
+    .base
+      flex-direction: column
       
+      .links
+        margin-left: 0
+    
+    .moreInfo
+      margin-top: 3.2rem
+        
