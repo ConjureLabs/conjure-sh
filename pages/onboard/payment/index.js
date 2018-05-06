@@ -132,7 +132,7 @@ class OnboardPayment extends Component {
                       label='Name'
                       ref={ref => this.inputs.card.name = ref}
                       onChange={this.isFormFilledIn.bind(this)}
-                      autocomplete='off'
+                      autoComplete={false}
                     />
                   </li>
                   <li>

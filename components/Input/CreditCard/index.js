@@ -16,7 +16,7 @@ export default class CreditCardInput extends Input {
     this.cardType = undefined
 
     this.forcedInputProps.maxLength = 19
-    this.forcedInputProps.autocomplete = 'off'
+    this.forcedInputProps.autoComplete = false
   }
 
   get value() {

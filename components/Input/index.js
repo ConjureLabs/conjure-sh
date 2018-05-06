@@ -130,27 +130,37 @@ export default class Input extends Component {
   }
 
   render() {
-    const { label, value, checked, id, autocomplete, ...props } = this.props
-    const { isFocused, initialPlaceholder } = this.state
+    const { label, value, checked, id, type, ...extraCustomProps } = this.props
+    const inputProps = {
+      ...extraCustomProps,
+      ...this.forcedInputProps,
+      id: id || `input_${this.uid}`,
+      onKeyDown: this.onKeyDown.bind(this),
+      onKeyUp: this.onKeyUp.bind(this),
+      onChange: this.onChange.bind(this),
+      onFocus: this.onFocus.bind(this),
+      onBlur: this.onBlur.bind(this),
+      defaultValue: value,
+      defaultChecked: checked,
+      type: this.type ? this.type : type
+    }
     const stateLabel = this.state.label // children can override label shown
 
     const labelShown = stateLabel || label
-    const carriedClassName = props.className
+    const carriedClassName = inputProps.className
 
-    // these events are handled within this class
-    delete props.onKeyDown
-    delete props.onKeyUp
-    delete props.onChange
-    delete props.onFocus
-    delete props.onBlur
     // this is carried over to the span, but not the <input>
-    delete props.className
+    // we will force a custom classname for the root
+    inputProps.className = classes.input
+
+    // see https://stackoverflow.com/questions/15738259/disabling-chrome-autofill
+    // chrome is a pain sometimes
+    inputProps.autoComplete = inputProps.autoComplete === false ? `prevent_autocomplete_${this.uid}` : null
+    const { isFocused, initialPlaceholder } = this.state
 
     for (let i = 0; i < this.propKeysPruned.length; i++) {
-      delete props[ this.propKeysPruned[i] ]
+      delete inputProps[ this.propKeysPruned[i] ]
     }
-
-    props.type = this.type ? this.type : props.type
 
     const InputTag = this.tagName
 
@@ -159,23 +169,13 @@ export default class Input extends Component {
       return extraClasses
     }, {})
 
-    const inputId = id || `input_${this.uid}`
-
-    const preventAutocomplete = autocomplete === 'off' || autocomplete === false
-    const finalProps = {}
-    // see https://stackoverflow.com/questions/15738259/disabling-chrome-autofill
-    // chrome is a pain sometimes
-    if (preventAutocomplete) {
-      finalProps.autocomplete = `prevent_autocomplete_${this.uid}`
-    }
-
     return (
       <span className={classnames(extraClasses, {
         [classes.initialPlaceholder]: !isFocused && initialPlaceholder
       }, carriedClassName)}>
         {labelShown ? (
           <label
-            htmlFor={inputId}
+            htmlFor={inputProps.id}
           >
             {labelShown}
           </label>
@@ -184,18 +184,7 @@ export default class Input extends Component {
         {this.beforeInput()}
 
         <InputTag
-          defaultValue={value}
-          defaultChecked={checked}
-          id={inputId}
-          {...props}
-          {...this.forcedInputProps}
-          {...finalProps}
-          className={classes.input}
-          onKeyDown={this.onKeyDown.bind(this)}
-          onKeyUp={this.onKeyUp.bind(this)}
-          onChange={this.onChange.bind(this)}
-          onFocus={this.onFocus.bind(this)}
-          onBlur={this.onBlur.bind(this)}
+          {...inputProps}
           ref={input => this.input = input}
         />
 

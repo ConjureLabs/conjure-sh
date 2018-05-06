@@ -24,7 +24,7 @@ export default class Suggest extends Input {
     // highlighted option (does not need to be selected)
     this.state.highlightedSelection = null
 
-    this.forcedInputProps.autocomplete = 'off'
+    this.forcedInputProps.autoComplete = false
   }
 
   get value() {

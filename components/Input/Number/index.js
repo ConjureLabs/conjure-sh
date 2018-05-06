@@ -6,7 +6,7 @@ export default class NumberInput extends TextInput {
   constructor(props) {
     super(props)
 
-    this.forcedInputProps.autocomplete = 'off'
+    this.forcedInputProps.autoComplete = false
   }
 
   onChange() {
