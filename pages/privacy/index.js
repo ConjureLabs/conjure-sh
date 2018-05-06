@@ -1,11 +1,12 @@
 import Layout from '../../components/Layout'
 
-import styles from './styles.js'
+import styles, { classes } from './styles.js'
 
 export default ({ url }) => (
   <Layout
     url={url}
     title='Privacy Policy'
+    className={classes.root}
     wrappedHeader={false}
   >
     <h2>Conjure Privacy Policy</h2>
