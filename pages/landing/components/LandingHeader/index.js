@@ -39,6 +39,7 @@ export default ({ submitForm }) => (
           color='white'
           hallow={true}
           href='/docs'
+          className={classes.secondary}
         >
           <span className={classes.label}>Explore the Docs</span>
         </Button>
