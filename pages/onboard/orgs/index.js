@@ -7,7 +7,6 @@ import config from '../../../client.config.js'
 import sysMessageActions from '../../../components/SystemMessages/actions'
 
 import Layout from '../../../components/Layout'
-import Header from '../../../components/Header'
 import AnchorList from '../../../components/AnchorList'
 
 let submitting = false
