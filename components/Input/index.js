@@ -130,7 +130,7 @@ export default class Input extends Component {
   }
 
   render() {
-    const { label, value, checked, id, ...props } = this.props
+    const { label, value, checked, id, autocomplete, ...props } = this.props
     const { isFocused, initialPlaceholder } = this.state
     const stateLabel = this.state.label // children can override label shown
 
@@ -161,6 +161,14 @@ export default class Input extends Component {
 
     const inputId = id || `input_${this.uid}`
 
+    const preventAutocomplete = autocomplete === 'off' || autocomplete === false
+    const finalProps = {}
+    // see https://stackoverflow.com/questions/15738259/disabling-chrome-autofill
+    // chrome is a pain sometimes
+    if (preventAutocomplete) {
+      finalProps.autocomplete = `prevent_autocomplete_${this.uid}`
+    }
+
     return (
       <span className={classnames(extraClasses, {
         [classes.initialPlaceholder]: !isFocused && initialPlaceholder
@@ -181,6 +189,7 @@ export default class Input extends Component {
           id={inputId}
           {...props}
           {...this.forcedInputProps}
+          {...finalProps}
           className={classes.input}
           onKeyDown={this.onKeyDown.bind(this)}
           onKeyUp={this.onKeyUp.bind(this)}
