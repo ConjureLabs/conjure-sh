@@ -11,7 +11,7 @@ export default ({ submitForm }) => (
       <h1>Conjure</h1>
       <a
         href=''
-        onClick={this.submitForm}
+        onClick={submitForm}
       >
         Sign In
       </a>
@@ -29,7 +29,7 @@ export default ({ submitForm }) => (
           className={classes.cta}
           color='white'
           hallow={false}
-          onClick={this.submitForm}
+          onClick={submitForm}
         >
           <span className={classes.label}>Sign Up</span>
         </Button>
