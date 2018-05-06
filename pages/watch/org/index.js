@@ -2,7 +2,6 @@ import { Component } from 'react'
 import styles, { classes } from './styles.js'
 
 import Layout from '../../../components/Layout'
-import Header from '../../../components/Header'
 import AnchorList from '../../../components/AnchorList'
 
 let submitting = false

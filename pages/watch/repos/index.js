@@ -8,7 +8,6 @@ import sysMessageActions from '../../../components/SystemMessages/actions'
 
 import Layout from '../../../components/Layout'
 import Button from '../../../components/Button'
-import Header from '../../../components/Header'
 import AnchorMultiList from '../../../components/AnchorList/MultiSelect'
 
 let submitting = false
