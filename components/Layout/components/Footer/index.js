@@ -8,6 +8,7 @@ export default () => (
       <div className={classes.links}>
         <section>
           <a href='/'>Home</a>
+          <a href='https://angel.co/conjure-labs-1'>About</a>
           <a href='/docs'>Docs</a>
           <a href='/blog'>Blog</a>
         </section>
