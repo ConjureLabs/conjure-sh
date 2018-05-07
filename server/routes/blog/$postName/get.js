@@ -18,9 +18,6 @@ route.push(async (req, res, next) => {
     return next()
   }
 
-  // getting short posts
-  await getShortPosts(posts)
-
   return nextApp.render(req, res, '/blog/post', {
     post
   })

@@ -3,6 +3,7 @@ const Route = require('@conjurelabs/route')
 const nextApp = require('../../next')
 
 const route = new Route()
+
 /*
   Logged-out landing page
  */

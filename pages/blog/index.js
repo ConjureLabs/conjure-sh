@@ -1,5 +1,4 @@
-import dynamic from 'next/dynamic'
-
+import { shortPosts } from '../../mdx/blog'
 import Layout from '../../components/Layout'
 import FormattedDate from '../../components/FormattedDate'
 
@@ -13,7 +12,7 @@ export default ({ url }) => (
     wrappedHeader={false}
   >
     {url.query.posts.map(post => {
-      const ShortPost = dynamic(import(`../../mdx/blog/${post.mdxName}.short.md`))
+      const ShortPost = shortPosts[post.mdxName]
 
       return (
         <article
@@ -25,6 +24,12 @@ export default ({ url }) => (
             <div className={classes.content}>
               <ShortPost />
             </div>
+            <a
+              className={classes.readMore}
+              href={`/blog/${post.mdxName}`}
+            >
+              Read More
+            </a>
           </span>
         </article>
       )
