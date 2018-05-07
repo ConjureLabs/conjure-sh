@@ -1,7 +1,8 @@
 const path = require('path')
 
 module.exports = {}
-module.exports.webpack = config => {
+module.exports.pageExtensions = ['js', 'jsx', 'md', 'mdx']
+module.exports.webpack = (config, { defaultLoaders }) => {
   config.externals = config.externals || {}
   config.externals.componentsDir = path.resolve(__dirname, 'components')
   config.externals.config = require('conjure-core/modules/config')
@@ -12,6 +13,14 @@ module.exports.webpack = config => {
   // })
 
   // console.log(config)
+  
+  config.module.rules.push({
+    test: /\.md$/,
+    use: [
+      defaultLoaders.babel,
+      '@mdx-js/loader'
+    ]
+  })
 
   return config
 }
