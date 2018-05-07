@@ -8,7 +8,7 @@ export default ({ fullName, twitterHandle, picName }) => (
       (
       {' '}
       <a
-        href={`twitter.com/${twitterHandle}`}
+        href={`https://twitter.com/${twitterHandle}`}
         target='_blank'
       >
         @{twitterHandle}
