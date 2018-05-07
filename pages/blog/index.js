@@ -2,6 +2,9 @@ import { shortPosts } from '../../mdx/blog'
 import Layout from '../../components/Layout'
 import FormattedDate from '../../components/FormattedDate'
 
+import Authors from './components/Authors'
+import PostContent from './components/PostContent'
+
 import styles, { classes } from './styles.js'
 
 export default ({ url }) => (
@@ -21,9 +24,10 @@ export default ({ url }) => (
         >
           <span className={classes.date}>
             <FormattedDate>{post.added}</FormattedDate>
-            <div className={classes.content}>
+            <Authors authors={post.authors} />
+            <PostContent>
               <ShortPost />
-            </div>
+            </PostContent>
             <a
               className={classes.readMore}
               href={`/blog/${post.mdxName}`}

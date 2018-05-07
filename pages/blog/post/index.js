@@ -4,6 +4,9 @@ import fullPosts from '../../../mdx/blog'
 import Layout from '../../../components/Layout'
 import FormattedDate from '../../../components/FormattedDate'
 
+import Authors from '../components/Authors'
+import PostContent from '../components/PostContent'
+
 import styles, { classes } from './styles.js'
 
 export default ({ url }) => {
@@ -20,9 +23,10 @@ export default ({ url }) => {
       <article className={classes.post}>
         <span className={classes.date}>
           <FormattedDate>{post.added}</FormattedDate>
-          <div className={classes.content}>
+          <Authors authors={post.authors} />
+          <PostContent>
             <FullPost />
-          </div>
+          </PostContent>
         </span>
       </article>
 
