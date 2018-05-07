@@ -49,6 +49,9 @@ server.use(passport.initialize())
 server.use(passport.session())
 server.use(cookieParser())
 
+// see https://github.com/zeit/next.js/issues/3890#issuecomment-383167281
+server.use(compression())
+
 // passport serialization
 passport.serializeUser((user, done) => {
   const { DatabaseRow } = require('@conjurelabs/db')
@@ -111,10 +114,6 @@ catchAllRouter.get('*', (req, res) => {
   nextDefaultGetHandler(req, res)
 })
 server.use(catchAllRouter)
-
-// compression right before startup to avoid headers resent issue
-// see https://github.com/zeit/next.js/issues/3890#issuecomment-383167281
-server.use(compression())
 
 // startup next app
 nextApp
