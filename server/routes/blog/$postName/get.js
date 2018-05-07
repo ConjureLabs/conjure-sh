@@ -9,17 +9,17 @@ const route = new Route()
 route.push(async (req, res, next) => {
   const { DatabaseTable } = require('@conjurelabs/db')
   const blogPosts = new DatabaseTable('blog')
-  const post = await blogPosts.select({
+  const posts = await blogPosts.select({
     mdxName: req.params.postName
   })
 
-  if (!post) {
+  if (!posts.length) {
     // cause 404
     return next()
   }
 
   return nextApp.render(req, res, '/blog/post', {
-    post
+    post: posts[0]
   })
 })
 
