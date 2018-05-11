@@ -16,6 +16,6 @@ As the idea took shape, I talked more about it with other engineers. I realized 
 
 ## A better way to test
 
-The goal of Conjure is to eable teams to review changes faster, without the overhead of local environments. This means giving engineers quick access to view changes, and giving product managers, designers, and other team members an easy wasy to see active workstreams. Giving anyone the chance to be part of the review process.
+The goal of Conjure is to enable teams to review changes faster, without the overhead of local environments. This means giving engineers quick access to view changes, and giving product managers, designers, and other team members an easy wasy to see active workstreams. Giving anyone the chance to be part of the review process.
 
 Start using [Conjure](https://conjure.sh) today. View our [docs](https://conjure.sh/docs) to learn how to configure your repo in minutes.
