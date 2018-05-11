@@ -1,4 +1,4 @@
-CREATE TYPE container_transaction_action AS ENUM('build', 'running');
+CREATE TYPE container_transaction_action AS ENUM('build', 'ran');
 
 CREATE TABLE container_transaction_log (
   id SERIAL PRIMARY KEY,
