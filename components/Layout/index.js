@@ -29,7 +29,7 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
         { process.env.NODE_ENV === 'production' ? <script async src='https://www.googletagmanager.com/gtag/js?id=UA-108457027-1' /> : null }
         { process.env.NODE_ENV === 'production' ? <script dangerouslySetInnerHTML={{ __html: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments)} gtag('js', new Date()); gtag('config', 'UA-108457027-1');` }} />  : null }
         <title>{title}</title>
-        <meta name='description' content='Containers for your Pull Requests, giving you a link to view changes directly in GitHub' />
+        <meta name='description' content='Ephemeral Staging Deployments for your GitHub Pull Requests' />
         <meta name='og:description' content={config.app.web.url} />
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width' />
