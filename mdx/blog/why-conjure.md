@@ -1,21 +1,21 @@
 # Why Conjure?
 
-I spent years working at several early-stage startups, leading teams, and often being the first engineer on the team. That meant building out process and procedure. A common pattern was to enforce peer reviews on every pull request.
+Most engineers are used to doing peer reviews. A quick code check does a lot of good at keeping problems at bay. But if the product being built is visual, like a web app, then engineers need to see and interact with it to ensure that nothing is broken, there are no regressions, and styles are correct. 
 
 ## The problem
 
-When teams move fast, that means more frequent reviews. GitHub is great for reviewing code changes, but engineers still need to spin up the branch locally if they want to see visual changes. That means stashing ongoing changes, and context switching. All too often engineers will not review visual changes, and only look at code.
+In order for an engineer to properly review changes, their code needs to be stashed, and the branch being reviewed needs to be checked out and spun up. There is context switching and wait times for builds to run.
 
-On top of that, other team members can only see working changes if they hover over their shoulder, or ask for an image. Design teams have tools to show changes, get feedback, and involve others, while engineers work in a black box.
+On top of that, other team members can only see working changes if they hover over the engineer or explicitly ask for an image. Design teams, on the other hand, have tools to show changes, get feedback, and involve others, while engineers work in a black box.
 
 ## The evolution of Conjure
 
-A couple of years ago I began hacking on a concept for a CI platform. The idea was to build CI where you could open the site, and record macros for browser automation tests. Then those would be run alongside your unit tests. As I built it up, and talked with friends, I realized that the ability to pull up the site was a huge leap. Slowly the project evolved into Conjure, an ephemeral staging deployment service.
+A couple of years ago I began hacking on a concept for a CI platform where you could easily define automated browser tests. I was frustrated with how long and painful code reviews were, and this tool was supposed to lower the burden of the review process, while speeding up the time between request and merge. But as I built up the platform I realized I was overloading CI, and the real problem was a human problem.
 
-As the idea took shape, I talked more about it with other engineers. I realized that every team I've been on needed something like this. More often than I expected I would talk to people, from companies of all sizes, who were actively building out similar solutions in-house. I've heard of dozens of teams building custom platforms just to share an ephemeral link, or to give engineers quicker access.
+I began searching for a tool that gives engineers quick access to containers for each pull request. I found some blog posts and code for spinning up multiple versions of a site, but nothing really easy to use or for the purpose I had. I talked with some other engineering managers and quickly realized that this was a common problem, with no clear solution, and a lot of demand. So I changed gears and began building out Conjure, an ephemeral staging deployment service.
 
 ## A better way to test
 
-The goal of Conjure is to enable teams to review changes faster, without the overhead of local environments. This means giving engineers quick access to view changes, and giving product managers, designers, and other team members an easy way to see active workstreams. Giving anyone the chance to be part of the review process.
+The goal of Conjure is to enable teams to review visual changes fast and easily, without the overhead of local instances. This means giving engineers quick access to view changes, and giving product managers, designers, and other team members an easy way to see active workstreams. Giving anyone the chance to be part of the review process.
 
 Start using [Conjure](https://conjure.sh) today. View our [docs](https://conjure.sh/docs) to learn how to configure your repo in minutes.
