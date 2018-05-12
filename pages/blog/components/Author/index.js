@@ -4,7 +4,7 @@ export default ({ fullName, twitterHandle, picName }) => (
   <div className={classes.root}>
     <img src={`/static/images/team/${picName}`} />
     <span>{fullName}</span>
-    <span>
+    <span className={classes.external}>
       (
       {' '}
       <a

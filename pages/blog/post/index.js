@@ -21,13 +21,17 @@ export default ({ url }) => {
       wrappedHeader={false}
     >
       <article className={classes.post}>
-        <span className={classes.date}>
-          <FormattedDate>{post.added}</FormattedDate>
-          <Authors authors={post.authors} />
-          <PostContent>
-            <FullPost />
-          </PostContent>
-        </span>
+        <FormattedDate className={classes.date}>{post.added}</FormattedDate>
+        <a
+          className={classes.back}
+          href='/blog'
+        >
+          ‹ Blog
+        </a>
+        <Authors authors={post.authors} />
+        <PostContent>
+          <FullPost />
+        </PostContent>
       </article>
 
       {styles}
