@@ -1,7 +1,7 @@
 CREATE TABLE billing_transaction (
   id SERIAL PRIMARY KEY,
   billed_amount_cents INT,
-  recipient INT REFERENCNES account(id),
+  recipient INT REFERENCES account(id),
   transaction_identifier VARCHAR(36),
   added TIMESTAMP WITH TIME ZONE
 );
