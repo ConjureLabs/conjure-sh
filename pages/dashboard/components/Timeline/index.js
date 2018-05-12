@@ -34,7 +34,7 @@ class Timeline extends Component {
   }
 
   prepareTimeline() {
-    const { timeline } = this.props
+    const { timeline, containerStarting } = this.props
 
     if (timeline === null) {
       return null
@@ -86,9 +86,12 @@ class Timeline extends Component {
         }
       }
 
+      const highlight = containerStarting && containerStarting.id === item.id
+
       return {
         ...item,
         duration,
+        highlight,
         repoUrl: `https://github.com/${item.org}/${item.repo}/`,
         branchUrl: `https://github.com/${item.org}/${item.repo}/tree/${item.branch}`
       }
@@ -256,7 +259,10 @@ class Timeline extends Component {
               >
                 {dateHeader}
 
-                <ol className={classes.list}>
+                <ol className={classnames({
+                  [classes.list]: true,
+                  [classes.highlight]: item.highlight === true
+                })}>
                   <li className={classnames(classes.status, classes[stateClassKey])}>
                     <sup />
                     {statusNode}
@@ -305,7 +311,8 @@ class Timeline extends Component {
 }
 
 const selector = store => ({
-  timeline: store.timeline
+  timeline: store.timeline,
+  containerStarting: store.containerStarting
 })
 
 export default connect(selector)(Timeline)

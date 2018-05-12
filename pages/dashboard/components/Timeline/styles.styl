@@ -15,6 +15,20 @@
   &:first-of-type header
     margin-top: 0
 
+.highlight
+  -webkit-animation: pulsate 3.2s ease-out
+  -webkit-animation-iteration-count: 4
+  opacity: 1
+@-webkit-keyframes pulsate
+  0%
+    opacity: 1.0
+  80%
+    opacity: 1.0
+  90%
+    opacity: 0.4
+  100%
+    opacity: 1.0
+
 .list
   display: flex
   flex-direction: row

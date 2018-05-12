@@ -320,7 +320,8 @@ class Dashboard extends Component {
 const selector = store => ({
   timeline: store.timeline,
   pagingHref: store.pagingHref,
-  timelineDelta: store.timelineDelta
+  timelineDelta: store.timelineDelta,
+  containerStarting: store.containerStarting
 })
 
 const ConnectedDashbord = connect(selector, {

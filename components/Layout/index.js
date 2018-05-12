@@ -12,7 +12,7 @@ import nativeStyles from './styles.native.js'
 
 export default ({ url, children, title = 'Conjure', className, wrappedHeader = true, limitedHeader = false, withHeader = true, withWrapper = true, withFooter = true, contentPadded = true }) => {
   const urlQuery = url && typeof url.query === 'object' ? url.query : {}
-  const { account, cards, messages } = urlQuery
+  const { account, cards, messages, containerStarting } = urlQuery
 
   const initialStore = {
     account,
@@ -20,7 +20,8 @@ export default ({ url, children, title = 'Conjure', className, wrappedHeader = t
     messages: messages || [],
     pagingHref: null,
     timeline: null,
-    timelineDelta: null
+    timelineDelta: null,
+    containerStarting
   }
 
   return (

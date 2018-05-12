@@ -81,16 +81,20 @@ route.push(async (req, res, next) => {
   // at this point org & repo values should be valid
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
-  const accountGitHubResult = await apiGetAccountGitHub(req)
+  const accountGitHubResult = apiGetAccountGitHub(req)
+
+  const containerStarting = req.cookies['conjure-container-starting']
+  res.clearCookie('conjure-container-starting');
 
   const queryValues = {
     account: {
-      photo: accountGitHubResult.account.photo // todo: not rely on github...
+      photo: (await accountGitHubResult).account.photo // todo: not rely on github...
     },
     orgs,
     repos,
     orgSelected,
     repoSelected,
+    containerStarting,
     additional
   }
 

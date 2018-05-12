@@ -130,21 +130,46 @@ route.push(async (req, res) => {
   const Container = require('conjure-core/classes/Container')
   const container = new Container(payload)
 
-  const existingContainer = await container.getPendingOrActiveRecord()
+  let constainerRecord = await container.getPendingOrActiveRecord()
+  
+  if (!constainerRecord) {
+    const { branch } = payload
 
-  console.log(existingContainer)
+    const constainerRecords = await DatabaseTable.insert('container', {
+      repo: repoRows[0].id,
+      branch,
+      isActive: false,
+      creationFailed: false,
+      ecsState: 'pending',
+      added: new Date(),
+      creationHeartbeat: new Date()
+    })
+    constainerRecord = constainerRecords[0]
+  }
+
+  // should always be true
+  if (constainerRecord) {
+    res.cookie('conjure-container-starting', {
+      id: constainerRecord.id
+    }, {
+      maxAge: 240000, // 4 minutes
+      httpOnly: true
+    })
+  }
+
+  res.redirect(302, config.app.web.url)
 
   // continue to partial onboarding
-  nextApp.render(req, res, '/container/start', {
-    account: {
-      photo: gitHubAccount.photo
-    },
-    orgName,
-    repoName,
-    issueId,
-    title: payload.title,
-    containerState: existingContainer ? existingContainer.ecsState : 'pending'
-  })
+  // nextApp.render(req, res, '/container/start', {
+  //   account: {
+  //     photo: gitHubAccount.photo
+  //   },
+  //   orgName,
+  //   repoName,
+  //   issueId,
+  //   title: payload.title,
+  //   containerState: existingContainer ? existingContainer.ecsState : 'pending'
+  // })
 
   // begin spinning up the container
   const queue = new Queue('container.create')
