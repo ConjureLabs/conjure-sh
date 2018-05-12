@@ -2,18 +2,24 @@ import styles, { classes } from './styles.js'
 
 import Button from '../../../../components/Button'
 
+const featuredListed = [
+  'Get set up in seconds',
+  'Multi-language support',
+  'Test every pull request',
+  // 'Build with our API & CLI',
+  'Parallel instances',
+  'Simple YML configuration',
+  'Create private share links'
+  // 'Tail logs'
+]
+
 export default ({ submitForm }) => (
   <div className={classes.root}>
     <div className={classes.inner}>
       <ul>
-        <li>✓ Get set up in seconds</li>
-        <li>✓ Multi-language support</li>
-        <li>✓ Test every pull request</li>
-        <li>✓ Build with our API & CLI</li>
-        <li>✓ Parallel instances</li>
-        <li>✓ Simple YML configuration</li>
-        <li>✓ Create private share links</li>
-        <li>✓ Tail logs</li>
+        {featuredListed.map(feature => (
+          <li key={feature}>✓ {feature}</li>
+        ))}
       </ul>
 
       <div className={classes.ctaContainer}>
