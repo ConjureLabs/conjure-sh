@@ -25,4 +25,5 @@ CREATE DATABASE conjure WITH OWNER conjure_admin;
 \i ./tables/ecr-repo.sql
 \i ./tables/conjure-team.sql
 \i ./tables/blog.sql
+\i ./tables/billing-transaction.sql;
 \i ./tables/container-transaction-log.sql;
