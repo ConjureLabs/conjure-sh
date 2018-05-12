@@ -22,19 +22,17 @@ export default ({ url }) => (
           className={classes.post}
           key={post.mdxName}
         >
-          <span className={classes.date}>
-            <FormattedDate>{post.added}</FormattedDate>
-            <Authors authors={post.authors} />
-            <PostContent>
-              <ShortPost />
-            </PostContent>
-            <a
-              className={classes.readMore}
-              href={`/blog/${post.mdxName}`}
-            >
-              Read More
-            </a>
-          </span>
+          <FormattedDate className={classes.date}>{post.added}</FormattedDate>
+          <Authors authors={post.authors} />
+          <PostContent>
+            <ShortPost />
+          </PostContent>
+          <a
+            className={classes.readMore}
+            href={`/blog/${post.mdxName}`}
+          >
+            Read More
+          </a>
         </article>
       )
     })}
