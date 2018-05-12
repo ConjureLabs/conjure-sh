@@ -12,7 +12,7 @@ On top of that, other team members usually only see changes after they land. Unl
 
 A couple of years ago I began hacking on a concept for a CI platform where you could easily define automated browser tests. I was frustrated with how long and painful code reviews were, and this tool was supposed to help. But as I focused on the problem I realized I was overloading CI, and the real bottleneck was during the visual review.
 
-I began searching for a tool that gives engineers quick access to containers for each pull request. I found some blog posts and code for spinning up multiple versions of a site, but nothing really easy to use or meant for the problem I had. I talked with some other engineering managers and quickly realized that this was a common issue, with no clear solution, and a lot of demand. So I changed gears and began building out Conjure, an ephemeral staging deployment service.
+I began searching for a tool that gives engineers quick access to containers for each pull request. I found some blog posts and code for spinning up multiple versions of a site, but nothing really easy to use or dedicated to solving my problem. I talked with some other engineering managers and quickly realized that this was a common issue, with no clear solution, and a lot of demand. So I changed gears and began building out Conjure, an ephemeral staging deployment service.
 
 ## A better way to test
 
