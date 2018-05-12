@@ -10,8 +10,18 @@ export default () => (
             <span>Move faster. Code more.</span>
             <sub/>
           </h3>
-          <p>Conjure gives quick access to view working changes,</p>
-          <p>so your team can focus on shipping code.</p>
+          <p>Conjure gives quick access to view working changes, so your team can focus on shipping code.</p>
+        </div>
+      </section>
+
+      <section className={classes.privateRepos}>
+        <ins />
+        <div className={classes.content}>
+          <h3>
+            <span>Private instances</span>
+            <sub/>
+          </h3>
+          <p>Private repos require users to log in with GitHub before viewing changes.</p>
         </div>
       </section>
 
@@ -27,18 +37,6 @@ export default () => (
         </div>
       </section>
 
-      <section className={classes.privateRepos}>
-        <ins />
-        <div className={classes.content}>
-          <h3>
-            <span>Private instances</span>
-            <sub/>
-          </h3>
-          <p>Private repos require users to log in with</p>
-          <p>GitHub before viewing changes.</p>
-        </div>
-      </section>
-
       <section className={classes.githubIntegration}>
         <ins />
         <div className={classes.content}>
@@ -46,8 +44,7 @@ export default () => (
             <span>GitHub integration</span>
             <sub/>
           </h3>
-          <p>Enable GitHub hooks and Conjure will</p>
-          <p>spin up every PR.</p>
+          <p>Enable GitHub hooks and Conjure will spin up every PR.</p>
         </div>
       </section>
     </div>
