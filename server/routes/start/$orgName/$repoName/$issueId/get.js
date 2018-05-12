@@ -130,12 +130,12 @@ route.push(async (req, res) => {
   const Container = require('conjure-core/classes/Container')
   const container = new Container(payload)
 
-  let constainerRecord = await container.getPendingOrActiveRecord()
+  let containerRecord = await container.getPendingOrActiveRecord()
   
-  if (!constainerRecord) {
+  if (!containerRecord) {
     const { branch } = payload
 
-    const constainerRecords = await DatabaseTable.insert('container', {
+    const containerRecords = await DatabaseTable.insert('container', {
       repo: repoRows[0].id,
       branch,
       isActive: false,
@@ -144,13 +144,13 @@ route.push(async (req, res) => {
       added: new Date(),
       creationHeartbeat: new Date()
     })
-    constainerRecord = constainerRecords[0]
+    containerRecord = containerRecords[0]
   }
 
   // should always be true
-  if (constainerRecord) {
+  if (containerRecord) {
     res.cookie('conjure-container-starting', {
-      id: constainerRecord.id
+      id: containerRecord.id
     }, {
       maxAge: 240000, // 4 minutes
       httpOnly: true
