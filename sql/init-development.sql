@@ -22,8 +22,7 @@ CREATE DATABASE conjure WITH OWNER conjure_admin;
 \i ./tables/account-repo.sql;
 \i ./tables/billing-plan.sql;
 \i ./tables/github-org-billing-plan.sql;
-\i ./tables/ecr-repo.sql
-\i ./tables/conjure-team.sql
-\i ./tables/blog.sql
+\i ./tables/conjure-team.sql;
+\i ./tables/blog.sql;
 \i ./tables/billing-transaction.sql;
 \i ./tables/container-transaction-log.sql;

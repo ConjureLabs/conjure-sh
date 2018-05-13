@@ -23,3 +23,8 @@ CREATE TABLE container (
   updated TIMESTAMP WITH TIME ZONE
 );
 COMMENT ON TABLE container IS 'used to proxy inbound requests to running container';
+
+CREATE INDEX indx_container_repo_banch
+  ON container (lower(repo), lower(brach))
+  WHERE isActive = TRUE
+  AND creationFailed = FALSE;

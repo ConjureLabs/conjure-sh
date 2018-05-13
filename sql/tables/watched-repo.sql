@@ -17,3 +17,6 @@ CREATE TABLE watched_repo (
   UNIQUE (service, service_repo_id)
 );
 COMMENT ON TABLE watched_repo IS 'repos enabled to use conjure';
+
+CREATE INDEX ON watched_repo ((lower(org)));
+CREATE INDEX ON watched_repo ((lower(name)));

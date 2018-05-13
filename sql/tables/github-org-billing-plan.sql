@@ -9,3 +9,5 @@ CREATE TABLE github_org_billing_plan (
   deactivated TIMESTAMP WITH TIME ZONE
 );
 COMMENT ON TABLE github_org_billing_plan IS 'lookup of current and past billing plans, associated with an org and account';
+
+CREATE INDEX ON github_org_billing_plan ((lower(org)));

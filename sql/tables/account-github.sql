@@ -1,6 +1,6 @@
 CREATE TABLE account_github (
   id SERIAL PRIMARY KEY,
-  github_id INT NOT NULL,
+  github_id INT NOT NULL UNIQUE,
   account INT REFERENCES account(id) NOT NULL UNIQUE,
   username VARCHAR(255),
   name VARCHAR(255),
