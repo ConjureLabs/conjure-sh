@@ -584,12 +584,6 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
-"@conjurelabs/db@1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@conjurelabs/db/-/db-1.0.2.tgz#233609eb9f28fada2ea34330700de8578040569f"
-  dependencies:
-    "@conjurelabs/err" "0.0.2"
-
 "@conjurelabs/db@1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@conjurelabs/db/-/db-1.0.3.tgz#25f5ab9c92adc5747fbc8a6f8e757cb060635b74"
@@ -2242,9 +2236,9 @@ configstore@^3.0.0:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#b029dd91047feeddadb492c122dd905c76d947f0"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#71a50ff175719388d10707879ea0db89667604c0"
   dependencies:
-    "@conjurelabs/db" "1.0.2"
+    "@conjurelabs/db" "1.0.3"
     "@conjurelabs/err" "0.1.0"
     "@conjurelabs/hob" "0.0.12"
     "@conjurelabs/route" "0.2.1"
@@ -2265,9 +2259,8 @@ configstore@^3.0.0:
 
 "conjure-core@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#45aa009f06f9b84321eabc4d1518a57b1350d7e1"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#943aaf4cd6d9daa6cab78022d8e6e4f4deaebf24"
   dependencies:
-    "@conjurelabs/db" "1.0.3"
     aws-sdk "2.222.1"
     bee-queue "1.2.2"
     node-yaml "^3.1.1"
