@@ -25,6 +25,6 @@ CREATE TABLE container (
 COMMENT ON TABLE container IS 'used to proxy inbound requests to running container';
 
 CREATE INDEX indx_container_repo_banch
-  ON container (lower(repo), lower(brach))
-  WHERE isActive = TRUE
-  AND creationFailed = FALSE;
+  ON container (repo, branch)
+  WHERE is_active = TRUE
+  AND creation_failed = FALSE;
