@@ -23,6 +23,7 @@
     "@conjurelabs/federal": "0.0.3",
     "@conjurelabs/hob": "0.0.18",
     "@conjurelabs/route": "0.2.1",
+    "@conjurelabs/utils": "0.1.0",
     "ansi-to-html": "^0.6.3",
     "async": "^2.3.0",
     "aws-sdk": "2.222.1",
