@@ -6,6 +6,7 @@ CREATE TABLE github_app_installation (
   installation_id INT NOT NULL UNIQUE,
   photo VARCHAR(255),
   last_verified_active TIMESTAMP WITH TIME ZONE NOT NULL,
+  inactive BOOL DEFAULT FALSE,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );

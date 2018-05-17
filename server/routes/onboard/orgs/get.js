@@ -41,7 +41,9 @@ route.push(async (req, res) => {
 
   // get orgs
   const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call
-  const orgsResult = apiGetOrgs(req)
+  const orgsResult = apiGetOrgs(req, {
+    access: 'rw'
+  })
 
   nextApp.render(req, res, '/onboard/orgs', {
     account: {
