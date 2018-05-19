@@ -7,8 +7,9 @@ CREATE TABLE account_repo (
   service_repo_id VARCHAR(255),
   url VARCHAR(2000),
   org VARCHAR(516),
+  org_id INT NOT NULL,
+  default_branch VARCHAR(255) NOT NULL,
   name VARCHAR(516),
-  access_rights repo_access_rights_types NOT NULL,
   private BOOLEAN NOT NULL,
   verification_identifier VARCHAR(36) NOT NULL, -- this is just used to track async transaction of inserts, then prune old records
   added TIMESTAMP WITH TIME ZONE NOT NULL,
