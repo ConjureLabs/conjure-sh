@@ -9,6 +9,7 @@ CREATE TABLE watched_repo (
   vm repo_vm_types NOT NULL,
   url VARCHAR(2000),
   org VARCHAR(516),
+  org_id INT NOT NULL,
   name VARCHAR(516),
   private BOOLEAN NOT NULL,
   disabled BOOLEAN NOT NULL,

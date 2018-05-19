@@ -65,7 +65,7 @@ class OnboardRepos extends Component {
         const repo = reposByOrg[currentOrgKey][j]
 
         repos.push({
-          label: `${orgs[i]} / ${repo.name}`,
+          label: orgs.length === 1 ? repo.name : `${currentOrgKey} / ${repo.name}`,
           value: repo.id,
           key: repo.id
         })
