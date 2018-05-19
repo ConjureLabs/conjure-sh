@@ -30,6 +30,13 @@ route.push(async (req, res) => {
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
   const accountGitHubResult = apiGetAccountGitHub(req)
 
+  // checking if any orgs user has access to are already listening to changes
+  // and that the user has access to at least one repo within that org
+  const batchAll = require('@conjurelabs/utils/Promise/batch-all')
+  const watchedRepoResults = await batchAll(4, orgs, org => {
+    return query('SELECT COUNT(*) num FROM watched_repo WHERE org = $1', [org.login])
+  })
+
   const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call
   const { orgs } = await apiGetOrgs(req)
 
@@ -56,7 +63,7 @@ route.push(async (req, res) => {
 
   // if this account has no access to any listened repo, they must start full onboarding
   if (orgsAlreadyAvailable.length === 0) {
-    return res.redirect(302, '/onboard/orgs')
+    return res.redirect(302, '/onboard/repos')
   }
 
   // continue to partial onboarding

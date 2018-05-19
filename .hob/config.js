@@ -6,7 +6,8 @@ module.exports = {
       'app.api.url',
       'app.web.url',
       'app.worker.port',
-      'app.worker.protocol'
+      'app.worker.protocol',
+      'services.github.app.name'
     ]
   }
 }

@@ -26,14 +26,11 @@ route.push(async (req, res) => {
     return res.redirect(302, '/')
   }
 
-  // verify cookie from orgs onboard set
-  if (
-    !req.cookies ||
-    !req.cookies['conjure-onboard-orgs'] ||
-    !req.cookies['conjure-onboard-orgs'].label ||
-    !req.cookies['conjure-onboard-orgs'].value
-  ) {
-    return res.redirect(302, '/onboard/orgs')
+  // verify user went through repos onboarding
+  const apiWatchedSummary = require('conjure-api/server/routes/api/watched/summary/get.js').call
+  const watchedRepos = (await apiWatchedSummary(req)).watched.repos
+  if (watchedRepos.length === 0) {
+    return res.redirect(302, '/onboard')
   }
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call

@@ -72,7 +72,7 @@ class OnboardOverlap extends Component {
               secondaryText='Set up a different Org'
               onPrimaryClick={this.handleSkip.bind(this)}
               onSecondaryClick={() => {
-                window.location = '/onboard/orgs'
+                window.location = `https://github.com/apps/${config.services.github.app.name}/installations/new`
               }}
             />
           </main>

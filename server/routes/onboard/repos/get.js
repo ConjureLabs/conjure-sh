@@ -25,28 +25,6 @@ route.push(async (req, res) => {
     return res.redirect(302, '/')
   }
 
-  // verify cookie from orgs onboard set
-  if (
-    !req.cookies ||
-    !req.cookies['conjure-onboard-orgs'] ||
-    !req.cookies['conjure-onboard-orgs'].label ||
-    !req.cookies['conjure-onboard-orgs'].value
-  ) {
-    return res.redirect(302, '/onboard/orgs')
-  }
-
-  const orgName = req.cookies['conjure-onboard-orgs'].label
-
-  // customer credit card should exist
-  const AccountCard = new DatabaseTable('accountCard')
-  const cardRows = await AccountCard.select({
-    account: req.user.id
-  })
-
-  if (cardRows.length === 0) {
-    return res.redirect(302, '/onboard/payment')
-  }
-
   // get github account record
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
   const accountGitHubResult = apiGetAccountGitHub(req)
@@ -59,8 +37,7 @@ route.push(async (req, res) => {
     account: {
       photo: (await accountGitHubResult).account.photo
     },
-    repos: reposResult,
-    org: req.cookies['conjure-onboard-orgs'] // object of label & value
+    repos: reposResult
   })
 })
 

@@ -94,7 +94,7 @@ class OnboardPayment extends Component {
         return
       }
 
-      window.location = '/onboard/repos'
+      window.location = '/'
     })
   }
 
@@ -104,13 +104,8 @@ class OnboardPayment extends Component {
         <div className={classes.content}>
           <header>
             <sup>💳</sup>
-            <span>2 containers free, for 2 weeks.</span>
+            <span>Setup Payment</span>
           </header>
-
-          <article>
-            <sup>2</sup>
-            <span>Payment</span>
-          </article>
 
           <main>
             <div className={classes.sectionsParent}>

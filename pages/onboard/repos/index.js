@@ -48,12 +48,12 @@ class OnboardRepos extends Component {
         return
       }
 
-      window.location = '/'
+      window.location = '/onboard/payment'
     })
   }
 
   render() {
-    const { reposByOrg, org } = this.props
+    const { reposByOrg } = this.props
 
     // repos are listed by org top-level key
     const orgs = Object.keys(reposByOrg)
@@ -61,15 +61,11 @@ class OnboardRepos extends Component {
     for (let i = 0; i < orgs.length; i++) {
       const currentOrgKey = orgs[i]
 
-      if (currentOrgKey !== org.label) {
-        continue
-      }
-
       for (let j = 0; j < reposByOrg[currentOrgKey].length; j++) {
         const repo = reposByOrg[currentOrgKey][j]
 
         repos.push({
-          label: repo.name,
+          label: `${orgs[i]} / ${repo.name}`,
           value: repo.id,
           key: repo.id
         })
@@ -85,7 +81,6 @@ class OnboardRepos extends Component {
           </header>
 
           <article>
-            <sup>3</sup>
             <span>What repos should Conjure watch?</span>
           </article>
 
@@ -130,7 +125,6 @@ export default ({ url, ...extraProps }) => {
       <ConnectedOnboardRepos
         {...extraProps}
         reposByOrg={url.query.repos}
-        org={url.query.org}
       />
     </Layout>
   )
