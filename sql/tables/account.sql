@@ -4,7 +4,6 @@ CREATE TABLE account (
   email VARCHAR(255) UNIQUE,
   stripe_id VARCHAR(40) UNIQUE,
   onboarded BOOLEAN,
-  requires_installation BOOLEAN DEFAULT FALSE,
   added TIMESTAMP WITH TIME ZONE NOT NULL,
   updated TIMESTAMP WITH TIME ZONE
 );
