@@ -27,9 +27,13 @@ route.push(async (req, res) => {
   }
 
   // verify user went through repos onboarding
-  const apiWatchedSummary = require('conjure-api/server/routes/api/watched/summary/get.js').call
-  const watchedRepos = (await apiWatchedSummary(req)).watched.repos
-  if (watchedRepos.length === 0) {
+  const onboardReposSelectionCookie = req.cookieSecure('onboard-repos')
+  let selectedRepos = false
+  try {
+    const selection = JSON.parse(onboardReposSelectionCookie)
+    selectedRepos = Array.isArray(selection) && selection.length
+  } catch (err) {}
+  if (!selectedRepos) {
     return res.redirect(302, '/onboard')
   }
 

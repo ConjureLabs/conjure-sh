@@ -104,7 +104,7 @@ class OnboardPayment extends Component {
         <div className={classes.content}>
           <header>
             <sup>💳</sup>
-            <span>Setup Payment</span>
+            <span>Add Payment</span>
           </header>
 
           <main>
