@@ -53,7 +53,7 @@ class WatchRepos extends Component {
   }
 
   render() {
-    const { repos, watchedRepos } = this.props
+    const { repos, withOrgLabel, watchedRepos } = this.props
 
     const listedRepos = repos.filter(repo => !watchedRepos.includes(repo.name))
 
@@ -71,7 +71,7 @@ class WatchRepos extends Component {
                 <AnchorMultiList
                   list={listedRepos.map(repo => {
                     return {
-                      label: repo.name,
+                      label: !withOrgLabel ? repo.name : `${repo.org} / ${repo.name}`,
                       value: repo.id,
                       key: repo.id
                     }
@@ -113,6 +113,7 @@ export default ({ url, ...extraProps }) => {
       <ConnectedWatchRepos
         {...extraProps}
         repos={url.query.repos}
+        withOrgLabel={url.query.withOrgLabel}
         watchedRepos={url.query.watchedRepos}
       />
     </Layout>

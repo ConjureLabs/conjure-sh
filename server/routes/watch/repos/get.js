@@ -11,10 +11,6 @@ const route = new Route({
 route.push(async (req, res, next) => {
   const orgSelected = req.query.org
 
-  if (!orgSelected) {
-    return next()
-  }
-
   // get github account record
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
   const accountGitHubResult = await apiGetAccountGitHub(req)
@@ -26,18 +22,21 @@ route.push(async (req, res, next) => {
 
   // get all repos for given org/username
   const apiGetRepos = require('conjure-api/server/routes/api/org/$orgName/repos/get.js').call
-  const reposResult = await apiGetRepos(req, {}, {
+  const filter = !orgSelected ? {} : {
     orgName: orgSelected
-  })
+  }
+  const reposResult = await apiGetRepos(req, {}, filter)
 
-  console.log(reposResult)
+  if (!reposResult || !reposResult.reposByOrg) {
+    return next()
+  }
 
-  if (
-    !reposResult ||
-    !reposResult.reposByOrg ||
-    !Array.isArray(reposResult.reposByOrg[orgSelected]) ||
-    !reposResult.reposByOrg[orgSelected].length
-  ) {
+  const repos = orgSelected ? reposResult.reposByOrg[orgSelected] : Object.keys(reposResult.reposByOrg).reduce((allRepos, orgName) => {
+    allRepos.push(...reposResult.reposByOrg[orgName])
+    return allRepos
+  }, [])
+  if (!repos.length) {
+    // should not happen, if we display the "+ add more" link correctly
     return next()
   }
 
@@ -45,7 +44,8 @@ route.push(async (req, res, next) => {
     account: {
       photo: accountGitHubResult.account.photo
     },
-    repos: reposResult.reposByOrg[orgSelected],
+    repos,
+    withOrgLabel: !orgSelected,
     watchedRepos: watched.repos.map(repo => repo.name)
   })
 })

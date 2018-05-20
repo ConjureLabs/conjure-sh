@@ -284,7 +284,7 @@ class Dashboard extends Component {
             {!additionalRepos ? null : (
               <a
                 className={classes.addNew}
-                href={`/watch/repos?org=${orgSelected}`}
+                href={`/watch/repos${orgSelected === '*' ? '' : '?org=' + orgSelected}`}
               >
                 + Add More
               </a>
@@ -343,6 +343,18 @@ export default ({ url, ...extraProps }) => {
     orgSelected !== '*' ? orgSelected :
     'Conjure'
 
+  let additionalRepos = false
+  if (orgSelected !== '*') {
+    additionalRepos = additional.reposByOrg[orgSelected] === true
+  } else {
+    for (const key of Object.keys(additional.reposByOrg)) {
+      if (additional.reposByOrg[key] === true) {
+        additionalRepos = true
+        break
+      }
+    }
+  }
+
   return (
     <Layout
       url={url}
@@ -355,7 +367,7 @@ export default ({ url, ...extraProps }) => {
         orgSelected={orgSelected}
         repoSelected={repoSelected}
         additionalOrgs={additional.orgs}
-        additionalRepos={additional.reposByOrg[orgSelected] === true}
+        additionalRepos={additionalRepos}
       />
     </Layout>
   )
