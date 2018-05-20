@@ -38,12 +38,18 @@ route.push(async (req, res) => {
   const { reposByOrg } = await apiGetRepos(req)
   const accountRepoIds = Object.keys(reposByOrg).reduce((all, orgName) => {
     const orgRepoIds = reposByOrg[orgName].map(repo => repo.serviceRepoId)
-    return all.push(...orgRepoIds)
+    all.push(...orgRepoIds)
+    return all
   }, [])
 
   let orgsAlreadyAvailable = []
   let accountRepoIdsChunk
-  while ((accountRepoIdsChunk = accountRepoIds.splice(0, 100)).length) {
+  console.log(accountRepoIds, typeof accountRepoIds)
+  while ((accountRepoIdsChunk = accountRepoIds.splice(0, 100))) {
+    if (!accountRepoIdsChunk.length) {
+      break
+    }
+
     const idsPlaceholder = accountRepoIdsChunk.map((_, index) => `$${index + 1}`).join(', ')
     const existingResult = await query(`SELECT DISTINCT org FROM watched_repo WHERE service_repo_id IN (${idsPlaceholder})`, accountRepoIdsChunk)
     if (existingResult.rows.length > 0) {

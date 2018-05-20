@@ -4,7 +4,7 @@ CREATE TABLE account_repo (
   id SERIAL PRIMARY KEY,
   account INT REFERENCES account(id) NOT NULL,
   service repo_service_types NOT NULL,
-  service_repo_id VARCHAR(255),
+  service_repo_id VARCHAR(255) NOT NULL,
   url VARCHAR(2000),
   org VARCHAR(516),
   org_id INT NOT NULL,
