@@ -262,14 +262,12 @@ class Dashboard extends Component {
               window.location = `/?org=${orgNewlySelected}&repo=*`
             }}
           >
-            {!additionalOrgs ? null : (
-              <a
-                className={classes.addNew}
-                href='/watch/org'
-              >
-                + Add More
-              </a>
-            )}
+            <a
+              className={classes.addNew}
+              href={`https://github.com/apps/${config.services.github.app.name}/installations/new`}
+            >
+              + Add More
+            </a>
           </Dropdown>
 
           <Dropdown
