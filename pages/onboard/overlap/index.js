@@ -94,7 +94,7 @@ export default ({ url, ...extraProps }) => {
     >
       <ConnectedOnboardOverlap
         {...extraProps}
-        orgsAlreadyAvailable={url.query.orgsAlreadyAvailable}
+        reposAlreadyAvailable={url.query.reposAlreadyAvailable}
       />
     </Layout>
   )

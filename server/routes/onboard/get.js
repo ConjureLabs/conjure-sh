@@ -33,40 +33,43 @@ route.push(async (req, res) => {
   const apiGetOrgs = require('conjure-api/server/routes/api/orgs/get.js').call
   const { orgs } = await apiGetOrgs(req)
 
-  // checking if any orgs user has access to are already listening to changes
-  // and that the user has access to at least one repo within that org
-  const batchAll = require('@conjurelabs/utils/Promise/batch-all')
-  const watchedRepoResults = await batchAll(4, orgs, org => {
-    return query('SELECT COUNT(*) num FROM watched_repo WHERE org = $1', [org.login])
-  })
+  // first getting user's own repos we recorded
+  const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call
+  const { reposByOrg } = await apiGetRepos(req)
+  const accountRepoIds = Object.keys(reposByOrg).reduce((all, orgName) => {
+    const orgRepoIds = reposByOrg[orgName].map(repo => repo.serviceRepoId)
+    return all.push(...orgRepoIds)
+  }, [])
 
-  const repoChecks = orgs.reduce((mapping, org, i) => {
-    const result = watchedRepoResults[i]
-
-    mapping[org.login] = (
-      Array.isArray(result.rows) &&
-      result.rows.length &&
-      parseInt(result.rows[0].num, 10) > 0
-    )
-
-    return mapping
-  }, {})
-
-  const orgsAlreadyAvailable = Object.values(repoChecks).filter(bool => bool === true)
-
-  // if this account has no access to any listened repo, they must start full onboarding
-  if (orgsAlreadyAvailable.length === 0) {
-    return res.redirect(302, '/onboard/repos')
+  let orgsAlreadyAvailable = []
+  let accountRepoIdsChunk
+  while ((accountRepoIdsChunk = accountRepoIds.splice(0, 100)).length) {
+    const idsPlaceholder = accountRepoIdsChunk.map((_, index) => `$${index + 1}`).join(', ')
+    const existingResult = await query(`SELECT DISTINCT org FROM watched_repo WHERE service_repo_id IN (${idsPlaceholder})`, accountRepoIdsChunk)
+    if (existingResult.rows.length > 0) {
+      const orgNames = existingResult.rows.map(row => row.org)
+      for (const row of existingResult.rows) {
+        if (orgsAlreadyAvailable.includes(row.org)) {
+          continue
+        }
+        orgsAlreadyAvailable.push(row.org)
+      }
+    }
   }
 
-  // continue to partial onboarding
-  nextApp.render(req, res, '/onboard/overlap', {
-    account: {
-      photo: (await accountGitHubResult).account.photo
-    },
-    orgs,
-    orgsAlreadyAvailable
-  })
+  if (orgsAlreadyAvailable.length) {
+    // continue to partial onboarding
+    nextApp.render(req, res, '/onboard/overlap', {
+      account: {
+        photo: (await accountGitHubResult).account.photo
+      },
+      orgs,
+      orgsAlreadyAvailable
+    })
+    return
+  }
+
+  res.redirect(302, '/onboard/repos')
 })
 
 module.exports = route
