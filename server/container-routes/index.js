@@ -7,7 +7,7 @@ const domainExprPart = `.${config.app.web.domain}`.replace(/\./g, '\\.')
 const subdomainExpr = new RegExp(`^([\\w\\.]*)${domainExprPart}(?!\\w)`, 'i')
 const containerLogsExpr = new RegExp(`^(\\w+)\\.(\\w+)${domainExprPart}(?!\\w)`, 'i')
 
-module.exports = (req, res, next) => {
+module.exports = async (req, res, next) => {
   // if not a subdomain request, kick to next, unless www.
   const subdomainMatch = subdomainExpr.exec(req.headers.host)
   if (!subdomainMatch || subdomainMatch[1] === 'www') {
@@ -25,7 +25,14 @@ module.exports = (req, res, next) => {
   switch(handler) {
     case 'view':
     case 'logs':
-      return checkPermissions(req, res, containerId, handler, next)
+      let result
+      try {
+        result = await checkPermissions(req, res, containerId, handler, next)
+      } catch(err) {
+        log.error(err)
+        return next(err)
+      }
+      return
 
     default:
       return nextApp.render(req, res, '/_error')
@@ -35,6 +42,11 @@ module.exports = (req, res, next) => {
 const validRequestors = {}
 
 async function checkPermissions(req, res, uid, handler, next) {
+  // if user is not logged in, then block access until they do so
+  if (!req.isAuthenticated()) {
+    return nextApp.render(req, res, '/terminal/private/requires-auth')
+  }
+
   const onSuccess = containerRecord => {
     validRequestors[ req.cookies.conjure ] = true // todo: remove this tmp hack to cache valid requestors
     return require(`./${handler}.js`)(req, res, containerRecord, next)
@@ -46,7 +58,8 @@ async function checkPermissions(req, res, uid, handler, next) {
   let containers
   try {
     containers = await DatabaseTable.select('container', {
-      urlUid: uid
+      urlUid: uid,
+      isActive: true
     })
   } catch(err) {
     return next(err)
@@ -88,11 +101,6 @@ async function checkPermissions(req, res, uid, handler, next) {
     return onSuccess(containerRecord)
   }
 
-  // if user is not logged in, then block access until they do so
-  if (!req.isAuthenticated()) {
-    return nextApp.render(req, res, '/terminal/private/requires-auth')
-  }
-
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
   const gitHubAccount = (await apiGetAccountGitHub(req)).account
   
@@ -118,10 +126,12 @@ async function checkPermissions(req, res, uid, handler, next) {
     return
   }
 
+  const watchedRepoServiceRepoId = '' + parseInt(watchedRepo.serviceRepoId, 10)
+
   // filtering down to the container's repo record
   let repo
   for (let i = 0; i < orgRepos.length; i++) {
-    if (orgRepos[i].id === parseInt(watchedRepo.serviceRepoId, 10)) {
+    if (orgRepos[i].serviceRepoId === watchedRepoServiceRepoId) {
       repo = orgRepos[i]
       break
     }
@@ -140,19 +150,19 @@ async function checkPermissions(req, res, uid, handler, next) {
     return
   }
 
-  // if perms are not correct, kick to 404
-  // only check if have read access
-  if (!repo.permissions || repo.permissions.pull !== true) {
-    log.info(`Restricted access of container '${uid}', within org ${watchedRepo.org} - user does not have proper perms`)
-    orgsResult = apiGetOrgs(req)
-    nextApp.render(req, res, '/terminal/private/invalid-permissions', {
-      account: {
-        photo: gitHubAccount.photo // todo: not rely on github...
-      },
-      orgs: (await orgsResult).orgs
-    })
-    return
-  }
+  // // if perms are not correct, kick to 404
+  // // only check if have read access
+  // if (!repo.permissions || repo.permissions.pull !== true) {
+  //   log.info(`Restricted access of container '${uid}', within org ${watchedRepo.org} - user does not have proper perms`)
+  //   orgsResult = apiGetOrgs(req)
+  //   nextApp.render(req, res, '/terminal/private/invalid-permissions', {
+  //     account: {
+  //       photo: gitHubAccount.photo // todo: not rely on github...
+  //     },
+  //     orgs: (await orgsResult).orgs
+  //   })
+  //   return
+  // }
 
   onSuccess(containerRecord)
 }

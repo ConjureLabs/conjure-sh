@@ -49,7 +49,7 @@ export default class RequiresAuth extends Component {
 
         <div className={classes.actionWrap}>
           <Button
-            color='purple'
+            color='blue'
             size='medium'
             onClick={this.submitForm.bind(this)}
           >
