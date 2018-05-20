@@ -54,9 +54,9 @@ route.push(async (req, res) => {
 
   // filtering down to the container's repo record
   let repo
-  for (let i = 0; i < orgRepos.length; i++) {
-    if (orgRepos[i].name === repoName) {
-      repo = orgRepos[i]
+  for (const orgRepo of orgRepos) {
+    if (orgRepo.name === repoName) {
+      repo = orgRepo
       break
     }
   }
@@ -74,25 +74,26 @@ route.push(async (req, res) => {
     return
   }
 
-  // if perms are not correct, kick to 404
-  // only check if have read access
-  if (!repo.permissions || repo.permissions.pull !== true) {
-    log.info(`User does not have proper perms for repo ${repoName}, within org ${orgName}`)
-    orgsResult = apiGetOrgs(req)
-    nextApp.render(req, res, '/terminal/private/invalid-permissions', {
-      account: {
-        photo: gitHubAccount.photo // todo: not rely on github...
-      },
-      orgs: (await orgsResult).orgs
-    })
-    return
-  }
+  // todo: figure out perms again?
+  // // if perms are not correct, kick to 404
+  // // only check if have read access
+  // if (!repo.permissions || repo.permissions.pull !== true) {
+  //   log.info(`User does not have proper perms for repo ${repoName}, within org ${orgName}`)
+  //   orgsResult = apiGetOrgs(req)
+  //   nextApp.render(req, res, '/terminal/private/invalid-permissions', {
+  //     account: {
+  //       photo: gitHubAccount.photo // todo: not rely on github...
+  //     },
+  //     orgs: (await orgsResult).orgs
+  //   })
+  //   return
+  // }
 
   const { query, DatabaseTable } = require('@conjurelabs/db')
 
   // getting our repo record, based on github repo id
   const repoRows = await DatabaseTable.select('watchedRepo', {
-    service_repo_id: repo.id,
+    serviceRepoId: repo.serviceRepoId,
     disabled: false
   })
 
@@ -118,7 +119,15 @@ route.push(async (req, res) => {
   `, [repoRows[0].id, issueId])
   const commentRows = commentRowsResult.rows
   if (!commentRows.length) {
-    throw new UnexpectedError('Comment row record missing')
+    log.info(`User tried to start a container for repo ${repoName}, within org ${orgName}, issue ${issueId}, that is not in a ready state`)
+    orgsResult = apiGetOrgs(req)
+    nextApp.render(req, res, '/terminal/container-state/not-ready', {
+      account: {
+        photo: gitHubAccount.photo // todo: not rely on github...
+      },
+      orgs: (await orgsResult).orgs
+    })
+    return
   }
 
   // pulling payload file
@@ -159,7 +168,6 @@ route.push(async (req, res) => {
 
   res.redirect(302, config.app.web.url)
 
-  // continue to partial onboarding
   // nextApp.render(req, res, '/container/start', {
   //   account: {
   //     photo: gitHubAccount.photo
