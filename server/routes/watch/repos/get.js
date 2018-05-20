@@ -24,20 +24,20 @@ route.push(async (req, res, next) => {
   const watchedSummary = await apiWatchedSummary(req)
   const { watched } = watchedSummary
 
-  // get all repos
-  let reposResult
-  if (orgSelected === accountGitHubResult.account.username) {
-    const apiGetRepos = require('conjure-api/server/routes/api/account/repos/get.js').call
-    reposResult = await apiGetRepos(req)
-  } else {
-    console.log(orgSelected)
-    const apiGetRepos = require('conjure-api/server/routes/api/org/$orgName/repos/get.js').call
-    reposResult = await apiGetRepos(req, {}, {
-      orgName: orgSelected
-    })
-  }
+  // get all repos for given org/username
+  const apiGetRepos = require('conjure-api/server/routes/api/org/$orgName/repos/get.js').call
+  const reposResult = await apiGetRepos(req, {}, {
+    orgName: orgSelected
+  })
 
-  if (!reposResult || !Array.isArray(reposResult[orgSelected]) || !reposResult[orgSelected].length) {
+  console.log(reposResult)
+
+  if (
+    !reposResult ||
+    !reposResult.reposByOrg ||
+    !Array.isArray(reposResult.reposByOrg[orgSelected]) ||
+    !reposResult.reposByOrg[orgSelected].length
+  ) {
     return next()
   }
 
@@ -45,7 +45,7 @@ route.push(async (req, res, next) => {
     account: {
       photo: accountGitHubResult.account.photo
     },
-    repos: reposResult[orgSelected],
+    repos: reposResult.reposByOrg[orgSelected],
     watchedRepos: watched.repos.map(repo => repo.name)
   })
 })
