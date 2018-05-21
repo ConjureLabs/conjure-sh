@@ -77,7 +77,7 @@ class OnboardRepos extends Component {
         <div className={classes.content}>
           <header>
             <sup>🎟</sup>
-            <span>Almost there!</span>
+            <span>Welcome to Conjure!</span>
           </header>
 
           <article>

@@ -44,7 +44,6 @@ route.push(async (req, res) => {
 
   let orgsAlreadyAvailable = []
   let accountRepoIdsChunk
-  console.log(accountRepoIds, typeof accountRepoIds)
   while ((accountRepoIdsChunk = accountRepoIds.splice(0, 100))) {
     if (!accountRepoIdsChunk.length) {
       break

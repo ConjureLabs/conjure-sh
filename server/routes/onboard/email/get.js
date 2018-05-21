@@ -8,7 +8,7 @@ const route = new Route({
   }
 })
 
-route.push(async (req, res) => {
+route.push(async (req, res, next) => {
   // check if account is valid, and should be seeing onboard flow
   const { DatabaseTable } = require('@conjurelabs/db')
   const account = new DatabaseTable('account')
@@ -37,15 +37,15 @@ route.push(async (req, res) => {
     return res.redirect(302, '/onboard')
   }
 
-  // verify user email is present
-  if (accountRows[0].email == null) {
-    return res.redirect(302, '/onboard/email')
+  // verify user _does not have_ email present
+  if (accountRows[0].email != null) {
+    return res.redirect(302, '/onboard/payment')
   }
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
   const gitHubAccount = (await apiGetAccountGitHub(req)).account
 
-  nextApp.render(req, res, '/onboard/payment', {
+  nextApp.render(req, res, '/onboard/email', {
     account: {
       photo: gitHubAccount.photo
     }
