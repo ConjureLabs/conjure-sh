@@ -40,7 +40,9 @@ class OnboardEmail extends Component {
 
     const { dispatch } = this.props
 
-    post(`${config.app.api.url}/api/onboard/email/selection`, this.anchorList.selected.map(selection => selection.value), err => {
+    post(`${config.app.api.url}/api/onboard/email/selection`, {
+      email: this.emailInput.value.trim()
+    }, err => {
       if (err) {
         dispatch.addSystemMessage({
           type: 'error',
