@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import styles, { classes } from '../styles.js'
+import styles, { classes } from './styles.js'
 import { connect } from '@conjurelabs/federal'
 
 import { post } from '../../../shared/xhr'
@@ -56,7 +56,7 @@ class OnboardEmail extends Component {
 
   render() {
     return (
-      <div>
+      <div className={classes.root}>
         <div className={classes.content}>
           <header>
             <sup>📧</sup>
@@ -67,14 +67,16 @@ class OnboardEmail extends Component {
             <span>We need your email to complete registration</span>
           </article>
 
-          <main>
-            <TextInput
-              className={classes.formInput}
-              maxLength='255'
-              label='Email'
-              ref={ref => this.emailInput = ref}
-              onChange={this.isFormFilledIn.bind(this)}
-            />
+          <main className={classes.container}>
+            <div className={classes.inputWrap}>
+              <TextInput
+                className={classes.formInput}
+                maxLength='255'
+                label='Email'
+                ref={ref => this.emailInput = ref}
+                onChange={this.isFormFilledIn.bind(this)}
+              />
+            </div>
 
             <Button
               size='medium'
