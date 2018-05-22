@@ -1,3 +1,5 @@
+import LanguagesBreakdown from './components/LanguagesBreakdown'
+
 # Project Configuration
 
 Conjure will only work after you add `.conjure/config.yml` to your project.
@@ -22,14 +24,22 @@ port: 3000
 
 Conjure has some languages baked in.
 
-
-
 You can specify any specific language in your `config.yml`
 
 ```yml
 languages:
   python:
     version: "3.7.0a1"
+```
+
+<LanguagesBreakdown />
+
+Most specific versions of these languages are supported. For example:
+
+```yml
+languages:
+  node:
+    version: 8.1.4
 ```
 
 ## Environment Variables
