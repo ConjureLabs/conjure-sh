@@ -1,5 +1,7 @@
 // using this file to cache the next app in one export
 const next = require('next')
+const remarkHighlight = require('remark-highlight.js')
+
 const app = next({
   dev: process.env.NODE_ENV !== 'production',
   conf: {
@@ -10,7 +12,12 @@ const app = next({
         test: /\.md$/,
         use: [
           defaultLoaders.babel,
-          '@mdx-js/loader'
+          {
+            loader: '@mdx-js/loader',
+            options: {
+              mdPlugins: [require('./whitespace-remark-plugin'), remarkHighlight]
+            }
+          }
         ]
       })
 
