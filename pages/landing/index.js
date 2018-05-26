@@ -2,8 +2,8 @@ import { Component } from 'react'
 import styles, { classes } from './styles.js'
 import classnames from 'classnames'
 
-import config from '../../client.config.js'
-import Layout from '../../components/Layout'
+import config from 'client.config.js'
+import Layout from 'components/Layout'
 import LandingHeader from './components/LandingHeader'
 import FeaturesCallout from './components/FeaturesCallout'
 import FinalEffort from './components/FinalEffort'
@@ -20,11 +20,8 @@ export default class Landing extends Component {
   }
 
   render() {
-    const { url } = this.props
-
     return (
       <Layout
-        url={url}
         withHeader={false}
         withWrapper={false}
         contentPadded={false}

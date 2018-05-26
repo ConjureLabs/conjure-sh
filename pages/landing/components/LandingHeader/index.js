@@ -2,8 +2,8 @@ import { Component } from 'react'
 import styles, { classes } from './styles.js'
 import classnames from 'classnames'
 
-import Layout from '../../../../components/Layout'
-import Button from '../../../../components/Button'
+import Layout from 'components/Layout'
+import Button from 'components/Button'
 
 export default ({ submitForm }) => (
   <div className={classes.root}>

@@ -1,6 +1,6 @@
 import styles, { classes } from './styles.js'
 
-import Button from '../../../../components/Button'
+import Button from 'components/Button'
 
 const featuredListed = [
   'Get set up in seconds',

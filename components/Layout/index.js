@@ -6,16 +6,23 @@ import classnames from 'classnames'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
-import SystemMessages from '../SystemMessages'
-import config from '../../client.config.js'
+import SystemMessages from 'components/SystemMessages'
+import config from 'client.config.js'
 
 import styles, { classes } from './styles.js'
 import nativeStyles from './styles.native.js'
 
 export default class Layout extends Component {
   static async getInitialProps({ req }) {
-    const { account, cards, messages, containerStarting } = req
-    return { account, cards, messages, containerStarting }
+    const { account, cards, messages, containerStarting, meta } = req
+
+    return {
+      account,
+      cards,
+      messages,
+      containerStarting,
+      gdpr: meta.gdpr
+    }
   }
 
   static propType = {
@@ -41,7 +48,7 @@ export default class Layout extends Component {
 
   render() {
     const {
-      account, cards, messages, containerStarting,
+      account, cards, messages, containerStarting, gdpr,
       children, title, className, wrappedHeader, limitedHeader,
       withHeader, withWrapper, withFooter, contentPadded
     } = this.props
@@ -75,6 +82,10 @@ export default class Layout extends Component {
           <link rel='manifest' href='/static/images/favicon/manifest.json' />
           {nativeStyles}
         </Head>
+
+        {gdpr !== true ? null : (
+          <div className='gdpr'>Cookies help us deliver our Services. By using our Services or clicking I agree, you agree to our use of cookies.</div>
+        )}
 
         <Federal store={initialStore}>
           <div className={classnames(classes.page, className)}>
