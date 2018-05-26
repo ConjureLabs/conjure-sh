@@ -75,7 +75,7 @@ if (config.app.web.protocol === 'https') {
 // tracking req state (like ip address)
 server.use((req, res, next) => {
   req.state = {} // used to track anything useful, along the lifetime of a request
-  req.state.remoteAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  req.state.remoteAddress = req.headers['x-forwarded-for'] ? req.headers['x-forwarded-for'] : req.connection.remoteAddress
 
   next()
 })

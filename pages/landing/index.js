@@ -1,14 +1,13 @@
-import { Component } from 'react'
 import styles, { classes } from './styles.js'
 import classnames from 'classnames'
 
 import config from 'client.config.js'
-import Layout from 'components/Layout'
+import Page from 'components/Page'
 import LandingHeader from './components/LandingHeader'
 import FeaturesCallout from './components/FeaturesCallout'
 import FinalEffort from './components/FinalEffort'
 
-export default class Landing extends Component {
+export default class Landing extends Page {
   constructor(props) {
     super(props)
     this.form = null // placehoder for form el ref
@@ -21,7 +20,7 @@ export default class Landing extends Component {
 
   render() {
     return (
-      <Layout
+      <this.Layout
         withHeader={false}
         withWrapper={false}
         contentPadded={false}
@@ -43,7 +42,7 @@ export default class Landing extends Component {
         />
 
         {styles}
-      </Layout>
+      </this.Layout>
     )
   }
 }

@@ -40,15 +40,23 @@ const GdprCountryCodes = [
   Logged-out landing page
  */
 route.push((req, res, next) => {
+  // see if user already ack'd cookies
+  if (req.cookies['conjure-cookies'] && req.cookies['conjure-cookies'] === 'ack') {
+    req.state.gdprCookies = false
+    return next()
+  }
+
   try {
     if (GdprCountryCodes.includes(geoip.lookup(req.remoteAddress).country.toUpperCase())) {
-      req.state.gdpr = true
+      req.state.gdprCookies = true
     } else {
-      req.state.gdpr = false
+      req.state.gdprCookies = false
     }
   } catch(err) {
-    req.state.gdpr = false
+    req.state.gdprCookies = false
   }
+
+  req.state.gdprCookies = true
 
   next()
 })

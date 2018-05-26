@@ -6,26 +6,30 @@ import classnames from 'classnames'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
+import Button from 'components/Button'
 import SystemMessages from 'components/SystemMessages'
 import config from 'client.config.js'
+import { post } from 'shared/xhr'
 
 import styles, { classes } from './styles.js'
 import nativeStyles from './styles.native.js'
 
 export default class Layout extends Component {
-  static async getInitialProps({ req }) {
-    const { account, cards, messages, containerStarting, meta } = req
-
-    return {
-      account,
-      cards,
-      messages,
-      containerStarting,
-      gdpr: meta.gdpr
-    }
-  }
-
   static propType = {
+    account: PropTypes.object,
+    cards: PropTypes.arrayOf(PropTypes.object),
+    messages: PropTypes.arrayOf(PropTypes.shape({
+      type: PropTypes.string.isRequired,
+      message: PropTypes.string.isRequired,
+      ttl: PropTypes.number
+    })).isRequired,
+    containerStarting: PropTypes.shape({
+      id: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ])
+    }),
+    gdprCookies: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
     className: PropTypes.string,
     wrappedHeader: PropTypes.bool.isRequired,
@@ -37,6 +41,8 @@ export default class Layout extends Component {
   }
 
   static defaultProps = {
+    gdprCookies: false,
+    messages: [],
     title: 'Conjure',
     wrappedHeader: true,
     limitedHeader: false,
@@ -46,17 +52,27 @@ export default class Layout extends Component {
     contentPadded: true
   }
 
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      showGdprCookiesDialog: props.gdprCookies === true
+    }
+  }
+
   render() {
     const {
-      account, cards, messages, containerStarting, gdpr,
+      account, cards, messages, containerStarting,
       children, title, className, wrappedHeader, limitedHeader,
       withHeader, withWrapper, withFooter, contentPadded
     } = this.props
 
+    const { showGdprCookiesDialog } = this.state
+
     const initialStore = {
       account,
       cards,
-      messages: messages || [],
+      messages,
       pagingHref: null,
       timeline: null,
       timelineDelta: null,
@@ -83,8 +99,29 @@ export default class Layout extends Component {
           {nativeStyles}
         </Head>
 
-        {gdpr !== true ? null : (
-          <div className='gdpr'>Cookies help us deliver our Services. By using our Services or clicking I agree, you agree to our use of cookies.</div>
+        {showGdprCookiesDialog !== true ? null : (
+          <div className={classes.gdpr}>
+            <p>Cookies help us deliver our Services. By using our Services or clicking I agree, you agree to our use of cookies.</p>
+            <Button
+              size='small'
+              color='black'
+              className={classes.button}
+              onClick={() => {
+                this.setState({
+                  showGdprCookiesDialog: false
+                }, () => {
+                  post(`${config.app.api.url}/api/privacy/cookies/ack`, {}, err => {
+                    if (err) {
+                      console.error(err)
+                      return
+                    }
+                  })
+                })
+              }}
+            >
+              I Agree
+            </Button>
+          </div>
         )}
 
         <Federal store={initialStore}>
