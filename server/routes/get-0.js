@@ -1,8 +1,6 @@
 const Route = require('@conjurelabs/route')
 const geoip = require('geoip-lite')
 
-const nextApp = require('../next')
-
 const route = new Route({
   wildcard: true
 })
@@ -51,6 +49,8 @@ route.push((req, res, next) => {
   } catch(err) {
     req.state.gdpr = false
   }
+
+  next()
 })
 
 module.exports = route

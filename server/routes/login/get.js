@@ -1,5 +1,4 @@
 const Route = require('@conjurelabs/route')
-const nextApp = require('../../next')
 
 const route = new Route()
 
@@ -8,10 +7,10 @@ const route = new Route()
  */
 route.push((req, res) => {
   if (req.isAuthenticated()) {
-    res.redirect(302, '/')
+    return res.redirect(302, '/')
   }
 
-  nextApp.render(req, res, '/forced-login')
+  res.render('/forced-login')
 })
 
 module.exports = route

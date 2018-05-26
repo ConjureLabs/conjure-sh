@@ -101,6 +101,7 @@ Disallow: /
 
 server.use(robotsRouter)
 
+// cookie helper extensions
 server.use((req, res, next) => {
   const { cipherAlgorithm, cipherSecret, hmacAlgorithm, hmacSecret } = config.cookies.secure
 
@@ -131,6 +132,20 @@ server.use((req, res, next) => {
     }
 
     return decrypted
+  }
+
+  next()
+})
+
+// next.js extensions
+server.use((req, res, next) => {
+  res.render = (pageName, params = {}) => {
+    nextApp.render(req, res, pageName, {
+      ...params,
+      meta: {
+        gdpr: req.state.gdpr || false
+      }
+    })
   }
 
   next()

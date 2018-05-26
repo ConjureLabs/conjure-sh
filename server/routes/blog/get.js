@@ -1,7 +1,5 @@
 const Route = require('@conjurelabs/route')
 
-const nextApp = require('../../next')
-
 const route = new Route()
 
 /*
@@ -33,7 +31,7 @@ route.push(async (req, res) => {
     })
   })
 
-  return nextApp.render(req, res, '/blog', {
+  return res.render('/blog', {
     posts
   })
 })

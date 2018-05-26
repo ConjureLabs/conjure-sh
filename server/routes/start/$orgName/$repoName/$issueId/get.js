@@ -4,7 +4,6 @@ const AWS = require('aws-sdk')
 const config = require('conjure-core/modules/config')
 const { ContentError, UnexpectedError } = require('@conjurelabs/err')
 const log = require('conjure-core/modules/log')('container start hook')
-const nextApp = require('../../../../../next')
 
 AWS.config.update({
   accessKeyId: config.aws.accessKey,
@@ -22,7 +21,7 @@ const route = new Route({
 route.push(async (req, res) => {
   // if user is not logged in, then block access until they do so
   if (!req.isAuthenticated()) {
-    return nextApp.render(req, res, '/terminal/private/requires-auth')
+    return res.render('/terminal/private/requires-auth')
   }
 
   const { orgName, repoName, issueId } = req.params
@@ -43,7 +42,7 @@ route.push(async (req, res) => {
   if (!orgRepos) {
     log.info(`User does not have access to org ${orgName}`)
     orgsResult = apiGetOrgs(req)
-    nextApp.render(req, res, '/terminal/private/invalid-permissions', {
+    res.render('/terminal/private/invalid-permissions', {
       account: {
         photo: gitHubAccount.photo // todo: not rely on github...
       },
@@ -65,7 +64,7 @@ route.push(async (req, res) => {
   if (!repo) {
     log.info(`User does not have access to repo ${repoName}, within org ${orgName}`)
     orgsResult = apiGetOrgs(req)
-    nextApp.render(req, res, '/terminal/private/invalid-permissions', {
+    res.render('/terminal/private/invalid-permissions', {
       account: {
         photo: gitHubAccount.photo // todo: not rely on github...
       },
@@ -80,7 +79,7 @@ route.push(async (req, res) => {
   // if (!repo.permissions || repo.permissions.pull !== true) {
   //   log.info(`User does not have proper perms for repo ${repoName}, within org ${orgName}`)
   //   orgsResult = apiGetOrgs(req)
-  //   nextApp.render(req, res, '/terminal/private/invalid-permissions', {
+  //   res.render('/terminal/private/invalid-permissions', {
   //     account: {
   //       photo: gitHubAccount.photo // todo: not rely on github...
   //     },
@@ -100,7 +99,7 @@ route.push(async (req, res) => {
   if (!repoRows.length) {
     log.info(`User does not have repo ${repoName}, within org ${orgName}`)
     orgsResult = apiGetOrgs(req)
-    nextApp.render(req, res, '/terminal/private/invalid-permissions', {
+    res.render('/terminal/private/invalid-permissions', {
       account: {
         photo: gitHubAccount.photo // todo: not rely on github...
       },
@@ -121,7 +120,7 @@ route.push(async (req, res) => {
   if (!commentRows.length) {
     log.info(`User tried to start a container for repo ${repoName}, within org ${orgName}, issue ${issueId}, that is not in a ready state`)
     orgsResult = apiGetOrgs(req)
-    nextApp.render(req, res, '/terminal/container-state/not-ready', {
+    res.render('/terminal/container-state/not-ready', {
       account: {
         photo: gitHubAccount.photo // todo: not rely on github...
       },
@@ -168,7 +167,7 @@ route.push(async (req, res) => {
 
   res.redirect(302, config.app.web.url)
 
-  // nextApp.render(req, res, '/container/start', {
+  // res.render('/container/start', {
   //   account: {
   //     photo: gitHubAccount.photo
   //   },

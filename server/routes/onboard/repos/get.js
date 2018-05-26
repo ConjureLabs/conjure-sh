@@ -1,10 +1,9 @@
 const Route = require('@conjurelabs/route')
-const nextApp = require('../../../next')
 
 const route = new Route({
   requireAuthentication: true,
   skippedHandler: async (req, res) => {
-    return nextApp.render(req, res, '/_error')
+    return res.render('/_error')
   }
 })
 
@@ -33,7 +32,7 @@ route.push(async (req, res) => {
   const apiGetRepos = require('conjure-api/server/routes/api/repos/get.js').call
   const reposResult = (await apiGetRepos(req)).reposByOrg
 
-  nextApp.render(req, res, '/onboard/repos', {
+  res.render('/onboard/repos', {
     account: {
       photo: (await accountGitHubResult).account.photo
     },

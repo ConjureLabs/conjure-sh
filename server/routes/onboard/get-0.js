@@ -1,11 +1,10 @@
 const Route = require('@conjurelabs/route')
-const nextApp = require('../../next')
 
 const route = new Route({
   requireAuthentication: true,
   wildcard: true,
   skippedHandler: (req, res) => {
-    return nextApp.render(req, res, '/_error')
+    return res.render('/_error')
   }
 })
 

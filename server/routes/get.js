@@ -2,8 +2,6 @@ const Route = require('@conjurelabs/route')
 const config = require('conjure-core/modules/config')
 const log = require('conjure-core/modules/log')('root path')
 
-const nextApp = require('../next')
-
 const route = new Route()
 
 /*
@@ -11,7 +9,7 @@ const route = new Route()
  */
 route.push((req, res, next) => {
   if (!req.isAuthenticated()) {
-    return nextApp.render(req, res, '/landing', req.query)
+    return res.render('/landing')
   }
   next()
 })
@@ -88,7 +86,7 @@ route.push(async (req, res, next) => {
   const containerStarting = req.cookies['conjure-container-starting']
   res.clearCookie('conjure-container-starting');
 
-  const queryValues = {
+  const pageParams = {
     account: {
       photo: (await accountGitHubResult).account.photo // todo: not rely on github...
     },
@@ -100,7 +98,7 @@ route.push(async (req, res, next) => {
     additional
   }
 
-  nextApp.render(req, res, '/dashboard', queryValues)
+  res.render('/dashboard', pageParams)
 })
 
 module.exports = route

@@ -1,5 +1,4 @@
 const Route = require('@conjurelabs/route')
-const nextApp = require('../../../next')
 
 const route = new Route()
 
@@ -29,7 +28,7 @@ route.push(async (req, res, next) => {
 
   post.authors = authorsResults.rows // hydrating
 
-  return nextApp.render(req, res, '/blog/post', {
+  return res.render('/blog/post', {
     post
   })
 })

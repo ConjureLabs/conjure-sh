@@ -1,5 +1,4 @@
 const Route = require('@conjurelabs/route')
-const nextApp = require('../../next')
 
 const route = new Route()
 
@@ -7,7 +6,7 @@ const route = new Route()
   Logged-out landing page
  */
 route.push((req, res, next) => {
-  return nextApp.render(req, res, '/privacy', req.query)
+  return res.render('/privacy', req.query)
 })
 
 module.exports = route

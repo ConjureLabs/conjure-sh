@@ -1,10 +1,9 @@
 const Route = require('@conjurelabs/route')
-const nextApp = require('../../next')
 
 const route = new Route({
   requireAuthentication: true,
   skippedHandler: (req, res) => {
-    return nextApp.render(req, res, '/_error')
+    return res.render('/_error')
   }
 })
 
@@ -64,7 +63,7 @@ route.push(async (req, res) => {
 
   if (orgsAlreadyAvailable.length) {
     // continue to partial onboarding
-    nextApp.render(req, res, '/onboard/overlap', {
+    res.render('/onboard/overlap', {
       account: {
         photo: (await accountGitHubResult).account.photo
       },
