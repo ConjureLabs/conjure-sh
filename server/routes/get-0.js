@@ -56,8 +56,6 @@ route.push((req, res, next) => {
     req.state.gdprCookies = false
   }
 
-  req.state.gdprCookies = true
-
   next()
 })
 

@@ -143,7 +143,7 @@ server.use((req, res, next) => {
     nextApp.render(req, res, pageName, {
       ...params,
       meta: {
-        gdpr: req.state.gdpr || false
+        gdprCookies: req.state.gdprCookies || false
       }
     })
   }
