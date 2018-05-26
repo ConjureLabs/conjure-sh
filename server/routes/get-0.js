@@ -41,7 +41,7 @@ const GdprCountryCodes = [
  */
 route.push((req, res, next) => {
   try {
-    if (GdprCountryCodes.includes(geoip.lookup(req.remoteAddress).country)) {
+    if (GdprCountryCodes.includes(geoip.lookup(req.remoteAddress).country.toUpperCase())) {
       req.state.gdpr = true
     } else {
       req.state.gdpr = false
