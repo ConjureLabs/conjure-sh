@@ -4,6 +4,7 @@
   "private": true,
   "main": "./server",
   "scripts": {
+    "prebuild": "node ./node_modules/geoip-lite/scripts/updatedb.js",
     "build": "hob build",
     "dev": "hob dev",
     "dev:quick": "hob dev --quick",
@@ -49,6 +50,7 @@
     "expose-loader": "^0.7.3",
     "express": "4.14.0",
     "extract-text-webpack-plugin": "^2.1.0",
+    "geoip-lite": "1.2.1",
     "jade": "1.11.0",
     "jscs": "3.0.7",
     "jsx-loader": "^0.13.2",

@@ -76,3 +76,9 @@ yarn run dev:fresh-db
 # starts the app, but preserves existing db
 KEEP_DB=true yarn start
 ```
+
+#### Deployment
+
+```bash
+yarn run build
+```
