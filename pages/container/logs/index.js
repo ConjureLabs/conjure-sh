@@ -1,10 +1,9 @@
-import { Component } from 'react'
 import io from 'socket.io-client'
 import styles, { classes } from './styles.js'
 
-import Layout from '../../../components/Layout'
+import Page from 'components/Page'
 
-export default class ContainerLogs extends Component {
+export default class ContainerLogs extends Page {
   constructor(props) {
     super(props)
 
@@ -16,7 +15,7 @@ export default class ContainerLogs extends Component {
   }
 
   componentDidMount() {
-    const { host, containerUid, sessionKey } = this.props.url.query
+    const { host, containerUid, sessionKey } = this.props
 
     console.log({ host, containerUid, sessionKey })
 
@@ -48,11 +47,8 @@ export default class ContainerLogs extends Component {
   }
 
   render() {
-    const { url } = this.props
-
     return (
-      <Layout
-        url={url}
+      <this.Layout
         title='Logs'
       >
         <div className={classes.content}>
@@ -60,7 +56,7 @@ export default class ContainerLogs extends Component {
         </div>
 
         {styles}
-      </Layout>
+      </this.Layout>
     )
   }
 }

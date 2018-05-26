@@ -1,19 +1,15 @@
-import { Component } from 'react'
 import styles, { classes } from './styles.js'
 
-import Layout from '../../../components/Layout'
-import Loader from '../../../components/Loader'
-import TitleCased from '../../../components/TitleCased'
+import Page from 'components/Page'
+import Loader from 'components/Loader'
+import TitleCased from 'components/TitleCased'
 
-export default class ContainerStart extends Component {
+export default class ContainerStart extends Page {
   render() {
-    const { url } = this.props
-    const { query } = url
-    const { orgName, repoName, title, containerState } = query
+    const { orgName, repoName, title, containerState } = this.props
 
     return (
-      <Layout
-        url={url}
+      <this.Layout
         title={`${orgName}/${repoName} -- ${title}`}
       >
         <div className={classes.content}>
@@ -39,7 +35,7 @@ export default class ContainerStart extends Component {
         </div>
 
         {styles}
-      </Layout>
+      </this.Layout>
     )
   }
 }

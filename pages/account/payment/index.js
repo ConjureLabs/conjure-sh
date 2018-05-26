@@ -3,8 +3,8 @@ import actions from './actions'
 import styles, { classes } from './styles.js'
 import Federal, { connect } from '@conjurelabs/federal'
 
-import Layout from '../../../components/Layout'
-import Button from '../../../components/Button'
+import Button from 'components/Button'
+import Page from 'components/Page'
 import CardUI from './card-ui'
 
 class Payment extends Component {
@@ -53,12 +53,15 @@ const selector = store => ({
 
 const ConnectedPayment = connect(selector, actions)(Payment)
 
-export default props => (
-  <Layout
-    url={props.url}
-    title='Account Payment'
-    withWrapper={false}
-  >
-    <ConnectedPayment {...props} />
-  </Layout>
-)
+export default class PaymentPage extends Page {
+  render() {
+    return (
+      <this.Layout
+        title='Account Payment'
+        withWrapper={false}
+      >
+        <ConnectedPayment {...this.props} />
+      </this.Layout>
+    )
+  }
+}

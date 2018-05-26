@@ -4,8 +4,8 @@ import { connect } from '@conjurelabs/federal'
 import classnames from 'classnames'
 import moment from 'moment'
 
-import EmptyState from '../../../../components/EmptyState'
-import TitleCased from '../../../../components/TitleCased'
+import EmptyState from 'components/EmptyState'
+import TitleCased from 'components/TitleCased'
 
 // in seconds
 const minute = 60

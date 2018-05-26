@@ -3,19 +3,19 @@ import styles, { classes } from './styles.js'
 import classnames from 'classnames'
 import { connect } from '@conjurelabs/federal'
 
-import { post } from '../../../shared/xhr'
-import config from '../../../client.config.js'
-import sysMessageActions from '../../../components/SystemMessages/actions'
+import { post } from 'shared/xhr'
+import config from 'client.config.js'
+import sysMessageActions from 'components/SystemMessages/actions'
 
-import Layout from '../../../components/Layout'
-import TextInput from '../../../components/Input/Text'
-import CreditCardInput from '../../../components/Input/CreditCard'
-import CountrySuggestInput from '../../../components/Input/Suggest/Country'
-import UsStateSuggest from '../../../components/Input/Suggest/UsState'
-import MonthInput from '../../../components/Input/Month'
-import YearInput from '../../../components/Input/Year'
-import NumberInput from '../../../components/Input/Number'
-import Button from '../../../components/Button'
+import Page from 'components/Page'
+import TextInput from 'components/Input/Text'
+import CreditCardInput from 'components/Input/CreditCard'
+import CountrySuggestInput from 'components/Input/Suggest/Country'
+import UsStateSuggest from 'components/Input/Suggest/UsState'
+import MonthInput from 'components/Input/Month'
+import YearInput from 'components/Input/Year'
+import NumberInput from 'components/Input/Number'
+import Button from 'components/Button'
 
 let submitting = false
 
@@ -238,13 +238,14 @@ class OnboardPayment extends Component {
 
 const ConnectedOnboardPayment = connect(() => {}, sysMessageActions)(OnboardPayment)
 
-export default ({ url, ...extraProps }) => {
-  return (
-    <Layout
-      url={url}
-      limitedHeader={true}
-    >
-      <ConnectedOnboardPayment {...extraProps} />
-    </Layout>
-  )
+export default class OnboardPaymentPage extends Page {
+  render() {
+    return (
+      <this.Layout
+        limitedHeader={true}
+      >
+        <ConnectedOnboardPayment {...this.props} />
+      </this.Layout>
+    )
+  }
 }

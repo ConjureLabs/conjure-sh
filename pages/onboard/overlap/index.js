@@ -2,13 +2,13 @@ import { Component } from 'react'
 import styles, { classes } from '../styles.js'
 import { connect } from '@conjurelabs/federal'
 
-import { post } from '../../../shared/xhr'
-import config from '../../../client.config.js'
-import sysMessageActions from '../../../components/SystemMessages/actions'
+import { post } from 'shared/xhr'
+import config from 'client.config.js'
+import sysMessageActions from 'components/SystemMessages/actions'
 
-import Layout from '../../../components/Layout'
-import AnchorList from '../../../components/AnchorList'
-import Decision from '../../../components/Decision'
+import Page from 'components/Page'
+import AnchorList from 'components/AnchorList'
+import Decision from 'components/Decision'
 
 // eslint thinks this var is not used, even though it is
 let submitting = false // eslint-disable-line no-unused-vars
@@ -86,16 +86,19 @@ class OnboardOverlap extends Component {
 
 const ConnectedOnboardOverlap = connect(() => {}, sysMessageActions)(OnboardOverlap)
 
-export default ({ url, ...extraProps }) => {
-  return (
-    <Layout
-      url={url}
-      limitedHeader={true}
-    >
-      <ConnectedOnboardOverlap
-        {...extraProps}
-        orgsAlreadyAvailable={url.query.orgsAlreadyAvailable}
-      />
-    </Layout>
-  )
+export default class OnboardOverlapPage extends Page {
+  render() {
+    const { orgsAlreadyAvailable, ...otherProps } = this.props
+
+    return (
+      <this.Layout
+        limitedHeader={true}
+      >
+        <ConnectedOnboardOverlap
+          {...otherProps}
+          orgsAlreadyAvailable={orgsAlreadyAvailable}
+        />
+      </this.Layout>
+    )
+  }
 }

@@ -1,15 +1,15 @@
 import { Component } from 'react'
-import { get } from '../../shared/xhr'
+import { get } from 'shared/xhr'
 import actions from './actions'
-import sysMessageActions from '../../components/SystemMessages/actions'
+import sysMessageActions from 'components/SystemMessages/actions'
 import styles, { classes } from './styles.js'
 import { connect } from '@conjurelabs/federal'
-import config from '../../client.config.js'
+import config from 'client.config.js'
 import classnames from 'classnames'
 
-import Layout from '../../components/Layout'
-import Button from '../../components/Button'
-import Dropdown from '../../components/Dropdown'
+import Page from 'components/Page'
+import Button from 'components/Button'
+import Dropdown from 'components/Dropdown'
 import Timeline from './components/Timeline'
 
 let activelyPullingDelta = false
@@ -327,48 +327,48 @@ const ConnectedDashbord = connect(selector, {
   ...sysMessageActions
 })(Dashboard)
 
-export default ({ url, ...extraProps }) => {
-  const { orgs, additional } = url.query
-  let { repos, orgSelected, repoSelected } = url.query
+export default class DashboardPage extends Page {
+  render() {
+    const { orgs, additional } = this.props
+    let { repos, orgSelected, repoSelected } = this.props
 
-  orgSelected = orgSelected === '*' && orgs.length === 1 ? orgs[0] : orgSelected
-  
-  if (orgSelected !== '*') {
-    repos = repos.filter(repo => repo.org === orgSelected)
-  }
+    orgSelected = orgSelected === '*' && orgs.length === 1 ? orgs[0] : orgSelected
+    
+    if (orgSelected !== '*') {
+      repos = repos.filter(repo => repo.org === orgSelected)
+    }
 
-  repoSelected = repoSelected === '*' && repos.length === 1 ? repos[0].name : repoSelected
+    repoSelected = repoSelected === '*' && repos.length === 1 ? repos[0].name : repoSelected
 
-  const title = repoSelected !== '*' ? repoSelected :
-    orgSelected !== '*' ? orgSelected :
-    'Conjure'
+    const title = repoSelected !== '*' ? repoSelected :
+      orgSelected !== '*' ? orgSelected :
+      'Conjure'
 
-  let additionalRepos = false
-  if (orgSelected !== '*') {
-    additionalRepos = additional.reposByOrg[orgSelected] === true
-  } else {
-    for (const key of Object.keys(additional.reposByOrg)) {
-      if (additional.reposByOrg[key] === true) {
-        additionalRepos = true
-        break
+    let additionalRepos = false
+    if (orgSelected !== '*') {
+      additionalRepos = additional.reposByOrg[orgSelected] === true
+    } else {
+      for (const key of Object.keys(additional.reposByOrg)) {
+        if (additional.reposByOrg[key] === true) {
+          additionalRepos = true
+          break
+        }
       }
     }
-  }
 
-  return (
-    <Layout
-      url={url}
-      title={title}
-    >
-      <ConnectedDashbord
-        {...extraProps}
-        orgs={orgs}
-        repos={repos}
-        orgSelected={orgSelected}
-        repoSelected={repoSelected}
-        additionalOrgs={additional.orgs}
-        additionalRepos={additionalRepos}
-      />
-    </Layout>
-  )
+    return (
+      <this.Layout
+        title={title}
+      >
+        <ConnectedDashbord
+          orgs={orgs}
+          repos={repos}
+          orgSelected={orgSelected}
+          repoSelected={repoSelected}
+          additionalOrgs={additional.orgs}
+          additionalRepos={additionalRepos}
+        />
+      </this.Layout>
+    )
+  }
 }

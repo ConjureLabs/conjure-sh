@@ -1,12 +1,11 @@
-import { Component } from 'react'
 import styles, { classes } from './styles.js'
-import config from '../../../../client.config.js'
+import config from 'client.config.js'
 
-import Layout from '../../../../components/Layout'
-import EmptyState from '../../../../components/EmptyState'
-import Button from '../../../../components/Button'
+import Page from 'components/Page'
+import EmptyState from 'components/EmptyState'
+import Button from 'components/Button'
 
-export default class RequiresAuth extends Component {
+export default class RequiresAuth extends Page {
   constructor(props) {
     super(props)
     this.form = null // placeholder for form el ref
@@ -19,11 +18,8 @@ export default class RequiresAuth extends Component {
   }
 
   render() {
-    const { url } = this.props
-
     return (
-      <Layout
-        url={url}
+      <this.Layout
         title='Private Container'
         wrappedHeader={false}
       >
@@ -58,7 +54,7 @@ export default class RequiresAuth extends Component {
         </div>
 
         {styles}
-      </Layout>
+      </this.Layout>
     )
   }
 }

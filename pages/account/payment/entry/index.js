@@ -3,19 +3,18 @@ import styles, { classes } from './styles.js'
 import classnames from 'classnames'
 import { connect } from '@conjurelabs/federal'
 
-import { post } from '../../../../shared/xhr'
-import config from '../../../../client.config.js'
-import sysMessageActions from '../../../../components/SystemMessages/actions'
-
-import Layout from '../../../../components/Layout'
-import TextInput from '../../../../components/Input/Text'
-import CreditCardInput from '../../../../components/Input/CreditCard'
-import CountrySuggestInput from '../../../../components/Input/Suggest/Country'
-import UsStateSuggest from '../../../../components/Input/Suggest/UsState'
-import MonthInput from '../../../../components/Input/Month'
-import YearInput from '../../../../components/Input/Year'
-import NumberInput from '../../../../components/Input/Number'
-import Button from '../../../../components/Button'
+import { post } from 'shared/xhr'
+import config from 'client.config.js'
+import sysMessageActions from 'components/SystemMessages/actions'
+import TextInput from 'components/Input/Text'
+import CreditCardInput from 'components/Input/CreditCard'
+import CountrySuggestInput from 'components/Input/Suggest/Country'
+import UsStateSuggest from 'components/Input/Suggest/UsState'
+import MonthInput from 'components/Input/Month'
+import YearInput from 'components/Input/Year'
+import NumberInput from 'components/Input/Number'
+import Button from 'components/Button'
+import Page from 'components/Page'
 
 let submitting = false
 
@@ -230,13 +229,14 @@ class AccountPaymentEntry extends Component {
 
 const ConnectedAccountPaymentEntry = connect(() => {}, sysMessageActions)(AccountPaymentEntry)
 
-export default ({ url, ...extraProps }) => {
-  return (
-    <Layout
-      url={url}
-      title='New Credit Card'
-    >
-      <ConnectedAccountPaymentEntry {...extraProps} />
-    </Layout>
-  )
+export default class AccountPaymentEntryPage extends Page {
+  render() {
+    return (
+      <this.Layout
+        title='New Credit Card'
+      >
+        <ConnectedAccountPaymentEntry {...this.props} />
+      </this.Layout>
+    )
+  }
 }

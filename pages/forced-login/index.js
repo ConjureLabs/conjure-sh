@@ -1,6 +1,6 @@
 import { Component } from 'react'
 
-import config from '../../client.config.js'
+import config from 'client.config.js'
 
 export default class ForcedLogin extends Component {
   constructor(props) {

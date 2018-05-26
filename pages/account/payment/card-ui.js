@@ -2,12 +2,12 @@ import { Component } from 'react'
 import { connect } from '@conjurelabs/federal'
 import classnames from 'classnames'
 import styles, { classes } from './card-ui-styles.js'
-import { del } from '../../../shared/xhr'
-import config from '../../../client.config.js'
+import { del } from 'shared/xhr'
+import config from 'client.config.js'
 import actions from './actions'
-import sysMessageActions from '../../../components/SystemMessages/actions'
+import sysMessageActions from 'components/SystemMessages/actions'
 
-import CreditCardSummary from '../../../components/CreditCardSummary'
+import CreditCardSummary from 'components/CreditCardSummary'
 
 class CardUi extends Component {
   constructor(props) {

@@ -2,13 +2,13 @@ import { Component } from 'react'
 import styles, { classes } from './styles.js'
 import { connect } from '@conjurelabs/federal'
 
-import { post } from '../../../shared/xhr'
-import config from '../../../client.config.js'
-import sysMessageActions from '../../../components/SystemMessages/actions'
+import { post } from 'shared/xhr'
+import config from 'client.config.js'
+import sysMessageActions from 'components/SystemMessages/actions'
 
-import Layout from '../../../components/Layout'
-import Button from '../../../components/Button'
-import TextInput from '../../../components/Input/Text'
+import Page from 'components/Page'
+import Button from 'components/Button'
+import TextInput from 'components/Input/Text'
 
 let submitting = false
 
@@ -100,16 +100,19 @@ class OnboardEmail extends Component {
 
 const ConnectedOnboardEmails = connect(() => {}, sysMessageActions)(OnboardEmail)
 
-export default ({ url, ...extraProps }) => {
-  return (
-    <Layout
-      url={url}
-      limitedHeader={true}
-    >
-      <ConnectedOnboardEmails
-        {...extraProps}
-        reposByOrg={url.query.repos}
-      />
-    </Layout>
-  )
+export default class OnboardEmailPage extends Page {
+  render() {
+    const { repos, ...otherProps } = this.props
+
+    return (
+      <this.Layout
+        limitedHeader={true}
+      >
+        <ConnectedOnboardEmails
+          {...otherProps}
+          reposByOrg={repos}
+        />
+      </this.Layout>
+    )
+  }
 }
