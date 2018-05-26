@@ -44,12 +44,12 @@ const GdprCountryCodes = [
 route.push((req, res, next) => {
   try {
     if (GdprCountryCodes.includes(geoip.lookup(req.remoteAddress).country)) {
-      req.state.gdpr = true;
+      req.state.gdpr = true
     } else {
-      req.state.gdpr = false;
+      req.state.gdpr = false
     }
   } catch(err) {
-    req.state.gdpr = false;
+    req.state.gdpr = false
   }
 })
 
