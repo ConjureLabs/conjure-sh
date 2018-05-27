@@ -15,20 +15,20 @@ const allLangs = {
 export default () => (
   <div className='root'>
     {Object.keys(allLangs).map(key => (
-      <div className='lang' key={key}>
+      <div
+        className='lang'
+        key={key}
+      >
         <h6>{key}</h6>
-        {allLangs[key]
-          .filter(obj => obj.suppress === false)
-          .map(obj => (
-            <span>{obj.content}</span>
-          ))
-        }
-        {/*<a
-          href=''
-          onClick={}
+        {allLangs[key].map(vers => (
+          <span>{vers}</span>
+        ))}
+        <a
+          href={`https://github.com/ConjureLabs/conjure-language-support/blob/master/${key.toLowerCase()}.md`}
+          target='_blank'
         >
           See All
-        </a> */}
+        </a>
       </div>
     ))}
 
@@ -38,8 +38,8 @@ export default () => (
           display: flex;
           flex-direction: row;
           justify-content: space-between;
-          margin-top: 2.4rem;
-          padding-bottom: 2rem;
+          margin: 2.4rem 0;
+          padding-bottom: 4rem;
           position: relative;
         }
 

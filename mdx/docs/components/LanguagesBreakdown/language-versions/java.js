@@ -1,7 +1,8 @@
 export default [
-  { suppress: false, content: 'oracle-8' },
-  { suppress: false, content: 'oracle-7' },
-  { suppress: false, content: 'oracle-6' },
-  { suppress: false, content: 'openjdk7' },
-  { suppress: false, content: 'openjdk6' }
+  'openjdk11',
+  'openjdk10',
+  'openjdk9',
+  'openjdk8',
+  'oracle-8',
+  'oracle-7'
 ]
