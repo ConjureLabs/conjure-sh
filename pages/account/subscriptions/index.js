@@ -4,7 +4,9 @@ import { connect } from '@conjurelabs/federal'
 import classnames from 'classnames'
 import sortInsensitive from '@conjurelabs/utils/Array/sort-insensitive'
 import { post } from 'shared/xhr'
+import config from 'client.config.js'
 
+import sysMessageActions from 'components/SystemMessages/actions'
 import Page from 'components/Page'
 import Button from 'components/Button'
 import DangerZoneConfirm from 'components/DangerZoneConfirm'
@@ -27,7 +29,7 @@ class Subscriptions extends Component {
   }
 
   render() {
-    const { watchedRepos, otherRepos } = this.props
+    const { watchedRepos, otherRepos, dispatch } = this.props
     const { confirmRevoke, watchedReposStateMapping } = this.state
 
     const byOrg = {}
@@ -71,7 +73,7 @@ class Subscriptions extends Component {
                       size='small'
                       color='red'
                       onClick={() => {
-                        ths.setState({
+                        this.setState({
                           confirmRevoke: repo
                         })
                       }}
@@ -89,7 +91,16 @@ class Subscriptions extends Component {
                         }
                         submitting = true
 
-                        post(`${config.app.api.url}/api/repo/watch`, repo, err => {
+                        post(`${config.app.api.url}/api/repo/watch`, {
+                          service: repo.service,
+                          githubId: repo.serviceRepoId,
+                          url: repo.url,
+                          orgName: repo.org,
+                          orgId: repo.orgId,
+                          name: repo.name,
+                          vm: 'web', // todo: handle different vm types
+                          isPrivate: repo.private
+                        }, err => {
                           if (err) {
                             dispatch.addSystemMessage({
                               type: 'error',
@@ -148,7 +159,8 @@ class Subscriptions extends Component {
                   watchedReposStateMapping: {
                     ...watchedReposStateMapping,
                     [confirmRevoke.id]: null
-                  }
+                  },
+                  confirmRevoke: null
                 }, () => {
                   submitting = false
                 })
@@ -163,11 +175,7 @@ class Subscriptions extends Component {
   }
 }
 
-const selector = store => ({
-  account: store.account
-})
-
-const ConnectedSubscriptions = connect(selector)(Subscriptions)
+const ConnectedSubscriptions = connect(() => {}, sysMessageActions)(Subscriptions)
 
 export default class SubscriptionsPage extends Page {
   render() {
