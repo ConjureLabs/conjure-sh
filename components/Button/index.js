@@ -56,6 +56,7 @@ export default class Button extends Component {
       'peach',
       'pink',
       'purple',
+      'red',
       'white'
     ]).isRequired,
 

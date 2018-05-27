@@ -30,6 +30,17 @@ const Header = ({ account, children, wrapped = true, limited = false }) => (
             {limited === true ? null : (
               <li className={classes.item}>
                 <a
+                  href='/account/subscriptions'
+                  className={classes.link}
+                >
+                  Subscriptions
+                </a>
+              </li>
+            )}
+
+            {limited === true ? null : (
+              <li className={classes.item}>
+                <a
                   href='/account/payment'
                   className={classes.link}
                 >
