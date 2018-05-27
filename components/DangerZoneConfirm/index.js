@@ -31,25 +31,49 @@ export default class DangerZoneConfirm extends Component {
   }
 
   render() {
-    const { subjectLabel } = this.props
+    const { subjectLabel, onConfirm, onCancel } = this.props
+    const { enabled } = this.state
 
     return (
       <Portal>
         <div className={classes.container}>
           <div className={classes.modal}>
             <header>Danger Zone</header>
-            <p>Please enter the {subjectLabel} to confirm</p>
-            <TextInput
-              label={subjectLabel}
-              onKeyUp={this.onKeyUp.bind(this)}
-              ref={ref => this.input = ref}
-            />
-            <Button
-              size='medium'
-              color='red'
-            >
-              Confirm
-            </Button>
+            <div className={classes.content}>
+              <p>Enter the <span className={classes.emphasis}>{subjectLabel}</span> to confirm</p>
+              
+              <div className={classes.input}>
+                <TextInput
+                  label={subjectLabel}
+                  onKeyUp={this.onKeyUp.bind(this)}
+                  ref={ref => this.input = ref}
+                />
+              </div>
+
+              <div className={classes.actions}>
+                <Button
+                  size='small'
+                  color='red'
+                  disabled={!enabled}
+                  onClick={() => {
+                    onConfirm()
+                  }}
+                >
+                  Confirm
+                </Button>
+
+                <Button
+                  size='small'
+                  color='gray'
+                  hallow={true}
+                  onClick={() => {
+                    onCancel()
+                  }}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
           </div>
           <div className={classes.veil} />
         </div>
@@ -57,4 +81,4 @@ export default class DangerZoneConfirm extends Component {
       </Portal>
     )
   }
-)
+}
