@@ -2257,7 +2257,7 @@ configstore@^3.0.0:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#6071aae007aee94908666a8e90d83cb2cde7fcec"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#5d746d31979bfd6efbccce047f7cb9eb5c8d609f"
   dependencies:
     "@conjurelabs/db" "1.0.3"
     "@conjurelabs/err" "0.1.0"

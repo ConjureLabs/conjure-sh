@@ -49,7 +49,12 @@ route.push(async (req, res) => {
     }
 
     const idsPlaceholder = accountRepoIdsChunk.map((_, index) => `$${index + 1}`).join(', ')
-    const existingResult = await query(`SELECT DISTINCT org FROM watched_repo WHERE service_repo_id IN (${idsPlaceholder})`, accountRepoIdsChunk)
+    const existingResult = await query(`
+      SELECT DISTINCT org
+      FROM watched_repo
+      WHERE disabled IS FALSE
+      AND service_repo_id IN (${idsPlaceholder})
+    `, accountRepoIdsChunk)
     if (existingResult.rows.length > 0) {
       const orgNames = existingResult.rows.map(row => row.org)
       for (const row of existingResult.rows) {
