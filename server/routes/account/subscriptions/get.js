@@ -20,8 +20,10 @@ route.push(async (req, res) => {
   const gitHubAccount = (await apiGetAccountGitHub(req)).account
 
   const apiWatchedSummary = require('conjure-api/server/routes/api/watched/summary/get.js').call
-  const watchedSummary = await apiWatchedSummary(req)
-  const watchedRepos = watchedSummary.watched.repos
+  const watchedSummary = await apiWatchedSummary(req, {
+    fullRecords: true
+  })
+  const watchedRepo = watchedSummary.watched.repos
 
   const apiUserRepos = require('conjure-api/server/routes/api/repos/get.js').call
   const reposByOg = (await apiUserRepos(req)).reposByOrg
@@ -34,13 +36,6 @@ route.push(async (req, res) => {
       return flattened
     }, [])
     .filter(repo => !watchedAliases.includes(`${repo.org}/${repo.name}`))
-    .map(repo => {
-      return {
-        name: repo.name,
-        org: repo.org,
-        private: repo.private
-      }
-    })
 
   res.render('/account/subscriptions', {
     account: {
