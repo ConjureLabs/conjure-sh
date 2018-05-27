@@ -20,7 +20,7 @@ class Subscriptions extends Component {
     this.state = {
       confirmRevoke: null,
       watchedReposStateMapping: props.watchedRepos.reduce((mapping, current) => {
-        mapping[ `${current.org}/${current.name}` ] = true
+        mapping[current.id] = true
         return mapping
       }, {})
     }
@@ -37,7 +37,7 @@ class Subscriptions extends Component {
       byOrg[repo.org] = byOrg[repo.org] || []
       byOrg[repo.org].push({
         ...repo,
-        watched: watchedReposStateMapping[ `${repo.org}/${repo.name}` ] === true
+        watched: watchedReposStateMapping[repo.id] === true
       })
     }
     sortInsensitive(otherRepos, 'name')
@@ -45,7 +45,7 @@ class Subscriptions extends Component {
       byOrg[repo.org] = byOrg[repo.org] || []
       byOrg[repo.org].push({
         ...repo,
-        watched: watchedReposStateMapping[ `${repo.org}/${repo.name}` ] === true
+        watched: watchedReposStateMapping[repo.id] === true
       })
     }
 
@@ -64,7 +64,7 @@ class Subscriptions extends Component {
             <h3>{org}</h3>
             <ol>
               {byOrg[org].map(repo => (
-                <li key={`${org}/${repo.name}`}>
+                <li key={repo.id}>
                   <h4>{repo.name}</h4>
                   {repo.watched === true ? (
                     <Button
@@ -102,7 +102,7 @@ class Subscriptions extends Component {
                           this.setState({
                             watchedReposStateMapping: {
                               ...watchedReposStateMapping,
-                              [ `${repo.org}/${repo.name}` ]: true
+                              [repo.id]: true
                             }
                           }, () => {
                             submitting = false
@@ -147,7 +147,7 @@ class Subscriptions extends Component {
                 this.setState({
                   watchedReposStateMapping: {
                     ...watchedReposStateMapping,
-                    [ `${confirmRevoke.org}/${confirmRevoke.name}` ]: null
+                    [confirmRevoke.id]: null
                   }
                 }, () => {
                   submitting = false
