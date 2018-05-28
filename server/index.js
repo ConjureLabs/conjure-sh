@@ -41,7 +41,7 @@ server.use(cookieSession({
   maxAge: config.session.duration,
   overwrite: true,
   sameSite: 'lax',
-  secure: config.app.api.protocol === 'https',
+  secure: false,
   signed: true
 }))
 
