@@ -63,4 +63,4 @@ export default class Privacy extends Page {
       </this.Layout>
     )
   }
-)
+}
