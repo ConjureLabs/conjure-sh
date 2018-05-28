@@ -65,6 +65,9 @@ passport.deserializeUser((user, done) => {
 if (config.app.web.protocol === 'https') {
   const forcedHttpsRouter = express.Router()
   forcedHttpsRouter.get('*', (req, res, next) => {
+    if (req.url === '/aws/ping' && req.headers['user-agent'] === 'ELB-HealthChecker/2.0') {
+      return next()
+    }
     if (req.headers && req.headers['x-forwarded-proto'] === 'https') {
       return next()
     }
