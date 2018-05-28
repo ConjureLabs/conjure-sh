@@ -1,5 +1,4 @@
 const Route = require('@conjurelabs/route')
-const config = require('conjure-core/modules/config')
 const log = require('conjure-core/modules/log')('root path')
 
 const route = new Route()
@@ -84,7 +83,7 @@ route.push(async (req, res, next) => {
   const accountGitHubResult = apiGetAccountGitHub(req)
 
   const containerStarting = req.cookies['conjure-container-starting']
-  res.clearCookie('conjure-container-starting');
+  res.clearCookie('conjure-container-starting')
 
   const pageParams = {
     account: {

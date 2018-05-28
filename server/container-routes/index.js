@@ -25,9 +25,8 @@ module.exports = async (req, res, next) => {
   switch(handler) {
     case 'view':
     case 'logs':
-      let result
       try {
-        result = await checkPermissions(req, res, containerId, handler, next)
+        await checkPermissions(req, res, containerId, handler, next)
       } catch(err) {
         log.error(err)
         return next(err)

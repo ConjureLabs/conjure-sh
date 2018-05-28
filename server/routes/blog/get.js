@@ -17,7 +17,7 @@ route.push(async (req, res) => {
   // hydrate authors
   const batchAll = require('@conjurelabs/utils/Promise/batch-all')
   await batchAll(3, posts, async post => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise(async resolve => {
       const inArgs = post.authors.map((_, index) => `$${index + 1}`).join(', ')
       const authorsResults = await query(`
         SELECT *

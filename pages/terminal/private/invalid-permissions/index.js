@@ -21,4 +21,4 @@ export default class InvalidPermissions extends Page {
       </this.Layout>
     )
   }
-)
+}

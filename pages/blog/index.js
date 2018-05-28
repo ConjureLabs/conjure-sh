@@ -43,4 +43,4 @@ export default class Blog extends Page {
       </this.Layout>
     )
   }
-)
+}

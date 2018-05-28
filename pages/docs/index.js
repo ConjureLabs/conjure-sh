@@ -1,4 +1,3 @@
-import { shortPosts } from 'mdx/blog'
 import ConfigDocs from 'mdx/docs/config.md'
 import Page from 'components/Page'
 

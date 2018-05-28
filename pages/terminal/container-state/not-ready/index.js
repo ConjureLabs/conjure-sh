@@ -21,4 +21,4 @@ export default class NotReady extends Page {
       </this.Layout>
     )
   }
-)
+}

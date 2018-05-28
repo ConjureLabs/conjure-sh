@@ -1,5 +1,4 @@
 import styles, { classes } from './styles.js'
-import classnames from 'classnames'
 
 import config from 'client.config.js'
 import Page from 'components/Page'

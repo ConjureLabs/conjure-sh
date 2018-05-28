@@ -23,7 +23,7 @@ export default class Button extends Component {
   }
 
   render() {
-    const { className, children, color, size, hallow, disabled, href } = this.props
+    const { className, children, color, size, hallow, disabled } = this.props
 
     const rootClasses = classnames(
       classes.root,

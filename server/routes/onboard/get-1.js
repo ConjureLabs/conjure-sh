@@ -56,7 +56,6 @@ route.push(async (req, res) => {
       AND service_repo_id IN (${idsPlaceholder})
     `, accountRepoIdsChunk)
     if (existingResult.rows.length > 0) {
-      const orgNames = existingResult.rows.map(row => row.org)
       for (const row of existingResult.rows) {
         if (orgsAlreadyAvailable.includes(row.org)) {
           continue

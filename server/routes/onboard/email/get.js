@@ -7,7 +7,7 @@ const route = new Route({
   }
 })
 
-route.push(async (req, res, next) => {
+route.push(async (req, res) => {
   // check if account is valid, and should be seeing onboard flow
   const { DatabaseTable } = require('@conjurelabs/db')
   const account = new DatabaseTable('account')

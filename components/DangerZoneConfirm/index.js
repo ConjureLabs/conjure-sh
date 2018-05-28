@@ -10,7 +10,7 @@ export default class DangerZoneConfirm extends Component {
   constructor(props) {
     super(props)
 
-    this.input // ref set at render
+    this.input = null // ref set at render
     this.state = {
       enabled: false
     }

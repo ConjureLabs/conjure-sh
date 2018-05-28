@@ -12,6 +12,7 @@ const morgan = require('morgan')
 const cookieSession = require('cookie-session')
 const cookieParser = require('cookie-parser')
 const passport = require('passport')
+const { ContentError } = require('@conjurelabs/err')
 const log = require('conjure-core/modules/log')()
 
 // constants

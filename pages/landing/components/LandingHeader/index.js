@@ -1,6 +1,5 @@
 import { Component } from 'react'
 import styles, { classes } from './styles.js'
-import classnames from 'classnames'
 
 import Layout from 'components/Layout'
 import Button from 'components/Button'

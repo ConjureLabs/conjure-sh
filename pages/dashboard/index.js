@@ -173,7 +173,7 @@ class Dashboard extends Component {
     const {
       orgs, repos,
       pagingHref, timelineDelta,
-      additionalOrgs, additionalRepos,
+      additionalRepos,
       orgSelected, repoSelected
     } = this.props
 
