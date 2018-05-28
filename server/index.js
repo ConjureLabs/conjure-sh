@@ -62,19 +62,32 @@ passport.deserializeUser((user, done) => {
   done(null, user)
 })
 
-if (config.app.web.protocol === 'https') {
-  const forcedHttpsRouter = express.Router()
-  forcedHttpsRouter.get('*', (req, res, next) => {
-    if (req.url === '/aws/ping' && req.headers['user-agent'] === 'ELB-HealthChecker/2.0') {
-      return next()
+const forcedRedirectRouter = express.Router()
+forcedRedirectRouter.get('*', (req, res, next) => {
+  // aws healthcheck allow through, regardless
+  if (req.url === '/aws/ping' && req.headers['user-agent'] === 'ELB-HealthChecker/2.0') {
+    return next()
+  }
+
+  let acceptedProtocol = false
+  let acceptedHost = false
+
+  if (req.headers) {
+    if (req.headers['x-forwarded-proto'] === config.app.web.protocol) {
+      acceptedProtocol = true
     }
-    if (req.headers && req.headers['x-forwarded-proto'] === 'https') {
-      return next()
+    if (req.headers.host === config.app.web.host) {
+      acceptedHost = true
     }
-    res.redirect(`${config.app.web.url}${req.url}`)
-  })
-  server.use(forcedHttpsRouter)
-}
+  }
+
+  if (acceptedProtocol && acceptedHost) {
+    return next()
+  }
+
+  res.redirect(`${config.app.web.url}${req.url}`)
+})
+server.use(forcedRedirectRouter)
 
 // tracking req state (like ip address)
 server.use((req, res, next) => {
