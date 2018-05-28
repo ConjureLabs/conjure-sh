@@ -82,3 +82,25 @@ KEEP_DB=true yarn start
 ```bash
 yarn run build
 ```
+
+#### Fresh server setup
+
+Must be an Ubuntu EC2
+
+When done, add it to a LB
+
+1. `ssh-keygen` _(do not do this on your local...)_
+2. save public key as a deploy key on repo, on github
+3. `git clone git@github.com:ConjureLabs/conjure-web.git`
+4. `sudo apt update`
+5. `curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -`
+6. `sudo apt-get install -y nodejs`
+7. `sudo -E npm i -g yarn`
+8. `sudo -E npm i -g pm2`
+9. `sudo -E npm i -g next`
+10. `sudo chown -R $USER:$(id -gn $USER) /home/ubuntu/.config `
+11. in proj dir, save `.hob/.env`
+12. in proj dir, `yarn install`
+13. in proj dir, `yarn run compile`
+14. in proj dir, `yarn run build`
+15. in proj dir, `pm2 start ./bash/pm2/conjure-web.sh --name "conjure-web"`
