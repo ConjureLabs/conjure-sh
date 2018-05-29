@@ -2257,7 +2257,7 @@ configstore@^3.0.0:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#15db07407b2053ae48405a72cff23124d06e3b71"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#81c6b799857377051a6fa798e53874fae26b1ae5"
   dependencies:
     "@conjurelabs/db" "1.0.3"
     "@conjurelabs/err" "0.1.0"
@@ -2283,7 +2283,7 @@ configstore@^3.0.0:
 
 "conjure-core@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#35e8d7cd714afb3d2ac3ad561d58cb6bd163a2e4"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#f38a79b890d23156519947cecedf92a2a96fc218"
   dependencies:
     aws-sdk "2.222.1"
     bee-queue "1.2.2"

@@ -9,9 +9,8 @@ module.exports = (req, res, containerRecord, next) => {
   })
 
   try {
-    proxy.forward(req, res)
+    proxy.forward(req, res, next)
   } catch(err) {
     console.error(err)
-    next()
   }
 }

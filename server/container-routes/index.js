@@ -4,7 +4,7 @@ const nextApp = require('../next')
 
 // converting 'conjure.sh' to '\\.conjure\\.sh', to prepare it for regexp
 const domainExprPart = `.${config.app.web.domain}`.replace(/\./g, '\\.')
-const containerExpr = new RegExp(`^(\\w+)-(\w+)${domainExprPart}(?!\\w)`, 'i')
+const containerExpr = new RegExp(`^(\\w+)-(\\w+)${domainExprPart}(?!\\w)`, 'i')
 
 module.exports = async (req, res, next) => {
   const containerMatch = containerExpr.exec(req.headers.host)
