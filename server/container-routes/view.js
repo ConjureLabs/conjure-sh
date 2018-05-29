@@ -5,7 +5,8 @@ module.exports = (req, res, containerRecord, next) => {
   const proxy = new ReqProxy({
     domain: containerRecord.publicIp,
     path: req.url,
-    port: containerRecord.hostPort
+    port: containerRecord.hostPort,
+    protocol: 'http' // fargate is not ssl
   })
 
   try {
