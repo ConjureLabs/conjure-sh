@@ -61,7 +61,7 @@ passport.deserializeUser((user, done) => {
 
 const forcedRedirectRouter = express.Router()
 const domainExprPart = `.${config.app.web.domain}`.replace(/\./g, '\\.')
-const subdomainExpr = new RegExp(`^[\\w]+-view${domainExprPart}(?!\\w)`, 'i')
+const subdomainExpr = new RegExp(`^\\w+-view${domainExprPart}(?!\\w)`, 'i')
 const containerRoutes = require('./container-routes')
 forcedRedirectRouter.get('*', (req, res, next) => {
   // aws healthcheck allow through, regardless
