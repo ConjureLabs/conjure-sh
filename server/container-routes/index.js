@@ -4,17 +4,10 @@ const nextApp = require('../next')
 
 // converting 'conjure.sh' to '\\.conjure\\.sh', to prepare it for regexp
 const domainExprPart = `.${config.app.web.domain}`.replace(/\./g, '\\.')
-const subdomainExpr = new RegExp(`^([\\w\\.]*)${domainExprPart}(?!\\w)`, 'i')
-const containerLogsExpr = new RegExp(`^(\\w+)\\.(\\w+)${domainExprPart}(?!\\w)`, 'i')
+const containerExpr = new RegExp(`^(\\w+)-(\w+)${domainExprPart}(?!\\w)`, 'i')
 
 module.exports = async (req, res, next) => {
-  // if not a subdomain request, kick to next, unless www.
-  const subdomainMatch = subdomainExpr.exec(req.headers.host)
-  if (!subdomainMatch || subdomainMatch[1] === 'www') {
-    return next()
-  }
-
-  const containerMatch = containerLogsExpr.exec(req.headers.host)
+  const containerMatch = containerExpr.exec(req.headers.host)
   if (!containerMatch) {
     return next()
   }
@@ -24,7 +17,7 @@ module.exports = async (req, res, next) => {
 
   switch(handler) {
     case 'view':
-    case 'logs':
+    // case 'logs':
       try {
         await checkPermissions(req, res, containerId, handler, next)
       } catch(err) {

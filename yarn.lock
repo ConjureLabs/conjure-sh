@@ -624,17 +624,17 @@
     shell-source "1.1.0"
     stylus "0.54.5"
 
-"@conjurelabs/route@0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.2.1.tgz#80e30be7f4a4480a105395c353b7e7c92504d59b"
+"@conjurelabs/route@0.2.2":
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.2.2.tgz#c655275295b31160188c7f923f01791676a5aea9"
   dependencies:
     "@conjurelabs/err" "0.0.2"
     "@conjurelabs/utils" "0.0.1"
     cors "^2.8.4"
 
-"@conjurelabs/route@0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.2.2.tgz#c655275295b31160188c7f923f01791676a5aea9"
+"@conjurelabs/route@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@conjurelabs/route/-/route-0.3.0.tgz#c41eb0443a9794f6b8c40f8838b9c7661e75521f"
   dependencies:
     "@conjurelabs/err" "0.0.2"
     "@conjurelabs/utils" "0.0.1"
@@ -2257,12 +2257,12 @@ configstore@^3.0.0:
 
 "conjure-api@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#5d746d31979bfd6efbccce047f7cb9eb5c8d609f"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-api.git#15db07407b2053ae48405a72cff23124d06e3b71"
   dependencies:
     "@conjurelabs/db" "1.0.3"
     "@conjurelabs/err" "0.1.0"
     "@conjurelabs/hob" "0.0.12"
-    "@conjurelabs/route" "0.2.1"
+    "@conjurelabs/route" "0.3.0"
     "@conjurelabs/utils" "0.1.0"
     async "^2.3.0"
     body-parser "1.15.2"
@@ -2270,6 +2270,7 @@ configstore@^3.0.0:
     conjure-core "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git"
     cookie-parser "1.4.3"
     cookie-session "2.0.0-alpha.2"
+    cors "2.8.4"
     debug "2.6.0"
     express "4.15.2"
     morgan "1.7.0"
@@ -2282,10 +2283,11 @@ configstore@^3.0.0:
 
 "conjure-core@git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git":
   version "0.0.0"
-  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#9731851297173f89fb910a633f0ed2de438e954d"
+  resolved "git+https://bf0d2cf12288398265bb750e57c0cac1363f78d7:x-oauth-basic@github.com/ConjureLabs/conjure-core.git#35e8d7cd714afb3d2ac3ad561d58cb6bd163a2e4"
   dependencies:
     aws-sdk "2.222.1"
     bee-queue "1.2.2"
+    exec-sh "0.2.1"
     jsonwebtoken "8.2.1"
     node-yaml "^3.1.1"
     postmark "1.5.0"
@@ -2402,7 +2404,7 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
 
-cors@^2.8.4:
+cors@2.8.4, cors@^2.8.4:
   version "2.8.4"
   resolved "https://registry.yarnpkg.com/cors/-/cors-2.8.4.tgz#2bd381f2eb201020105cd50ea59da63090694686"
   dependencies:
@@ -2991,8 +2993,8 @@ es-to-primitive@^1.1.1:
     is-symbol "^1.0.1"
 
 es5-ext@^0.10.14, es5-ext@^0.10.35, es5-ext@^0.10.9, es5-ext@~0.10.14:
-  version "0.10.42"
-  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.42.tgz#8c07dd33af04d5dcd1310b5cef13bea63a89ba8d"
+  version "0.10.43"
+  resolved "https://registry.yarnpkg.com/es5-ext/-/es5-ext-0.10.43.tgz#c705e645253210233a270869aa463a2333b7ca64"
   dependencies:
     es6-iterator "~2.0.3"
     es6-symbol "~3.1.1"
@@ -3193,6 +3195,12 @@ evp_bytestokey@^1.0.0, evp_bytestokey@^1.0.3:
   dependencies:
     md5.js "^1.3.4"
     safe-buffer "^5.1.1"
+
+exec-sh@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/exec-sh/-/exec-sh-0.2.1.tgz#163b98a6e89e6b65b47c2a28d215bc1f63989c38"
+  dependencies:
+    merge "^1.1.3"
 
 execa@^0.7.0:
   version "0.7.0"
@@ -4965,7 +4973,7 @@ merge-descriptors@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
 
-merge@1.2.0:
+merge@1.2.0, merge@^1.1.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.0.tgz#7531e39d4949c281a66b8c5a6e0265e8b05894da"
 
@@ -6596,8 +6604,8 @@ regenerator-runtime@^0.11.0, regenerator-runtime@^0.11.1:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
 
 regenerator-transform@^0.12.3:
-  version "0.12.3"
-  resolved "https://registry.yarnpkg.com/regenerator-transform/-/regenerator-transform-0.12.3.tgz#459adfb64f6a27164ab991b7873f45ab969eca8b"
+  version "0.12.4"
+  resolved "https://registry.yarnpkg.com/regenerator-transform/-/regenerator-transform-0.12.4.tgz#aa9b6c59f4b97be080e972506c560b3bccbfcff0"
   dependencies:
     private "^0.1.6"
 
