@@ -17,6 +17,7 @@ const log = require('conjure-core/modules/log')()
 
 // constants
 const port = config.app.web.port
+const nextDefaultGetHandler = nextApp.getRequestHandler()
 const server = express()
 
 if (process.env.NODE_ENV !== 'production') {
@@ -59,26 +60,27 @@ passport.deserializeUser((user, done) => {
 })
 
 const forcedRedirectRouter = express.Router()
+const domainExprPart = `.${config.app.web.domain}`.replace(/\./g, '\\.')
+const subdomainExpr = new RegExp(`^([\\w\\.]*)${domainExprPart}(?!\\w)`, 'i')
+const containerRoutes = require('./container-routes')
 forcedRedirectRouter.get('*', (req, res, next) => {
   // aws healthcheck allow through, regardless
   if (req.url === '/aws/ping' && req.headers['user-agent'] === 'ELB-HealthChecker/2.0') {
     return next()
   }
 
-  let acceptedProtocol = false
-  let acceptedHost = false
-
-  if (req.headers) {
-    if (req.headers['x-forwarded-proto'] === config.app.web.protocol) {
-      acceptedProtocol = true
-    }
-    if (req.headers.host === config.app.web.host) {
-      acceptedHost = true
-    }
+  if (req.headers['x-forwarded-proto'] !== config.app.web.protocol) {
+    return res.redirect(`${config.app.web.protocol}://${req.headers.host}${req.url}`)
   }
 
-  if (acceptedProtocol && acceptedHost) {
+  if (req.headers.host === config.app.web.host) {
     return next()
+  }
+
+  if (subdomainExpr.test(req.headers.host)) {
+    return containerRoutes(req, res, () => {
+      nextDefaultGetHandler(req, res)
+    })
   }
 
   res.redirect(`${config.app.web.url}${req.url}`)
@@ -176,15 +178,11 @@ server.use((req, res, next) => {
   next()
 })
 
-// container routes (to view web or logs)
-server.use(require('./container-routes'))
-
 // initialize routes
 server.use(setup.routes)
 
 // any non-caught GET route then goes on to the nextjs handler
 const catchAllRouter = express.Router()
-const nextDefaultGetHandler = nextApp.getRequestHandler()
 catchAllRouter.get('*', (req, res) => {
   nextDefaultGetHandler(req, res)
 })
