@@ -59,33 +59,33 @@ passport.deserializeUser((user, done) => {
   done(null, user)
 })
 
-const forcedRedirectRouter = express.Router()
-const domainExprPart = `.${config.app.web.domain}`.replace(/\./g, '\\.')
-const subdomainExpr = new RegExp(`^\\w+-view${domainExprPart}(?!\\w)`, 'i')
-const containerRoutes = require('./container-routes')
-forcedRedirectRouter.get('*', (req, res, next) => {
-  // aws healthcheck allow through, regardless
-  if (req.url === '/aws/ping' && req.headers['user-agent'] === 'ELB-HealthChecker/2.0') {
-    return next()
-  }
+// const forcedRedirectRouter = express.Router()
+// const domainExprPart = `.${config.app.web.domain}`.replace(/\./g, '\\.')
+// const subdomainExpr = new RegExp(`^\\w+-view${domainExprPart}(?!\\w)`, 'i')
+// const containerRoutes = require('./container-routes')
+// forcedRedirectRouter.get('*', (req, res, next) => {
+//   // aws healthcheck allow through, regardless
+//   if (req.url === '/aws/ping' && req.headers['user-agent'] === 'ELB-HealthChecker/2.0') {
+//     return next()
+//   }
 
-  if (req.headers['x-forwarded-proto'] !== config.app.web.protocol) {
-    return res.redirect(`${config.app.web.protocol}://${req.headers.host}${req.url}`)
-  }
+//   if (req.headers['x-forwarded-proto'] !== config.app.web.protocol) {
+//     return res.redirect(`${config.app.web.protocol}://${req.headers.host}${req.url}`)
+//   }
 
-  if (req.headers.host === config.app.web.host) {
-    return next()
-  }
+//   if (req.headers.host === config.app.web.host) {
+//     return next()
+//   }
 
-  if (subdomainExpr.test(req.headers.host)) {
-    return containerRoutes(req, res, () => {
-      nextDefaultGetHandler(req, res)
-    })
-  }
+//   if (subdomainExpr.test(req.headers.host)) {
+//     return containerRoutes(req, res, () => {
+//       nextDefaultGetHandler(req, res)
+//     })
+//   }
 
-  res.redirect(`${config.app.web.url}${req.url}`)
-})
-server.use(forcedRedirectRouter)
+//   res.redirect(`${config.app.web.url}${req.url}`)
+// })
+// server.use(forcedRedirectRouter)
 
 // tracking req state (like ip address)
 server.use((req, res, next) => {
