@@ -172,9 +172,18 @@ server.use((req, res, next) => {
     nextApp.render(req, res, pageName, {
       ...params,
       meta: {
-        gdprCookies: req.state.gdprCookies || false
+        gdprCookies: req.state.gdprCookies || false,
+        firstPaymentAdded: !!req.cookies['conjure-added-payment'],
+        firstSignup: !!req.cookies['conjure-first-signup']
       }
     })
+
+    if (!!req.cookies['conjure-added-payment']) {
+      res.clearCookie('conjure-added-payment')
+    }
+    if (!!req.cookies['conjure-first-signup']) {
+      res.clearCookie('conjure-first-signup')
+    }
   }
 
   next()
