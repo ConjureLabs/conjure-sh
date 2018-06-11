@@ -13,7 +13,7 @@ export default class Page extends Component {
 
     // making it easier to use <Layout />
     this.Layout = ({ children, ...layoutProps }) => {
-      const { account, cards, messages, containerStarting, meta } = this.props
+      const { account, cards, messages, containerStarting, meta, firstPaymentAdded, firstSignup } = this.props
 
       return (
         <Layout
@@ -25,6 +25,9 @@ export default class Page extends Component {
           {...layoutProps}
         >
           {children}
+
+          { process.env.NODE_ENV === 'production' && firstPaymentAdded === true ? <script dangerouslySetInnerHTML={{ __html: `fbq('track', 'AddPaymentInfo');` }} /> : null }
+          { process.env.NODE_ENV === 'production' && firstSignup === true ? <script dangerouslySetInnerHTML={{ __html: `fbq('track', 'CompleteRegistration');` }} /> : null }
         </Layout>
       )
     }
