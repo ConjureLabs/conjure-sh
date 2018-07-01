@@ -9,10 +9,10 @@
     "dev": "hob dev",
     "dev:quick": "hob dev --quick",
     "dev:fresh": "hob dev --fresh-db",
-    "docker-cleanup": "bash ./bash/yarn/docker-cleanup.sh",
+    "docker-cleanup": "bash ./bash/npm/docker-cleanup.sh",
     "lint": "hob lint",
     "start": "hob start",
-    "install:fresh": "(rm -rf ./node_modules || true) && (rm ./yarn.lock || true) && yarn install",
+    "install:fresh": "(rm -rf ./node_modules || true) && (rm ./package-lock.json || true) && npm install",
     "compile": "hob compile"
   },
   "engines": {

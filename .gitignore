@@ -6,8 +6,8 @@ node_modules
 public/build
 .profile
 .next
-.hob/.*
+.hob/.env
+.hob/.stylus
 components/**/styles*.js
 pages/**/styles*.js
-package-lock.json
 client.config.js

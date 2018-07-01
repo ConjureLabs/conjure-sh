@@ -57,30 +57,30 @@ NODE_ENV=development yarn start
 
 ```bash
 # starts the dev app
-yarn run dev
+npm run dev
 
 # run lints
-yarn run lint
+npm run lint
 
 # re-compiles client assets
-yarn run compile
+npm run compile
 
 # starts the dev app,
 # and resets the db first
-yarn run dev:fresh-db
+npm run dev:fresh-db
 ```
 
 ###### Additional Options
 
 ```bash
 # starts the app, but preserves existing db
-KEEP_DB=true yarn start
+KEEP_DB=true npm start
 ```
 
 #### Deployment
 
 ```bash
-yarn run build
+npm run build
 ```
 
 #### Fresh server setup
@@ -96,12 +96,11 @@ When done, add it to a LB
 5. `sudo apt-get install postgresql postgresql-contrib redis-tools`
 6. `curl -sL https://deb.nodesource.com/setup_10.x | sudo bash -`
 7. `sudo apt-get install -y nodejs`
-8. `sudo -E npm i -g yarn`
-9. `sudo -E npm i -g pm2`
-10. `sudo -E npm i -g next`
-11. `sudo chown -R $USER:$(id -gn $USER) /home/ubuntu/.config `
-12. in proj dir, save `.hob/.env` (make sure `NODE_PATH` is set to the right dir)
-13. in proj dir, `yarn install`
-14. in proj dir, `yarn run compile`
-15. in proj dir, `yarn run build`
-16. in proj dir, `pm2 start ./bash/pm2/conjure-web.sh --name "conjure-web"`
+8. `sudo -E npm i -g pm2`
+9. `sudo -E npm i -g next`
+10. `sudo chown -R $USER:$(id -gn $USER) /home/ubuntu/.config `
+11. in proj dir, save `.hob/.env` (make sure `NODE_PATH` is set to the right dir)
+12. in proj dir, `npm install`
+13. in proj dir, `npm run compile`
+14. in proj dir, `npm run build`
+15. in proj dir, `pm2 start ./bash/pm2/conjure-web.sh --name "conjure-web"`
