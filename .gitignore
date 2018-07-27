@@ -11,3 +11,4 @@ public/build
 components/**/styles*.js
 pages/**/styles*.js
 client.config.js
+ngrok
