@@ -45,8 +45,6 @@ export default ({ submitForm }) => (
       </div>
     </div>
 
-    <span className={classes.incentive}>First $100 free</span>
-
     {styles}
   </div>
 )
