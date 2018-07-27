@@ -41,6 +41,12 @@ On staging or production you would want to set a password...
 createuser -W -D -s conjure_admin
 ```
 
+Or, on local, do:
+
+```bash
+createuser --createdb --adduser --no-password conjure_admin
+```
+
 Then, in sql:
 
 ```sql
