@@ -14,7 +14,7 @@ module.exports.webpack = (config, { defaultLoaders }) => {
       {
         loader: '@mdx-js/loader',
         options: {
-          mdPlugins: [require('./whitespace-remark-plugin'), remarkHighlight]
+          mdPlugins: [require('./server/whitespace-remark-plugin'), remarkHighlight]
         }
       }
     ]
