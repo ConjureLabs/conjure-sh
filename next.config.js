@@ -1,4 +1,5 @@
 const path = require('path')
+const remarkHighlight = require('remark-highlight.js')
 
 /*
   This file is needed for `npm run build`
