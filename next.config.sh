@@ -7,17 +7,6 @@ const path = require('path')
 module.exports = {}
 module.exports.pageExtensions = ['js', 'jsx', 'md', 'mdx']
 module.exports.webpack = (config, { defaultLoaders }) => {
-  config.externals = config.externals || {}
-  config.externals.componentsDir = path.resolve(__dirname, 'components')
-  config.externals.config = require('conjure-core/modules/config')
-
-  // disabling uglify, since it is causing build errors
-  // config.plugins = config.plugins.filter(plugin => {
-  //   return plugin.constructor.name !== 'UglifyJsPlugin'
-  // })
-
-  // console.log(config)
-  
   config.module.rules.push({
     test: /\.md$/,
     use: [
@@ -25,6 +14,13 @@ module.exports.webpack = (config, { defaultLoaders }) => {
       '@mdx-js/loader'
     ]
   })
+
+  config.resolve = config.resolve || {}
+  config.resolve.alias = config.resolve.alias || {}
+  config.resolve.alias.components = path.resolve(__dirname, '..', 'components')
+  config.resolve.alias.shared = path.resolve(__dirname, '..', 'shared')
+  config.resolve.alias.mdx = path.resolve(__dirname, '..', 'mdx')
+  config.resolve.alias['client.config.js'] = path.resolve(__dirname, '..', 'client.config.js')
 
   return config
 }
