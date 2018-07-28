@@ -27,6 +27,7 @@ const app = next({
       config.resolve.alias = config.resolve.alias || {}
       config.resolve.alias.components = path.resolve(__dirname, '..', 'components')
       config.resolve.alias.shared = path.resolve(__dirname, '..', 'shared')
+      config.resolve.alias.mdx = path.resolve(__dirname, '..', 'mdx')
       config.resolve.alias['client.config.js'] = path.resolve(__dirname, '..', 'client.config.js')
 
       return config

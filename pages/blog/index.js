@@ -1,3 +1,5 @@
+import classnames from 'classnames'
+
 import { shortPosts } from 'mdx/blog'
 import FormattedDate from 'components/FormattedDate'
 import Page from 'components/Page'
@@ -17,12 +19,15 @@ export default class Blog extends Page {
         className={classes.root}
         wrappedHeader={false}
       >
-        {posts.map(post => {
+        {posts.map((post, index) => {
           const ShortPost = shortPosts[post.mdxName]
 
           return (
             <article
-              className={classes.post}
+              className={classnames({
+                [classes.post]: true,
+                [classes.first]: index === 0
+              })}
               key={post.mdxName}
             >
               <FormattedDate className={classes.date}>{post.added}</FormattedDate>
