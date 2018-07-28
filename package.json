@@ -6,6 +6,7 @@
   "scripts": {
     "prebuild": "node ./node_modules/geoip-lite/scripts/updatedb.js",
     "build": "hob build",
+    "build:next": "next build",
     "dev": "hob dev",
     "dev:quick": "hob dev --quick",
     "dev:fresh": "hob dev --fresh-db",
