@@ -26,4 +26,4 @@ The various repos have documentation, but the general gist of how to get going i
 4. Follow the steps in each repo's readme
 5. Update `CONJURE_GITHUB_APP_PEM_PATH` to the pem file path
 6. Run ngrok (see [the api readme](https://github.com/ConjureLabs/conjure-api/blob/master/README.md)) and copy the domain name to `CONJURE_API_PUBLIC_HOST`
-7. in each app repo, run `npm run dev`
+7. in each app repo, run `npm run dev` - in `conjure-sh` run `npm run dev:fresh` to fill in the db
