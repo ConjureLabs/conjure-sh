@@ -7,7 +7,8 @@ module.exports = {
       'app.web.url',
       'app.worker.port',
       'app.worker.protocol',
-      'services.github.app.name'
+      'services.github.app.name',
+      'stripe.enabled'
     ]
   }
 }

@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import { connect } from '@conjurelabs/federal'
+import config from 'client.config.js'
 
 import styles, { classes } from './styles.js'
 
@@ -27,7 +28,7 @@ const Header = ({ account, children, wrapped = true, limited = false }) => (
           />
 
           <ol className={classes.links}>
-            {limited === true ? null : (
+            {limited === true || config.stripe.enabled !== true ? null : (
               <li className={classes.item}>
                 <a
                   href='/account/subscriptions'
@@ -38,7 +39,7 @@ const Header = ({ account, children, wrapped = true, limited = false }) => (
               </li>
             )}
 
-            {limited === true ? null : (
+            {limited === true || config.stripe.enabled !== true ? null : (
               <li className={classes.item}>
                 <a
                   href='/account/payment'
