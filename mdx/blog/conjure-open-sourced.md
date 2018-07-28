@@ -1,10 +1,10 @@
 # Open-Sourcing Conjure
 
-Recently [I tweeted](https://twitter.com/timothymarshall/status/1011315206406881283) that I would open-source Conjure. Today I'm happy to announce that Conjure is fully open. I started Conjure to solve a common problem I had with testing pull requests. I solved a problem for myself, more than anyone else. But as others [are coming out with the same type of service](https://zeit.co/blog/now-for-github), I've grown more confident that this is a tool that anyone dealing with web apps can benefit from.
+Recently [I tweeted](https://twitter.com/timothymarshall/status/1011315206406881283) that I would open-source Conjure. Today I'm happy to announce that that promise has been kept, and Conjure is now open. I started this project to solve a common problem I had with testing pull requests, specifically for web apps. I solved for myself, but began to hear from others how they've wanted something similar. Shortly after launching the service, others began releasing [the same type of service](https://zeit.co/blog/now-for-github), which further validates it.
 
 ## Going Forward
 
-Credit goes to [Ghost](https://ghost.org/) inspiring me to open the project, while offering a paid hosted version. [Conjure.sh](https://conjure.sh) will remain as a paid service, while anyone is welcome to spin up their own clone for free.
+I spent a lot of time building this out, and hope others will benefit from it. I kept thinking of how [Ghost](https://ghost.org/) open-sourced their project while providing a paid hosted service. Based on the same setup, [Conjure.sh](https://conjure.sh) will remain as a paid service, while anyone is welcome to clone the repos and spin them up for free.
 
 ## Repos
 
@@ -12,11 +12,13 @@ Credit goes to [Ghost](https://ghost.org/) inspiring me to open the project, whi
 
 [conjure-api](https://github.com/ConjureLabs/conjure-api) houses the REST api. Route directory paths [define their url paths](https://github.com/ConjureLabs/route).
 
-[conjure-worker](https://github.com/ConjureLabs/conjure-worker) runs async jobs. Jobs use [Kue](https://github.com/Automattic/kue) with Redis. It originally used RabbitMQ, but was moved to Kue for flexibly around weights.
+[conjure-worker](https://github.com/ConjureLabs/conjure-worker) runs async jobs. It's using [Kue](https://github.com/Automattic/kue) with Redis. It started with RabbitMQ, but was moved to Kue for flexibly around weighted jobs. When a pull request is opened, a job will kick off to create a docker image and push it to [AWS Fargate](https://aws.amazon.com/fargate/).
 
 [conjure-core](https://github.com/ConjureLabs/conjure-core) contains various shared modules, classes, and configs.
 
 ## Getting Started
+
+The various repos have documentation, but the general gist of how to get going is:
 
 1. Clone `conjure-sh`, `conjure-api`, `conjure-worker` and `conjure-core`
 2. Create [a GitHub app](https://developer.github.com/apps/building-github-apps/creating-a-github-app/)
