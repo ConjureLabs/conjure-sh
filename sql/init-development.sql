@@ -27,3 +27,7 @@ CREATE DATABASE conjure WITH OWNER conjure_admin;
 \i ./tables/billing-transaction.sql;
 \i ./tables/container-transaction-log.sql;
 \i ./tables/github-app-installation.sql;
+
+-- updates
+-- really need a better updates/migrations setup
+\i ./updates/2018-07-28-12-32.sql;
