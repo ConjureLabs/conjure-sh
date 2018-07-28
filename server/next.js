@@ -5,7 +5,6 @@ const remarkHighlight = require('remark-highlight.js')
 
 const app = next({
   dev: process.env.NODE_ENV !== 'production',
-  publicRuntimeConfig: require('../client.config.js'),
   conf: {
     useFileSystemPublicRoutes: false,
     pageExtensions: ['js', 'md'],
