@@ -1,4 +1,5 @@
 const Route = require('@conjurelabs/route')
+const config = require('conjure-core/modules/config')
 
 const route = new Route({
   requireAuthentication: true,
@@ -37,8 +38,14 @@ route.push(async (req, res) => {
   }
 
   // verify user email is present
-  if (accountRows[0].email == null) {
+  if (config.postmark.enabled === true && accountRows[0].email == null) {
     return res.redirect(302, '/onboard/email')
+  }
+
+  if (config.stripe.enabled !== true) {
+    const apiSkipPayment = require('conjure-api/server/routes/api/onboard/payment/skip/post.js').call
+    await apiSkipPayment(req)
+    return res.redirect(302, '/')
   }
 
   const apiGetAccountGitHub = require('conjure-api/server/routes/api/account/github/get.js').call
