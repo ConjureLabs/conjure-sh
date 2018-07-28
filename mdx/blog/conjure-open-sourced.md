@@ -1,6 +1,6 @@
 # Open-Sourcing Conjure
 
-Recently [I tweeted that I would open-source Conjure](https://twitter.com/timothymarshall/status/1011315206406881283). Today I'm happy to announce that Conjure is fully open. I started Conjure to solve a common problem I had with development testing workflows. I solved a problem for myself, more than anyone else. But as others [are coming out with the same type of service](https://zeit.co/blog/now-for-github), I've grown more confident that this is a tool that anyone dealing with web apps can benefit from.
+Recently [I tweeted](https://twitter.com/timothymarshall/status/1011315206406881283) that I would open-source Conjure. Today I'm happy to announce that Conjure is fully open. I started Conjure to solve a common problem I had with testing pull requests. I solved a problem for myself, more than anyone else. But as others [are coming out with the same type of service](https://zeit.co/blog/now-for-github), I've grown more confident that this is a tool that anyone dealing with web apps can benefit from.
 
 ## Going Forward
 
